@@ -32,6 +32,15 @@
 
 /* ---------- Scroll region (table scrolls, page never does) ---------- */
 
+/* The wide table's scrollable overflow can propagate to the root scroller
+   (page-level horizontal scroll on mobile) even though the inner container
+   scrolls it — clipping at the band level contains it without breaking the
+   inner scroll or the sticky feature column. */
+.smooch-comparison__band {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
 .smooch-comparison__scroll {
   max-width: 100%;
   overflow-x: auto;

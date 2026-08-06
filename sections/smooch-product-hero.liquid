@@ -450,10 +450,12 @@
                         {%- endif -%}
                       ],
                       "plans": [
+                        {%- assign plan_index = 0 -%}
                         {%- for group in product.selling_plan_groups -%}
                           {%- for plan in group.selling_plans -%}
+                            {%- if plan_index > 0 %},{% endif -%}
                             { "id": {{ plan.id | json }}, "name": {{ plan.name | json }} }
-                            {%- unless forloop.last and forloop.parentloop.last %},{% endunless %}
+                            {%- assign plan_index = plan_index | plus: 1 -%}
                           {%- endfor -%}
                         {%- endfor -%}
                       ],
