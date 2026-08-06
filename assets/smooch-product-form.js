@@ -34,15 +34,46 @@ if (!customElements.get('smooch-offer')) {
         this.boundOnChange = this.onChange.bind(this);
         this.addEventListener('change', this.boundOnChange);
 
+        // Track the form's variant id input directly: Dawn updates it (and
+        // dispatches 'change') on every variant resolution — including the
+        // unavailable-combination path where variantChange is never published.
+        const form = document.getElementById(`product-form-${this.sectionId}`);
+        this.variantIdInput = form ? form.querySelector('input[name="id"]') : null;
+        if (this.variantIdInput) {
+          this.boundOnVariantIdChange = () => {
+            const value = this.variantIdInput.value;
+            if (value && value !== this.currentVariantId) {
+              this.currentVariantId = value;
+              this.reconcileBundleSelection(false);
+              this.render();
+            }
+          };
+          this.variantIdInput.addEventListener('change', this.boundOnVariantIdChange);
+        }
+
         if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
           this.variantChangeUnsubscriber = subscribe(PUB_SUB_EVENTS.variantChange, (event) => {
             if (event.data.sectionId !== this.sectionId) return;
             if (event.data.variant) this.currentVariantId = String(event.data.variant.id);
+            this.reconcileBundleSelection(false);
             this.syncFormControls();
             this.render();
           });
         }
 
+        // Dawn does not publish variantChange for unavailable option combos
+        // (setUnavailable path) — mirror the submit button's disabled state so
+        // the offer price visibly dims instead of looking confidently stale.
+        const submitButton = document.getElementById(`ProductSubmitButton-${this.sectionId}`);
+        if (submitButton) {
+          this.submitStateObserver = new MutationObserver(() => {
+            this.classList.toggle('smooch-offer--disabled', submitButton.hasAttribute('disabled'));
+          });
+          this.submitStateObserver.observe(submitButton, { attributes: true, attributeFilter: ['disabled'] });
+          this.classList.toggle('smooch-offer--disabled', submitButton.hasAttribute('disabled'));
+        }
+
+        this.reconcileBundleSelection(true);
         this.syncFormControls();
         this.render();
       }
@@ -50,6 +81,44 @@ if (!customElements.get('smooch-offer')) {
       disconnectedCallback() {
         this.removeEventListener('change', this.boundOnChange);
         if (this.variantChangeUnsubscriber) this.variantChangeUnsubscriber();
+        if (this.submitStateObserver) this.submitStateObserver.disconnect();
+        if (this.variantIdInput && this.boundOnVariantIdChange) {
+          this.variantIdInput.removeEventListener('change', this.boundOnVariantIdChange);
+        }
+      }
+
+      /* Keep the checked bundle card consistent with the actually selected
+         variant (deep links with ?variant=, picker-driven pack changes).
+         When `allowDrive` (initial load only) and the checked variant-mode
+         bundle disagrees with reality with no better match, drive the picker
+         so the offer is never visually misrepresented. */
+      reconcileBundleSelection(allowDrive) {
+        const radios = this.bundleRadios;
+        if (!radios.length || !this.data) return;
+
+        const matchesCurrent = (radio) => {
+          const value = (radio.dataset.variantValue || '').trim();
+          if (!value) return false;
+          const target = this.resolveVariantForValue(value);
+          return !!target && String(target.id) === this.currentVariantId;
+        };
+
+        const checked = this.selectedBundleRadio;
+        const checkedValue = checked ? (checked.dataset.variantValue || '').trim() : '';
+        if (checked && checkedValue && matchesCurrent(checked)) return;
+
+        const match = radios.find(matchesCurrent);
+        if (match) {
+          if (!match.checked) {
+            match.checked = true;
+            if (this.qtyInput) this.qtyInput.value = parseInt(match.dataset.quantity, 10) || 1;
+          }
+          return;
+        }
+
+        if (allowDrive && checked && checkedValue) {
+          this.applyBundle(checked);
+        }
       }
 
       get bundleRadios() {
@@ -179,6 +248,27 @@ if (!customElements.get('smooch-offer')) {
         if (!this.data) return;
         const variant = this.variantEntry(this.currentVariantId);
         if (!variant) return;
+
+        // Plans are allocated per variant — hide plans the current variant
+        // does not carry so the posted selling_plan always matches the shown
+        // price. If the selected plan vanishes, fall back to one-time.
+        let planSelectionLost = false;
+        this.querySelectorAll('[data-smooch-plan-radio]').forEach((radio) => {
+          if (!radio.value) return;
+          const allocated = !!(variant.plans && variant.plans[radio.value]);
+          radio.disabled = !allocated;
+          const label = radio.closest('.smooch-plan');
+          if (label) label.hidden = !allocated;
+          if (!allocated && radio.checked) {
+            radio.checked = false;
+            planSelectionLost = true;
+          }
+        });
+        if (planSelectionLost) {
+          const onetime = this.querySelector('[data-smooch-plan-radio][value=""]');
+          if (onetime) onetime.checked = true;
+          this.applyPlan();
+        }
 
         const planId = this.selectedPlanId;
         const bundleIndex = this.selectedBundleIndex;
@@ -342,11 +432,45 @@ if (!customElements.get('smooch-sticky-atc')) {
 
         const drawer = document.querySelector('cart-drawer');
         if (drawer) {
+          // Only 'active' is toggled symmetrically by Dawn; 'animate' is added
+          // on first open and never removed.
           this.drawerObserver = new MutationObserver(() => {
-            this.drawerOpen = drawer.classList.contains('active') || drawer.classList.contains('animate');
+            this.drawerOpen = drawer.classList.contains('active');
             this.update();
           });
           this.drawerObserver.observe(drawer, { attributes: true, attributeFilter: ['class'] });
+        }
+
+        if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+          // Surface add-to-cart errors triggered from the bar: Dawn renders the
+          // message next to the (offscreen) main button, so bring it into view.
+          this.cartErrorUnsubscriber = subscribe(PUB_SUB_EVENTS.cartError, () => {
+            if (!this.visible) return;
+            setTimeout(() => {
+              const section = document.getElementById(`MainProduct-${this.sectionId}`);
+              const errorWrapper = section && section.querySelector('.product-form__error-message-wrapper:not([hidden])');
+              if (errorWrapper) {
+                const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                errorWrapper.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+              }
+            }, 100);
+          });
+
+          // Simple products (no bundles/plans → no offer engine): refresh the
+          // bar price from Dawn's freshly swapped price node on variant change.
+          this.variantChangeUnsubscriber = subscribe(PUB_SUB_EVENTS.variantChange, (event) => {
+            if (event.data.sectionId !== this.sectionId || !this.priceEl) return;
+            const section = document.getElementById(`MainProduct-${this.sectionId}`);
+            if (!section || section.querySelector('[data-smooch-offer]')) return;
+            const priceRoot = document.getElementById(`price-${this.sectionId}`);
+            if (!priceRoot) return;
+            const onSale = priceRoot.querySelector('.price--on-sale');
+            const node = onSale
+              ? priceRoot.querySelector('.price__sale .price-item--sale')
+              : priceRoot.querySelector('.price__regular .price-item--regular');
+            const text = node && node.textContent.trim();
+            if (text) this.priceEl.textContent = text;
+          });
         }
 
         this.update();
@@ -364,6 +488,8 @@ if (!customElements.get('smooch-sticky-atc')) {
         if (this.observer) this.observer.disconnect();
         if (this.stateObserver) this.stateObserver.disconnect();
         if (this.drawerObserver) this.drawerObserver.disconnect();
+        if (this.cartErrorUnsubscriber) this.cartErrorUnsubscriber();
+        if (this.variantChangeUnsubscriber) this.variantChangeUnsubscriber();
         document.body.classList.remove('smooch-sticky-atc-visible');
       }
     }

@@ -1,0 +1,180 @@
+/* Smooch timeline — cautious "what to expect" editorial vertical timeline.
+   Thin berry rail with period markers; big numeral period labels on desktop,
+   stacked left-rail layout on mobile. 1rem = 10px (Dawn base). */
+
+.smooch-timeline__inner {
+  max-width: 104rem;
+}
+
+.smooch-timeline__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- Step grid (mobile-first: left rail, stacked content) ---------- */
+
+.smooch-timeline__step {
+  display: grid;
+  grid-template-columns: 3.6rem minmax(0, 1fr);
+  grid-template-areas:
+    'marker period'
+    'marker body';
+  column-gap: 1.6rem;
+}
+
+/* ---------- Rail + markers ---------- */
+
+.smooch-timeline__marker {
+  grid-area: marker;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* The thin berry rail runs behind each marker; rows butt together so it reads
+   as one continuous line. */
+.smooch-timeline__marker::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 0.05rem);
+  width: 0.1rem;
+  background-color: rgba(var(--smooch-berry-rgb), 0.45);
+}
+
+/* Cap the rail at the first and last markers. */
+.smooch-timeline__step:first-child .smooch-timeline__marker::before {
+  top: 2rem;
+}
+
+.smooch-timeline__step:last-child .smooch-timeline__marker::before {
+  bottom: auto;
+  height: 2rem;
+}
+
+.smooch-timeline__step:only-child .smooch-timeline__marker::before {
+  display: none;
+}
+
+.smooch-timeline__badge {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3.6rem;
+  height: 3.6rem;
+  margin-top: 0.2rem;
+  border: 0.1rem solid rgba(var(--smooch-berry-rgb), 0.55);
+  border-radius: 50%;
+  background-color: rgb(var(--color-background));
+  color: var(--smooch-berry);
+}
+
+.smooch-timeline__badge .smooch-icon {
+  --icon-size: 1.7rem;
+}
+
+/* No icon chosen: a small solid berry point on the rail. */
+.smooch-timeline__badge--dot {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 1.4rem;
+  border: 0;
+  background-color: var(--smooch-berry);
+}
+
+/* ---------- Period label ---------- */
+
+.smooch-timeline__period {
+  grid-area: period;
+  margin: 0;
+  padding-top: 1.3rem;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--smooch-berry);
+}
+
+/* ---------- Step body ---------- */
+
+.smooch-timeline__body {
+  grid-area: body;
+  max-width: 56ch;
+  padding: 0.8rem 0 3.6rem;
+}
+
+.smooch-timeline__step:last-child .smooch-timeline__body {
+  padding-bottom: 0.4rem;
+}
+
+.smooch-timeline__heading {
+  margin: 0;
+}
+
+.smooch-timeline__text {
+  margin: 0.8rem 0 0;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+/* ---------- Disclaimer ---------- */
+
+.smooch-timeline__disclaimer {
+  max-width: 62ch;
+  margin: clamp(3.2rem, 5vw, 5.6rem) 0 0;
+  padding-top: 1.6rem;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+}
+
+/* ---------- Desktop: big numeral period column left of the rail ---------- */
+
+@media screen and (min-width: 750px) {
+  .smooch-timeline__body {
+    padding-bottom: 4.4rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-timeline__step {
+    grid-template-columns: minmax(14rem, 24rem) 4.4rem minmax(0, 1fr);
+    grid-template-areas: 'period marker body';
+    column-gap: clamp(2.4rem, 3vw, 4.8rem);
+  }
+
+  .smooch-timeline__period {
+    padding-top: 0;
+    text-align: right;
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-weight: var(--font-heading-weight);
+    font-size: clamp(2.6rem, 2rem + 0.8vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: rgb(var(--color-foreground));
+  }
+
+  .smooch-timeline__badge--dot {
+    margin-top: 1.5rem;
+  }
+
+  .smooch-timeline__body {
+    padding-top: 0.5rem;
+    padding-bottom: clamp(4.4rem, 5vw, 6.4rem);
+  }
+
+  .smooch-timeline__step:last-child .smooch-timeline__body {
+    padding-bottom: 0.4rem;
+  }
+
+  /* Disclaimer aligns with the reading column, under the rail's end. */
+  .smooch-timeline__disclaimer {
+    margin-top: clamp(4rem, 5vw, 6.4rem);
+  }
+}

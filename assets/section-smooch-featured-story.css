@@ -1,0 +1,123 @@
+/* Smooch featured story — one emotional centerpiece quote with an editorial
+   offset portrait. Mobile-first; 1rem = 10px (Dawn base). Breakpoints 749/750/990. */
+
+.smooch-featured-story {
+  display: grid;
+  gap: clamp(3.2rem, 6vw, 4.8rem);
+}
+
+/* ---------- Quote column ---------- */
+
+.smooch-featured-story__content {
+  max-width: 72rem;
+}
+
+.smooch-featured-story__eyebrow {
+  margin-bottom: 0;
+}
+
+.smooch-featured-story__figure {
+  position: relative;
+  margin: 0;
+  padding-top: clamp(3.2rem, 2.6rem + 2vw, 4.8rem);
+}
+
+/* Oversized decorative quote mark, tucked behind the first line. */
+.smooch-featured-story__quote-icon {
+  --icon-size: clamp(7.2rem, 5.4rem + 5vw, 12rem);
+  position: absolute;
+  top: 0;
+  left: -0.4rem;
+  z-index: 0;
+  color: var(--smooch-berry);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+/* .smooch-quote, scaled up to centerpiece size. */
+.smooch-featured-story__quote {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(2.8rem, 2.1rem + 2.8vw, 5.4rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.smooch-featured-story__quote p {
+  margin: 0;
+}
+
+/* Attribution with a thin berry rule. */
+.smooch-featured-story__attribution {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.smooch-featured-story__attribution::before {
+  content: '';
+  flex: none;
+  width: 3.2rem;
+  height: 0.1rem;
+  background-color: var(--smooch-berry);
+}
+
+/* Honesty caption under the story. */
+.smooch-featured-story__label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin: 2.4rem 0 0;
+  max-width: 46rem;
+}
+
+.smooch-featured-story__label .smooch-icon {
+  flex: none;
+  margin-top: 0.2rem;
+  opacity: 0.7;
+}
+
+/* ---------- Media column ---------- */
+
+.smooch-featured-story__media {
+  aspect-ratio: 1 / 1;
+  background-color: rgba(var(--smooch-berry-rgb), 0.08);
+}
+
+.smooch-featured-story__placeholder-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (min-width: 750px) {
+  .smooch-featured-story__media {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* Tablet (stacked): cap the image and push it right for editorial asymmetry. */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .smooch-featured-story__media-col {
+    width: min(100%, 52rem);
+    margin-inline-start: auto;
+  }
+}
+
+/* Desktop: asymmetric split; the portrait anchors to the bottom of the band
+   and hangs slightly past its edge. --story-pad-bottom is set inline from the
+   section's bottom padding, so the overlap past the band edge is exact. */
+@media screen and (min-width: 990px) {
+  .smooch-featured-story {
+    grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+    gap: clamp(4.8rem, 7vw, 10.4rem);
+    align-items: center;
+  }
+
+  .smooch-featured-story__media-col {
+    position: relative;
+    z-index: 1;
+    align-self: end;
+    margin-bottom: calc(-1 * (var(--story-pad-bottom, 6.4rem) + var(--story-overlap, 5.6rem)));
+  }
+}

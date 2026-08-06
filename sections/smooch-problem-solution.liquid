@@ -1,0 +1,253 @@
+{{ 'section-smooch-problem-solution.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign eyebrow = section.settings.eyebrow | replace: '[brand]', brand_name
+  assign headline = section.settings.headline | replace: '[brand]', brand_name
+  assign lead = section.settings.lead | replace: '[brand]', brand_name
+  assign reassurance = section.settings.reassurance_text | replace: '[brand]', brand_name
+  assign cta_label = section.settings.cta_label | replace: '[brand]', brand_name
+
+  assign show_cta = false
+  if cta_label != blank and section.settings.cta_link != blank
+    assign show_cta = true
+  endif
+
+  assign show_close = false
+  if reassurance != blank or show_cta
+    assign show_close = true
+  endif
+-%}
+
+<div class="smooch-band color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="smooch-section-head">
+      {%- if eyebrow != blank -%}
+        <p class="smooch-eyebrow smooch-eyebrow--accent">{{ eyebrow }}</p>
+      {%- endif -%}
+      {%- if headline != blank -%}
+        <h2 class="smooch-h2">{{ headline }}</h2>
+      {%- endif -%}
+      {%- if lead != blank -%}
+        <div class="smooch-lead smooch-problem-solution__lead">{{ lead }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul
+        class="smooch-problem-solution__list{% unless section.settings.show_numbers %} smooch-problem-solution__list--plain{% endunless %}"
+        role="list"
+      >
+        {%- for block in section.blocks -%}
+          {%- assign moment_line = block.settings.line | replace: '[brand]', brand_name -%}
+          {%- assign moment_text = block.settings.text | replace: '[brand]', brand_name -%}
+          <li class="smooch-problem-solution__moment" {{ block.shopify_attributes }}>
+            {%- if section.settings.show_numbers -%}
+              <span class="smooch-problem-solution__num" aria-hidden="true">0{{ forloop.index }}</span>
+            {%- endif -%}
+            {%- if moment_line != blank -%}
+              <h3 class="smooch-problem-solution__line">{{ moment_line }}</h3>
+            {%- endif -%}
+            {%- if moment_text != blank -%}
+              <p class="smooch-problem-solution__support">{{ moment_text }}</p>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if show_close -%}
+      <div class="smooch-problem-solution__close">
+        {%- if reassurance != blank -%}
+          <p class="smooch-problem-solution__reassurance">{{ reassurance }}</p>
+        {%- endif -%}
+        {%- if show_cta -%}
+          <div class="smooch-problem-solution__cta">
+            <a href="{{ section.settings.cta_link }}" class="smooch-btn smooch-btn--ghost">{{ cta_label }}</a>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch problem solution",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "An empathy-first editorial moment that names how she feels before any product talk. Keep the language supportive — never shaming, never clinical."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Sound familiar?",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "headline",
+      "label": "Headline",
+      "default": "You haven't disappeared. You may just need more support.",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "richtext",
+      "id": "lead",
+      "label": "Lead paragraph",
+      "default": "<p>Desire isn't a switch. It's connected to stress, mood, energy, and how much space you have to feel like yourself.</p>",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_numbers",
+      "label": "Show index numbers",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Closing"
+    },
+    {
+      "type": "text",
+      "id": "reassurance_text",
+      "label": "Reassurance line",
+      "default": "None of this means something is wrong with you. Support can still feel good.",
+      "info": "Optional. Leave empty to hide. Use [brand] to insert the brand name."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Meet the ritual",
+      "info": "The button appears only when a link is set below. Use [brand] to insert the brand name."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "moment",
+      "name": "Recognition moment",
+      "settings": [
+        {
+          "type": "text",
+          "id": "line",
+          "label": "Moment",
+          "default": "Feeling disconnected from desire",
+          "info": "A short line she recognizes herself in. Use [brand] to insert the brand name."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Supporting sentence",
+          "default": "It's not gone — it's quiet. Quiet often has more to do with your season of life than with you.",
+          "info": "Optional. Use [brand] to insert the brand name."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch problem solution",
+      "blocks": [
+        {
+          "type": "moment",
+          "settings": {
+            "line": "Feeling disconnected from desire",
+            "text": "It's not gone — it's quiet. Quiet often has more to do with your season of life than with you."
+          }
+        },
+        {
+          "type": "moment",
+          "settings": {
+            "line": "Mood and stress keep getting the last word",
+            "text": "When a day takes everything you have, there isn't much left over for wanting."
+          }
+        },
+        {
+          "type": "moment",
+          "settings": {
+            "line": "Intimacy starts to feel like another task",
+            "text": "Somewhere between the calendar and the to-do list, closeness stopped feeling like yours."
+          }
+        },
+        {
+          "type": "moment",
+          "settings": {
+            "line": "Not feeling fully like yourself",
+            "text": "You remember a softer, warmer, more open version of you. She hasn't gone anywhere."
+          }
+        },
+        {
+          "type": "moment",
+          "settings": {
+            "line": "Wanting a ritual that's actually yours",
+            "text": "A small daily moment that answers to you — not to anyone else's expectations."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

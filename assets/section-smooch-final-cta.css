@@ -1,0 +1,205 @@
+/* Smooch final CTA — oversized closing statement + a single editorial
+   product moment breaking upward out of a berry-tinted panel.
+   1rem = 10px (Dawn base). Mobile-first; breakpoints 749/750/990. */
+
+.smooch-final-cta__head {
+  margin-bottom: 0;
+  max-width: none;
+}
+
+.smooch-final-cta__headline {
+  max-width: 18ch;
+  margin-inline: auto;
+}
+
+.smooch-final-cta__subline {
+  margin: 2rem 0 0;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+/* ---------- Product moment panel ---------- */
+
+.smooch-final-cta__moment {
+  position: relative;
+  max-width: 46rem;
+  margin: 8.8rem auto 0;
+  padding: 0 2.4rem 3.2rem;
+  background-color: rgba(var(--smooch-berry-rgb), 0.16);
+  border: 0.1rem solid rgba(var(--smooch-berry-rgb), 0.4);
+  border-radius: var(--smooch-radius-card);
+  text-align: center;
+}
+
+/* The product image breaks upward out of the panel's top edge. */
+.smooch-final-cta__figure {
+  width: min(72%, 28rem);
+  margin: -6.4rem auto 2.4rem;
+}
+
+.smooch-final-cta__media {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--smooch-radius-media);
+  background-color: rgba(var(--smooch-plum-rgb), 0.3);
+  box-shadow: 0 1.6rem 4rem rgba(var(--smooch-plum-rgb), 0.35);
+}
+
+.smooch-final-cta__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.smooch-final-cta__media--placeholder {
+  display: grid;
+  place-items: center;
+  background-color: var(--smooch-blush);
+  color: var(--smooch-plum);
+}
+
+.smooch-final-cta__placeholder-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Offer column ---------- */
+
+.smooch-final-cta__offer > * {
+  margin-block: 0;
+}
+
+.smooch-final-cta__offer > * + * {
+  margin-top: 1.6rem;
+}
+
+.smooch-final-cta__label {
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+/* Foreground-colored stars stay legible on the tinted panel in any scheme. */
+.smooch-final-cta__rating .smooch-stars {
+  color: rgb(var(--color-foreground));
+}
+
+.smooch-final-cta__benefit {
+  max-width: 42ch;
+  margin-inline: auto;
+  font-size: 1.6rem;
+  line-height: 1.55;
+  color: rgba(var(--color-foreground), 0.85);
+}
+
+.smooch-final-cta__price .smooch-price-line {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.6rem 1.2rem;
+}
+
+.smooch-final-cta__price .smooch-price-line__current {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.smooch-final-cta__guarantee {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.smooch-final-cta__guarantee .smooch-icon {
+  flex-shrink: 0;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.smooch-final-cta__cta {
+  margin-top: 2.8rem;
+}
+
+.smooch-final-cta__btn {
+  width: 100%;
+}
+
+/* ---------- Fine print ---------- */
+
+.smooch-final-cta__fine-print {
+  max-width: 82ch;
+  margin: clamp(4.8rem, 8vw, 8rem) auto 0;
+  padding-top: 2.4rem;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+  text-align: center;
+}
+
+.smooch-final-cta__fine-print p {
+  margin: 0;
+}
+
+.smooch-final-cta__fine-print p + p {
+  margin-top: 0.8rem;
+}
+
+/* ---------- 750px+ ---------- */
+
+@media screen and (min-width: 750px) {
+  .smooch-final-cta__subline {
+    margin-top: 2.4rem;
+  }
+
+  .smooch-final-cta__moment {
+    max-width: 52rem;
+    margin-top: 10.4rem;
+    padding: 0 4rem 4rem;
+  }
+
+  .smooch-final-cta__figure {
+    width: min(64%, 30rem);
+    margin: -7.2rem auto 3.2rem;
+  }
+
+  .smooch-final-cta__btn {
+    width: auto;
+    min-width: 24rem;
+  }
+}
+
+/* ---------- 990px+ : asymmetric editorial split ---------- */
+
+@media screen and (min-width: 990px) {
+  .smooch-final-cta__moment {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    column-gap: clamp(4rem, 5vw, 6.4rem);
+    align-items: start;
+    max-width: 96rem;
+    margin-top: 12rem;
+    padding: 0;
+    text-align: left;
+  }
+
+  .smooch-final-cta__figure {
+    width: auto;
+    margin: -8.8rem 0 4.8rem clamp(3.2rem, 4vw, 4.8rem);
+  }
+
+  .smooch-final-cta__offer {
+    padding: 4.8rem clamp(3.2rem, 4vw, 5.6rem) 4.8rem 0;
+  }
+
+  .smooch-final-cta__benefit {
+    margin-inline: 0;
+  }
+
+  .smooch-final-cta__price .smooch-price-line {
+    justify-content: flex-start;
+  }
+}

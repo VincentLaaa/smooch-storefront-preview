@@ -1,0 +1,81 @@
+/* Smooch FAQ — narrow editorial accordion column.
+   Shared accordion visuals come from smooch-components.css; this file narrows
+   the measure, adds serif questions with index numbers, and tunes rhythm.
+   1rem = 10px (Dawn base). */
+
+.smooch-faq {
+  max-width: 76rem;
+  margin-inline: auto;
+}
+
+/* Custom elements default to display:inline. */
+smooch-details-group.smooch-faq__list {
+  display: block;
+}
+
+.smooch-faq__head {
+  margin-bottom: clamp(2.8rem, 4vw, 4.8rem);
+}
+
+/* Serif questions with a small tabular index number. */
+.smooch-accordion.smooch-faq__list summary {
+  padding: 2rem 0.2rem;
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: 1.8rem;
+  line-height: 1.3;
+}
+
+.smooch-faq__question {
+  display: flex;
+  align-items: baseline;
+  gap: 1.4rem;
+  min-width: 0;
+}
+
+.smooch-faq__num {
+  flex-shrink: 0;
+  min-width: 2.4rem;
+  font-family: var(--font-body-family);
+  font-style: normal;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(var(--color-foreground), 0.45);
+}
+
+/* Answers sit on a slightly narrower reading measure than the rule above. */
+.smooch-faq__list .smooch-accordion__content {
+  max-width: 60ch;
+}
+
+@media screen and (min-width: 750px) {
+  .smooch-accordion.smooch-faq__list summary {
+    padding: 2.4rem 0.2rem;
+    font-size: 2.1rem;
+  }
+
+  /* Indent answers to align with the question text, past the index number. */
+  .smooch-faq__list .smooch-accordion__content {
+    padding-left: 3.8rem;
+    padding-bottom: 2.6rem;
+    font-size: 1.6rem;
+  }
+}
+
+/* Closing invitation — thin rule, serif aside, quiet ghost button. */
+.smooch-faq__closing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem 3.2rem;
+  margin-top: clamp(3.6rem, 6vw, 6.4rem);
+  padding-top: clamp(2.4rem, 4vw, 4rem);
+  border-top: 0.1rem solid var(--smooch-border-strong);
+}
+
+.smooch-faq__closing-text {
+  margin: 0;
+}

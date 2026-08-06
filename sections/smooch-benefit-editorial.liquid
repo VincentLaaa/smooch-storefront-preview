@@ -1,0 +1,272 @@
+{{ 'section-smooch-benefit-editorial.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign head_eyebrow = section.settings.eyebrow | replace: '[brand]', brand_name
+  assign head_heading = section.settings.heading | replace: '[brand]', brand_name
+  assign head_lead = section.settings.lead | replace: '[brand]', brand_name
+-%}
+
+<div class="smooch-band color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    {%- if head_eyebrow != blank or head_heading != blank or head_lead != blank -%}
+      <header class="smooch-section-head">
+        {%- if head_eyebrow != blank -%}
+          <p class="smooch-eyebrow">{{ head_eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if head_heading != blank -%}
+          <h2 class="smooch-h2">{{ head_heading | escape }}</h2>
+        {%- endif -%}
+        {%- if head_lead != blank -%}
+          <p class="smooch-lead smooch-measure-narrow">{{ head_lead | escape | newline_to_br }}</p>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="smooch-benefit-editorial__rows">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign block_eyebrow = block.settings.eyebrow | replace: '[brand]', brand_name
+            assign block_headline = block.settings.headline | replace: '[brand]', brand_name
+            assign block_text = block.settings.text | replace: '[brand]', brand_name
+            assign block_ingredient = block.settings.ingredient | replace: '[brand]', brand_name
+            assign block_fine_print = block.settings.fine_print | replace: '[brand]', brand_name
+            assign media_alt = block.settings.image_alt | default: block.settings.image.alt | escape
+
+            assign flip = false
+            assign flip_check = forloop.index | modulo: 2
+            if flip_check == 0
+              assign flip = true
+            endif
+          -%}
+          <article
+            class="smooch-benefit-editorial__row smooch-split{% if flip %} smooch-split--flip{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="smooch-media smooch-media--portrait smooch-benefit-editorial__media{% if block.settings.image == blank %} smooch-benefit-editorial__media--empty{% endif %}">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1500
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '375, 550, 750, 1100, 1500',
+                    sizes: '(min-width: 990px) 42vw, 100vw',
+                    alt: media_alt
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'smooch-benefit-editorial__placeholder-svg' }}
+              {%- endif -%}
+            </div>
+
+            <div class="smooch-benefit-editorial__copy smooch-stack">
+              <p class="smooch-benefit-editorial__index smooch-num" aria-hidden="true">
+                {{- forloop.index | prepend: '0' -}}
+              </p>
+              {%- if block_eyebrow != blank -%}
+                <p class="smooch-eyebrow">{{ block_eyebrow | escape }}</p>
+              {%- endif -%}
+              {%- if block_headline != blank -%}
+                <h3 class="smooch-benefit-editorial__headline">{{ block_headline | escape }}</h3>
+              {%- endif -%}
+              {%- if block_text != blank -%}
+                <p class="smooch-lead smooch-measure-narrow">{{ block_text | escape | newline_to_br }}</p>
+              {%- endif -%}
+              {%- if block_ingredient != blank -%}
+                <p class="smooch-benefit-editorial__ingredient smooch-caption">
+                  {%- render 'smooch-icon', icon: 'leaf', class: 'smooch-icon--sm' -%}
+                  <span>{{ block_ingredient | escape }}</span>
+                </p>
+              {%- endif -%}
+              {%- if block_fine_print != blank -%}
+                <p class="smooch-fine-print">{{ block_fine_print | escape }}</p>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch benefit stories",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Four benefit stories as alternating image-and-text editorial splits. Keep the language supportive (\"formulated to support\") — never promises or medical claims."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "What it's for",
+      "info": "Use [brand] to insert the brand name. Leave empty to hide."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Support for the way you want to feel",
+      "info": "Leave empty to hide."
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Lead",
+      "default": "Not a switch to flip — a rhythm to keep. Four ways one daily gummy is formulated to support you, in your own time.",
+      "info": "Leave empty to hide."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit story",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "The benefit",
+          "info": "Use [brand] to insert the brand name."
+        },
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Headline",
+          "default": "Formulated to support you"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Describe this benefit in two or three sentences. Keep it supportive and honest — formulated to support, never a promise.",
+          "info": "Two to three sentences reads best."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Shown at a 4:5 portrait crop. A soft placeholder appears until an image is chosen."
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alt text",
+          "info": "Describes the image for screen readers. Falls back to the image's own alt text."
+        },
+        {
+          "type": "text",
+          "id": "ingredient",
+          "label": "Supporting-ingredient line",
+          "info": "Optional credit line, e.g. \"With saffron extract and vitamin B6.\" Only name ingredients actually in your formula. Leave empty to hide."
+        },
+        {
+          "type": "text",
+          "id": "fine_print",
+          "label": "Fine-print disclaimer",
+          "info": "Optional one-line disclaimer under the story. Leave empty to hide."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch benefit stories",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "eyebrow": "Desire",
+            "headline": "Support desire",
+            "text": "For the part of you that wants to want. Formulated to support desire as part of your daily rhythm — not on demand, not overnight.",
+            "fine_print": "A daily supplement, not an instant effect. Experiences vary."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "eyebrow": "Mood",
+            "headline": "A steadier mood",
+            "text": "Less at the mercy of the day. Ingredients chosen to support your baseline, so the good moments have room.",
+            "fine_print": "Not intended to diagnose, treat, or cure any condition."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "eyebrow": "Connection",
+            "headline": "Feel more connected",
+            "text": "To yourself first — the rest tends to follow. Experiences vary; consistency is the point."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "eyebrow": "Ritual",
+            "headline": "A ritual that's yours",
+            "text": "One gummy. One pause. A tiny daily yes to yourself."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,311 @@
+{{ 'section-smooch-how-to-use.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign has_facts = false
+  if section.settings.serving_size != blank or section.settings.timing != blank or section.settings.food_note != blank or section.settings.storage != blank
+    assign has_facts = true
+  endif
+
+  assign has_details = false
+  if has_facts or section.settings.safety_note != blank
+    assign has_details = true
+  endif
+-%}
+
+<div class="smooch-band color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="smooch-split smooch-split--top smooch-how-to-use__layout">
+      <header class="smooch-section-head smooch-how-to-use__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="smooch-eyebrow smooch-eyebrow--accent">
+            {{- section.settings.eyebrow | replace: '[brand]', brand_name -}}
+          </p>
+        {%- endif -%}
+        <h2 class="smooch-h2">
+          {{- section.settings.heading | replace: '[brand]', brand_name -}}
+        </h2>
+        {%- if section.settings.lead != blank -%}
+          <p class="smooch-lead">
+            {{- section.settings.lead | replace: '[brand]', brand_name -}}
+          </p>
+        {%- endif -%}
+      </header>
+
+      {%- if section.blocks.size > 0 -%}
+        <ol class="smooch-how-to-use__steps" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.heading != blank or block.settings.text != blank -%}
+              <li class="smooch-how-to-use__step" {{ block.shopify_attributes }}>
+                <span class="smooch-how-to-use__num smooch-num" aria-hidden="true">
+                  {{- forloop.index -}}
+                </span>
+                <div class="smooch-how-to-use__step-body">
+                  {%- if block.settings.heading != blank -%}
+                    <h3 class="smooch-h3 smooch-how-to-use__step-heading">
+                      {{- block.settings.heading | replace: '[brand]', brand_name -}}
+                    </h3>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <p class="smooch-body smooch-how-to-use__step-text">
+                      {{- block.settings.text | replace: '[brand]', brand_name -}}
+                    </p>
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+    </div>
+
+    {%- if has_details -%}
+      <div class="smooch-how-to-use__details">
+        {%- if section.settings.details_heading != blank -%}
+          <h3 class="smooch-how-to-use__details-heading">
+            {{- section.settings.details_heading -}}
+          </h3>
+        {%- endif -%}
+
+        {%- if has_facts -%}
+          <dl class="smooch-how-to-use__facts">
+            {%- if section.settings.serving_size != blank -%}
+              <div class="smooch-how-to-use__fact">
+                <dt>{{ section.settings.serving_label | default: 'Serving size' }}</dt>
+                <dd>{{ section.settings.serving_size }}</dd>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.timing != blank -%}
+              <div class="smooch-how-to-use__fact">
+                <dt>{{ section.settings.timing_label | default: 'Timing' }}</dt>
+                <dd>{{ section.settings.timing }}</dd>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.food_note != blank -%}
+              <div class="smooch-how-to-use__fact">
+                <dt>{{ section.settings.food_label | default: 'With food' }}</dt>
+                <dd>{{ section.settings.food_note }}</dd>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.storage != blank -%}
+              <div class="smooch-how-to-use__fact">
+                <dt>{{ section.settings.storage_label | default: 'Storage' }}</dt>
+                <dd>{{ section.settings.storage }}</dd>
+              </div>
+            {%- endif -%}
+          </dl>
+        {%- endif -%}
+
+        {%- if section.settings.safety_note != blank -%}
+          <p class="smooch-fine-print smooch-how-to-use__safety">
+            {% render 'smooch-icon', icon: 'info', class: 'smooch-icon--sm' %}
+            <span>{{ section.settings.safety_note }}</span>
+          </p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch how to use",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "A simple numbered ritual (up to 4 steps) with a practical-details row underneath. Detail fields hide automatically when left empty."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "How to use",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A ritual, not a regimen",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "text",
+      "id": "lead",
+      "label": "Lead text",
+      "default": "Three small steps, once a day — designed to slot into the life you already have.",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "header",
+      "content": "Practical details",
+      "info": "Each detail hides when its text is empty."
+    },
+    {
+      "type": "text",
+      "id": "details_heading",
+      "label": "Details heading",
+      "default": "The practical details"
+    },
+    {
+      "type": "text",
+      "id": "serving_label",
+      "label": "Serving label",
+      "default": "Serving size"
+    },
+    {
+      "type": "text",
+      "id": "serving_size",
+      "label": "Serving size",
+      "info": "E.g. “2 gummies daily”. Leave empty until your label copy is final — this row hides when empty."
+    },
+    {
+      "type": "text",
+      "id": "timing_label",
+      "label": "Timing label",
+      "default": "Timing"
+    },
+    {
+      "type": "text",
+      "id": "timing",
+      "label": "Timing",
+      "default": "Any time of day — consistency matters more than timing"
+    },
+    {
+      "type": "text",
+      "id": "food_label",
+      "label": "Food label",
+      "default": "With food"
+    },
+    {
+      "type": "text",
+      "id": "food_note",
+      "label": "Food note",
+      "default": "With or without food"
+    },
+    {
+      "type": "text",
+      "id": "storage_label",
+      "label": "Storage label",
+      "default": "Storage"
+    },
+    {
+      "type": "text",
+      "id": "storage",
+      "label": "Storage note",
+      "default": "Store cool and dry, out of reach of children"
+    },
+    {
+      "type": "textarea",
+      "id": "safety_note",
+      "label": "Safety note (fine print)",
+      "default": "Talk with a qualified healthcare professional before use if you are pregnant, breastfeeding, taking medication, or have a medical condition."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Take your serving",
+          "info": "Use [brand] to insert the brand name."
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Take the recommended serving — see the label for serving size.",
+          "info": "Use [brand] to insert the brand name."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch how to use",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "heading": "Take your serving",
+            "text": "Take the recommended serving — see the label for serving size."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "heading": "Anchor it to a routine",
+            "text": "Same time, same place. Morning coffee, evening wind-down — whatever you'll actually keep."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "heading": "Stay consistent & check in",
+            "text": "Give it consistent weeks, then reflect on how you feel."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

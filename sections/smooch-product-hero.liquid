@@ -69,6 +69,11 @@
     assign has_plans = true
   endif
 
+  assign offer_ui = false
+  if has_bundles or has_plans
+    assign offer_ui = true
+  endif
+
   assign current_variant = product.selected_or_first_available_variant
 
   comment
@@ -146,6 +151,7 @@
                   >
                 {%- endif -%}
 
+                {%- assign benefits_rendered = false -%}
                 {%- for block in section.blocks -%}
                   {%- case block.type -%}
                     {%- when '@app' -%}
@@ -317,19 +323,16 @@
                       {%- endif -%}
 
                     {%- when 'price' -%}
-                      <div class="smooch-buybox__price-group" {{ block.shopify_attributes }}>
+                      <div class="smooch-buybox__price-group{% if offer_ui %} smooch-buybox__price-group--offer{% endif %}" {{ block.shopify_attributes }}>
                         {%- comment -%}
                           Dawn's price node keeps the section-render swap contract alive.
-                          It is the visible price for simple setups; when bundles are
-                          configured the computed offer line below is the visible price.
+                          It is the visible price for simple setups; in offer mode the
+                          computed line below is the visible price and the Dawn node is
+                          hidden via the parent modifier class — NOT via class="hidden",
+                          because product-info.js removes 'hidden' from this node on
+                          every variant change (updateSourceFromDestination).
                         {%- endcomment -%}
-                        {%- liquid
-                          assign offer_ui = false
-                          if has_bundles or has_plans
-                            assign offer_ui = true
-                          endif
-                        -%}
-                        <div id="price-{{ section.id }}" role="status" {% if offer_ui %}class="hidden"{% endif %}>
+                        <div id="price-{{ section.id }}" role="status">
                           {%- render 'price', product: product, use_variant: true, show_badges: false, price_class: 'price--large' -%}
                         </div>
                         {%- if offer_ui -%}
@@ -447,7 +450,7 @@
                       ],
                       "variants": {
                         {%- for variant in product.variants -%}
-                          {{ variant.id | json }}: {
+                          "{{ variant.id }}": {
                             "available": {{ variant.available | json }},
                             "options": {{ variant.options | json }},
                             "base": [
@@ -481,7 +484,7 @@
                             ],
                             "plans": {
                               {%- for allocation in variant.selling_plan_allocations -%}
-                                {{ allocation.selling_plan.id | json }}: [
+                                "{{ allocation.selling_plan.id }}": [
                                   {%- if bundle_blocks.size > 0 -%}
                                     {%- for bundle_block in bundle_blocks -%}
                                       {%- assign bqty = bundle_block.settings.quantity | at_least: 1 -%}
@@ -644,8 +647,7 @@
         { "value": "large", "label": "t:sections.main-product.settings.media_size.options__3.label" }
       ],
       "default": "medium",
-      "label": "t:sections.main-product.settings.media_size.label",
-      "info": "t:sections.main-product.settings.media_size.info"
+      "label": "t:sections.main-product.settings.media_size.label"
     },
     {
       "type": "select",

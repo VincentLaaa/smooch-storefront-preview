@@ -1,0 +1,266 @@
+{{ 'section-smooch-guarantee.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+  assign guarantee_days = settings.smooch_guarantee_days | default: 0
+  assign guarantee_label = settings.smooch_guarantee_text | default: 'money-back guarantee'
+-%}
+
+{%- if guarantee_days > 0 -%}
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+
+  <div class="smooch-band smooch-band--clip color-{{ section.settings.color_scheme }} gradient">
+    <div class="page-width section-{{ section.id }}-padding">
+      <div class="smooch-split smooch-guarantee__layout">
+        <div class="smooch-guarantee__stamp-col">
+          <div class="smooch-guarantee__stamp-wrap">
+            <div class="smooch-guarantee__stamp">
+              <span class="smooch-guarantee__stamp-days smooch-num">
+                {{- guarantee_days }}-day
+              </span>
+              <span class="smooch-guarantee__stamp-label">
+                {{- guarantee_label | escape -}}
+              </span>
+            </div>
+
+            {%- if section.settings.accent_image != blank -%}
+              <figure class="smooch-guarantee__accent">
+                {{
+                  section.settings.accent_image
+                  | image_url: width: 540
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '180, 270, 360, 540',
+                    sizes: '(min-width: 750px) 130px, 110px',
+                    alt: section.settings.accent_image.alt
+                }}
+              </figure>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="smooch-stack smooch-stack--loose smooch-guarantee__content">
+          <header class="smooch-stack">
+            {%- if section.settings.eyebrow != blank -%}
+              <p class="smooch-eyebrow smooch-eyebrow--accent">
+                {{- section.settings.eyebrow | replace: '[brand]', brand_name | escape -}}
+              </p>
+            {%- endif -%}
+            <h2 class="smooch-h2">
+              {{- section.settings.heading | replace: '[brand]', brand_name | escape -}}
+            </h2>
+            {%- if section.settings.text != blank -%}
+              <p class="smooch-lead">
+                {{- section.settings.text | replace: '[brand]', brand_name | escape -}}
+              </p>
+            {%- endif -%}
+          </header>
+
+          {%- if section.blocks.size > 0 -%}
+            <ul class="smooch-ticks smooch-guarantee__ticks" role="list">
+              {%- for block in section.blocks -%}
+                {%- if block.settings.text != blank -%}
+                  <li {{ block.shopify_attributes }}>
+                    {% render 'smooch-icon', icon: 'check' %}
+                    <span>{{ block.settings.text | replace: '[brand]', brand_name | escape }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+          {%- liquid
+            assign show_cta = false
+            if section.settings.cta_label != blank and section.settings.cta_link != blank
+              assign show_cta = true
+            endif
+            assign show_policy_link = false
+            if shop.refund_policy.url != blank and section.settings.policy_link_label != blank
+              assign show_policy_link = true
+            endif
+          -%}
+          {%- if show_cta or show_policy_link -%}
+            <div class="smooch-cluster smooch-guarantee__actions">
+              {%- if show_cta -%}
+                <a href="{{ section.settings.cta_link }}" class="smooch-btn smooch-btn--brand">
+                  {{- section.settings.cta_label | replace: '[brand]', brand_name | escape -}}
+                </a>
+              {%- endif -%}
+              {%- if show_policy_link -%}
+                <a href="{{ shop.refund_policy.url }}" class="smooch-link smooch-guarantee__policy-link">
+                  {{- section.settings.policy_link_label | escape -}}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- elsif request.design_mode -%}
+  <div class="page-width">
+    <p class="smooch-guarantee__hint">
+      {% render 'smooch-icon', icon: 'info', class: 'smooch-icon--sm' %}
+      <span>Set a guarantee length in Theme settings &rarr; Smooch brand to show this section.</span>
+    </p>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Smooch guarantee",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows the guarantee from Theme settings → Smooch brand → Trust and reassurance. The whole section hides automatically while the guarantee length is set to 0."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our guarantee",
+      "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Try [brand] with confidence.",
+      "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Supporting text",
+      "default": "Give it a fair, consistent try — most people need a few weeks of rhythm. If it's still not for you, we'll make it right.",
+      "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "header",
+      "content": "Actions"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Find your ritual",
+      "info": "The button hides when the label or link is empty. Use [brand] to insert your brand name."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "policy_link_label",
+      "label": "Refund policy link label",
+      "default": "Read the full policy",
+      "info": "Links to your store's refund policy. Shown only when a refund policy is published in your store settings; leave empty to hide."
+    },
+    {
+      "type": "header",
+      "content": "Accent image"
+    },
+    {
+      "type": "image_picker",
+      "id": "accent_image",
+      "label": "Accent image",
+      "info": "Optional small product shot tucked beside the stamp. Uses the image's alt text from your Files library."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Guarantee point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Full refund window",
+          "info": "Keep it short — one reassuring line. Use [brand] to insert your brand name."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch guarantee",
+      "blocks": [
+        {
+          "type": "point",
+          "settings": {
+            "text": "Full refund window"
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "text": "No interrogation, no guilt"
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "text": "Simple, human support"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,210 @@
+{{ 'section-smooch-benefit-strip.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+  assign guarantee_days = settings.smooch_guarantee_days | default: 0
+-%}
+
+<div class="smooch-band color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    {%- if section.settings.sr_heading != blank -%}
+      <h2 class="visually-hidden">{{ section.settings.sr_heading | replace: '[brand]', brand_name | escape }}</h2>
+    {%- endif -%}
+
+    <ul
+      class="smooch-benefit-strip__list{% if section.settings.show_dividers %} smooch-benefit-strip__list--dividers{% endif %}"
+      role="list"
+    >
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'guarantee' -%}
+            {%- if guarantee_days > 0 -%}
+              <li class="smooch-benefit-strip__item" {{ block.shopify_attributes }}>
+                {% render 'smooch-icon', icon: block.settings.icon, class: 'smooch-benefit-strip__icon' %}
+                <span class="smooch-benefit-strip__text">
+                  {{- guarantee_days }}-day {{ settings.smooch_guarantee_text | default: 'money-back guarantee' | escape -}}
+                </span>
+              </li>
+            {%- endif -%}
+          {%- else -%}
+            {%- if block.settings.text != blank -%}
+              <li class="smooch-benefit-strip__item" {{ block.shopify_attributes }}>
+                {% render 'smooch-icon', icon: block.settings.icon, class: 'smooch-benefit-strip__icon' %}
+                <span class="smooch-benefit-strip__text">
+                  {{- block.settings.text | replace: '[brand]', brand_name | escape -}}
+                </span>
+              </li>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch benefit strip",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "A compact row of 3–5 trust points, designed to sit directly under a hero."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dividers",
+      "label": "Show dividers between items",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sr_heading",
+      "label": "Screen-reader heading",
+      "default": "Why choose [brand]",
+      "info": "Not visible on the page; announced by screen readers so the strip has a heading. Use [brand] to insert your brand name."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 28
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "check", "label": "Check" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "drop", "label": "Drop" },
+            { "value": "moon", "label": "Moon" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "box", "label": "Box" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "refresh", "label": "Refresh" }
+          ],
+          "default": "sparkle"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Thoughtful ingredients",
+          "info": "Keep it short — a few words. Use [brand] to insert your brand name."
+        }
+      ]
+    },
+    {
+      "type": "guarantee",
+      "name": "Guarantee",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Renders “{days}-day {label}” from Theme settings → Trust and reassurance. Hidden automatically while the guarantee length is set to 0."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shield", "label": "Shield" },
+            { "value": "refresh", "label": "Refresh" },
+            { "value": "check", "label": "Check" },
+            { "value": "heart", "label": "Heart" }
+          ],
+          "default": "shield"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch benefit strip",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "sparkle",
+            "text": "Formulated to support desire"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "clock",
+            "text": "One gummy a day"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "text": "Thoughtful ingredients"
+          }
+        },
+        {
+          "type": "guarantee",
+          "settings": {
+            "icon": "shield"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

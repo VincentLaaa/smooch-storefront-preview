@@ -1,0 +1,240 @@
+/* Smooch header — minimal sticky conversion header.
+   1rem = 10px (Dawn base). Breakpoints: 749/750/990.
+   The .shopify-section wrapper carries .smooch-header-section (schema class),
+   so stickiness is pure CSS — no scroll JS. */
+
+.smooch-header-section {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+/* Solid scheme backdrop + thin rule; anchor for the mobile panel. */
+.smooch-header {
+  position: relative;
+  background-color: rgb(var(--color-background));
+  border-bottom: 0.1rem solid var(--smooch-border-soft);
+}
+
+.smooch-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  min-height: 6rem;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-header__inner {
+    min-height: 7.2rem;
+    gap: 2rem;
+  }
+}
+
+/* ---------- Logo / wordmark ---------- */
+
+.smooch-header__logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 1;
+  min-width: 0;
+  max-width: 55%;
+  min-height: 4.4rem;
+  margin-right: auto; /* pushes nav + actions to the right */
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+}
+
+.smooch-header__logo-image {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.smooch-header__wordmark {
+  font-size: clamp(2rem, 1.7rem + 0.9vw, 2.6rem);
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- Desktop nav (hidden below 990px) ---------- */
+
+.smooch-header__nav {
+  display: none;
+}
+
+.smooch-header__menu {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.smooch-header__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 4.4rem;
+  padding: 0 1.2rem;
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  color: rgba(var(--color-foreground), 0.75);
+  transition: color var(--duration-short, 100ms) ease;
+}
+
+.smooch-header__link:hover {
+  color: rgb(var(--color-foreground));
+}
+
+.smooch-header__link--current {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+  text-underline-offset: 0.6rem;
+  text-decoration-thickness: 0.1rem;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-header__nav {
+    display: block;
+    min-width: 0;
+  }
+}
+
+/* ---------- Right-side actions ---------- */
+
+.smooch-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  flex-shrink: 0;
+}
+
+/* Small CTA, desktop only (>=990px). */
+.smooch-header__cta {
+  display: none;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-header__cta {
+    display: inline-flex;
+    min-height: 4.4rem;
+    padding: 1rem 2.2rem;
+    font-size: 1.4rem;
+    margin-right: 1.2rem;
+  }
+}
+
+/* Account + cart anchors reuse Dawn's .header__icon sizing from base.css
+   (44px targets, positioned .cart-count-bubble). Only nudge alignment here. */
+.smooch-header__cart {
+  flex-shrink: 0;
+}
+
+/* ---------- Mobile disclosure menu (<990px) ---------- */
+
+/* position: static so the full-width panel anchors to .smooch-header. */
+.smooch-header__disclosure {
+  position: static;
+}
+
+.smooch-header__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 4.4rem;
+  min-width: 4.4rem;
+  padding: 0 0.4rem 0 1rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground));
+}
+
+.smooch-header__toggle::-webkit-details-marker {
+  display: none;
+}
+
+.smooch-header__toggle:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: -0.2rem;
+}
+
+.smooch-header__caret {
+  transition: transform var(--duration-short, 100ms) ease;
+}
+
+.smooch-header__disclosure[open] .smooch-header__caret {
+  transform: rotate(180deg);
+}
+
+/* Full-width dropdown panel under the header bar. */
+.smooch-header__panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: rgb(var(--color-background));
+  border-bottom: 0.1rem solid var(--smooch-border-strong);
+  box-shadow: 0 1.6rem 3.2rem rgba(var(--smooch-ink-rgb), 0.12);
+  padding: 0.8rem 0 2rem;
+  max-height: calc(100dvh - 6rem);
+  overflow-y: auto;
+}
+
+.smooch-header__panel-menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Oversized serif links with thin editorial rules between them. */
+.smooch-header__panel-link {
+  display: flex;
+  align-items: center;
+  min-height: 4.8rem;
+  padding: 1rem 0;
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: 2.2rem;
+  line-height: 1.2;
+  text-decoration: none;
+  color: rgb(var(--color-foreground));
+  border-bottom: 0.1rem solid var(--smooch-border-soft);
+}
+
+.smooch-header__panel-menu li:last-child .smooch-header__panel-link {
+  border-bottom: 0;
+}
+
+.smooch-header__panel-link--current {
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  text-decoration-thickness: 0.1rem;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-header__disclosure {
+    display: none;
+  }
+}
+
+/* ---------- Motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .smooch-header__link,
+  .smooch-header__caret {
+    transition: none;
+  }
+}

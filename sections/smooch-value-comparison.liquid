@@ -1,0 +1,319 @@
+{{ 'section-smooch-value-comparison.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign eyebrow = section.settings.eyebrow
+  assign heading = section.settings.heading | replace: '[brand]', brand_name
+  assign lead = section.settings.lead | replace: '[brand]', brand_name
+  assign their_title = section.settings.their_title | replace: '[brand]', brand_name
+  assign total_label = section.settings.total_label
+  assign total_price = section.settings.total_price
+  assign brand_title = section.settings.brand_title | replace: '[brand]', brand_name
+  assign our_price_label = section.settings.our_price_label | replace: '[brand]', brand_name
+  assign benefit_text = section.settings.benefit_text | replace: '[brand]', brand_name
+  assign note_text = section.settings.note | replace: '[brand]', brand_name
+  assign comparison_product = section.settings.product
+
+  comment
+    A row renders only when the merchant has entered BOTH a name and a price.
+    Prices are never invented and never summed automatically.
+  endcomment
+  assign item_blocks = section.blocks | where: 'type', 'item'
+  assign filled_items = 0
+  for block in item_blocks
+    if block.settings.name != blank and block.settings.price != blank
+      assign filled_items = filled_items | plus: 1
+    endif
+  endfor
+-%}
+
+<div class="smooch-band color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="smooch-section-head">
+      {%- if eyebrow != blank -%}
+        <p class="smooch-eyebrow smooch-eyebrow--accent">{{ eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if heading != blank -%}
+        <h2 class="smooch-h2">{{ heading | escape }}</h2>
+      {%- endif -%}
+      {%- if lead != blank -%}
+        <p class="smooch-lead smooch-measure-narrow">{{ lead | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if filled_items > 0 -%}
+      <div class="smooch-value-comparison__duel">
+        <div class="smooch-card smooch-value-comparison__card smooch-value-comparison__card--their">
+          <h3 class="smooch-h3 smooch-value-comparison__card-title">{{ their_title | escape }}</h3>
+
+          <ul class="smooch-value-comparison__list" role="list">
+            {%- for block in item_blocks -%}
+              {%- assign item_name = block.settings.name -%}
+              {%- assign item_price = block.settings.price -%}
+              {%- if item_name != blank and item_price != blank -%}
+                <li class="smooch-value-comparison__row" {{ block.shopify_attributes }}>
+                  <span class="smooch-value-comparison__row-name">{{ item_name | escape }}</span>
+                  <span class="smooch-value-comparison__row-price smooch-num">{{ item_price | escape }}</span>
+                </li>
+              {%- elsif request.design_mode -%}
+                {%- comment -%} Editor-only ghost row so unfinished blocks stay selectable. {%- endcomment -%}
+                <li class="smooch-value-comparison__row smooch-value-comparison__row--ghost" {{ block.shopify_attributes }}>
+                  <span class="smooch-value-comparison__row-name">
+                    {%- if item_name != blank -%}{{ item_name | escape }}{%- else -%}Untitled item{%- endif -%}
+                  </span>
+                  <span class="smooch-value-comparison__row-price">Add a real price</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+
+          {%- if total_price != blank -%}
+            <p class="smooch-value-comparison__total">
+              <span class="smooch-value-comparison__total-label">{{ total_label | escape }}</span>
+              <span class="smooch-value-comparison__total-price smooch-num">{{ total_price | escape }}</span>
+            </p>
+          {%- elsif request.design_mode -%}
+            <p class="smooch-value-comparison__total smooch-value-comparison__total--ghost">
+              <span class="smooch-value-comparison__total-label">
+                {%- if total_label != blank -%}{{ total_label | escape }}{%- else -%}Total{%- endif -%}
+              </span>
+              <span class="smooch-value-comparison__total-price">Enter the total in section settings</span>
+            </p>
+          {%- endif -%}
+        </div>
+
+        <span class="smooch-value-comparison__vs" aria-hidden="true">vs</span>
+
+        <div class="smooch-card smooch-value-comparison__card smooch-value-comparison__card--brand">
+          <h3 class="smooch-h3 smooch-value-comparison__card-title">{{ brand_title | escape }}</h3>
+
+          {%- if our_price_label != blank -%}
+            <p class="smooch-value-comparison__price-label">{{ our_price_label | escape }}</p>
+          {%- endif -%}
+
+          {%- if comparison_product != blank -%}
+            <div class="smooch-value-comparison__price">
+              {%- render 'smooch-price', product: comparison_product, show_save: true -%}
+            </div>
+            <p class="smooch-value-comparison__product smooch-caption">
+              <a class="smooch-link" href="{{ comparison_product.url }}">{{ comparison_product.title | escape }}</a>
+            </p>
+          {%- elsif request.design_mode -%}
+            <p class="smooch-value-comparison__price-hint smooch-caption">
+              Select a product in the section settings to show its live price here.
+            </p>
+          {%- endif -%}
+
+          {%- if benefit_text != blank -%}
+            <p class="smooch-value-comparison__benefit">
+              {%- render 'smooch-icon', icon: 'sparkle' -%}
+              <span>{{ benefit_text | escape }}</span>
+            </p>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- if note_text != blank -%}
+        <p class="smooch-value-comparison__note smooch-fine-print">{{ note_text | escape }}</p>
+      {%- endif -%}
+    {%- elsif request.design_mode -%}
+      <div class="smooch-value-comparison__editor-hint">
+        <p>
+          <strong>Theme editor note</strong> (shoppers never see this): the comparison stays hidden until at
+          least one &ldquo;Comparison item&rdquo; block has both a name and a price. Enter only real prices you
+          can substantiate, then type the total yourself &mdash; it is never calculated automatically.
+        </p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch value comparison",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Enter only real prices you can substantiate. Leave prices empty to hide rows."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Do the math"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Everything in one place — for less than piecing it together.",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "text",
+      "id": "lead",
+      "label": "Lead text",
+      "default": "Here's what piecing a routine together can look like, next to one formula that keeps it simple.",
+      "info": "Optional. Use [brand] to insert the brand name."
+    },
+    {
+      "type": "header",
+      "content": "Their way"
+    },
+    {
+      "type": "text",
+      "id": "their_title",
+      "label": "Card title",
+      "default": "Piecing it together"
+    },
+    {
+      "type": "text",
+      "id": "total_label",
+      "label": "Total label",
+      "default": "Adds up to"
+    },
+    {
+      "type": "text",
+      "id": "total_price",
+      "label": "Total price",
+      "info": "Type the total yourself (e.g. $92) using only prices you can substantiate — it is never calculated automatically. Leave empty to hide the total row."
+    },
+    {
+      "type": "header",
+      "content": "Your way"
+    },
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Card title",
+      "default": "The [brand] way",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "text",
+      "id": "our_price_label",
+      "label": "Price label",
+      "default": "One formula, one price"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Shows this product's live price, so there are no typed numbers to keep in sync."
+    },
+    {
+      "type": "text",
+      "id": "benefit_text",
+      "label": "Benefit line",
+      "default": "Formulated to support desire, mood, and connection — one daily gummy instead of a shelf of bottles.",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Fine print",
+      "info": "Optional. Shown under the comparison — use it to note where and when comparison prices were checked."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Comparison item",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This row appears only when both a name and a price are entered."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Product name",
+          "info": "e.g. A mood supplement"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "info": "Enter a real price you can substantiate (e.g. $24). Leave empty to hide this row."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch value comparison",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "name": "e.g. A mood supplement"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "name": "e.g. An intimacy-support herbal blend"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "name": "e.g. A women's daily multivitamin"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,350 @@
+{{ 'section-smooch-home-hero.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign product_alt = section.settings.product_image_alt
+  if product_alt == blank
+    assign product_alt = section.settings.product_image.alt
+  endif
+  if product_alt == blank
+    assign product_alt = brand_name | append: ' wellness gummies'
+  endif
+  assign product_alt = product_alt | escape
+
+  assign lifestyle_alt = section.settings.lifestyle_image_alt
+  if lifestyle_alt == blank
+    assign lifestyle_alt = section.settings.lifestyle_image.alt
+  endif
+  assign lifestyle_alt = lifestyle_alt | escape
+
+  assign show_secondary = false
+  if section.settings.secondary_label != blank and section.settings.secondary_link != blank
+    assign show_secondary = true
+  endif
+-%}
+
+<div class="smooch-band smooch-band--clip color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="smooch-home-hero">
+      <div class="smooch-home-hero__copy">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="smooch-eyebrow smooch-home-hero__eyebrow">
+            {{- section.settings.eyebrow | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+
+        <h1 class="smooch-display smooch-home-hero__headline">
+          {{- section.settings.headline | replace: '[brand]', brand_name | escape -}}
+        </h1>
+
+        {%- if section.settings.value_prop != blank -%}
+          <p class="smooch-lead smooch-home-hero__value">
+            {{- section.settings.value_prop | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.primary_label != blank or show_secondary -%}
+          <div class="smooch-home-hero__ctas">
+            {%- if section.settings.primary_label != blank -%}
+              <a
+                class="smooch-btn smooch-btn--lg smooch-home-hero__cta"
+                {% if section.settings.primary_link != blank %}
+                  href="{{ section.settings.primary_link }}"
+                {% else %}
+                  role="link" aria-disabled="true"
+                {% endif %}
+              >
+                {{- section.settings.primary_label | replace: '[brand]', brand_name | escape -}}
+              </a>
+            {%- endif -%}
+
+            {%- if show_secondary -%}
+              <a
+                class="smooch-btn smooch-btn--ghost smooch-btn--lg smooch-home-hero__cta"
+                href="{{ section.settings.secondary_link }}"
+              >
+                {{- section.settings.secondary_label | replace: '[brand]', brand_name | escape -}}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.proof_line != blank -%}
+          <p class="smooch-caption smooch-home-hero__proof">
+            {{- section.settings.proof_line | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+      </div>
+
+      <div class="smooch-home-hero__visual">
+        <div class="smooch-home-hero__blob" aria-hidden="true"></div>
+
+        <div class="smooch-home-hero__product">
+          {%- if section.settings.product_image != blank -%}
+            {{
+              section.settings.product_image
+              | image_url: width: 1500
+              | image_tag:
+                loading: 'eager',
+                fetchpriority: 'high',
+                preload: true,
+                widths: '375, 550, 750, 1100, 1500',
+                sizes: '(min-width: 990px) 44vw, (min-width: 750px) 52vw, 82vw',
+                class: 'smooch-home-hero__product-img',
+                alt: product_alt
+            }}
+          {%- else -%}
+            <div class="smooch-home-hero__placeholder">
+              {{ 'product-1' | placeholder_svg_tag: 'smooch-home-hero__placeholder-svg' }}
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.lifestyle_image != blank -%}
+          <div class="smooch-home-hero__polaroid">
+            {{
+              section.settings.lifestyle_image
+              | image_url: width: 440
+              | image_tag:
+                loading: 'lazy',
+                widths: '220, 330, 440',
+                sizes: '200px',
+                class: 'smooch-home-hero__polaroid-img',
+                alt: lifestyle_alt
+            }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="smooch-home-hero__trust" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.text != blank -%}
+            <li class="smooch-home-hero__trust-item" {{ block.shopify_attributes }}>
+              {% render 'smooch-icon', icon: block.settings.icon, class: 'smooch-home-hero__trust-icon' %}
+              <span>{{ block.settings.text | replace: '[brand]', brand_name | escape }}</span>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch home hero",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The marquee homepage hero: an oversized headline overlapping an offset product render on a blush accent shape, with a slim trust row along the bottom edge."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-3"
+    },
+    {
+      "type": "header",
+      "content": "Copy"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Meet [brand] — daily wellness gummies",
+      "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Feel more like yourself again.",
+      "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "text",
+      "id": "value_prop",
+      "label": "Value proposition",
+      "default": "A daily gummy formulated to support desire, mood, confidence, and connection.",
+      "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "text",
+      "id": "proof_line",
+      "label": "Proof line",
+      "info": "Add only real proof (e.g. a real review rating). Leave empty to hide."
+    },
+    {
+      "type": "header",
+      "content": "Calls to action"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Meet [brand]",
+      "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "info": "Optional outlined button. Shown only when both a label and a link are set."
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image",
+      "info": "The main hero image — it loads first for performance. A product render on a plain or transparent background works best."
+    },
+    {
+      "type": "text",
+      "id": "product_image_alt",
+      "label": "Product image alt text",
+      "info": "Describes the product image for screen readers."
+    },
+    {
+      "type": "header",
+      "content": "Lifestyle accent"
+    },
+    {
+      "type": "image_picker",
+      "id": "lifestyle_image",
+      "label": "Lifestyle accent image",
+      "info": "Optional. Shown as a small tilted snapshot beside the product on desktop only."
+    },
+    {
+      "type": "text",
+      "id": "lifestyle_image_alt",
+      "label": "Lifestyle image alt text"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Trust point",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "check", "label": "Check" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "drop", "label": "Drop" },
+            { "value": "moon", "label": "Moon" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "box", "label": "Box" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "refresh", "label": "Refresh" }
+          ],
+          "default": "sparkle"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "One gummy a day",
+          "info": "Keep it to a few words. Use [brand] to insert your brand name."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch home hero",
+      "blocks": [
+        {
+          "type": "trust",
+          "settings": {
+            "icon": "clock",
+            "text": "One gummy a day"
+          }
+        },
+        {
+          "type": "trust",
+          "settings": {
+            "icon": "leaf",
+            "text": "Thoughtful ingredients"
+          }
+        },
+        {
+          "type": "trust",
+          "settings": {
+            "icon": "refresh",
+            "text": "Skip or cancel anytime"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

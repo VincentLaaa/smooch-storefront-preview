@@ -1,0 +1,333 @@
+{{ 'section-smooch-footer.css' | asset_url | stylesheet_tag }}
+{{ 'component-list-social.css' | asset_url | stylesheet_tag }}
+{{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign has_social_icons = true
+  if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
+    assign has_social_icons = false
+  endif
+
+  assign show_social_row = false
+  if section.settings.show_social and has_social_icons
+    assign show_social_row = true
+  endif
+
+  assign newsletter_form_id = 'SmoochFooterNewsletter-' | append: section.id
+  assign newsletter_input_id = 'SmoochFooterEmail-' | append: section.id
+  assign newsletter_error_id = newsletter_input_id | append: '-error'
+  assign newsletter_success_id = newsletter_input_id | append: '-success'
+-%}
+
+<footer class="smooch-footer smooch-band color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <h2 class="visually-hidden">Footer</h2>
+
+    <div class="smooch-footer__top">
+      <div class="smooch-footer__brand">
+        {%- if settings.logo != blank -%}
+          {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio | round -%}
+          {%- assign logo_alt = settings.logo.alt | default: brand_name -%}
+          {%- assign logo_sizes = settings.logo_width | append: 'px' -%}
+          <a
+            href="{{ routes.root_url }}"
+            class="smooch-footer__logo"
+            style="max-width: min(100%, {{ settings.logo_width }}px);"
+          >
+            {{
+              settings.logo
+              | image_url: width: 600
+              | image_tag:
+                loading: 'lazy',
+                widths: '100, 150, 200, 300, 400, 600',
+                sizes: logo_sizes,
+                width: settings.logo_width,
+                height: logo_height,
+                alt: logo_alt
+            }}
+          </a>
+        {%- else -%}
+          <a href="{{ routes.root_url }}" class="smooch-footer__wordmark">{{ brand_name }}</a>
+        {%- endif -%}
+
+        {%- if section.settings.brand_text != blank -%}
+          <p class="smooch-footer__tagline">
+            {{- section.settings.brand_text | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+      </div>
+
+      {%- assign menu_blocks = section.blocks | where: 'type', 'link_list' -%}
+      {%- if menu_blocks.size > 0 -%}
+        <nav class="smooch-footer__menus" aria-label="Footer">
+          {%- for block in menu_blocks -%}
+            <div class="smooch-footer__menu" {{ block.shopify_attributes }}>
+              {%- if block.settings.heading != blank -%}
+                <h3 class="smooch-footer__menu-heading">
+                  {{- block.settings.heading | replace: '[brand]', brand_name | escape -}}
+                </h3>
+              {%- endif -%}
+              {%- if block.settings.menu != blank -%}
+                <ul class="smooch-footer__menu-list" role="list">
+                  {%- for link in block.settings.menu.links -%}
+                    <li>
+                      <a
+                        href="{{ link.url }}"
+                        class="smooch-footer__menu-link{% if link.active %} smooch-footer__menu-link--active{% endif %}"
+                      >
+                        {{ link.title | escape }}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </nav>
+      {%- endif -%}
+
+      <div class="smooch-footer__newsletter">
+        {%- if settings.smooch_email_heading != blank -%}
+          <h3 class="smooch-footer__news-heading">
+            {{- settings.smooch_email_heading | replace: '[brand]', brand_name | escape -}}
+          </h3>
+        {%- endif -%}
+        {%- if settings.smooch_email_text != blank -%}
+          <p class="smooch-footer__news-text">
+            {{- settings.smooch_email_text | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+
+        {%- form 'customer', id: newsletter_form_id, class: 'smooch-footer__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="{{ newsletter_input_id }}">{{ 'newsletter.label' | t }}</label>
+          <div class="smooch-footer__field">
+            <input
+              id="{{ newsletter_input_id }}"
+              type="email"
+              name="contact[email]"
+              class="smooch-footer__input"
+              value="{{ form.email }}"
+              aria-required="true"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              {% if form.errors %}
+                autofocus
+                aria-invalid="true"
+                aria-describedby="{{ newsletter_error_id }}"
+              {% elsif form.posted_successfully? %}
+                aria-describedby="{{ newsletter_success_id }}"
+              {% endif %}
+              placeholder="{{ 'newsletter.label' | t }}"
+              required
+            >
+            <button
+              type="submit"
+              class="smooch-footer__submit"
+              name="commit"
+              aria-label="{{ 'newsletter.button_label' | t }}"
+            >
+              {% render 'smooch-icon', icon: 'arrow-right' %}
+            </button>
+          </div>
+          {%- if form.errors -%}
+            <small class="smooch-footer__form-message" id="{{ newsletter_error_id }}">
+              {% render 'smooch-icon', icon: 'info', class: 'smooch-icon--sm' %}
+              <span>
+                {{- form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email -}}
+              </span>
+            </small>
+          {%- endif -%}
+          {%- if form.posted_successfully? -%}
+            <p
+              class="smooch-footer__form-message"
+              id="{{ newsletter_success_id }}"
+              tabindex="-1"
+              autofocus
+            >
+              {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
+              <span>{{ 'newsletter.success' | t }}</span>
+            </p>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+
+    {%- if show_social_row or section.settings.payment_enable -%}
+      <div class="smooch-footer__meta">
+        {%- if show_social_row -%}
+          {%- render 'social-icons', class: 'smooch-footer__social' -%}
+        {%- endif -%}
+        {%- if section.settings.payment_enable -%}
+          <div class="smooch-footer__payment">
+            <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+            <ul class="list list-payment" role="list">
+              {%- for type in shop.enabled_payment_types -%}
+                <li class="list-payment__item">
+                  {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="smooch-footer__bottom">
+      <div class="smooch-footer__legal">
+        {%- if section.settings.show_policies -%}
+          <ul class="smooch-footer__policies" role="list">
+            {%- for policy in shop.policies -%}
+              {%- if policy.body != blank -%}
+                <li>
+                  <a href="{{ policy.url }}" class="smooch-footer__policy-link">{{ policy.title | escape }}</a>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        <small class="smooch-footer__copyright">&copy; {{ 'now' | date: '%Y' }} {{ brand_name }}</small>
+      </div>
+
+      {%- if settings.smooch_supplement_disclaimer != blank or settings.smooch_footer_disclaimer != blank -%}
+        <div class="smooch-footer__compliance">
+          {{ settings.smooch_supplement_disclaimer }}
+          {{ settings.smooch_footer_disclaimer }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Smooch footer",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 3,
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Brand column, menus, and email capture. The logo, email capture copy, and disclaimers come from Theme settings (Logo, Smooch brand)."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-4"
+    },
+    {
+      "type": "header",
+      "content": "Brand column"
+    },
+    {
+      "type": "text",
+      "id": "brand_text",
+      "label": "Brand line",
+      "default": "Daily formulas for desire, mood, and connection — made for real life.",
+      "info": "Shown under the logo or brand name. Use [brand] to insert your brand name."
+    },
+    {
+      "type": "header",
+      "content": "Rows"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Show social icons",
+      "default": true,
+      "info": "Icons appear for the social links filled in under Theme settings."
+    },
+    {
+      "type": "checkbox",
+      "id": "payment_enable",
+      "label": "Show payment icons",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_policies",
+      "label": "Show policy links",
+      "default": true,
+      "info": "Links appear for store policies that have content (Settings > Policies in admin)."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Explore",
+          "info": "Use [brand] to insert your brand name."
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "footer",
+          "info": "Displays only top-level menu items."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch footer",
+      "blocks": [
+        {
+          "type": "link_list"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,264 @@
+{{ 'section-smooch-final-cta.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+  assign product = section.settings.product
+  assign guarantee_days = settings.smooch_guarantee_days | default: 0
+
+  assign cta_url = section.settings.cta_link
+  if cta_url == blank and product != blank
+    assign cta_url = product.url
+  endif
+  if cta_url == blank
+    assign cta_url = routes.all_products_collection_url
+  endif
+
+  assign image_alt = product.featured_image.alt | default: product.title | escape
+-%}
+
+<div class="smooch-band smooch-final-cta color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <header class="smooch-final-cta__head smooch-center">
+      <h2 class="smooch-display smooch-final-cta__headline">
+        {{- section.settings.headline | replace: '[brand]', brand_name -}}
+      </h2>
+      {%- if section.settings.subline != blank -%}
+        <p class="smooch-lead smooch-final-cta__subline">
+          {{- section.settings.subline | replace: '[brand]', brand_name | escape -}}
+        </p>
+      {%- endif -%}
+    </header>
+
+    <div class="smooch-final-cta__moment">
+      <div class="smooch-final-cta__figure">
+        {%- if product.featured_image != blank -%}
+          <div class="smooch-final-cta__media">
+            {{
+              product.featured_image
+              | image_url: width: 1100
+              | image_tag:
+                loading: 'lazy',
+                widths: '275, 375, 550, 750, 1100',
+                sizes: '(min-width: 990px) 33rem, (min-width: 750px) 30rem, 72vw',
+                class: 'smooch-final-cta__img',
+                alt: image_alt
+            }}
+          </div>
+        {%- else -%}
+          <div class="smooch-final-cta__media smooch-final-cta__media--placeholder">
+            {{ 'product-1' | placeholder_svg_tag: 'smooch-final-cta__placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="smooch-final-cta__offer">
+        <p class="smooch-final-cta__label">
+          {%- if product != blank -%}
+            {{- product.title | escape -}}
+          {%- else -%}
+            {{- brand_name | escape -}}
+          {%- endif -%}
+        </p>
+
+        <div class="smooch-final-cta__rating">
+          {% render 'smooch-rating',
+            product: product,
+            fallback_rating: section.settings.fallback_rating,
+            fallback_count: section.settings.fallback_count,
+            show_sample_label: true
+          %}
+        </div>
+
+        {%- if section.settings.benefit_text != blank -%}
+          <p class="smooch-final-cta__benefit">
+            {{- section.settings.benefit_text | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+
+        {%- if product != blank and section.settings.show_price -%}
+          <p class="smooch-final-cta__price">
+            {% render 'smooch-price', product: product, show_save: true %}
+          </p>
+        {%- endif -%}
+
+        {%- if guarantee_days > 0 -%}
+          <p class="smooch-final-cta__guarantee smooch-caption">
+            {% render 'smooch-icon', icon: 'shield', class: 'smooch-icon--sm' %}
+            <span>
+              {{- guarantee_days }}-day
+              {{ settings.smooch_guarantee_text | default: 'money-back guarantee' | escape -}}
+            </span>
+          </p>
+        {%- endif -%}
+
+        <div class="smooch-final-cta__cta">
+          <a href="{{ cta_url }}" class="smooch-btn smooch-btn--berry smooch-btn--lg smooch-final-cta__btn">
+            {{- section.settings.cta_label | default: 'Shop now' | replace: '[brand]', brand_name | escape -}}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {%- if settings.smooch_supplement_disclaimer != blank -%}
+      <div class="smooch-final-cta__fine-print smooch-fine-print">
+        {{ settings.smooch_supplement_disclaimer }}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch final CTA",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The emotional closing statement for landing and home pages: an oversized headline, one product moment, and a single clear call to action."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-4"
+    },
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Come back to the version of you that feels connected.",
+      "info": "An alternative that also works well: “Ready to feel more like yourself?” Use [brand] to insert your brand name."
+    },
+    {
+      "type": "text",
+      "id": "subline",
+      "label": "Supporting line",
+      "default": "One gummy a day. A little more you.",
+      "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "header",
+      "content": "Product moment"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Shows its featured image, rating, and live price, and points the button at its page. A styled placeholder appears until you choose one."
+    },
+    {
+      "type": "range",
+      "id": "fallback_rating",
+      "label": "Sample rating (used only without review data)",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "default": 4.5
+    },
+    {
+      "type": "number",
+      "id": "fallback_count",
+      "label": "Sample review count",
+      "default": 0,
+      "info": "Set to 0 to hide the rating entirely until real reviews exist. Sample ratings are labeled as sample."
+    },
+    {
+      "type": "text",
+      "id": "benefit_text",
+      "label": "Benefit line",
+      "default": "Formulated to support desire, mood, and connection — one soft gummy a day. Experiences vary.",
+      "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price",
+      "default": true,
+      "info": "Shows the product's real price with any compare-at savings."
+    },
+    {
+      "type": "paragraph",
+      "content": "The guarantee line comes from Theme settings → Trust and reassurance and hides automatically while the guarantee length is set to 0."
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Meet [brand]",
+      "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link",
+      "info": "Optional. Leave empty to link to the selected product (or to your catalog until one is chosen)."
+    },
+    {
+      "type": "paragraph",
+      "content": "The supplement disclaimer from Theme settings → Compliance renders as fine print at the bottom of this section."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch final CTA",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "headline": "Come back to the version of you that feels connected.",
+        "subline": "One gummy a day. A little more you.",
+        "benefit_text": "Formulated to support desire, mood, and connection — one soft gummy a day. Experiences vary.",
+        "cta_label": "Meet [brand]"
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,203 @@
+/* Smooch comparison — high-contrast feature table, designed for scheme-4 (deep plum).
+   Shared layers (smooch-base/layout/components.css) provide type + tokens.
+   1rem = 10px (Dawn base). Mobile-first; breakpoints 750 / 990. */
+
+/* ---------- Section head (asymmetric editorial split) ---------- */
+
+.smooch-comparison__head {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: clamp(3.2rem, 5vw, 5.6rem);
+}
+
+.smooch-comparison__title {
+  max-width: 20ch;
+}
+
+.smooch-comparison__lead {
+  max-width: 44ch;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-comparison__head {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: end;
+    column-gap: clamp(4rem, 6vw, 9.6rem);
+  }
+
+  .smooch-comparison__lead {
+    padding-bottom: 0.6rem; /* optical alignment against the oversized heading */
+  }
+}
+
+/* ---------- Scroll region (table scrolls, page never does) ---------- */
+
+.smooch-comparison__scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--color-foreground), 0.3) transparent;
+}
+
+.smooch-comparison__scroll:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.3rem;
+}
+
+/* ---------- Table ---------- */
+
+.smooch-comparison__table {
+  width: 100%;
+  border-collapse: separate; /* keeps borders attached to sticky cells */
+  border-spacing: 0;
+  color: rgb(var(--color-foreground));
+}
+
+.smooch-comparison__table th,
+.smooch-comparison__table td {
+  padding: 1.4rem 1.6rem;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.14);
+}
+
+.smooch-comparison__table thead th {
+  border-top: 0.3rem solid transparent; /* aligns every header with the berry rule */
+  border-bottom-color: rgba(var(--color-foreground), 0.4);
+  vertical-align: bottom;
+}
+
+/* Feature column — sticky while the table scrolls sideways */
+
+.smooch-comparison__table .smooch-comparison__cell--feature {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 2;
+  min-width: 13.5rem;
+  background-color: rgb(var(--color-background));
+  border-inline-end: 0.1rem solid rgba(var(--color-foreground), 0.14);
+  text-align: start;
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.smooch-comparison__table thead .smooch-comparison__cell--feature {
+  z-index: 3;
+}
+
+/* Brand column — the highlighted lane */
+
+.smooch-comparison__table .smooch-comparison__cell--brand {
+  min-width: 12rem;
+  background-color: rgba(var(--smooch-berry-rgb), 0.15);
+}
+
+.smooch-comparison__table thead .smooch-comparison__head-brand {
+  border-top-color: var(--smooch-berry);
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(1.8rem, 1.6rem + 0.6vw, 2.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
+
+/* Alternative columns — quiet, uppercase category labels */
+
+.smooch-comparison__table .smooch-comparison__cell--alt {
+  min-width: 11.5rem;
+}
+
+.smooch-comparison__table thead .smooch-comparison__head-alt {
+  font-family: var(--font-body-family);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+/* ---------- Cell states ---------- */
+
+.smooch-comparison__state {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.smooch-comparison__state--yes {
+  background-color: var(--smooch-blush);
+  color: var(--smooch-berry);
+}
+
+.smooch-comparison__state--yes .smooch-icon {
+  --icon-size: 1.6rem;
+}
+
+.smooch-comparison__state--no {
+  color: rgba(var(--color-foreground), 0.45);
+}
+
+.smooch-comparison__state--no .smooch-icon {
+  --icon-size: 1.8rem;
+}
+
+.smooch-comparison__note {
+  display: inline-block;
+  max-width: 16ch;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+/* ---------- Footnote ---------- */
+
+.smooch-comparison__footnote {
+  margin: 2rem 0 0;
+  max-width: 62ch;
+}
+
+/* ---------- Tablet and up ---------- */
+
+@media screen and (min-width: 750px) {
+  .smooch-comparison__table th,
+  .smooch-comparison__table td {
+    padding: 1.8rem 2.4rem;
+  }
+
+  .smooch-comparison__table .smooch-comparison__cell--feature {
+    min-width: 22rem;
+    width: 34%;
+    font-size: 1.5rem;
+  }
+
+  .smooch-comparison__table .smooch-comparison__cell--brand {
+    min-width: 16rem;
+  }
+
+  .smooch-comparison__table .smooch-comparison__cell--alt {
+    min-width: 14rem;
+  }
+
+  .smooch-comparison__note {
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-comparison__table th,
+  .smooch-comparison__table td {
+    padding: 2rem 2.8rem;
+  }
+
+  .smooch-comparison__table .smooch-comparison__cell--feature {
+    width: 38%;
+    font-size: 1.6rem;
+  }
+}

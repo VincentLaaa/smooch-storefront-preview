@@ -1,0 +1,413 @@
+{{ 'section-smooch-comparison.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign eyebrow = section.settings.eyebrow | replace: '[brand]', brand_name
+  assign heading = section.settings.heading | replace: '[brand]', brand_name
+  assign lead = section.settings.lead | replace: '[brand]', brand_name
+  assign footnote = section.settings.footnote | replace: '[brand]', brand_name
+  assign table_caption = section.settings.table_caption | replace: '[brand]', brand_name | default: heading
+  assign yes_label = section.settings.yes_label | default: 'Yes'
+  assign no_label = section.settings.no_label | default: 'No'
+  assign feature_col_label = section.settings.feature_col_label | default: 'Feature'
+
+  if section.settings.show_column_b
+    assign column_keys = 'brand,alt_a,alt_b' | split: ','
+  else
+    assign column_keys = 'brand,alt_a' | split: ','
+  endif
+-%}
+
+<div class="smooch-band color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    {%- if eyebrow != blank or heading != blank or lead != blank -%}
+      <div class="smooch-comparison__head">
+        <div>
+          {%- if eyebrow != blank -%}
+            <p class="smooch-eyebrow smooch-eyebrow--accent">{{ eyebrow }}</p>
+          {%- endif -%}
+          {%- if heading != blank -%}
+            <h2 class="smooch-h2 smooch-comparison__title">{{ heading }}</h2>
+          {%- endif -%}
+        </div>
+        {%- if lead != blank -%}
+          <p class="smooch-lead smooch-comparison__lead">{{ lead }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div
+        class="smooch-comparison__scroll"
+        role="region"
+        aria-label="{{ table_caption | escape }}"
+        tabindex="0"
+      >
+        <table class="smooch-comparison__table">
+          <caption class="visually-hidden">{{ table_caption }}</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="smooch-comparison__cell--feature">
+                <span class="visually-hidden">{{ feature_col_label }}</span>
+              </th>
+              <th scope="col" class="smooch-comparison__cell--brand smooch-comparison__head-brand">
+                {{- brand_name -}}
+              </th>
+              <th scope="col" class="smooch-comparison__cell--alt smooch-comparison__head-alt">
+                {{- section.settings.column_a_label -}}
+              </th>
+              {%- if section.settings.show_column_b -%}
+                <th scope="col" class="smooch-comparison__cell--alt smooch-comparison__head-alt">
+                  {{- section.settings.column_b_label -}}
+                </th>
+              {%- endif -%}
+            </tr>
+          </thead>
+          <tbody>
+            {%- for block in section.blocks -%}
+              <tr {{ block.shopify_attributes }}>
+                <th scope="row" class="smooch-comparison__cell--feature">
+                  {{- block.settings.label | replace: '[brand]', brand_name -}}
+                </th>
+                {%- for col in column_keys -%}
+                  {%- liquid
+                    assign state_key = col | append: '_state'
+                    assign text_key = col | append: '_text'
+                    assign state = block.settings[state_key]
+                    assign note = block.settings[text_key] | replace: '[brand]', brand_name
+                    if col == 'brand'
+                      assign cell_class = 'smooch-comparison__cell--brand'
+                    else
+                      assign cell_class = 'smooch-comparison__cell--alt'
+                    endif
+                  -%}
+                  <td class="{{ cell_class }}">
+                    {%- case state -%}
+                      {%- when 'yes' -%}
+                        <span class="smooch-comparison__state smooch-comparison__state--yes">
+                          {%- render 'smooch-icon', icon: 'check' -%}
+                          <span class="visually-hidden">{{ yes_label }}</span>
+                        </span>
+                      {%- when 'no' -%}
+                        <span class="smooch-comparison__state smooch-comparison__state--no">
+                          {%- render 'smooch-icon', icon: 'minus' -%}
+                          <span class="visually-hidden">{{ no_label }}</span>
+                        </span>
+                      {%- else -%}
+                        <span class="smooch-comparison__note">{{ note | default: 'Varies' }}</span>
+                    {%- endcase -%}
+                  </td>
+                {%- endfor -%}
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+    {%- elsif request.design_mode -%}
+      <p class="smooch-caption">Add comparison rows to build the table.</p>
+    {%- endif -%}
+
+    {%- if footnote != blank -%}
+      <p class="smooch-fine-print smooch-comparison__footnote">{{ footnote }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch comparison",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Guardrails: compare against general categories only — never name a real competitor brand — and only state differences you can substantiate. Keep language supportive (\"formulated to support\"), never medical claims."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-4"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Why [brand]",
+      "info": "[brand] is replaced with your brand name."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The simplest way to actually stay with it."
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Lead text",
+      "default": "No shelf of half-used bottles, no guesswork — one considered daily ritual, formulated to support the way you want to feel."
+    },
+    {
+      "type": "header",
+      "content": "Columns"
+    },
+    {
+      "type": "paragraph",
+      "content": "Column headers describe general approaches, not brands. Do not name a real competitor."
+    },
+    {
+      "type": "text",
+      "id": "column_a_label",
+      "label": "Alternative column 1 header",
+      "default": "Complicated stacks"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_column_b",
+      "label": "Show alternative column 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "column_b_label",
+      "label": "Alternative column 2 header",
+      "default": "Generic formulas"
+    },
+    {
+      "type": "header",
+      "content": "Table text"
+    },
+    {
+      "type": "textarea",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "Sample comparison for illustration — it describes general product categories, not any specific brand. Experiences vary.",
+      "info": "Keep a plain-language disclosure here so the comparison stays honest."
+    },
+    {
+      "type": "text",
+      "id": "table_caption",
+      "label": "Table caption (screen readers)",
+      "default": "How [brand] compares with other approaches, feature by feature",
+      "info": "Announced to screen readers; not shown visually."
+    },
+    {
+      "type": "text",
+      "id": "feature_col_label",
+      "label": "Feature column name (screen readers)",
+      "default": "Feature"
+    },
+    {
+      "type": "text",
+      "id": "yes_label",
+      "label": "Check icon text (screen readers)",
+      "default": "Yes"
+    },
+    {
+      "type": "text",
+      "id": "no_label",
+      "label": "Minus icon text (screen readers)",
+      "default": "No"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Feature label",
+          "default": "Feature to compare"
+        },
+        {
+          "type": "header",
+          "content": "Brand column"
+        },
+        {
+          "type": "select",
+          "id": "brand_state",
+          "label": "State",
+          "options": [
+            { "value": "yes", "label": "Yes — check" },
+            { "value": "no", "label": "No — minus" },
+            { "value": "text", "label": "Short text" }
+          ],
+          "default": "yes"
+        },
+        {
+          "type": "text",
+          "id": "brand_text",
+          "label": "Short text",
+          "info": "Shown when State is \"Short text\". Keep it brief and substantiable."
+        },
+        {
+          "type": "header",
+          "content": "Alternative column 1"
+        },
+        {
+          "type": "select",
+          "id": "alt_a_state",
+          "label": "State",
+          "options": [
+            { "value": "yes", "label": "Yes — check" },
+            { "value": "no", "label": "No — minus" },
+            { "value": "text", "label": "Short text" }
+          ],
+          "default": "no"
+        },
+        {
+          "type": "text",
+          "id": "alt_a_text",
+          "label": "Short text",
+          "info": "Shown when State is \"Short text\"."
+        },
+        {
+          "type": "header",
+          "content": "Alternative column 2"
+        },
+        {
+          "type": "select",
+          "id": "alt_b_state",
+          "label": "State",
+          "options": [
+            { "value": "yes", "label": "Yes — check" },
+            { "value": "no", "label": "No — minus" },
+            { "value": "text", "label": "Short text" }
+          ],
+          "default": "no"
+        },
+        {
+          "type": "text",
+          "id": "alt_b_text",
+          "label": "Short text",
+          "info": "Shown when State is \"Short text\"."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch comparison",
+      "blocks": [
+        {
+          "type": "row",
+          "settings": {
+            "label": "Designed around mood & desire support",
+            "brand_state": "yes",
+            "alt_a_state": "text",
+            "alt_a_text": "If you build it yourself",
+            "alt_b_state": "no"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "One simple daily format",
+            "brand_state": "yes",
+            "alt_a_state": "no",
+            "alt_b_state": "text",
+            "alt_b_text": "Varies"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "Transparent ingredients",
+            "brand_state": "yes",
+            "alt_a_state": "yes",
+            "alt_b_state": "no"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "Easy to stay consistent with",
+            "brand_state": "yes",
+            "alt_a_state": "no",
+            "alt_b_state": "no"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "No complicated routine",
+            "brand_state": "yes",
+            "alt_a_state": "no",
+            "alt_b_state": "yes"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "Subscription you can skip or cancel",
+            "brand_state": "yes",
+            "alt_a_state": "no",
+            "alt_b_state": "text",
+            "alt_b_text": "Depends on the seller"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "Satisfaction guarantee",
+            "brand_state": "yes",
+            "alt_a_state": "text",
+            "alt_a_text": "Varies",
+            "alt_b_state": "no"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

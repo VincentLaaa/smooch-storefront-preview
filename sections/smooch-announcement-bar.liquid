@@ -1,0 +1,107 @@
+{{ 'section-smooch-announcement-bar.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign has_content = false
+  for block in section.blocks
+    if block.settings.text != blank
+      assign has_content = true
+      break
+    endif
+  endfor
+-%}
+
+{%- if has_content -%}
+  <div
+    class="smooch-announcement color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_separator %} smooch-announcement--separator{% endif %}"
+    role="region"
+    aria-label="{{ 'sections.header.announcement' | t }}"
+  >
+    <div class="page-width">
+      <ul class="smooch-announcement__list" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.text != blank -%}
+            {%- assign message = block.settings.text | replace: '[brand]', brand_name -%}
+            <li class="smooch-announcement__item" {{ block.shopify_attributes }}>
+              {%- if block.settings.link != blank -%}
+                <a
+                  href="{{ block.settings.link }}"
+                  class="smooch-announcement__message smooch-announcement__message--link smooch-focus"
+                >
+                  {{- message | escape -}}
+                </a>
+              {%- else -%}
+                <span class="smooch-announcement__message">{{ message | escape }}</span>
+              {%- endif -%}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Smooch announcement bar",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "No fake urgency — only real offers and truthful shipping info."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-4"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_separator",
+      "label": "Show bottom hairline",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Welcome to [brand]",
+          "info": "Use [brand] to insert your brand name. On mobile only the first announcement is shown."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional. The whole message becomes a link."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch announcement bar",
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "Free shipping on 2+ month supplies"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

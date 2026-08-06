@@ -1,0 +1,368 @@
+{{ 'section-smooch-formula.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign heading_class = 'smooch-h2'
+  if section.settings.heading_size == 'display'
+    assign heading_class = 'smooch-display'
+  endif
+
+  assign render_image = section.settings.product_image
+  assign render_alt = section.settings.product_image_alt | default: render_image.alt
+  if render_alt == blank
+    assign render_alt = brand_name
+  endif
+  assign render_alt = render_alt | escape
+-%}
+
+<div class="smooch-band color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="smooch-formula__intro">
+      <div class="smooch-section-head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="smooch-eyebrow smooch-eyebrow--accent">
+            {{- section.settings.eyebrow | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="{{ heading_class }}">
+            {{- section.settings.heading | replace: '[brand]', brand_name | escape -}}
+          </h2>
+        {%- endif -%}
+        {%- if section.settings.lead != blank -%}
+          <p class="smooch-lead smooch-measure-narrow">
+            {{- section.settings.lead | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+      </div>
+
+      {%- if render_image != blank -%}
+        <div class="smooch-formula__render">
+          <div class="smooch-media smooch-formula__render-media">
+            {{
+              render_image
+              | image_url: width: 1100
+              | image_tag:
+                loading: 'lazy',
+                widths: '375, 550, 750, 1100',
+                sizes: '(min-width: 990px) 400px, 68vw',
+                alt: render_alt
+            }}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <smooch-details-group class="smooch-formula__group">
+        <ul class="smooch-scroller smooch-scroller--desktop-grid smooch-formula__list" role="list">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign display_name = block.settings.name | replace: '[brand]', brand_name | default: 'Ingredient'
+              assign index_label = forloop.index | prepend: '00' | slice: -2, 2
+              assign macro_alt = block.settings.image.alt | default: display_name | escape
+            -%}
+            <li class="smooch-formula__item" {{ block.shopify_attributes }}>
+              <div class="smooch-formula__meta">
+                <span class="smooch-formula__index smooch-num" aria-hidden="true">{{ index_label }}</span>
+                {%- if block.settings.category != 'none' -%}
+                  <span class="smooch-badge smooch-badge--outline">
+                    {%- case block.settings.category -%}
+                      {%- when 'mood' -%}Mood
+                      {%- when 'desire' -%}Desire
+                      {%- when 'connection' -%}Connection
+                      {%- else -%}Foundation
+                    {%- endcase -%}
+                  </span>
+                {%- endif -%}
+              </div>
+
+              <div class="smooch-formula__title">
+                <h3 class="smooch-h3 smooch-formula__name">{{ display_name | escape }}</h3>
+                {%- if section.settings.show_amounts and block.settings.amount != blank -%}
+                  <p class="smooch-formula__amount smooch-num">{{ block.settings.amount | escape }}</p>
+                {%- endif -%}
+              </div>
+
+              <div class="smooch-formula__body">
+                <div class="smooch-media smooch-media--square smooch-formula__media{% if block.settings.image == blank %} smooch-formula__media--empty{% endif %}">
+                  {%- if block.settings.image != blank -%}
+                    {{
+                      block.settings.image
+                      | image_url: width: 384
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '104, 128, 208, 256, 384',
+                        sizes: '(min-width: 990px) 128px, 104px',
+                        alt: macro_alt
+                    }}
+                  {%- else -%}
+                    {% render 'smooch-icon', icon: 'leaf', class: 'smooch-icon--xl' %}
+                  {%- endif -%}
+                </div>
+
+                <div class="smooch-formula__copy">
+                  {%- if block.settings.purpose != blank -%}
+                    <p class="smooch-formula__purpose">
+                      {{- block.settings.purpose | replace: '[brand]', brand_name | escape -}}
+                    </p>
+                  {%- endif -%}
+
+                  {%- if block.settings.detail != blank -%}
+                    <div class="smooch-accordion smooch-formula__accordion">
+                      <details id="Details-{{ block.id }}-{{ section.id }}">
+                        <summary aria-controls="SmoochFormulaDetail-{{ block.id }}">
+                          <span class="smooch-accordion__label">
+                            {{- block.settings.detail_label | default: 'Why it’s in the formula' | escape -}}
+                          </span>
+                          {% render 'smooch-icon', icon: 'plus', class: 'smooch-icon--toggle' %}
+                        </summary>
+                        <div class="smooch-accordion__content" id="SmoochFormulaDetail-{{ block.id }}">
+                          {{ block.settings.detail | replace: '[brand]', brand_name }}
+                        </div>
+                      </details>
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.source_note != blank -%}
+                    <p class="smooch-fine-print smooch-formula__source">
+                      {{- block.settings.source_note | replace: '[brand]', brand_name | escape -}}
+                    </p>
+                  {%- endif -%}
+                </div>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </smooch-details-group>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch formula",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 8,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Editorial ingredient breakdown. Preset ingredients are examples only — replace every name, purpose, and detail with your finalized formula before publishing."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Inside every gummy",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A short list, on purpose."
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "display", "label": "Oversized" },
+        { "value": "h2", "label": "Standard" }
+      ],
+      "default": "display"
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Lead paragraph",
+      "default": "Every ingredient earns its place. No proprietary-blend hide-and-seek."
+    },
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product render",
+      "info": "Optional. Shown offset to the right of the heading on desktop."
+    },
+    {
+      "type": "text",
+      "id": "product_image_alt",
+      "label": "Product image alt text"
+    },
+    {
+      "type": "header",
+      "content": "Dosages"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_amounts",
+      "label": "Show ingredient amounts",
+      "default": false,
+      "info": "Enable once your dosages are final."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-5"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Example ingredient"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Macro image",
+          "info": "Square close-up of the raw ingredient. A soft blush placeholder shows until one is set."
+        },
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Category tag",
+          "options": [
+            { "value": "mood", "label": "Mood" },
+            { "value": "desire", "label": "Desire" },
+            { "value": "connection", "label": "Connection" },
+            { "value": "foundation", "label": "Foundation" },
+            { "value": "none", "label": "No tag" }
+          ],
+          "default": "foundation"
+        },
+        {
+          "type": "text",
+          "id": "amount",
+          "label": "Amount per serving",
+          "info": "e.g. 200 mg. Hidden until “Show ingredient amounts” is enabled in the section settings."
+        },
+        {
+          "type": "text",
+          "id": "purpose",
+          "label": "Purpose line",
+          "default": "Traditionally used to support everyday balance. Experiences vary."
+        },
+        {
+          "type": "text",
+          "id": "detail_label",
+          "label": "Detail label",
+          "default": "Why it’s in the formula"
+        },
+        {
+          "type": "richtext",
+          "id": "detail",
+          "label": "Detail",
+          "default": "<p>Example detail — describe how this ingredient is sourced, the form you chose, and why it earned a place in the formula. Keep language supportive, never medical.</p>"
+        },
+        {
+          "type": "text",
+          "id": "source_note",
+          "label": "Source note",
+          "info": "Optional fine print — sourcing, form, or standardization."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch formula",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Maca root",
+            "category": "desire",
+            "purpose": "Traditionally used to support energy and desire. Experiences vary.",
+            "detail": "<p>Example copy — a Peruvian root with a long history in traditional wellness practices. Replace with your sourcing story and the form you chose.</p>",
+            "source_note": "Example ingredient — replace with your final formula."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Ashwagandha",
+            "category": "mood",
+            "purpose": "Traditionally used to support a calm, steady mood. Experiences vary.",
+            "detail": "<p>Example copy — an adaptogenic herb with a long history in Ayurvedic practice. Replace with your sourcing story and the extract you chose.</p>",
+            "source_note": "Example ingredient — replace with your final formula."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Vitamin B6",
+            "category": "connection",
+            "purpose": "Included to support the body’s everyday rhythms. Experiences vary.",
+            "detail": "<p>Example copy — a familiar B vitamin. Replace with the form, dose rationale, and sourcing details from your final formula.</p>",
+            "source_note": "Example ingredient — replace with your final formula."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zinc",
+            "category": "foundation",
+            "purpose": "A foundational mineral, included to support overall wellbeing.",
+            "detail": "<p>Example copy — a foundational mineral. Replace with the form and sourcing details from your final formula.</p>",
+            "source_note": "Example ingredient — replace with your final formula."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

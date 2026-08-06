@@ -75,6 +75,20 @@
   gap: 0.4rem;
 }
 
+/* In offer mode Dawn's own price node stays in the DOM (variant-change swap
+   contract) but must never be visible — product-info.js strips class="hidden"
+   from it on variant changes, so hide via the parent instead. */
+.smooch-buybox__price-group--offer > [id^='price-'] {
+  display: none;
+}
+
+/* Selected combination unavailable/sold out — dim price UI rather than
+   presenting a confidently stale figure. */
+.smooch-offer--disabled .smooch-offer-price,
+.smooch-offer--disabled .smooch-offer-price__unit {
+  opacity: 0.5;
+}
+
 /* ---------- Bundle selector ---------- */
 
 .smooch-bundles {

@@ -1,0 +1,148 @@
+/* Smooch guarantee — blush band, rotated berry stamp + reassurance copy.
+   1rem = 10px (Dawn base). Mobile-first; breakpoints 749/750/990. */
+
+.smooch-guarantee__layout {
+  --split-a: 0.8fr;
+  --split-b: 1.2fr;
+}
+
+/* ---------- Stamp column ---------- */
+
+.smooch-guarantee__stamp-col {
+  display: flex;
+  justify-content: center;
+}
+
+.smooch-guarantee__stamp-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.smooch-guarantee__stamp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  width: clamp(21rem, 16rem + 16vw, 30rem);
+  aspect-ratio: 1;
+  padding: 2.8rem;
+  border: 0.2rem solid var(--smooch-berry);
+  border-radius: 50%;
+  text-align: center;
+  transform: rotate(-6deg);
+}
+
+/* Inner dashed ring for the rubber-stamp feel */
+.smooch-guarantee__stamp::before {
+  content: '';
+  position: absolute;
+  inset: 0.8rem;
+  border: 0.1rem dashed rgba(var(--smooch-berry-rgb), 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.smooch-guarantee__stamp-days {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(4.2rem, 3.2rem + 3.2vw, 6.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: rgb(var(--color-foreground));
+}
+
+.smooch-guarantee__stamp-label {
+  max-width: 15ch;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+/* ---------- Optional accent image ---------- */
+
+.smooch-guarantee__accent {
+  position: absolute;
+  right: -0.6rem;
+  bottom: -2rem;
+  width: clamp(9rem, 7rem + 6vw, 13rem);
+  aspect-ratio: 4 / 5;
+  margin: 0;
+  overflow: hidden;
+  border: 0.1rem solid var(--smooch-border-strong);
+  border-radius: var(--smooch-radius-media);
+  background-color: rgb(var(--smooch-surface-rgb));
+  transform: rotate(5deg);
+}
+
+.smooch-guarantee__accent img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Content column ---------- */
+
+.smooch-guarantee__content {
+  max-width: 58rem;
+}
+
+.smooch-guarantee__ticks {
+  gap: 1.2rem;
+  max-width: 52ch;
+}
+
+.smooch-guarantee__actions {
+  --cluster-gap: 1.6rem 2.4rem;
+}
+
+.smooch-guarantee__policy-link {
+  font-size: 1.5rem;
+}
+
+/* ---------- Theme-editor hint (only rendered in design mode) ---------- */
+
+.smooch-guarantee__hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 56rem;
+  margin: 2rem auto;
+  padding: 1.6rem 2rem;
+  border: 0.1rem dashed var(--smooch-border-strong);
+  border-radius: var(--smooch-radius-card);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.smooch-guarantee__hint .smooch-icon {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  color: rgba(var(--color-foreground), 0.55);
+}
+
+/* ---------- 750px+ ---------- */
+
+@media screen and (min-width: 750px) {
+  .smooch-guarantee__accent {
+    right: -1.6rem;
+    bottom: -2.4rem;
+  }
+}
+
+/* ---------- 990px+ ---------- */
+
+@media screen and (min-width: 990px) {
+  /* Nudge the stamp off dead-center for an intentional, editorial placement */
+  .smooch-guarantee__stamp-col {
+    justify-content: flex-start;
+    padding-left: clamp(0rem, 3vw, 4.8rem);
+  }
+}

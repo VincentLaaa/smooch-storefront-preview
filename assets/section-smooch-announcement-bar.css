@@ -1,0 +1,84 @@
+/* Smooch announcement bar — slim, static strip for the header group.
+   1rem = 10px (Dawn base). No autoplay, no rotation, no constant animation. */
+
+.smooch-announcement {
+  position: relative;
+}
+
+.smooch-announcement--separator {
+  border-bottom: 0.1rem solid var(--smooch-border-soft);
+}
+
+.smooch-announcement__list {
+  list-style: none;
+  margin: 0;
+  padding: 0.8rem 0;
+  min-height: 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 2.4rem;
+  row-gap: 0.4rem;
+}
+
+.smooch-announcement__item {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  min-width: 0;
+}
+
+.smooch-announcement__message {
+  display: inline-block;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  text-align: center;
+  overflow-wrap: break-word;
+  color: rgb(var(--color-foreground));
+}
+
+/* Whole-message link: subtle underline affordance (never color-only),
+   with an expanded tap target that keeps the bar visually slim. */
+.smooch-announcement__message--link {
+  padding: 1.4rem 0.6rem;
+  margin: -1.4rem -0.6rem;
+  text-decoration: underline;
+  text-decoration-color: rgba(var(--color-foreground), 0.4);
+  text-decoration-thickness: 0.1rem;
+  text-underline-offset: 0.3rem;
+  transition: text-decoration-color var(--duration-short, 100ms) ease;
+}
+
+.smooch-announcement__message--link:hover {
+  text-decoration-color: rgb(var(--color-foreground));
+}
+
+/* Mobile: only the first announcement, centered. */
+@media screen and (max-width: 749px) {
+  .smooch-announcement__item:not(:first-child) {
+    display: none;
+  }
+}
+
+/* Desktop: inline row separated by thin dots. */
+@media screen and (min-width: 750px) {
+  .smooch-announcement__item + .smooch-announcement__item::before {
+    content: '';
+    flex: none;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 50%;
+    background-color: rgba(var(--color-foreground), 0.45);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smooch-announcement__message--link {
+    transition: none;
+  }
+}

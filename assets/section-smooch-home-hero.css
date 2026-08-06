@@ -1,0 +1,213 @@
+/* Smooch home hero — marquee editorial homepage hero.
+   Layered composition: oversized display headline overlapping an offset,
+   slightly rotated product render sitting on an organic blush shape, with a
+   slim trust row along the bottom edge. 1rem = 10px (Dawn base). */
+
+.smooch-home-hero {
+  position: relative;
+}
+
+/* ---------- Copy column ---------- */
+
+.smooch-home-hero__copy {
+  position: relative;
+  z-index: 2;
+}
+
+.smooch-home-hero__eyebrow {
+  margin-bottom: 1.8rem;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.smooch-home-hero__headline {
+  position: relative;
+  z-index: 2;
+}
+
+.smooch-home-hero__value {
+  margin-top: 2.4rem;
+  max-width: 46ch;
+}
+
+.smooch-home-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem 1.6rem;
+  margin-top: 3.2rem;
+}
+
+.smooch-home-hero__proof {
+  margin: 2rem 0 0;
+  max-width: 46ch;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+/* ---------- Visual (product + blob + polaroid) ---------- */
+
+.smooch-home-hero__visual {
+  position: relative;
+  z-index: 1;
+  margin-top: 3.6rem;
+  margin-inline: auto;
+  width: min(30rem, 82%);
+}
+
+.smooch-home-hero__blob {
+  position: absolute;
+  inset: -7% -10% -5% -10%;
+  z-index: 0;
+  background: rgba(var(--smooch-blush-rgb), 0.25);
+  border-radius: 58% 42% 55% 45% / 55% 48% 52% 45%;
+  pointer-events: none;
+}
+
+.smooch-home-hero__product {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 4 / 5;
+}
+
+.smooch-home-hero__product-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2rem 3.6rem rgba(var(--smooch-ink-rgb), 0.25));
+}
+
+.smooch-home-hero__placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(var(--smooch-blush-rgb), 0.35);
+  border-radius: var(--smooch-radius-media);
+}
+
+.smooch-home-hero__placeholder-svg {
+  width: 72%;
+  height: 72%;
+  fill: rgba(var(--color-foreground), 0.5);
+}
+
+/* Lifestyle polaroid accent — desktop only */
+.smooch-home-hero__polaroid {
+  display: none;
+}
+
+/* ---------- Trust row ---------- */
+
+.smooch-home-hero__trust {
+  list-style: none;
+  margin: clamp(3.6rem, 6vw, 7.2rem) 0 0;
+  padding: 2rem 0 0;
+  border-top: 0.1rem solid var(--smooch-border-strong);
+  display: grid;
+  gap: 1.4rem;
+}
+
+.smooch-home-hero__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.smooch-home-hero__trust-icon {
+  flex-shrink: 0;
+  color: rgba(var(--color-foreground), 0.85);
+}
+
+/* ---------- Mobile ---------- */
+
+@media screen and (max-width: 749px) {
+  .smooch-home-hero__ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .smooch-home-hero__ctas .smooch-btn {
+    width: 100%;
+  }
+}
+
+/* ---------- Tablet ---------- */
+
+@media screen and (min-width: 750px) {
+  .smooch-home-hero__visual {
+    width: min(38rem, 70%);
+  }
+
+  .smooch-home-hero__trust {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    justify-content: space-between;
+    gap: 1.6rem 3.2rem;
+    padding-top: 2.4rem;
+  }
+}
+
+/* ---------- Desktop: layered editorial composition ---------- */
+
+@media screen and (min-width: 990px) {
+  .smooch-home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+    align-items: center;
+    column-gap: 0;
+  }
+
+  .smooch-home-hero__copy {
+    grid-column: 1;
+  }
+
+  /* Oversized serif, allowed to run out of its column across the product. */
+  .smooch-home-hero__headline {
+    font-size: clamp(6rem, 3.4rem + 3.8vw, 9.4rem);
+    margin-right: -18%;
+  }
+
+  .smooch-home-hero__visual {
+    grid-column: 2;
+    width: auto;
+    margin: 0;
+    /* Break toward the page edge; .smooch-band--clip prevents page overflow. */
+    margin-right: clamp(-6.4rem, -3vw, -1.6rem);
+  }
+
+  .smooch-home-hero__blob {
+    inset: -9% -12% -6% -14%;
+  }
+
+  .smooch-home-hero__product {
+    transform: rotate(3deg);
+  }
+
+  .smooch-home-hero__polaroid {
+    display: block;
+    position: absolute;
+    left: clamp(-4rem, -2.5vw, -2rem);
+    bottom: -2.4rem;
+    z-index: 2;
+    width: clamp(15rem, 14vw, 20rem);
+    margin: 0;
+    padding: 0.8rem 0.8rem 2.8rem;
+    background-color: var(--smooch-surface);
+    border-radius: 0.4rem;
+    box-shadow: 0 1.6rem 4rem rgba(var(--smooch-ink-rgb), 0.22);
+    transform: rotate(-5deg);
+  }
+
+  .smooch-home-hero__polaroid-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+}

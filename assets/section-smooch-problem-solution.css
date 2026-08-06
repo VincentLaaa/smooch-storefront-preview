@@ -1,0 +1,135 @@
+/* Smooch problem/solution — empathy-first recognition moments.
+   Loaded only by sections/smooch-problem-solution.liquid.
+   1rem = 10px (Dawn base). Mobile-first; breakpoints 750 / 990. */
+
+.smooch-problem-solution__lead p {
+  margin: 0;
+}
+
+.smooch-problem-solution__lead p + p {
+  margin-top: 1.2rem;
+}
+
+.smooch-problem-solution__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.smooch-problem-solution__moment {
+  padding: clamp(2.6rem, 5vw, 4.6rem) 0;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+}
+
+.smooch-problem-solution__num {
+  display: block;
+  margin-bottom: 1rem;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  font-variant-numeric: tabular-nums;
+  color: var(--smooch-berry);
+}
+
+.smooch-problem-solution__line {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-weight: var(--font-heading-weight);
+  font-style: italic;
+  font-size: clamp(2.1rem, 1.9rem + 1.1vw, 3.2rem);
+  line-height: 1.18;
+  letter-spacing: -0.005em;
+  color: rgb(var(--color-foreground));
+  text-wrap: balance;
+}
+
+.smooch-problem-solution__support {
+  margin: 1.2rem 0 0;
+  max-width: 52ch;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.72);
+}
+
+.smooch-problem-solution__close {
+  border-top: 0.1rem solid var(--smooch-border-soft);
+  padding-top: clamp(3.2rem, 6vw, 6rem);
+  text-align: center;
+}
+
+.smooch-problem-solution__reassurance {
+  margin: 0 auto;
+  max-width: 58rem;
+  font-family: var(--font-heading-family);
+  font-weight: var(--font-heading-weight);
+  font-style: italic;
+  font-size: clamp(1.9rem, 1.7rem + 0.9vw, 2.7rem);
+  line-height: 1.35;
+  color: rgb(var(--color-foreground));
+  text-wrap: balance;
+}
+
+.smooch-problem-solution__cta {
+  margin-top: 2.8rem;
+}
+
+/* Tablet and up: hang the index number in its own thin column so the
+   supporting sentence aligns under the serif line. */
+@media screen and (min-width: 750px) {
+  .smooch-problem-solution__moment {
+    display: grid;
+    grid-template-columns: 5rem minmax(0, 1fr);
+    align-items: baseline;
+  }
+
+  .smooch-problem-solution__num {
+    grid-column: 1;
+    margin-bottom: 0;
+  }
+
+  .smooch-problem-solution__line,
+  .smooch-problem-solution__support {
+    grid-column: 2;
+  }
+
+  .smooch-problem-solution__support {
+    margin-top: 1.4rem;
+  }
+
+  /* When index numbers are hidden the reserved column collapses. */
+  .smooch-problem-solution__list--plain .smooch-problem-solution__moment {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .smooch-problem-solution__list--plain .smooch-problem-solution__line,
+  .smooch-problem-solution__list--plain .smooch-problem-solution__support {
+    grid-column: 1;
+  }
+}
+
+/* Desktop: staggered editorial cascade — each moment keeps its own thin
+   top rule and alternates left/right, with a gentle inward drift so no
+   two rows sit on the same axis. Never wider than the page column. */
+@media screen and (min-width: 990px) {
+  .smooch-problem-solution__moment {
+    width: min(100%, 64rem);
+    padding: clamp(3.4rem, 4vw, 5rem) 0;
+  }
+
+  .smooch-problem-solution__moment:nth-child(even) {
+    margin-left: auto;
+  }
+
+  .smooch-problem-solution__moment:nth-child(4n + 3) {
+    margin-left: clamp(3rem, 7vw, 9rem);
+  }
+
+  .smooch-problem-solution__moment:nth-child(4n) {
+    margin-right: clamp(3rem, 7vw, 9rem);
+  }
+
+  .smooch-problem-solution__close {
+    margin-top: 1rem;
+  }
+}

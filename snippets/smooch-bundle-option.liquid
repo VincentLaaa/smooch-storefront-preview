@@ -27,9 +27,18 @@
     assign save_amount = compare | minus: total | times: 100
     assign save = save_amount | divided_by: compare
   endif
+
+  comment
+    Server-rendered sold-out state for quantity-mode bundles (they sell the
+    currently selected variant). Variant-mode targets are resolved in JS.
+  endcomment
+  assign initially_unavailable = false
+  if current_variant.available == false and block.settings.variant_value == blank
+    assign initially_unavailable = true
+  endif
 -%}
 
-<label class="smooch-bundle" {{ block.shopify_attributes }}>
+<label class="smooch-bundle{% if initially_unavailable %} smooch-bundle--soldout{% endif %}" {{ block.shopify_attributes }}>
   <input
     type="radio"
     class="visually-hidden smooch-bundle__input"
@@ -57,7 +66,7 @@
       {%- if block.settings.subtitle != blank -%}
         <span class="smooch-bundle__subtitle">{{ block.settings.subtitle }}</span>
       {%- endif -%}
-      <span class="smooch-bundle__soldout smooch-caption" data-bundle-soldout hidden>
+      <span class="smooch-bundle__soldout smooch-caption" data-bundle-soldout {% unless initially_unavailable %}hidden{% endunless %}>
         {{ 'products.product.sold_out' | t }}
       </span>
     </span>

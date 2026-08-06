@@ -1,0 +1,429 @@
+{{ 'section-smooch-reviews.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign topic_blocks = section.blocks | where: 'type', 'topic'
+  assign review_blocks = section.blocks | where: 'type', 'review'
+
+  assign is_sample = section.settings.is_sample_content
+  assign average_rating = section.settings.average_rating
+  assign review_count = section.settings.review_count | default: 0
+
+  comment
+    Summary stars: same rounding rules as the smooch-rating snippet.
+  endcomment
+  assign summary_full = average_rating | floor
+  assign summary_decimal = average_rating | minus: summary_full
+  assign summary_half = false
+  if summary_decimal >= 0.3 and summary_decimal <= 0.7
+    assign summary_half = true
+  elsif summary_decimal > 0.7
+    assign summary_full = summary_full | plus: 1
+  endif
+  assign summary_rendered = summary_full
+  if summary_half
+    assign summary_rendered = summary_rendered | plus: 1
+  endif
+  assign summary_empty = 5 | minus: summary_rendered
+
+  assign rating_string = average_rating | append: ''
+  assign count_string = review_count | append: ''
+  assign summary_text = section.settings.summary_format | escape | replace: '[rating]', rating_string | replace: '[count]', count_string
+-%}
+
+{%- if topic_blocks.size > 0 and review_blocks.size > 0 -%}
+  <script src="{{ 'section-smooch-reviews.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div id="smooch-reviews" class="smooch-band color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <header class="smooch-reviews__head">
+      <div class="smooch-reviews__head-copy">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="smooch-eyebrow smooch-eyebrow--accent">
+            {{- section.settings.eyebrow | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+        <h2 class="smooch-h2 smooch-reviews__heading">
+          {{- section.settings.heading | replace: '[brand]', brand_name | escape -}}
+        </h2>
+      </div>
+
+      {%- if review_count > 0 -%}
+        <div class="smooch-reviews__summary">
+          <span
+            class="smooch-stars smooch-stars--lg"
+            role="img"
+            aria-label="Rated {{ average_rating }} out of 5 stars"
+          >
+            {%- if summary_full > 0 -%}
+              {%- for i in (1..summary_full) -%}
+                {% render 'smooch-icon', icon: 'star' %}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- if summary_half -%}
+              {% render 'smooch-icon', icon: 'star-half' %}
+            {%- endif -%}
+            {%- if summary_empty > 0 -%}
+              {%- for i in (1..summary_empty) -%}
+                {% render 'smooch-icon', icon: 'star-empty' %}
+              {%- endfor -%}
+            {%- endif -%}
+          </span>
+          <p class="smooch-reviews__summary-line smooch-num">{{ summary_text }}</p>
+          {%- if is_sample -%}
+            <span class="smooch-badge smooch-badge--ink smooch-reviews__sample-badge">
+              {{- section.settings.sample_label | default: 'Sample' | escape -}}
+            </span>
+            <span class="smooch-fine-print">(sample data)</span>
+          {%- elsif settings.smooch_review_provider != blank -%}
+            <span class="smooch-fine-print">{{ settings.smooch_review_provider | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </header>
+
+    <smooch-review-filter class="smooch-reviews__filter">
+      {%- if topic_blocks.size > 0 and review_blocks.size > 0 -%}
+        <div class="smooch-reviews__chips" role="group" aria-label="Filter reviews by topic">
+          <button
+            type="button"
+            class="smooch-reviews__chip smooch-focus"
+            data-filter=""
+            aria-pressed="true"
+          >
+            {{- section.settings.all_label | default: 'All' | escape -}}
+          </button>
+          {%- for block in topic_blocks -%}
+            {%- if block.settings.text != blank -%}
+              {%- assign topic_label = block.settings.text | replace: '[brand]', brand_name | strip -%}
+              <button
+                type="button"
+                class="smooch-reviews__chip smooch-focus"
+                data-filter="{{ topic_label | downcase | escape }}"
+                aria-pressed="false"
+                {{ block.shopify_attributes }}
+              >
+                {{- topic_label | escape -}}
+              </button>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if review_blocks.size > 0 -%}
+        <div class="smooch-reviews__masonry">
+          {%- for block in review_blocks -%}
+            {% render 'smooch-review-card',
+              block: block,
+              is_sample: is_sample,
+              featured: forloop.first,
+              sample_label: section.settings.sample_label,
+              verified_label: section.settings.verified_label
+            %}
+          {%- endfor -%}
+        </div>
+        {%- if topic_blocks.size > 0 and section.settings.empty_text != blank -%}
+          <p class="smooch-reviews__empty smooch-caption" data-empty-note hidden>
+            {{- section.settings.empty_text | escape -}}
+          </p>
+        {%- endif -%}
+      {%- elsif request.design_mode -%}
+        <p class="smooch-caption">Add “Review” blocks to this section to show customer reviews here.</p>
+      {%- endif -%}
+    </smooch-review-filter>
+
+    {%- if section.settings.footnote != blank -%}
+      <p class="smooch-fine-print smooch-reviews__footnote">
+        {{- section.settings.footnote | replace: '[brand]', brand_name | escape -}}
+      </p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch reviews",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Placeholder reviews are for design only. Replace with real reviews (or a review app) before launch, mark is_sample_content off only when content is real, or remove this section entirely."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Real talk",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What customers are saying",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "header",
+      "content": "Rating summary"
+    },
+    {
+      "type": "range",
+      "id": "average_rating",
+      "label": "Average rating",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "default": 4.8
+    },
+    {
+      "type": "number",
+      "id": "review_count",
+      "label": "Review count",
+      "default": 0,
+      "info": "The summary line stays hidden while this is 0. Enter a count only from real review data (or sample data clearly marked below)."
+    },
+    {
+      "type": "text",
+      "id": "summary_format",
+      "label": "Summary line",
+      "default": "[rating] out of 5 · based on [count] reviews",
+      "info": "[rating] and [count] are replaced with the values above."
+    },
+    {
+      "type": "header",
+      "content": "Honesty"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_sample_content",
+      "label": "Sample content (is_sample_content)",
+      "default": true,
+      "info": "Shows a visible “Sample” badge on the summary and every card. Turn off only when every review shown is real."
+    },
+    {
+      "type": "text",
+      "id": "sample_label",
+      "label": "Sample badge text",
+      "default": "Sample"
+    },
+    {
+      "type": "text",
+      "id": "verified_label",
+      "label": "Verified badge text",
+      "default": "Verified"
+    },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "Reviews reflect personal experiences. Experiences vary.",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "header",
+      "content": "Topic filter"
+    },
+    {
+      "type": "text",
+      "id": "all_label",
+      "label": "“All” chip label",
+      "default": "All"
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Empty topic message",
+      "default": "No reviews for this topic yet."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "topic",
+      "name": "Topic filter chip",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Topic label",
+          "default": "Mood",
+          "info": "Reviews whose Topic matches this label (case-insensitive) show when the chip is pressed."
+        }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Review",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 0.5,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Sample review title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review text",
+          "default": "Sample review — replace with a real customer’s words before launch. For me, the little daily ritual has been the best part."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Sample customer"
+        },
+        {
+          "type": "text",
+          "id": "topic",
+          "label": "Topic",
+          "info": "Match one of the topic chips (case-insensitive) so filtering works. Leave empty to show only under “All”."
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Verified",
+          "default": false,
+          "info": "Only mark verified for genuinely verified purchases."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch reviews",
+      "blocks": [
+        { "type": "topic", "settings": { "text": "Mood" } },
+        { "type": "topic", "settings": { "text": "Ritual" } },
+        { "type": "topic", "settings": { "text": "Connection" } },
+        { "type": "topic", "settings": { "text": "Taste" } },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "A small kindness to myself",
+            "text": "The ritual is the point — I didn’t want another pill. This feels like a small kindness to myself. One gummy with my morning coffee, one quiet beat before the day starts.",
+            "author": "Maya R.",
+            "topic": "Ritual"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 4.5,
+            "title": "Softer evenings",
+            "text": "For me it’s less about fireworks and more about feeling settled. A few weeks in, evenings with my partner feel softer and less rushed. Everyone’s different, but I’m glad I tried it.",
+            "author": "Jordan T.",
+            "topic": "Mood"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "We linger at the table now",
+            "text": "My husband noticed before I did — we actually linger over dinner again. I can’t say how much is the gummy and how much is the habit of slowing down, and honestly I don’t mind either way.",
+            "author": "Priya S.",
+            "topic": "Connection"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 4.5,
+            "title": "Tastes like an actual treat",
+            "text": "I have abandoned every capsule I’ve ever bought. This one I remember to take because it tastes like dessert without being candy-sweet. Zero chalkiness.",
+            "author": "Elena M.",
+            "topic": "Taste"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "title": "A check-in with myself",
+            "text": "What I like most is the pause. Taking it became a tiny check-in with myself every morning. Some days I notice a real difference in my mood; other days it’s subtle. That feels honest to say.",
+            "author": "Dana K.",
+            "topic": "Mood"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Part of my wind-down",
+            "text": "I keep the jar next to my evening tea. For me the routine came first and the rest followed — slower nights, more presence. It’s part of my wind-down now and I miss it when I travel.",
+            "author": "Sofia L.",
+            "topic": "Ritual"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
