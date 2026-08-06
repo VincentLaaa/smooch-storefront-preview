@@ -10,3 +10,8 @@ Thumbs.db
 .shopify
 node_modules
 *.zip
+test-results/
+playwright-report/
+.env
+.env.*
+qa/.auth/
