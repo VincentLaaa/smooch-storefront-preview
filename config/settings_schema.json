@@ -1,10 +1,10 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Dawn",
-    "theme_version": "15.5.0",
-    "theme_author": "Shopify",
-    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_name": "Smooch",
+    "theme_version": "1.0.0",
+    "theme_author": "Smooch (built on Shopify Dawn 15.5.0)",
+    "theme_documentation_url": "https://github.com/smooch/theme#readme",
     "theme_support_url": "https://support.shopify.com/"
   },
   {

@@ -2,6 +2,13 @@
 
 Categories: **Ready** · **Ready with placeholder** · **Blocked by missing business data** · **Blocked by external app** · **Blocked by merchant approval** · **Failed**
 
+> **Offline MVP verification (2026-08-06):** the theme now also carries in-browser
+> evidence from the local render harness — 31/31 automated checks green across
+> 9 viewports, purchase matrix A–G, a11y spot checks, and CLS 0.0000; two
+> defects found offline were fixed (`92ecc56`). "Ready" rows below for theme
+> behavior are backed by this browser-level verification; commerce rows remain
+> gated on a real store exactly as listed. See `SMOOCH-MVP-WALKTHROUGH.md`.
+
 ## Theme & code
 | Item | Status | Notes |
 | --- | --- | --- |
