@@ -65,6 +65,12 @@
   color: var(--smooch-berry);
 }
 
+/* Berry accent falls marginally under AA on the blush scheme — use the deeper
+   berry (matches scheme-2's link color) there. */
+.color-scheme-2 .smooch-eyebrow--accent {
+  color: rgb(142, 31, 65);
+}
+
 .smooch-lead {
   margin: 0;
   font-size: clamp(1.7rem, 1.55rem + 0.5vw, 2rem);
@@ -86,7 +92,7 @@
 .smooch-fine-print {
   font-size: 1.2rem;
   line-height: 1.5;
-  color: rgba(var(--color-foreground), 0.6);
+  color: rgba(var(--color-foreground), 0.7);
 }
 
 .smooch-num {
@@ -127,7 +133,7 @@
 .smooch-strike {
   text-decoration: line-through;
   text-decoration-thickness: 0.1rem;
-  color: rgba(var(--color-foreground), 0.55);
+  color: rgba(var(--color-foreground), 0.7);
 }
 
 /* ---------- Focus (mirrors Dawn's focus treatment) ---------- */

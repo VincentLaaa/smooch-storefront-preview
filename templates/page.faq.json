@@ -46,7 +46,7 @@
           "type": "question",
           "settings": {
             "question": "What's inside?",
-            "answer": "<p>Every ingredient is listed in the formula section on this page, and the final ingredient list always appears on the label — no hidden blends.</p>"
+            "answer": "<p>Every ingredient is listed in the formula section on our product page, and the final ingredient list always appears on the label — no hidden blends.</p>"
           }
         },
         "question-7": {
@@ -74,21 +74,21 @@
           "type": "question",
           "settings": {
             "question": "How does the subscription work?",
-            "answer": "<p>You pick the schedule and deliveries arrive on it, with the subscription discount applied to every order. Skip, pause, reschedule, or cancel anytime from your account.</p>"
+            "answer": "<p>Choose a delivery schedule at checkout and your order arrives automatically, with any subscription savings applied to each delivery. You stay in control and can manage or cancel at any time.</p>"
           }
         },
         "question-11": {
           "type": "question",
           "settings": {
             "question": "How do I cancel?",
-            "answer": "<p>Anytime, in a couple of clicks — log in to your account and manage your subscription there, or message our support team and we'll handle it for you. No hoops, no guilt.</p>"
+            "answer": "<p>Anytime, in a couple of clicks — use the manage link in your order emails, or message our support team and we'll take care of it. No hoops, no guilt.</p>"
           }
         },
         "question-12": {
           "type": "question",
           "settings": {
             "question": "What's the return policy?",
-            "answer": "<p>Your order is covered by our satisfaction guarantee — see the guarantee section on this page for how it works, and our refund policy for the fine print.</p>"
+            "answer": "<p>Returns and refunds are handled under our refund policy — you’ll find the full details linked in the footer, and our support team is happy to help.</p>"
           }
         },
         "question-13": {

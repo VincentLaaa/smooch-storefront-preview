@@ -43,6 +43,14 @@
   color: rgba(var(--color-foreground), 0.75);
 }
 
+/* On the saturated berry default scheme, translucent foreground drops under
+   AA — render hero copy at full foreground there. */
+.color-scheme-3 .smooch-home-hero__eyebrow,
+.color-scheme-3 .smooch-home-hero__proof,
+.color-scheme-3 .smooch-home-hero__value {
+  color: rgb(var(--color-foreground));
+}
+
 /* ---------- Visual (product + blob + polaroid) ---------- */
 
 .smooch-home-hero__visual {
@@ -144,8 +152,8 @@
   }
 
   .smooch-home-hero__trust {
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: 1.6rem 3.2rem;
     padding-top: 2.4rem;

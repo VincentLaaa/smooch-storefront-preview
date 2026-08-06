@@ -66,6 +66,7 @@
 
 .smooch-header__menu {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.4rem;
   margin: 0;
@@ -191,6 +192,14 @@
   max-height: calc(100vh - 6rem);
   max-height: calc(100dvh - 6rem);
   overflow-y: auto;
+}
+
+/* When the product page's sticky ATC bar is visible (body class toggled by
+   smooch-product-form.js), reserve its height so the last menu links are not
+   covered by the higher-z-index bar. */
+body.smooch-sticky-atc-visible .smooch-header__panel {
+  max-height: calc(100vh - 6rem - 8.4rem);
+  max-height: calc(100dvh - 6rem - 8.4rem - env(safe-area-inset-bottom, 0px));
 }
 
 .smooch-header__panel-menu {

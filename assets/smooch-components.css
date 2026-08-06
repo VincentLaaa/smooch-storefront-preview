@@ -92,6 +92,10 @@
   white-space: nowrap;
 }
 
+.smooch-badge[hidden] {
+  display: none !important;
+}
+
 .smooch-badge--berry {
   background-color: var(--smooch-berry);
   color: rgb(255, 255, 255);

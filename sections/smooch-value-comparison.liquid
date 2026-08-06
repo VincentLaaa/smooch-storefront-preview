@@ -42,6 +42,11 @@
   endfor
 -%}
 
+{%- comment -%}
+  Nothing renders on the storefront until at least one row has real content —
+  the section head must not promise a comparison that isn't there.
+{%- endcomment -%}
+{%- if filled_items > 0 or request.design_mode -%}
 <div class="smooch-band color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width section-{{ section.id }}-padding">
     <div class="smooch-section-head">
@@ -142,6 +147,7 @@
     {%- endif -%}
   </div>
 </div>
+{%- endif -%}
 
 {% schema %}
 {

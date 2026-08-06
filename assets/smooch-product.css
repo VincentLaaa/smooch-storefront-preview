@@ -170,8 +170,13 @@
   right: 1.4rem;
 }
 
+.smooch-bundle__card:has(.smooch-bundle__thumb) {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
 .smooch-bundle__thumb {
-  grid-row: 1 / span 2;
+  grid-column: 1;
+  grid-row: 1;
   width: 5.6rem;
   border-radius: 0.8rem;
   overflow: hidden;
@@ -291,6 +296,11 @@
   font-weight: 600;
 }
 
+.smooch-gift__state [data-gift-included][hidden],
+.smooch-gift__state [data-gift-locked][hidden] {
+  display: none;
+}
+
 /* ---------- Subscription selector ---------- */
 
 .smooch-plans {
@@ -308,6 +318,10 @@
 .smooch-plan {
   display: block;
   cursor: pointer;
+}
+
+.smooch-plan[hidden] {
+  display: none !important;
 }
 
 .smooch-plan__body {

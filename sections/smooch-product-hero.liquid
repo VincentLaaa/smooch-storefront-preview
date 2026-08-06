@@ -15,7 +15,7 @@
 <script src="{{ 'smooch-product-form.js' | asset_url }}" defer="defer"></script>
 
 {% if section.settings.image_zoom == 'hover' %}
-  <script id="EnableZoomOnHover-main" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
+  <script id="EnableZoomOnHover-{{ section.id }}" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
 {% endif %}
 {%- if request.design_mode -%}
   <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
@@ -113,7 +113,13 @@
       <div class="page-width">
         <div class="product product--{{ section.settings.media_size }} product--left product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %} smooch-product__layout">
           <div class="grid__item product__media-wrapper smooch-product__gallery">
-            {% render 'product-media-gallery', variant_images: variant_images %}
+            {%- liquid
+              assign lazy_gallery = false
+              if section.settings.eager_first_image == false
+                assign lazy_gallery = true
+              endif
+            -%}
+            {% render 'product-media-gallery', variant_images: variant_images, lazy_load_all: lazy_gallery %}
           </div>
 
           <div class="product__info-wrapper grid__item smooch-product__panel">
@@ -569,7 +575,7 @@
     </product-component>
 
     {%- if first_3d_model -%}
-      <script type="application/json" id="ProductJSON-{{ product.id }}">
+      <script type="application/json" id="ProductJSON-{{ section.id }}">
         {{ product.media | where: 'media_type', 'model' | json }}
       </script>
       <script src="{{ 'product-model.js' | asset_url }}" defer></script>
@@ -701,6 +707,13 @@
       "id": "constrain_to_viewport",
       "default": true,
       "label": "t:sections.main-product.settings.constrain_to_viewport.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "eager_first_image",
+      "default": true,
+      "label": "Eager-load first gallery image",
+      "info": "Keep enabled for the main hero (fastest largest-image paint). Disable when this section appears a second time further down the page."
     },
     {
       "type": "header",

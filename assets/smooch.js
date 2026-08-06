@@ -16,6 +16,12 @@ if (!customElements.get('smooch-details-group')) {
           this.querySelectorAll('details[open]').forEach((details) => {
             if (details !== target && details.parentElement.closest('smooch-details-group') === this) {
               details.open = false;
+              // Dawn's global.js manages aria-expanded on [id^="Details-"]
+              // summaries via click only — sync it for programmatic closes.
+              const summary = details.querySelector('summary');
+              if (summary && summary.hasAttribute('aria-expanded')) {
+                summary.setAttribute('aria-expanded', 'false');
+              }
             }
           });
         };
