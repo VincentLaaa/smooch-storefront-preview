@@ -1,0 +1,124 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "faq": {
+      "type": "smooch-faq",
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "What is [brand]?",
+            "answer": "<p>[brand] is a daily gummy formulated to support desire, mood, and connection — a small everyday ritual, not a quick fix. As with any supplement, experiences vary.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Who is it for?",
+            "answer": "<p>Women who want to make a little daily space for desire, mood, and confidence. It's a wellness supplement, not a treatment — if you have a specific health concern, a qualified healthcare professional is the right first stop.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "How do I take it?",
+            "answer": "<p>Take the recommended serving once a day — you'll find the exact serving size on the label. With or without food, whichever suits you.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "When should I take it?",
+            "answer": "<p>Whenever you'll actually remember it. Most people anchor it to something they already do — morning coffee, the evening wind-down. Consistency matters more than the clock.</p>"
+          }
+        },
+        "question-5": {
+          "type": "question",
+          "settings": {
+            "question": "How long should I use it?",
+            "answer": "<p>[brand] is designed for consistent, ongoing use. Give it several consistent weeks before you judge it, then check in with how you feel. Experiences vary — some people notice subtle shifts sooner than others.</p>"
+          }
+        },
+        "question-6": {
+          "type": "question",
+          "settings": {
+            "question": "What's inside?",
+            "answer": "<p>Every ingredient is listed in the formula section on this page, and the final ingredient list always appears on the label — no hidden blends.</p>"
+          }
+        },
+        "question-7": {
+          "type": "question",
+          "settings": {
+            "question": "Can I combine it with other supplements?",
+            "answer": "<p>That depends on what else you're taking. Before combining [brand] with other supplements, talk with a qualified healthcare professional who can look at your full routine.</p>"
+          }
+        },
+        "question-8": {
+          "type": "question",
+          "settings": {
+            "question": "Can I use it while pregnant or breastfeeding?",
+            "answer": "<p>Do not use [brand] while pregnant or breastfeeding without talking to a qualified healthcare professional first.</p>"
+          }
+        },
+        "question-9": {
+          "type": "question",
+          "settings": {
+            "question": "Can I take it with medication?",
+            "answer": "<p>If you take any medication, talk with a qualified healthcare professional before starting [brand]. They know your full picture — we don't.</p>"
+          }
+        },
+        "question-10": {
+          "type": "question",
+          "settings": {
+            "question": "How does the subscription work?",
+            "answer": "<p>You pick the schedule and deliveries arrive on it, with the subscription discount applied to every order. Skip, pause, reschedule, or cancel anytime from your account.</p>"
+          }
+        },
+        "question-11": {
+          "type": "question",
+          "settings": {
+            "question": "How do I cancel?",
+            "answer": "<p>Anytime, in a couple of clicks — log in to your account and manage your subscription there, or message our support team and we'll handle it for you. No hoops, no guilt.</p>"
+          }
+        },
+        "question-12": {
+          "type": "question",
+          "settings": {
+            "question": "What's the return policy?",
+            "answer": "<p>Your order is covered by our satisfaction guarantee — see the guarantee section on this page for how it works, and our refund policy for the fine print.</p>"
+          }
+        },
+        "question-13": {
+          "type": "question",
+          "settings": {
+            "question": "Where is it made?",
+            "answer": "<p>Add your manufacturing details here.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4",
+        "question-5",
+        "question-6",
+        "question-7",
+        "question-8",
+        "question-9",
+        "question-10",
+        "question-11",
+        "question-12",
+        "question-13"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

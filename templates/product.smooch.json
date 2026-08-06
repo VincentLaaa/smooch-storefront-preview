@@ -1,0 +1,974 @@
+{
+  "sections": {
+    "hero": {
+      "type": "smooch-product-hero",
+      "blocks": {
+        "eyebrow-1": {
+          "type": "eyebrow",
+          "settings": {}
+        },
+        "title-1": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating-1": {
+          "type": "rating",
+          "settings": {}
+        },
+        "promise-1": {
+          "type": "promise",
+          "settings": {}
+        },
+        "benefit-1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "heart",
+            "text": "Formulated to support desire"
+          }
+        },
+        "benefit-2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "sparkle",
+            "text": "Supports a steadier mood"
+          }
+        },
+        "benefit-3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "moon",
+            "text": "One gummy, once a day"
+          }
+        },
+        "benefit-4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "leaf",
+            "text": "Thoughtful, transparent ingredients"
+          }
+        },
+        "variant_picker-1": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "bundles-1": {
+          "type": "bundles",
+          "settings": {}
+        },
+        "bundle-1": {
+          "type": "bundle",
+          "settings": {
+            "title": "1-month supply",
+            "subtitle": "60 gummies · 30 days",
+            "quantity": 1
+          }
+        },
+        "bundle-2": {
+          "type": "bundle",
+          "settings": {
+            "title": "2-month supply",
+            "subtitle": "120 gummies · 60 days",
+            "quantity": 2,
+            "badge": "Most popular",
+            "preselected": true
+          }
+        },
+        "bundle-3": {
+          "type": "bundle",
+          "settings": {
+            "title": "3-month supply",
+            "subtitle": "180 gummies · 90 days",
+            "quantity": 3,
+            "badge": "Best value"
+          }
+        },
+        "subscription-1": {
+          "type": "subscription",
+          "settings": {}
+        },
+        "price-1": {
+          "type": "price",
+          "settings": {}
+        },
+        "buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "reassurance-1": {
+          "type": "reassurance",
+          "settings": {}
+        },
+        "collapsible_tab-1": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How to use",
+            "icon": "info",
+            "content": "<p>Take the recommended serving daily, ideally at the same time each day. Consistency matters more than timing.</p>"
+          }
+        },
+        "collapsible_tab-2": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Ingredients",
+            "icon": "leaf",
+            "content": "<p>Add your full ingredient list and dosages here once finalized.</p>"
+          }
+        },
+        "collapsible_tab-3": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping & returns",
+            "icon": "truck",
+            "content": "<p>Add your shipping timelines and return policy details here.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow-1",
+        "title-1",
+        "rating-1",
+        "promise-1",
+        "benefit-1",
+        "benefit-2",
+        "benefit-3",
+        "benefit-4",
+        "variant_picker-1",
+        "bundles-1",
+        "bundle-1",
+        "bundle-2",
+        "bundle-3",
+        "subscription-1",
+        "price-1",
+        "buy_buttons-1",
+        "reassurance-1",
+        "collapsible_tab-1",
+        "collapsible_tab-2",
+        "collapsible_tab-3"
+      ],
+      "settings": {}
+    },
+    "benefit_strip": {
+      "type": "smooch-benefit-strip",
+      "blocks": {
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "icon": "sparkle",
+            "text": "Formulated to support desire"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "icon": "clock",
+            "text": "One gummy a day"
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "text": "Thoughtful ingredients"
+          }
+        },
+        "guarantee-1": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "shield"
+          }
+        }
+      },
+      "block_order": [
+        "item-1",
+        "item-2",
+        "item-3",
+        "guarantee-1"
+      ],
+      "settings": {}
+    },
+    "featured_story": {
+      "type": "smooch-featured-story",
+      "settings": {}
+    },
+    "problem": {
+      "type": "smooch-problem-solution",
+      "blocks": {
+        "moment-1": {
+          "type": "moment",
+          "settings": {
+            "line": "Feeling disconnected from desire",
+            "text": "It's not gone — it's quiet. Quiet often has more to do with your season of life than with you."
+          }
+        },
+        "moment-2": {
+          "type": "moment",
+          "settings": {
+            "line": "Mood and stress keep getting the last word",
+            "text": "When a day takes everything you have, there isn't much left over for wanting."
+          }
+        },
+        "moment-3": {
+          "type": "moment",
+          "settings": {
+            "line": "Intimacy starts to feel like another task",
+            "text": "Somewhere between the calendar and the to-do list, closeness stopped feeling like yours."
+          }
+        },
+        "moment-4": {
+          "type": "moment",
+          "settings": {
+            "line": "Not feeling fully like yourself",
+            "text": "You remember a softer, warmer, more open version of you. She hasn't gone anywhere."
+          }
+        },
+        "moment-5": {
+          "type": "moment",
+          "settings": {
+            "line": "Wanting a ritual that's actually yours",
+            "text": "A small daily moment that answers to you — not to anyone else's expectations."
+          }
+        }
+      },
+      "block_order": [
+        "moment-1",
+        "moment-2",
+        "moment-3",
+        "moment-4",
+        "moment-5"
+      ],
+      "settings": {
+        "padding_top": 96
+      }
+    },
+    "mechanism": {
+      "type": "smooch-mechanism",
+      "blocks": {
+        "pillar-1": {
+          "type": "pillar",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Mood",
+            "text": "Formulated with ingredients traditionally used to support a steadier, calmer baseline."
+          }
+        },
+        "pillar-2": {
+          "type": "pillar",
+          "settings": {
+            "icon": "heart",
+            "title": "Desire",
+            "text": "Support for the part of you that wants to want — gently, over time."
+          }
+        },
+        "pillar-3": {
+          "type": "pillar",
+          "settings": {
+            "icon": "moon",
+            "title": "Connection",
+            "text": "When you feel more like yourself, closeness stops feeling like a task."
+          }
+        }
+      },
+      "block_order": [
+        "pillar-1",
+        "pillar-2",
+        "pillar-3"
+      ],
+      "settings": {}
+    },
+    "benefits": {
+      "type": "smooch-benefit-editorial",
+      "blocks": {
+        "benefit-1": {
+          "type": "benefit",
+          "settings": {
+            "eyebrow": "Desire",
+            "headline": "Support desire",
+            "text": "For the part of you that wants to want. Formulated to support desire as part of your daily rhythm — not on demand, not overnight.",
+            "fine_print": "A daily supplement, not an instant effect. Experiences vary."
+          }
+        },
+        "benefit-2": {
+          "type": "benefit",
+          "settings": {
+            "eyebrow": "Mood",
+            "headline": "A steadier mood",
+            "text": "Less at the mercy of the day. Ingredients chosen to support your baseline, so the good moments have room.",
+            "fine_print": "Not intended to diagnose, treat, or cure any condition."
+          }
+        },
+        "benefit-3": {
+          "type": "benefit",
+          "settings": {
+            "eyebrow": "Connection",
+            "headline": "Feel more connected",
+            "text": "To yourself first — the rest tends to follow. Experiences vary; consistency is the point."
+          }
+        },
+        "benefit-4": {
+          "type": "benefit",
+          "settings": {
+            "eyebrow": "Ritual",
+            "headline": "A ritual that's yours",
+            "text": "One gummy. One pause. A tiny daily yes to yourself."
+          }
+        }
+      },
+      "block_order": [
+        "benefit-1",
+        "benefit-2",
+        "benefit-3",
+        "benefit-4"
+      ],
+      "settings": {}
+    },
+    "formula": {
+      "type": "smooch-formula",
+      "blocks": {
+        "ingredient-1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Maca root",
+            "category": "desire",
+            "purpose": "Traditionally used to support energy and desire. Experiences vary.",
+            "detail": "<p>Example copy — a Peruvian root with a long history in traditional wellness practices. Replace with your sourcing story and the form you chose.</p>",
+            "source_note": "Example ingredient — replace with your final formula."
+          }
+        },
+        "ingredient-2": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Ashwagandha",
+            "category": "mood",
+            "purpose": "Traditionally used to support a calm, steady mood. Experiences vary.",
+            "detail": "<p>Example copy — an adaptogenic herb with a long history in Ayurvedic practice. Replace with your sourcing story and the extract you chose.</p>",
+            "source_note": "Example ingredient — replace with your final formula."
+          }
+        },
+        "ingredient-3": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Vitamin B6",
+            "category": "connection",
+            "purpose": "Included to support the body’s everyday rhythms. Experiences vary.",
+            "detail": "<p>Example copy — a familiar B vitamin. Replace with the form, dose rationale, and sourcing details from your final formula.</p>",
+            "source_note": "Example ingredient — replace with your final formula."
+          }
+        },
+        "ingredient-4": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zinc",
+            "category": "foundation",
+            "purpose": "A foundational mineral, included to support overall wellbeing.",
+            "detail": "<p>Example copy — a foundational mineral. Replace with the form and sourcing details from your final formula.</p>",
+            "source_note": "Example ingredient — replace with your final formula."
+          }
+        }
+      },
+      "block_order": [
+        "ingredient-1",
+        "ingredient-2",
+        "ingredient-3",
+        "ingredient-4"
+      ],
+      "settings": {}
+    },
+    "timeline": {
+      "type": "smooch-timeline",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "period": "Days 1–7",
+            "heading": "Building the habit",
+            "text": "You're learning where this fits in your day. That consistency is the foundation.",
+            "icon": "clock"
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "period": "Weeks 2–3",
+            "heading": "Supporting consistency",
+            "text": "Your routine settles in. Some customers say the ritual itself becomes the first win.",
+            "icon": "refresh"
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "period": "Weeks 4–6",
+            "heading": "Noticing subtle shifts",
+            "text": "With consistent use, some customers may notice their mood and presence feel more available.",
+            "icon": "sparkle"
+          }
+        },
+        "step-4": {
+          "type": "step",
+          "settings": {
+            "period": "Week 8+",
+            "heading": "Reflecting",
+            "text": "A good moment to check in with yourself on mood, desire, and connection — support may build gradually.",
+            "icon": "heart"
+          }
+        }
+      },
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3",
+        "step-4"
+      ],
+      "settings": {}
+    },
+    "how_to_use": {
+      "type": "smooch-how-to-use",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "heading": "Take your serving",
+            "text": "Take the recommended serving — see the label for serving size."
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "heading": "Anchor it to a routine",
+            "text": "Same time, same place. Morning coffee, evening wind-down — whatever you'll actually keep."
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "heading": "Stay consistent & check in",
+            "text": "Give it consistent weeks, then reflect on how you feel."
+          }
+        }
+      },
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3"
+      ],
+      "settings": {}
+    },
+    "lifestyle": {
+      "type": "smooch-ugc-gallery",
+      "blocks": {
+        "image-1": {
+          "type": "image",
+          "settings": {
+            "caption": "Morning ritual"
+          }
+        },
+        "image-2": {
+          "type": "image",
+          "settings": {
+            "caption": "The nightstand edit",
+            "handle": "@sample.handle"
+          }
+        },
+        "image-3": {
+          "type": "image",
+          "settings": {
+            "caption": "Sunday reset"
+          }
+        },
+        "image-4": {
+          "type": "image",
+          "settings": {
+            "caption": "Tucked into the travel bag"
+          }
+        },
+        "image-5": {
+          "type": "image",
+          "settings": {
+            "caption": "Golden hour wind-down"
+          }
+        }
+      },
+      "block_order": [
+        "image-1",
+        "image-2",
+        "image-3",
+        "image-4",
+        "image-5"
+      ],
+      "settings": {}
+    },
+    "comparison": {
+      "type": "smooch-comparison",
+      "blocks": {
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "label": "Designed around mood & desire support",
+            "brand_state": "yes",
+            "alt_a_state": "text",
+            "alt_a_text": "If you build it yourself",
+            "alt_b_state": "no"
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "label": "One simple daily format",
+            "brand_state": "yes",
+            "alt_a_state": "no",
+            "alt_b_state": "text",
+            "alt_b_text": "Varies"
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "label": "Transparent ingredients",
+            "brand_state": "yes",
+            "alt_a_state": "yes",
+            "alt_b_state": "no"
+          }
+        },
+        "row-4": {
+          "type": "row",
+          "settings": {
+            "label": "Easy to stay consistent with",
+            "brand_state": "yes",
+            "alt_a_state": "no",
+            "alt_b_state": "no"
+          }
+        },
+        "row-5": {
+          "type": "row",
+          "settings": {
+            "label": "No complicated routine",
+            "brand_state": "yes",
+            "alt_a_state": "no",
+            "alt_b_state": "yes"
+          }
+        },
+        "row-6": {
+          "type": "row",
+          "settings": {
+            "label": "Subscription you can skip or cancel",
+            "brand_state": "yes",
+            "alt_a_state": "no",
+            "alt_b_state": "text",
+            "alt_b_text": "Depends on the seller"
+          }
+        },
+        "row-7": {
+          "type": "row",
+          "settings": {
+            "label": "Satisfaction guarantee",
+            "brand_state": "yes",
+            "alt_a_state": "text",
+            "alt_a_text": "Varies",
+            "alt_b_state": "no"
+          }
+        }
+      },
+      "block_order": [
+        "row-1",
+        "row-2",
+        "row-3",
+        "row-4",
+        "row-5",
+        "row-6",
+        "row-7"
+      ],
+      "settings": {}
+    },
+    "value": {
+      "type": "smooch-value-comparison",
+      "blocks": {
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "name": "e.g. A mood supplement"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "name": "e.g. An intimacy-support herbal blend"
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "name": "e.g. A women's daily multivitamin"
+          }
+        }
+      },
+      "block_order": [
+        "item-1",
+        "item-2",
+        "item-3"
+      ],
+      "settings": {}
+    },
+    "reviews": {
+      "type": "smooch-reviews",
+      "blocks": {
+        "topic-1": {
+          "type": "topic",
+          "settings": {
+            "text": "Mood"
+          }
+        },
+        "topic-2": {
+          "type": "topic",
+          "settings": {
+            "text": "Ritual"
+          }
+        },
+        "topic-3": {
+          "type": "topic",
+          "settings": {
+            "text": "Connection"
+          }
+        },
+        "topic-4": {
+          "type": "topic",
+          "settings": {
+            "text": "Taste"
+          }
+        },
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "A small kindness to myself",
+            "text": "The ritual is the point — I didn’t want another pill. This feels like a small kindness to myself. One gummy with my morning coffee, one quiet beat before the day starts.",
+            "author": "Maya R.",
+            "topic": "Ritual"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "rating": 4.5,
+            "title": "Softer evenings",
+            "text": "For me it’s less about fireworks and more about feeling settled. A few weeks in, evenings with my partner feel softer and less rushed. Everyone’s different, but I’m glad I tried it.",
+            "author": "Jordan T.",
+            "topic": "Mood"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "We linger at the table now",
+            "text": "My husband noticed before I did — we actually linger over dinner again. I can’t say how much is the gummy and how much is the habit of slowing down, and honestly I don’t mind either way.",
+            "author": "Priya S.",
+            "topic": "Connection"
+          }
+        },
+        "review-4": {
+          "type": "review",
+          "settings": {
+            "rating": 4.5,
+            "title": "Tastes like an actual treat",
+            "text": "I have abandoned every capsule I’ve ever bought. This one I remember to take because it tastes like dessert without being candy-sweet. Zero chalkiness.",
+            "author": "Elena M.",
+            "topic": "Taste"
+          }
+        },
+        "review-5": {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "title": "A check-in with myself",
+            "text": "What I like most is the pause. Taking it became a tiny check-in with myself every morning. Some days I notice a real difference in my mood; other days it’s subtle. That feels honest to say.",
+            "author": "Dana K.",
+            "topic": "Mood"
+          }
+        },
+        "review-6": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Part of my wind-down",
+            "text": "I keep the jar next to my evening tea. For me the routine came first and the rest followed — slower nights, more presence. It’s part of my wind-down now and I miss it when I travel.",
+            "author": "Sofia L.",
+            "topic": "Ritual"
+          }
+        }
+      },
+      "block_order": [
+        "topic-1",
+        "topic-2",
+        "topic-3",
+        "topic-4",
+        "review-1",
+        "review-2",
+        "review-3",
+        "review-4",
+        "review-5",
+        "review-6"
+      ],
+      "settings": {}
+    },
+    "guarantee": {
+      "type": "smooch-guarantee",
+      "blocks": {
+        "point-1": {
+          "type": "point",
+          "settings": {
+            "text": "Full refund window"
+          }
+        },
+        "point-2": {
+          "type": "point",
+          "settings": {
+            "text": "No interrogation, no guilt"
+          }
+        },
+        "point-3": {
+          "type": "point",
+          "settings": {
+            "text": "Simple, human support"
+          }
+        }
+      },
+      "block_order": [
+        "point-1",
+        "point-2",
+        "point-3"
+      ],
+      "settings": {}
+    },
+    "repeat_purchase": {
+      "type": "smooch-product-hero",
+      "blocks": {
+        "title-1": {
+          "type": "title",
+          "settings": {
+            "heading_level": "h2"
+          }
+        },
+        "rating-1": {
+          "type": "rating",
+          "settings": {}
+        },
+        "promise-1": {
+          "type": "promise",
+          "settings": {}
+        },
+        "variant_picker-1": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "bundles-1": {
+          "type": "bundles",
+          "settings": {}
+        },
+        "bundle-1": {
+          "type": "bundle",
+          "settings": {
+            "title": "1-month supply",
+            "subtitle": "60 gummies · 30 days",
+            "quantity": 1
+          }
+        },
+        "bundle-2": {
+          "type": "bundle",
+          "settings": {
+            "title": "2-month supply",
+            "subtitle": "120 gummies · 60 days",
+            "quantity": 2,
+            "badge": "Most popular",
+            "preselected": true
+          }
+        },
+        "bundle-3": {
+          "type": "bundle",
+          "settings": {
+            "title": "3-month supply",
+            "subtitle": "180 gummies · 90 days",
+            "quantity": 3,
+            "badge": "Best value"
+          }
+        },
+        "subscription-1": {
+          "type": "subscription",
+          "settings": {}
+        },
+        "price-1": {
+          "type": "price",
+          "settings": {}
+        },
+        "buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "reassurance-1": {
+          "type": "reassurance",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title-1",
+        "rating-1",
+        "promise-1",
+        "variant_picker-1",
+        "bundles-1",
+        "bundle-1",
+        "bundle-2",
+        "bundle-3",
+        "subscription-1",
+        "price-1",
+        "buy_buttons-1",
+        "reassurance-1"
+      ],
+      "settings": {
+        "enable_sticky_atc": false,
+        "enable_sticky_info": false,
+        "padding_top": 64,
+        "padding_bottom": 76
+      }
+    },
+    "faq": {
+      "type": "smooch-faq",
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "What is [brand]?",
+            "answer": "<p>[brand] is a daily gummy formulated to support desire, mood, and connection — a small everyday ritual, not a quick fix. As with any supplement, experiences vary.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Who is it for?",
+            "answer": "<p>Women who want to make a little daily space for desire, mood, and confidence. It's a wellness supplement, not a treatment — if you have a specific health concern, a qualified healthcare professional is the right first stop.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "How do I take it?",
+            "answer": "<p>Take the recommended serving once a day — you'll find the exact serving size on the label. With or without food, whichever suits you.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "When should I take it?",
+            "answer": "<p>Whenever you'll actually remember it. Most people anchor it to something they already do — morning coffee, the evening wind-down. Consistency matters more than the clock.</p>"
+          }
+        },
+        "question-5": {
+          "type": "question",
+          "settings": {
+            "question": "How long should I use it?",
+            "answer": "<p>[brand] is designed for consistent, ongoing use. Give it several consistent weeks before you judge it, then check in with how you feel. Experiences vary — some people notice subtle shifts sooner than others.</p>"
+          }
+        },
+        "question-6": {
+          "type": "question",
+          "settings": {
+            "question": "What's inside?",
+            "answer": "<p>Every ingredient is listed in the formula section on this page, and the final ingredient list always appears on the label — no hidden blends.</p>"
+          }
+        },
+        "question-7": {
+          "type": "question",
+          "settings": {
+            "question": "Can I combine it with other supplements?",
+            "answer": "<p>That depends on what else you're taking. Before combining [brand] with other supplements, talk with a qualified healthcare professional who can look at your full routine.</p>"
+          }
+        },
+        "question-8": {
+          "type": "question",
+          "settings": {
+            "question": "Can I use it while pregnant or breastfeeding?",
+            "answer": "<p>Do not use [brand] while pregnant or breastfeeding without talking to a qualified healthcare professional first.</p>"
+          }
+        },
+        "question-9": {
+          "type": "question",
+          "settings": {
+            "question": "Can I take it with medication?",
+            "answer": "<p>If you take any medication, talk with a qualified healthcare professional before starting [brand]. They know your full picture — we don't.</p>"
+          }
+        },
+        "question-10": {
+          "type": "question",
+          "settings": {
+            "question": "How does the subscription work?",
+            "answer": "<p>You pick the schedule and deliveries arrive on it, with the subscription discount applied to every order. Skip, pause, reschedule, or cancel anytime from your account.</p>"
+          }
+        },
+        "question-11": {
+          "type": "question",
+          "settings": {
+            "question": "How do I cancel?",
+            "answer": "<p>Anytime, in a couple of clicks — log in to your account and manage your subscription there, or message our support team and we'll handle it for you. No hoops, no guilt.</p>"
+          }
+        },
+        "question-12": {
+          "type": "question",
+          "settings": {
+            "question": "What's the return policy?",
+            "answer": "<p>Your order is covered by our satisfaction guarantee — see the guarantee section on this page for how it works, and our refund policy for the fine print.</p>"
+          }
+        },
+        "question-13": {
+          "type": "question",
+          "settings": {
+            "question": "Where is it made?",
+            "answer": "<p>Add your manufacturing details here.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4",
+        "question-5",
+        "question-6",
+        "question-7",
+        "question-8",
+        "question-9",
+        "question-10",
+        "question-11",
+        "question-12",
+        "question-13"
+      ],
+      "settings": {}
+    },
+    "final_cta": {
+      "type": "smooch-final-cta",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "headline": "Come back to the version of you that feels connected.",
+        "subline": "One gummy a day. A little more you.",
+        "benefit_text": "Formulated to support desire, mood, and connection — one soft gummy a day. Experiences vary.",
+        "cta_label": "Meet [brand]"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "benefit_strip",
+    "featured_story",
+    "problem",
+    "mechanism",
+    "benefits",
+    "formula",
+    "timeline",
+    "how_to_use",
+    "lifestyle",
+    "comparison",
+    "value",
+    "reviews",
+    "guarantee",
+    "repeat_purchase",
+    "faq",
+    "final_cta"
+  ]
+}

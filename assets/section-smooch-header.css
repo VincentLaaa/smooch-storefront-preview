@@ -188,6 +188,7 @@
   border-bottom: 0.1rem solid var(--smooch-border-strong);
   box-shadow: 0 1.6rem 3.2rem rgba(var(--smooch-ink-rgb), 0.12);
   padding: 0.8rem 0 2rem;
+  max-height: calc(100vh - 6rem);
   max-height: calc(100dvh - 6rem);
   overflow-y: auto;
 }

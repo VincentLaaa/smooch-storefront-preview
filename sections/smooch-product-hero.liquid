@@ -165,13 +165,16 @@
                       {%- endif -%}
 
                     {%- when 'title' -%}
-                      <h1 class="smooch-h2 smooch-buybox__title" {{ block.shopify_attributes }}>
+                      {%- liquid
+                        assign title_tag = block.settings.heading_level | default: 'h1'
+                      -%}
+                      <{{ title_tag }} class="smooch-h2 smooch-buybox__title" {{ block.shopify_attributes }}>
                         {%- if block.settings.custom_title != blank -%}
                           {{ block.settings.custom_title | replace: '[brand]', brand_name }}
                         {%- else -%}
                           {{ product.title | escape }}
                         {%- endif -%}
-                      </h1>
+                      </{{ title_tag }}>
 
                     {%- when 'rating' -%}
                       <div class="smooch-buybox__rating" {{ block.shopify_attributes }}>
@@ -752,6 +755,17 @@
           "id": "custom_title",
           "label": "Custom title",
           "info": "Optional. Leave empty to use the product title. Use [brand] to insert the brand name."
+        },
+        {
+          "type": "select",
+          "id": "heading_level",
+          "label": "Heading level",
+          "default": "h1",
+          "options": [
+            { "value": "h1", "label": "H1 (main product section)" },
+            { "value": "h2", "label": "H2 (repeated purchase section)" }
+          ],
+          "info": "Use H2 when this section appears a second time on the page so the page keeps a single H1."
         }
       ]
     },

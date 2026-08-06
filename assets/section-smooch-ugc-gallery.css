@@ -1,0 +1,172 @@
+/* Smooch UGC gallery — section-specific layer.
+   Mobile (<990px): horizontal scroll-snap scroller, cards ~72vw, mixed
+   square/portrait ratios. Desktop (≥990px): asymmetric editorial mosaic —
+   first item 2×2, sixth item a 1×2 portrait, dense flow.
+   1rem = 10px (Dawn base). Color vars are RGB triplets: wrap in rgb()/rgba(). */
+
+/* ---------- Section head (hairline top, split on desktop) ---------- */
+
+.smooch-ugc-gallery__head {
+  border-top: 0.1rem solid var(--smooch-border-soft);
+  padding-top: 2.4rem;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-ugc-gallery__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: end;
+    column-gap: clamp(4rem, 6vw, 9.6rem);
+    max-width: none;
+  }
+
+  .smooch-ugc-gallery__head > * + * {
+    margin-top: 0;
+  }
+
+  .smooch-ugc-gallery__lead {
+    max-width: 44ch;
+    justify-self: end;
+    padding-bottom: 0.5rem;
+  }
+}
+
+/* ---------- Gallery list ---------- */
+
+.smooch-ugc-gallery__list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.smooch-ugc-gallery__card {
+  position: relative;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--smooch-radius-media);
+  background-color: var(--smooch-blush);
+}
+
+.smooch-ugc-gallery__media {
+  height: 100%;
+}
+
+.smooch-ugc-gallery__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Mobile / tablet scroller (<990px) ---------- */
+
+@media screen and (max-width: 989px) {
+  .smooch-ugc-gallery__item {
+    width: min(72vw, 42rem);
+  }
+
+  /* Mixed ratios: square base, every 2nd-of-3 goes portrait. */
+  .smooch-ugc-gallery__media {
+    aspect-ratio: 1;
+  }
+
+  .smooch-ugc-gallery__item:nth-child(3n + 2) .smooch-ugc-gallery__media {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* Bleed the scroller to the viewport edge on small screens; cards still
+   snap in line with the page padding. */
+@media screen and (max-width: 749px) {
+  .smooch-ugc-gallery__list {
+    margin-inline: -1.5rem;
+    padding-inline: 1.5rem;
+    scroll-padding-inline: 1.5rem;
+  }
+}
+
+/* ---------- Desktop editorial mosaic (≥990px) ---------- */
+
+@media screen and (min-width: 990px) {
+  .smooch-scroller--desktop-grid.smooch-ugc-gallery__list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: clamp(18rem, 21vw, 26rem);
+    grid-auto-flow: dense;
+    gap: 2rem;
+  }
+
+  /* Feature moments — intentionally uneven, not a uniform grid. */
+  .smooch-ugc-gallery__item:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .smooch-ugc-gallery__item:nth-child(6) {
+    grid-row: span 2;
+  }
+
+  .smooch-ugc-gallery__item:first-child .smooch-ugc-gallery__caption {
+    padding: 4.8rem 2rem 1.8rem;
+  }
+
+  .smooch-ugc-gallery__item:first-child .smooch-ugc-gallery__caption-text {
+    font-size: 1.6rem;
+  }
+}
+
+/* ---------- Caption overlay (ink scrim only behind the text) ---------- */
+
+.smooch-ugc-gallery__caption {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  display: grid;
+  gap: 0.2rem;
+  padding: 4rem 1.6rem 1.4rem;
+  background: linear-gradient(
+    to top,
+    rgba(var(--smooch-ink-rgb), 0.72) 0%,
+    rgba(var(--smooch-ink-rgb), 0.34) 55%,
+    rgba(var(--smooch-ink-rgb), 0) 100%
+  );
+  color: rgb(var(--smooch-cream-rgb));
+}
+
+.smooch-ugc-gallery__caption-text {
+  font-size: 1.4rem;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.smooch-ugc-gallery__handle {
+  font-size: 1.2rem;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  opacity: 0.8;
+}
+
+/* ---------- Empty-image placeholder (blush block) ---------- */
+
+.smooch-ugc-gallery__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--smooch-blush);
+}
+
+.smooch-ugc-gallery__placeholder-svg {
+  width: 100%;
+  height: 100%;
+  fill: rgba(var(--smooch-ink-rgb), 0.3);
+}
+
+/* ---------- Fine-print note ---------- */
+
+.smooch-ugc-gallery__note {
+  margin: 2rem 0 0;
+  max-width: 60ch;
+}

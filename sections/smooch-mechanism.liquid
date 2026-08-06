@@ -1,0 +1,367 @@
+{{ 'section-smooch-mechanism.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign pillar_blocks = section.blocks | where: 'type', 'pillar'
+  assign pillar_count = pillar_blocks.size
+
+  comment
+    Desktop diagram positions, assigned by pillar count:
+    left / right flank the product, belowa (+ belowb) sit under it.
+  endcomment
+  case pillar_count
+    when 1
+      assign position_list = 'belowa' | split: ','
+    when 2
+      assign position_list = 'left,right' | split: ','
+    when 3
+      assign position_list = 'left,right,belowa' | split: ','
+    else
+      assign position_list = 'left,right,belowa,belowb' | split: ','
+  endcase
+
+  assign image_alt = section.settings.product_image_alt
+  if image_alt == blank
+    assign image_alt = section.settings.product_image.alt
+  endif
+  if image_alt == blank
+    assign image_alt = brand_name | append: ' product'
+  endif
+-%}
+
+<div class="smooch-band smooch-mechanism color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    {%- if section.settings.eyebrow != blank
+      or section.settings.heading != blank
+      or section.settings.lead != blank
+    -%}
+      <div class="smooch-section-head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="smooch-eyebrow smooch-eyebrow--accent">
+            {{- section.settings.eyebrow | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="smooch-{{ section.settings.heading_size }}">
+            {{- section.settings.heading | replace: '[brand]', brand_name | escape -}}
+          </h2>
+        {%- endif -%}
+        {%- if section.settings.lead != blank -%}
+          <p class="smooch-lead">
+            {{- section.settings.lead | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="smooch-mechanism__diagram smooch-mechanism__diagram--count-{{ pillar_count }}">
+      <div class="smooch-mechanism__product">
+        <div class="smooch-mechanism__disc">
+          {%- if section.settings.product_image != blank -%}
+            {{
+              section.settings.product_image
+              | image_url: width: 960
+              | image_tag:
+                loading: 'lazy',
+                widths: '240, 320, 480, 640, 960',
+                sizes: '(min-width: 990px) 310px, 240px',
+                class: 'smooch-mechanism__product-img',
+                alt: image_alt
+            }}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'smooch-mechanism__product-img smooch-mechanism__product-img--placeholder' }}
+          {%- endif -%}
+        </div>
+        {%- if section.settings.product_caption != blank -%}
+          <p class="smooch-caption smooch-mechanism__product-caption">
+            {{- section.settings.product_caption | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+      </div>
+
+      {%- if pillar_count > 0 -%}
+        {%- comment -%} Mobile-only connector: product down to the left rail. {%- endcomment -%}
+        <svg
+          class="smooch-mechanism__lead"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M100 0 C 100 60, 0 42, 0 100" vector-effect="non-scaling-stroke"/>
+        </svg>
+      {%- endif -%}
+
+      {%- for block in pillar_blocks -%}
+        {%- liquid
+          assign pos = position_list[forloop.index0]
+          assign connector = pos
+          if pos == 'belowa'
+            if pillar_count == 4
+              assign connector = 'up-a'
+            else
+              assign connector = 'up'
+            endif
+          elsif pos == 'belowb'
+            assign connector = 'up-b'
+          endif
+        -%}
+        <div
+          class="smooch-mechanism__pillar smooch-mechanism__pillar--{{ pos }}"
+          {{ block.shopify_attributes }}
+        >
+          {%- comment -%} Desktop-only connector line toward the product. {%- endcomment -%}
+          {%- case connector -%}
+            {%- when 'left' -%}
+              <svg class="smooch-mechanism__connector smooch-mechanism__connector--left" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path d="M0 30 C 33 10, 67 10, 100 30" vector-effect="non-scaling-stroke"/>
+              </svg>
+            {%- when 'right' -%}
+              <svg class="smooch-mechanism__connector smooch-mechanism__connector--right" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path d="M0 30 C 33 10, 67 10, 100 30" vector-effect="non-scaling-stroke"/>
+              </svg>
+            {%- when 'up' -%}
+              <svg class="smooch-mechanism__connector smooch-mechanism__connector--up" viewBox="0 0 10 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path d="M5 0 L5 100" vector-effect="non-scaling-stroke"/>
+              </svg>
+            {%- when 'up-a' -%}
+              <svg class="smooch-mechanism__connector smooch-mechanism__connector--up-a" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path d="M100 0 C 100 45, 0 55, 0 100" vector-effect="non-scaling-stroke"/>
+              </svg>
+            {%- when 'up-b' -%}
+              <svg class="smooch-mechanism__connector smooch-mechanism__connector--up-b" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path d="M0 0 C 0 45, 100 55, 100 100" vector-effect="non-scaling-stroke"/>
+              </svg>
+          {%- endcase -%}
+
+          <span class="smooch-mechanism__pillar-icon">
+            {% render 'smooch-icon', icon: block.settings.icon, class: 'smooch-icon--lg' %}
+          </span>
+          {%- if block.settings.title != blank -%}
+            <h3 class="smooch-h3 smooch-mechanism__pillar-title">
+              {{- block.settings.title | replace: '[brand]', brand_name | escape -}}
+            </h3>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <p class="smooch-mechanism__pillar-text">
+              {{- block.settings.text | replace: '[brand]', brand_name | escape -}}
+            </p>
+          {%- endif -%}
+          {%- if block.settings.ingredient != blank -%}
+            <p class="smooch-mechanism__callout">
+              {{- block.settings.ingredient | escape -}}
+            </p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.footnote != blank -%}
+      <p class="smooch-fine-print smooch-mechanism__footnote">
+        {{- section.settings.footnote | escape -}}
+      </p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch mechanism",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "An editorial how-it-works diagram: your product at the center with the kinds of support it is formulated to provide radiating around it."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-5"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "How it works"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "One small ritual. Three kinds of support.",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h2", "label": "Standard" },
+        { "value": "display", "label": "Oversized" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Lead paragraph",
+      "default": "One gummy, most mornings. [brand] is formulated to layer small, steady support behind the way you feel — gently, and on your timeline. Experiences vary from woman to woman.",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image",
+      "info": "A product render on a transparent or plain background works best. Shown inside a soft blush circle."
+    },
+    {
+      "type": "text",
+      "id": "product_image_alt",
+      "label": "Image alt text",
+      "info": "Describes the image for screen readers. Leave blank to use the image's own alt text."
+    },
+    {
+      "type": "text",
+      "id": "product_caption",
+      "label": "Caption under the product",
+      "default": "One daily gummy"
+    },
+    {
+      "type": "header",
+      "content": "Footnote"
+    },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "*Add your key ingredient once your formula is final.",
+      "info": "Pairs with the * in pillar ingredient callouts. Clear this field to hide it."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pillar",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "moon", "label": "Moon" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "drop", "label": "Drop" },
+            { "value": "star", "label": "Star" }
+          ],
+          "default": "sparkle"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Mood"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Formulated with ingredients traditionally used to support a steadier, calmer baseline.",
+          "info": "Keep it to one or two sentences."
+        },
+        {
+          "type": "text",
+          "id": "ingredient",
+          "label": "Ingredient callout",
+          "info": "Optional. Example: \"with Maca root*\" — the * pairs with the section footnote."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch mechanism",
+      "blocks": [
+        {
+          "type": "pillar",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Mood",
+            "text": "Formulated with ingredients traditionally used to support a steadier, calmer baseline."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "icon": "heart",
+            "title": "Desire",
+            "text": "Support for the part of you that wants to want — gently, over time."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "icon": "moon",
+            "title": "Connection",
+            "text": "When you feel more like yourself, closeness stops feeling like a task."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

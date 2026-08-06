@@ -1,0 +1,105 @@
+{% comment %}
+  Renders one Smooch review card (used by sections/smooch-reviews.liquid).
+
+  Accepts:
+  - block: {Object} 'review' block — settings: rating, title, text, author, topic, verified
+  - is_sample: {Boolean} section-level sample-content flag; adds a visible Sample badge
+  - featured: {Boolean} larger quote-styled treatment (the section passes forloop.first)
+  - sample_label: {String} Sample badge text (optional, default 'Sample')
+  - verified_label: {String} Verified badge text (optional, default 'Verified')
+
+  The card root carries data-topic (downcased) so <smooch-review-filter> can
+  toggle [hidden]. Without JS the attribute is inert and the card simply shows.
+
+  Usage:
+  {% render 'smooch-review-card', block: block, is_sample: true, featured: forloop.first %}
+{% endcomment %}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+  assign card_sample_label = sample_label | default: 'Sample'
+  assign card_verified_label = verified_label | default: 'Verified'
+
+  assign rating = block.settings.rating | default: 5
+  assign full_stars = rating | floor
+  assign decimal = rating | minus: full_stars
+  assign half_star = false
+  if decimal >= 0.3 and decimal <= 0.7
+    assign half_star = true
+  elsif decimal > 0.7
+    assign full_stars = full_stars | plus: 1
+  endif
+  assign rendered = full_stars
+  if half_star
+    assign rendered = rendered | plus: 1
+  endif
+  assign empty_stars = 5 | minus: rendered
+
+  assign topic_value = block.settings.topic | replace: '[brand]', brand_name | strip
+-%}
+
+<article
+  class="smooch-review-card{% if featured %} smooch-review-card--featured{% endif %}"
+  data-topic="{{ topic_value | downcase | escape }}"
+  {{ block.shopify_attributes }}
+>
+  {%- if featured -%}
+    <span class="smooch-review-card__quote-mark">
+      {%- render 'smooch-icon', icon: 'quote', class: 'smooch-icon--xl' -%}
+    </span>
+  {%- endif -%}
+
+  <div class="smooch-review-card__body">
+    <div class="smooch-review-card__top">
+      <span class="smooch-stars" role="img" aria-label="Rated {{ rating }} out of 5 stars">
+        {%- if full_stars > 0 -%}
+          {%- for i in (1..full_stars) -%}
+            {% render 'smooch-icon', icon: 'star' %}
+          {%- endfor -%}
+        {%- endif -%}
+        {%- if half_star -%}
+          {% render 'smooch-icon', icon: 'star-half' %}
+        {%- endif -%}
+        {%- if empty_stars > 0 -%}
+          {%- for i in (1..empty_stars) -%}
+            {% render 'smooch-icon', icon: 'star-empty' %}
+          {%- endfor -%}
+        {%- endif -%}
+      </span>
+      {%- if is_sample -%}
+        <span class="smooch-badge smooch-badge--ink smooch-review-card__sample">
+          {{- card_sample_label | escape -}}
+        </span>
+      {%- endif -%}
+    </div>
+
+    {%- if block.settings.title != blank -%}
+      <h3 class="smooch-review-card__title">
+        {{- block.settings.title | replace: '[brand]', brand_name | escape -}}
+      </h3>
+    {%- endif -%}
+
+    {%- if block.settings.text != blank -%}
+      <p class="smooch-review-card__text">
+        {{- block.settings.text | replace: '[brand]', brand_name | escape | newline_to_br -}}
+      </p>
+    {%- endif -%}
+
+    {%- if block.settings.author != blank or block.settings.verified or topic_value != blank -%}
+      <footer class="smooch-review-card__meta">
+        {%- if block.settings.author != blank -%}
+          <span class="smooch-review-card__author">{{ block.settings.author | escape }}</span>
+        {%- endif -%}
+        {%- if block.settings.verified -%}
+          <span class="smooch-badge smooch-badge--outline smooch-review-card__verified">
+            {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
+            {{ card_verified_label | escape }}
+          </span>
+        {%- endif -%}
+        {%- if topic_value != blank -%}
+          <span class="smooch-review-card__topic">{{ topic_value | escape }}</span>
+        {%- endif -%}
+      </footer>
+    {%- endif -%}
+  </div>
+</article>
