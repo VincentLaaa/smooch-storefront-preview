@@ -1,0 +1,36 @@
+{% comment %}
+  Renders a simple product price line (current + compare-at + savings badge)
+  for narrative sections (featured product, final CTA, value comparison).
+  For the purchase module itself, the product hero renders richer offer pricing.
+
+  Accepts:
+  - product: {Object} product object
+  - class: {String} extra classes (optional)
+  - show_save: {Boolean} show savings badge when a real compare-at exists
+
+  Usage:
+  {% render 'smooch-price', product: product, show_save: true %}
+{% endcomment %}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign price = variant.price
+  assign compare = variant.compare_at_price | default: 0
+  assign save = 0
+  if compare > price
+    assign save_amount = compare | minus: price | times: 100
+    assign save = save_amount | divided_by: compare
+  endif
+-%}
+
+{%- if product != blank -%}
+  <span class="smooch-price-line {{ class }}">
+    <span class="smooch-price-line__current smooch-num">{{ price | money }}</span>
+    {%- if compare > price -%}
+      <s class="smooch-strike smooch-num">{{ compare | money }}</s>
+      {%- if show_save and save > 0 -%}
+        <span class="smooch-badge smooch-badge--blush">Save {{ save }}%</span>
+      {%- endif -%}
+    {%- endif -%}
+  </span>
+{%- endif -%}

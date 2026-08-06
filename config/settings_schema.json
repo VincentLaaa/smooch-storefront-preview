@@ -1451,5 +1451,164 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": "Smooch brand",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand identity"
+      },
+      {
+        "type": "text",
+        "id": "smooch_brand_name",
+        "label": "Brand name",
+        "default": "Smooch",
+        "info": "Used across all Smooch sections. Falls back to the store name when empty."
+      },
+      {
+        "type": "header",
+        "content": "Brand palette",
+        "info": "Accent tokens used by Smooch sections in addition to the color schemes. Keep them in step with your color schemes for a coherent look."
+      },
+      {
+        "type": "color",
+        "id": "smooch_color_cream",
+        "label": "Primary light background",
+        "default": "#FAF5EE"
+      },
+      {
+        "type": "color",
+        "id": "smooch_color_surface",
+        "label": "Product surface",
+        "default": "#FFFDF9"
+      },
+      {
+        "type": "color",
+        "id": "smooch_color_ink",
+        "label": "Primary text",
+        "default": "#2B1220"
+      },
+      {
+        "type": "color",
+        "id": "smooch_color_muted",
+        "label": "Muted text",
+        "default": "#6E5A66"
+      },
+      {
+        "type": "color",
+        "id": "smooch_color_berry",
+        "label": "Primary accent",
+        "default": "#BE2B54"
+      },
+      {
+        "type": "color",
+        "id": "smooch_color_blush",
+        "label": "Secondary accent",
+        "default": "#F3DCE2"
+      },
+      {
+        "type": "color",
+        "id": "smooch_color_plum",
+        "label": "Dark background",
+        "default": "#3A1528"
+      },
+      {
+        "type": "color",
+        "id": "smooch_cta_bg",
+        "label": "Primary CTA background",
+        "default": "#2B1220"
+      },
+      {
+        "type": "color",
+        "id": "smooch_cta_text",
+        "label": "Primary CTA text",
+        "default": "#FFF8F2"
+      },
+      {
+        "type": "header",
+        "content": "Trust and reassurance"
+      },
+      {
+        "type": "range",
+        "id": "smooch_guarantee_days",
+        "label": "Guarantee length (days)",
+        "min": 0,
+        "max": 180,
+        "step": 5,
+        "default": 60,
+        "info": "Set to 0 to hide all guarantee messaging until your policy is confirmed."
+      },
+      {
+        "type": "text",
+        "id": "smooch_guarantee_text",
+        "label": "Guarantee label",
+        "default": "money-back guarantee",
+        "info": "Rendered after the number of days, e.g. “60-day money-back guarantee”."
+      },
+      {
+        "type": "text",
+        "id": "smooch_shipping_message",
+        "label": "Shipping message",
+        "default": "Free shipping on 2+ month supplies"
+      },
+      {
+        "type": "text",
+        "id": "smooch_delivery_estimate",
+        "label": "Delivery estimate",
+        "default": "Ships within 1–2 business days"
+      },
+      {
+        "type": "text",
+        "id": "smooch_secure_checkout_text",
+        "label": "Secure checkout label",
+        "default": "Secure checkout"
+      },
+      {
+        "type": "checkbox",
+        "id": "smooch_show_payment_icons",
+        "label": "Show payment method icons",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "smooch_review_provider",
+        "label": "Review provider label",
+        "default": "",
+        "info": "Optional label shown beside ratings, e.g. “Collected by Judge.me”. Leave empty to hide."
+      },
+      {
+        "type": "header",
+        "content": "Compliance"
+      },
+      {
+        "type": "richtext",
+        "id": "smooch_supplement_disclaimer",
+        "label": "Supplement disclaimer",
+        "default": "<p>These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "smooch_footer_disclaimer",
+        "label": "Footer disclaimer",
+        "default": "<p>Results and experiences vary from person to person. If you are pregnant, breastfeeding, taking medication, or have a medical condition, talk with a qualified healthcare professional before use.</p>"
+      },
+      {
+        "type": "header",
+        "content": "Email capture"
+      },
+      {
+        "type": "text",
+        "id": "smooch_email_heading",
+        "label": "Email capture heading",
+        "default": "Little love notes"
+      },
+      {
+        "type": "text",
+        "id": "smooch_email_text",
+        "label": "Email capture text",
+        "default": "Wellness notes, honest education, and subscriber-only offers. No noise."
+      }
+    ]
   }
 ]

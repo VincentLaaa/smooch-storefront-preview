@@ -1,0 +1,83 @@
+{% comment %}
+  Renders a star rating.
+
+  Prefers real review data from the standard reviews.rating / reviews.rating_count
+  product metafields (populated by review apps). Falls back to merchant-configured
+  sample values, clearly labeled as sample data. Renders nothing when neither
+  real data nor a sample count exists.
+
+  Accepts:
+  - product: {Object} product object
+  - fallback_rating: {Number} sample rating used only without metafield data
+  - fallback_count: {Number} sample review count; 0 hides the fallback entirely
+  - show_sample_label: {Boolean} label fallback data as sample reviews
+  - link: {Boolean} link to #smooch-reviews
+  - size: {String} 'lg' for larger stars (optional)
+
+  Usage:
+  {% render 'smooch-rating', product: product, fallback_rating: 4.5, fallback_count: 120 %}
+{% endcomment %}
+
+{%- liquid
+  assign rating_value = 0
+  assign rating_count = 0
+  assign is_sample = false
+
+  if product.metafields.reviews.rating.value != blank
+    assign rating_value = product.metafields.reviews.rating.value.rating
+    assign rating_count = product.metafields.reviews.rating_count.value | default: 0
+  elsif fallback_count > 0
+    assign rating_value = fallback_rating
+    assign rating_count = fallback_count
+    assign is_sample = true
+  endif
+
+  assign full_stars = rating_value | floor
+  assign decimal = rating_value | minus: full_stars
+  assign half_star = false
+  if decimal >= 0.3 and decimal <= 0.7
+    assign half_star = true
+  elsif decimal > 0.7
+    assign full_stars = full_stars | plus: 1
+  endif
+  assign rendered = full_stars
+  if half_star
+    assign rendered = rendered | plus: 1
+  endif
+  assign empty_stars = 5 | minus: rendered
+-%}
+
+{%- if rating_count > 0 -%}
+  {%- capture rating_body -%}
+    <span class="smooch-stars{% if size == 'lg' %} smooch-stars--lg{% endif %}" role="img" aria-label="Rated {{ rating_value }} out of 5 stars">
+      {%- for i in (1..full_stars) -%}
+        {% render 'smooch-icon', icon: 'star' %}
+      {%- endfor -%}
+      {%- if half_star -%}
+        {% render 'smooch-icon', icon: 'star-half' %}
+      {%- endif -%}
+      {%- if empty_stars > 0 -%}
+        {%- for i in (1..empty_stars) -%}
+          {% render 'smooch-icon', icon: 'star-empty' %}
+        {%- endfor -%}
+      {%- endif -%}
+    </span>
+    <span class="smooch-rating__count">
+      {{ rating_value }} · {{ rating_count }} review{% if rating_count != 1 %}s{% endif %}
+      {%- if is_sample and show_sample_label %} <span class="smooch-fine-print">(sample)</span>{% endif %}
+    </span>
+    {%- if is_sample == false and settings.smooch_review_provider != blank -%}
+      <span class="smooch-fine-print">{{ settings.smooch_review_provider }}</span>
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- if link -%}
+    <a class="smooch-rating smooch-focus" href="#smooch-reviews" style="text-decoration: none; color: inherit;">
+      {{ rating_body }}
+    </a>
+  {%- else -%}
+    <div class="smooch-rating">
+      {{ rating_body }}
+    </div>
+  {%- endif -%}
+{%- endif -%}

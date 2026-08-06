@@ -1,0 +1,15 @@
+{% comment %}
+  Renders one benefit bullet inside a .smooch-ticks list.
+
+  Accepts:
+  - icon: {String} smooch-icon name
+  - text: {String} benefit text
+  - attrs: {String} block.shopify_attributes of the source block (optional)
+
+  Usage:
+  {% render 'smooch-benefit-item', icon: 'heart', text: 'Supports desire', attrs: block.shopify_attributes %}
+{% endcomment %}
+<li {{ attrs }}>
+  {% render 'smooch-icon', icon: icon %}
+  <span>{{ text }}</span>
+</li>

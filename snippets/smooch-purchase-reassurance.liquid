@@ -1,0 +1,74 @@
+{% comment %}
+  Renders the compact reassurance area under the add-to-cart button.
+  Copy comes from Theme settings → Smooch brand; the block toggles rows.
+  The low-inventory note reads real Shopify inventory only and keeps
+  Dawn's Inventory-{section id} swap contract so it updates on variant change.
+
+  Accepts:
+  - block: {Object} 'reassurance' block
+  - product: {Object}
+  - section_id: {String}
+
+  Usage:
+  {% render 'smooch-purchase-reassurance', block: block, product: product, section_id: section.id %}
+{% endcomment %}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign show_low_stock = false
+  if block.settings.show_inventory and variant.inventory_management == 'shopify' and variant.inventory_policy != 'continue' and variant.inventory_quantity > 0 and variant.inventory_quantity <= block.settings.inventory_threshold
+    assign show_low_stock = true
+  endif
+-%}
+
+<div class="smooch-reassurance" {{ block.shopify_attributes }}>
+  {%- if block.settings.show_inventory -%}
+    <p
+      id="Inventory-{{ section_id }}"
+      class="smooch-reassurance__stock{% unless show_low_stock %} hidden{% endunless %}"
+      role="status"
+    >
+      {%- if show_low_stock -%}
+        Only {{ variant.inventory_quantity }} left in stock
+      {%- endif -%}
+    </p>
+  {%- endif -%}
+
+  <ul class="smooch-reassurance__list" role="list">
+    {%- if block.settings.show_delivery and settings.smooch_delivery_estimate != blank -%}
+      <li>
+        {% render 'smooch-icon', icon: 'truck' %}
+        <span>{{ settings.smooch_delivery_estimate }}</span>
+      </li>
+    {%- endif -%}
+    {%- if block.settings.show_shipping and settings.smooch_shipping_message != blank -%}
+      <li>
+        {% render 'smooch-icon', icon: 'box' %}
+        <span>{{ settings.smooch_shipping_message }}</span>
+      </li>
+    {%- endif -%}
+    {%- if block.settings.show_guarantee and settings.smooch_guarantee_days > 0 -%}
+      <li>
+        {% render 'smooch-icon', icon: 'shield' %}
+        <span>{{ settings.smooch_guarantee_days }}-day {{ settings.smooch_guarantee_text | default: 'money-back guarantee' }}</span>
+      </li>
+    {%- endif -%}
+    {%- if block.settings.show_secure and settings.smooch_secure_checkout_text != blank -%}
+      <li>
+        {% render 'smooch-icon', icon: 'lock' %}
+        <span>{{ settings.smooch_secure_checkout_text }}</span>
+      </li>
+    {%- endif -%}
+  </ul>
+
+  {%- if settings.smooch_show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+    <div class="smooch-reassurance__payments">
+      <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+      <ul class="smooch-reassurance__payment-list" role="list">
+        {%- for type in shop.enabled_payment_types -%}
+          <li>{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+</div>

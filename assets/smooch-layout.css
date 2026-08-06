@@ -1,0 +1,144 @@
+/* Smooch layout layer — bands, splits, stacks, scrollers.
+   1rem = 10px (Dawn base). Breakpoints follow Dawn: 749/750 and 989/990. */
+
+/* Full-width color band; pair with color-{scheme} gradient classes. */
+.smooch-band {
+  position: relative;
+}
+
+.smooch-band--clip {
+  overflow: clip;
+}
+
+/* Editorial split — asymmetric two-column that collapses on mobile.
+   Ratio is tuned per section via --split-a / --split-b. */
+.smooch-split {
+  display: grid;
+  gap: 3.2rem;
+  align-items: center;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-split {
+    grid-template-columns: minmax(0, var(--split-a, 1fr)) minmax(0, var(--split-b, 1fr));
+    gap: clamp(4rem, 6vw, 9.6rem);
+  }
+
+  .smooch-split--flip > :first-child {
+    order: 2;
+  }
+
+  .smooch-split--top {
+    align-items: start;
+  }
+}
+
+/* Vertical rhythm inside a block */
+.smooch-stack > * + * {
+  margin-top: var(--stack-gap, 1.6rem);
+}
+
+.smooch-stack--loose > * + * {
+  margin-top: var(--stack-gap, 2.8rem);
+}
+
+.smooch-stack--tight > * + * {
+  margin-top: var(--stack-gap, 0.8rem);
+}
+
+/* Horizontal cluster (badges, meta rows) */
+.smooch-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cluster-gap, 1.2rem);
+}
+
+/* Responsive card/figure grid */
+.smooch-grid {
+  display: grid;
+  gap: var(--grid-gap, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min, 28rem)), 1fr));
+}
+
+/* Mobile horizontal scroller with snap; becomes a grid on desktop when
+   paired with .smooch-grid--desktop. */
+.smooch-scroller {
+  display: flex;
+  gap: 1.6rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1.5rem;
+  padding-bottom: 1.2rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--color-foreground), 0.3) transparent;
+}
+
+.smooch-scroller > * {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-scroller--desktop-grid {
+    display: grid;
+    overflow-x: visible;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min, 28rem)), 1fr));
+    padding-bottom: 0;
+  }
+}
+
+/* Section header block (eyebrow + heading + lead) */
+.smooch-section-head {
+  margin-bottom: clamp(3.2rem, 5vw, 5.6rem);
+  max-width: 76rem;
+}
+
+.smooch-section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.smooch-section-head > * + * {
+  margin-top: 1.6rem;
+}
+
+/* Media frame */
+.smooch-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--smooch-radius-media);
+}
+
+.smooch-media img,
+.smooch-media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.smooch-media--portrait {
+  aspect-ratio: 4 / 5;
+}
+
+.smooch-media--square {
+  aspect-ratio: 1;
+}
+
+.smooch-media--wide {
+  aspect-ratio: 16 / 9;
+}
+
+/* Thin divider */
+.smooch-divider {
+  border: 0;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+  margin: 0;
+}
+
+/* Prevent any Smooch section from causing horizontal overflow */
+.smooch-band .page-width {
+  min-width: 0;
+}

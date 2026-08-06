@@ -1,0 +1,1222 @@
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+{{ 'smooch-product.css' | asset_url | stylesheet_tag }}
+
+{% unless product.has_only_default_variant %}
+  {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+{% endunless %}
+
+<script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'smooch-product-form.js' | asset_url }}" defer="defer"></script>
+
+{% if section.settings.image_zoom == 'hover' %}
+  <script id="EnableZoomOnHover-main" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
+{% endif %}
+{%- if request.design_mode -%}
+  <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{%- assign first_3d_model = product.media | where: 'media_type', 'model' | first -%}
+{%- if first_3d_model -%}
+  {{ 'component-product-model.css' | asset_url | stylesheet_tag }}
+  <link
+    id="ModelViewerStyle"
+    rel="stylesheet"
+    href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+    media="print"
+    onload="this.media='all'"
+  >
+  <link
+    id="ModelViewerOverride"
+    rel="stylesheet"
+    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'"
+  >
+{%- endif -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign bundle_blocks = section.blocks | where: 'type', 'bundle'
+  assign gift_blocks = section.blocks | where: 'type', 'gift'
+  assign has_bundles = false
+  if bundle_blocks.size > 0
+    assign has_bundles = true
+  endif
+
+  assign has_plans = false
+  if product.selling_plan_groups.size > 0
+    assign has_plans = true
+  endif
+
+  assign current_variant = product.selected_or_first_available_variant
+
+  comment
+    Default bundle: first block marked preselected, else the first bundle block.
+  endcomment
+  assign default_bundle_index = 0
+  assign default_bundle_qty = 1
+  for block in bundle_blocks
+    if block.settings.preselected
+      assign default_bundle_index = forloop.index0
+      assign default_bundle_qty = block.settings.quantity | at_least: 1
+      break
+    endif
+  endfor
+  if default_bundle_index == 0 and bundle_blocks.size > 0
+    assign first_bundle = bundle_blocks | first
+    unless first_bundle.settings.preselected
+      assign default_bundle_qty = first_bundle.settings.quantity | at_least: 1
+    endunless
+  endif
+-%}
+
+<product-info
+  id="MainProduct-{{ section.id }}"
+  class="smooch-product section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient"
+  data-section="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-update-url="true"
+  data-url="{{ product.url }}"
+  {% if section.settings.image_zoom == 'hover' %}
+    data-zoom-on-hover
+  {% endif %}
+>
+  {%- if product != blank -%}
+    {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+    <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
+      <div class="page-width">
+        <div class="product product--{{ section.settings.media_size }} product--left product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %} smooch-product__layout">
+          <div class="grid__item product__media-wrapper smooch-product__gallery">
+            {% render 'product-media-gallery', variant_images: variant_images %}
+          </div>
+
+          <div class="product__info-wrapper grid__item smooch-product__panel">
+            <section
+              id="ProductInfo-{{ section.id }}"
+              class="product__info-container smooch-buybox{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
+            >
+              {%- assign product_form_id = 'product-form-' | append: section.id -%}
+
+              <smooch-offer
+                class="smooch-offer"
+                data-section-id="{{ section.id }}"
+                data-current-variant="{{ current_variant.id }}"
+                data-default-bundle="{{ default_bundle_index }}"
+                data-save-template="Save [percent]%"
+              >
+                {%- comment -%} Form-associated controls driven by the offer UI. {%- endcomment -%}
+                {%- if has_bundles -%}
+                  <input
+                    type="hidden"
+                    name="quantity"
+                    value="{{ default_bundle_qty }}"
+                    form="{{ product_form_id }}"
+                    data-smooch-quantity
+                  >
+                {%- endif -%}
+                {%- if has_plans -%}
+                  <input
+                    type="hidden"
+                    name="selling_plan"
+                    value=""
+                    form="{{ product_form_id }}"
+                    disabled
+                    data-smooch-selling-plan
+                  >
+                {%- endif -%}
+
+                {%- for block in section.blocks -%}
+                  {%- case block.type -%}
+                    {%- when '@app' -%}
+                      {% render block %}
+
+                    {%- when 'eyebrow' -%}
+                      {%- if block.settings.text != blank -%}
+                        <p class="smooch-eyebrow smooch-eyebrow--accent smooch-buybox__eyebrow" {{ block.shopify_attributes }}>
+                          {{ block.settings.text | replace: '[brand]', brand_name }}
+                        </p>
+                      {%- endif -%}
+
+                    {%- when 'title' -%}
+                      <h1 class="smooch-h2 smooch-buybox__title" {{ block.shopify_attributes }}>
+                        {%- if block.settings.custom_title != blank -%}
+                          {{ block.settings.custom_title | replace: '[brand]', brand_name }}
+                        {%- else -%}
+                          {{ product.title | escape }}
+                        {%- endif -%}
+                      </h1>
+
+                    {%- when 'rating' -%}
+                      <div class="smooch-buybox__rating" {{ block.shopify_attributes }}>
+                        {% render 'smooch-rating',
+                          product: product,
+                          fallback_rating: block.settings.fallback_rating,
+                          fallback_count: block.settings.fallback_count,
+                          show_sample_label: true,
+                          link: block.settings.link_to_reviews
+                        %}
+                      </div>
+
+                    {%- when 'promise' -%}
+                      {%- if block.settings.text != blank -%}
+                        <p class="smooch-lead smooch-buybox__promise" {{ block.shopify_attributes }}>
+                          {{ block.settings.text | replace: '[brand]', brand_name }}
+                        </p>
+                      {%- endif -%}
+
+                    {%- when 'benefit' -%}
+                      {%- unless benefits_rendered -%}
+                        {%- assign benefits_rendered = true -%}
+                        {%- assign benefit_blocks = section.blocks | where: 'type', 'benefit' -%}
+                        <ul class="smooch-ticks smooch-buybox__benefits" role="list">
+                          {%- for benefit_block in benefit_blocks -%}
+                            {%- if benefit_block.settings.text != blank -%}
+                              {% render 'smooch-benefit-item',
+                                icon: benefit_block.settings.icon,
+                                text: benefit_block.settings.text,
+                                attrs: benefit_block.shopify_attributes
+                              %}
+                            {%- endif -%}
+                          {%- endfor -%}
+                        </ul>
+                      {%- endunless -%}
+
+                    {%- when 'variant_picker' -%}
+                      <div class="smooch-buybox__variants" {{ block.shopify_attributes }}>
+                        {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+                      </div>
+
+                    {%- when 'bundles' -%}
+                      {%- if has_bundles -%}
+                        <fieldset class="smooch-bundles" {{ block.shopify_attributes }}>
+                          <legend class="smooch-bundles__legend">
+                            {{ block.settings.heading | default: 'Choose your bundle' }}
+                          </legend>
+                          <div class="smooch-bundles__list" role="radiogroup" aria-label="{{ block.settings.heading | default: 'Choose your bundle' | escape }}">
+                            {%- for bundle_block in bundle_blocks -%}
+                              {% render 'smooch-bundle-option',
+                                block: bundle_block,
+                                index: forloop.index0,
+                                section_id: section.id,
+                                product: product,
+                                current_variant: current_variant,
+                                checked_index: default_bundle_index
+                              %}
+                            {%- endfor -%}
+                          </div>
+
+                          {%- if gift_blocks.size > 0 -%}
+                            {%- assign default_tier = default_bundle_index | plus: 1 -%}
+                            <div class="smooch-gifts">
+                              {%- for gift_block in gift_blocks -%}
+                                {%- if gift_block.settings.title != blank -%}
+                                  <div
+                                    class="smooch-gift"
+                                    data-smooch-gift
+                                    data-tier="{{ gift_block.settings.tier }}"
+                                    {{ gift_block.shopify_attributes }}
+                                  >
+                                    <div class="smooch-gift__media">
+                                      {%- if gift_block.settings.image != blank -%}
+                                        {{ gift_block.settings.image | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60, 120', sizes: '6rem', class: 'smooch-gift__img', alt: gift_block.settings.title }}
+                                      {%- else -%}
+                                        {% render 'smooch-icon', icon: 'gift', class: 'smooch-icon--lg' %}
+                                      {%- endif -%}
+                                    </div>
+                                    <div class="smooch-gift__body">
+                                      <p class="smooch-gift__title">
+                                        {{ gift_block.settings.title }}
+                                        {%- if gift_block.settings.value != blank -%}
+                                          <span class="smooch-gift__value">({{ gift_block.settings.value }} value)</span>
+                                        {%- endif -%}
+                                      </p>
+                                      <p class="smooch-gift__state">
+                                        <span data-gift-included{% if default_tier < gift_block.settings.tier %} hidden{% endif %}>
+                                          {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
+                                          Included with your selection
+                                        </span>
+                                        <span data-gift-locked{% unless default_tier < gift_block.settings.tier %} hidden{% endunless %}>
+                                          {{ gift_block.settings.unlock_text | default: 'Included with larger bundles' }}
+                                        </span>
+                                      </p>
+                                    </div>
+                                  </div>
+                                {%- endif -%}
+                              {%- endfor -%}
+                            </div>
+                          {%- endif -%}
+                        </fieldset>
+                      {%- endif -%}
+
+                    {%- when 'subscription' -%}
+                      {%- if has_plans -%}
+                        <fieldset class="smooch-plans" {{ block.shopify_attributes }}>
+                          <legend class="smooch-bundles__legend">
+                            {{ block.settings.heading | default: 'How often?' }}
+                          </legend>
+                          <div class="smooch-plans__list">
+                            <label class="smooch-plan">
+                              <input
+                                type="radio"
+                                name="smooch-plan-{{ section.id }}"
+                                value=""
+                                checked
+                                data-smooch-plan-radio
+                                class="smooch-plan__input visually-hidden"
+                              >
+                              <span class="smooch-plan__body">
+                                <span class="smooch-plan__name">{{ block.settings.onetime_label | default: 'One-time purchase' }}</span>
+                              </span>
+                            </label>
+                            {%- for group in product.selling_plan_groups -%}
+                              {%- for plan in group.selling_plans -%}
+                                <label class="smooch-plan">
+                                  <input
+                                    type="radio"
+                                    name="smooch-plan-{{ section.id }}"
+                                    value="{{ plan.id }}"
+                                    data-smooch-plan-radio
+                                    class="smooch-plan__input visually-hidden"
+                                  >
+                                  <span class="smooch-plan__body">
+                                    <span class="smooch-plan__name">
+                                      {{ block.settings.subscribe_label | default: 'Subscribe & save' }}
+                                      <span class="smooch-badge smooch-badge--berry" data-plan-save data-plan-id="{{ plan.id }}" hidden></span>
+                                    </span>
+                                    <span class="smooch-plan__meta">{{ plan.name }}</span>
+                                    {%- if block.settings.plan_note != blank -%}
+                                      <span class="smooch-plan__note">{{ block.settings.plan_note }}</span>
+                                    {%- endif -%}
+                                  </span>
+                                </label>
+                              {%- endfor -%}
+                            {%- endfor -%}
+                          </div>
+                        </fieldset>
+                      {%- endif -%}
+
+                    {%- when 'price' -%}
+                      <div class="smooch-buybox__price-group" {{ block.shopify_attributes }}>
+                        {%- comment -%}
+                          Dawn's price node keeps the section-render swap contract alive.
+                          It is the visible price for simple setups; when bundles are
+                          configured the computed offer line below is the visible price.
+                        {%- endcomment -%}
+                        {%- liquid
+                          assign offer_ui = false
+                          if has_bundles or has_plans
+                            assign offer_ui = true
+                          endif
+                        -%}
+                        <div id="price-{{ section.id }}" role="status" {% if offer_ui %}class="hidden"{% endif %}>
+                          {%- render 'price', product: product, use_variant: true, show_badges: false, price_class: 'price--large' -%}
+                        </div>
+                        {%- if offer_ui -%}
+                          {%- assign initial_total = current_variant.price | times: default_bundle_qty -%}
+                          {%- assign initial_compare = current_variant.compare_at_price | default: 0 | times: default_bundle_qty -%}
+                          <div class="smooch-offer-price" data-smooch-offer-price role="status">
+                            <span class="smooch-offer-price__current smooch-num" data-smooch-price>{{ initial_total | money }}</span>
+                            <s class="smooch-strike smooch-num" data-smooch-compare {% if initial_compare <= initial_total %}hidden{% endif %}>{{ initial_compare | money }}</s>
+                            <span class="smooch-badge smooch-badge--blush" data-smooch-save {% if initial_compare <= initial_total %}hidden{% endif %}>
+                              {%- if initial_compare > initial_total -%}
+                                {%- assign save_amount = initial_compare | minus: initial_total | times: 100 -%}
+                                Save {{ save_amount | divided_by: initial_compare }}%
+                              {%- endif -%}
+                            </span>
+                          </div>
+                          <p class="smooch-caption smooch-offer-price__unit" data-smooch-unit-line {% if default_bundle_qty <= 1 %}hidden{% endif %}>
+                            <span data-smooch-unit>{{ current_variant.price | money }}</span> each
+                          </p>
+                        {%- endif -%}
+                        {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
+                          <div class="smooch-fine-print">
+                            {%- if cart.duties_included and cart.taxes_included -%}
+                              {{ 'products.product.duties_and_taxes_included' | t }}
+                            {%- elsif cart.taxes_included -%}
+                              {{ 'products.product.taxes_included' | t }}
+                            {%- elsif cart.duties_included -%}
+                              {{ 'products.product.duties_included' | t }}
+                            {%- endif -%}
+                            {%- if shop.shipping_policy.body != blank -%}
+                              {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                            {%- endif -%}
+                          </div>
+                        {%- endif -%}
+                        <div>
+                          {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+                          {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
+                            <input type="hidden" name="id" value="{{ current_variant.id }}">
+                            {{ form | payment_terms }}
+                          {%- endform -%}
+                        </div>
+                      </div>
+
+                    {%- when 'buy_buttons' -%}
+                      <div class="smooch-buybox__buy" {{ block.shopify_attributes }}>
+                        {%- render 'buy-buttons',
+                          block: block,
+                          product: product,
+                          product_form_id: product_form_id,
+                          section_id: section.id,
+                          show_pickup_availability: false
+                        -%}
+                      </div>
+
+                    {%- when 'reassurance' -%}
+                      {% render 'smooch-purchase-reassurance', block: block, product: product, section_id: section.id %}
+
+                    {%- when 'collapsible_tab' -%}
+                      <div class="smooch-accordion smooch-buybox__accordion" {{ block.shopify_attributes }}>
+                        <details id="Details-{{ block.id }}-{{ section.id }}">
+                          <summary aria-controls="Accordion-{{ block.id }}-{{ section.id }}">
+                            <span class="smooch-accordion__label">
+                              {%- if block.settings.icon != 'none' -%}
+                                {% render 'smooch-icon', icon: block.settings.icon %}
+                              {%- endif -%}
+                              {{ block.settings.heading | default: block.settings.page.title }}
+                            </span>
+                            {% render 'smooch-icon', icon: 'plus', class: 'smooch-icon--toggle' %}
+                          </summary>
+                          <div class="smooch-accordion__content" id="Accordion-{{ block.id }}-{{ section.id }}">
+                            {{ block.settings.content }}
+                            {{ block.settings.page.content }}
+                          </div>
+                        </details>
+                      </div>
+
+                    {%- when 'text' -%}
+                      {%- if block.settings.text != blank -%}
+                        <div class="smooch-body rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+                      {%- endif -%}
+
+                    {%- when 'description' -%}
+                      {%- if product.description != blank -%}
+                        <div class="smooch-body rte" {{ block.shopify_attributes }}>{{ product.description }}</div>
+                      {%- endif -%}
+
+                    {%- when 'custom_liquid' -%}
+                      {{ block.settings.custom_liquid }}
+                  {%- endcase -%}
+                {%- endfor -%}
+
+                {%- comment -%} Offer data: real variant / bundle / selling-plan pricing, precomputed in Liquid. {%- endcomment -%}
+                {%- if has_bundles or has_plans -%}
+                  <script type="application/json" data-smooch-offer>
+                    {
+                      "sectionId": {{ section.id | json }},
+                      "bundles": [
+                        {%- for bundle_block in bundle_blocks -%}
+                          {%- assign bqty = bundle_block.settings.quantity | at_least: 1 -%}
+                          {
+                            "quantity": {{ bqty }},
+                            "variantValue": {{ bundle_block.settings.variant_value | strip | json }}
+                          }{% unless forloop.last %},{% endunless %}
+                        {%- endfor -%}
+                        {%- if bundle_blocks.size == 0 -%}
+                          { "quantity": 1, "variantValue": "" }
+                        {%- endif -%}
+                      ],
+                      "plans": [
+                        {%- for group in product.selling_plan_groups -%}
+                          {%- for plan in group.selling_plans -%}
+                            { "id": {{ plan.id | json }}, "name": {{ plan.name | json }} }
+                            {%- unless forloop.last and forloop.parentloop.last %},{% endunless %}
+                          {%- endfor -%}
+                        {%- endfor -%}
+                      ],
+                      "variants": {
+                        {%- for variant in product.variants -%}
+                          {{ variant.id | json }}: {
+                            "available": {{ variant.available | json }},
+                            "options": {{ variant.options | json }},
+                            "base": [
+                              {%- if bundle_blocks.size > 0 -%}
+                                {%- for bundle_block in bundle_blocks -%}
+                                  {%- assign bqty = bundle_block.settings.quantity | at_least: 1 -%}
+                                  {%- assign btotal = variant.price | times: bqty -%}
+                                  {%- assign bcompare = variant.compare_at_price | default: 0 | times: bqty -%}
+                                  {%- assign bsave = 0 -%}
+                                  {%- if bcompare > btotal -%}
+                                    {%- assign bsave_amount = bcompare | minus: btotal | times: 100 -%}
+                                    {%- assign bsave = bsave_amount | divided_by: bcompare -%}
+                                  {%- endif -%}
+                                  {
+                                    "t": {{ btotal | money | json }},
+                                    "c": {% if bcompare > btotal %}{{ bcompare | money | json }}{% else %}""{% endif %},
+                                    "u": {{ variant.price | money | json }},
+                                    "s": {{ bsave }}
+                                  }{% unless forloop.last %},{% endunless %}
+                                {%- endfor -%}
+                              {%- else -%}
+                                {%- assign btotal = variant.price -%}
+                                {%- assign bcompare = variant.compare_at_price | default: 0 -%}
+                                {
+                                  "t": {{ btotal | money | json }},
+                                  "c": {% if bcompare > btotal %}{{ bcompare | money | json }}{% else %}""{% endif %},
+                                  "u": {{ variant.price | money | json }},
+                                  "s": 0
+                                }
+                              {%- endif -%}
+                            ],
+                            "plans": {
+                              {%- for allocation in variant.selling_plan_allocations -%}
+                                {{ allocation.selling_plan.id | json }}: [
+                                  {%- if bundle_blocks.size > 0 -%}
+                                    {%- for bundle_block in bundle_blocks -%}
+                                      {%- assign bqty = bundle_block.settings.quantity | at_least: 1 -%}
+                                      {%- assign ptotal = allocation.price | times: bqty -%}
+                                      {%- assign pcompare_base = allocation.compare_at_price | default: variant.price -%}
+                                      {%- assign pcompare = pcompare_base | times: bqty -%}
+                                      {%- assign psave = 0 -%}
+                                      {%- if pcompare > ptotal -%}
+                                        {%- assign psave_amount = pcompare | minus: ptotal | times: 100 -%}
+                                        {%- assign psave = psave_amount | divided_by: pcompare -%}
+                                      {%- endif -%}
+                                      {
+                                        "t": {{ ptotal | money | json }},
+                                        "c": {% if pcompare > ptotal %}{{ pcompare | money | json }}{% else %}""{% endif %},
+                                        "u": {{ allocation.price | money | json }},
+                                        "s": {{ psave }}
+                                      }{% unless forloop.last %},{% endunless %}
+                                    {%- endfor -%}
+                                  {%- else -%}
+                                    {%- assign ptotal = allocation.price -%}
+                                    {%- assign pcompare = allocation.compare_at_price | default: variant.price -%}
+                                    {%- assign psave = 0 -%}
+                                    {%- if pcompare > ptotal -%}
+                                      {%- assign psave_amount = pcompare | minus: ptotal | times: 100 -%}
+                                      {%- assign psave = psave_amount | divided_by: pcompare -%}
+                                    {%- endif -%}
+                                    {
+                                      "t": {{ ptotal | money | json }},
+                                      "c": {% if pcompare > ptotal %}{{ pcompare | money | json }}{% else %}""{% endif %},
+                                      "u": {{ allocation.price | money | json }},
+                                      "s": {{ psave }}
+                                    }
+                                  {%- endif -%}
+                                ]{% unless forloop.last %},{% endunless %}
+                              {%- endfor -%}
+                            }
+                          }{% unless forloop.last %},{% endunless %}
+                        {%- endfor -%}
+                      }
+                    }
+                  </script>
+                {%- endif -%}
+              </smooch-offer>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      {%- if section.settings.enable_sticky_atc -%}
+        <smooch-sticky-atc
+          class="smooch-sticky-atc"
+          data-section-id="{{ section.id }}"
+          hidden
+        >
+          <div class="smooch-sticky-atc__inner">
+            {%- if product.featured_media -%}
+              <div class="smooch-sticky-atc__thumb">
+                {{ product.featured_media.preview_image | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60, 120', sizes: '5rem', alt: '' }}
+              </div>
+            {%- endif -%}
+            <div class="smooch-sticky-atc__meta">
+              <span class="smooch-sticky-atc__title">{{ product.title | escape }}</span>
+              <span class="smooch-sticky-atc__price smooch-num" data-sticky-price>
+                {{- current_variant.price | times: default_bundle_qty | money -}}
+              </span>
+            </div>
+            <button type="button" class="smooch-btn smooch-btn--brand smooch-sticky-atc__button" data-sticky-submit>
+              <span data-sticky-label>{{ 'products.product.add_to_cart' | t }}</span>
+            </button>
+          </div>
+        </smooch-sticky-atc>
+      {%- endif -%}
+
+      {%- if product.media.size > 0 -%}
+        {% render 'product-media-modal', variant_images: variant_images %}
+        <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
+        <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+      {%- endif -%}
+    </product-component>
+
+    {%- if first_3d_model -%}
+      <script type="application/json" id="ProductJSON-{{ product.id }}">
+        {{ product.media | where: 'media_type', 'model' | json }}
+      </script>
+      <script src="{{ 'product-model.js' | asset_url }}" defer></script>
+    {%- endif -%}
+  {%- else -%}
+    <div class="page-width">
+      <div class="grid grid--1-col grid--2-col-tablet smooch-product__layout">
+        <div class="grid__item smooch-product__gallery">
+          <div class="smooch-media smooch-media--square" style="background: var(--smooch-blush); display: grid; place-items: center;">
+            {{ 'product-1' | placeholder_svg_tag: 'smooch-product__placeholder-svg' }}
+          </div>
+        </div>
+        <div class="grid__item smooch-product__panel">
+          <section class="smooch-buybox">
+            <p class="smooch-eyebrow smooch-eyebrow--accent">{{ brand_name }}</p>
+            <h1 class="smooch-h2">Example product title</h1>
+            <p class="smooch-lead">Select a product for this section in the theme editor to activate the purchase module.</p>
+          </section>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</product-info>
+
+{% schema %}
+{
+  "name": "Smooch product hero",
+  "tag": "section",
+  "class": "section smooch-product-hero-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The primary purchase module: gallery, bundle selector, subscription options, and add to cart. Designed for the main product template."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_info",
+      "label": "Sticky purchase panel on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_atc",
+      "label": "Sticky add-to-cart bar on mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Media gallery"
+    },
+    {
+      "type": "select",
+      "id": "gallery_layout",
+      "options": [
+        { "value": "stacked", "label": "t:sections.main-product.settings.gallery_layout.options__1.label" },
+        { "value": "columns", "label": "t:sections.main-product.settings.gallery_layout.options__2.label" },
+        { "value": "thumbnail", "label": "t:sections.main-product.settings.gallery_layout.options__3.label" },
+        { "value": "thumbnail_slider", "label": "t:sections.main-product.settings.gallery_layout.options__4.label" }
+      ],
+      "default": "thumbnail_slider",
+      "label": "t:sections.main-product.settings.gallery_layout.label"
+    },
+    {
+      "type": "select",
+      "id": "media_size",
+      "options": [
+        { "value": "small", "label": "t:sections.main-product.settings.media_size.options__1.label" },
+        { "value": "medium", "label": "t:sections.main-product.settings.media_size.options__2.label" },
+        { "value": "large", "label": "t:sections.main-product.settings.media_size.options__3.label" }
+      ],
+      "default": "medium",
+      "label": "t:sections.main-product.settings.media_size.label",
+      "info": "t:sections.main-product.settings.media_size.info"
+    },
+    {
+      "type": "select",
+      "id": "media_fit",
+      "options": [
+        { "value": "contain", "label": "t:sections.main-product.settings.media_fit.options__1.label" },
+        { "value": "cover", "label": "t:sections.main-product.settings.media_fit.options__2.label" }
+      ],
+      "default": "contain",
+      "label": "t:sections.main-product.settings.media_fit.label"
+    },
+    {
+      "type": "select",
+      "id": "image_zoom",
+      "options": [
+        { "value": "lightbox", "label": "t:sections.main-product.settings.image_zoom.options__1.label" },
+        { "value": "hover", "label": "t:sections.main-product.settings.image_zoom.options__2.label" },
+        { "value": "none", "label": "t:sections.main-product.settings.image_zoom.options__3.label" }
+      ],
+      "default": "lightbox",
+      "label": "t:sections.main-product.settings.image_zoom.label"
+    },
+    {
+      "type": "select",
+      "id": "mobile_thumbnails",
+      "options": [
+        { "value": "columns", "label": "t:sections.main-product.settings.mobile_thumbnails.options__1.label" },
+        { "value": "show", "label": "t:sections.main-product.settings.mobile_thumbnails.options__2.label" },
+        { "value": "hide", "label": "t:sections.main-product.settings.mobile_thumbnails.options__3.label" }
+      ],
+      "default": "hide",
+      "label": "t:sections.main-product.settings.mobile_thumbnails.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_variants",
+      "default": false,
+      "label": "t:sections.main-product.settings.hide_variants.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "default": false,
+      "label": "t:sections.main-product.settings.enable_video_looping.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "constrain_to_viewport",
+      "default": true,
+      "label": "t:sections.main-product.settings.constrain_to_viewport.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "eyebrow",
+      "name": "Eyebrow",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "The daily desire ritual",
+          "info": "Use [brand] to insert the brand name."
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Product title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "custom_title",
+          "label": "Custom title",
+          "info": "Optional. Leave empty to use the product title. Use [brand] to insert the brand name."
+        }
+      ]
+    },
+    {
+      "type": "rating",
+      "name": "Star rating",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Uses the product's review rating metafield (reviews.rating) when a review app has populated it. The fallback below is marked as sample data and should be replaced by real reviews before launch."
+        },
+        {
+          "type": "range",
+          "id": "fallback_rating",
+          "label": "Sample rating (used only without review data)",
+          "min": 0,
+          "max": 5,
+          "step": 0.5,
+          "default": 4.5
+        },
+        {
+          "type": "number",
+          "id": "fallback_count",
+          "label": "Sample review count",
+          "default": 0,
+          "info": "Set to 0 to hide the rating entirely until real reviews exist."
+        },
+        {
+          "type": "checkbox",
+          "id": "link_to_reviews",
+          "label": "Link to the reviews section",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "promise",
+      "name": "Product promise",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "One-sentence promise",
+          "default": "A daily gummy formulated to support desire, mood, confidence, and connection."
+        }
+      ]
+    },
+    {
+      "type": "benefit",
+      "name": "Benefit bullet",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "check",
+          "options": [
+            { "value": "check", "label": "Check" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "moon", "label": "Moon" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "drop", "label": "Drop" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Formulated to support desire and mood"
+        }
+      ]
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant picker",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            { "value": "dropdown", "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__1.label" },
+            { "value": "button", "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__2.label" }
+          ],
+          "default": "button",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.label"
+        },
+        {
+          "type": "select",
+          "id": "swatch_shape",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.label",
+          "options": [
+            { "value": "circle", "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.options__1.label" },
+            { "value": "square", "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.options__2.label" },
+            { "value": "none", "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.options__3.label" }
+          ],
+          "default": "circle"
+        }
+      ]
+    },
+    {
+      "type": "bundles",
+      "name": "Bundle selector",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Renders all “Bundle option” blocks as a selector. Add 1–3 “Bundle option” blocks below this block."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Choose your bundle"
+        }
+      ]
+    },
+    {
+      "type": "bundle",
+      "name": "Bundle option",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "1-month supply"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "60 gummies · 30 days",
+          "info": "Servings, days, or any short supporting line."
+        },
+        {
+          "type": "range",
+          "id": "quantity",
+          "label": "Quantity added to cart",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "text",
+          "id": "variant_value",
+          "label": "Variant option value (advanced)",
+          "info": "If your bundles are modeled as a product option (e.g. a “Pack” option with values 1-Pack / 2-Pack / 3-Pack), enter the option value here and selecting this bundle switches to that variant. Leave empty to sell the selected variant × the quantity above."
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge",
+          "info": "E.g. “Most popular” or “Best value”. Leave empty for no badge."
+        },
+        {
+          "type": "checkbox",
+          "id": "preselected",
+          "label": "Preselected",
+          "default": false,
+          "info": "If none is marked preselected, the first bundle is selected by default."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_thumbnail",
+          "label": "Show product thumbnail",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "gift",
+      "name": "Free gift display",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Promotional display only: it does not add items to the cart. Configure the actual free-gift fulfillment with a discount or app, and keep this display in step with it."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Gift name"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Display value",
+          "info": "E.g. “$19”. Shown as “($19 value)”."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Thumbnail"
+        },
+        {
+          "type": "range",
+          "id": "tier",
+          "label": "Included from bundle #",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 2,
+          "info": "1 = included with every bundle, 2 = second bundle and up, etc."
+        },
+        {
+          "type": "text",
+          "id": "unlock_text",
+          "label": "Locked-state text",
+          "default": "Included with larger bundles"
+        }
+      ]
+    },
+    {
+      "type": "subscription",
+      "name": "Subscription selector",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Only renders when the product has real selling plans (e.g. from the Shopify Subscriptions app). Never shows a fake subscription."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "How often?"
+        },
+        {
+          "type": "text",
+          "id": "onetime_label",
+          "label": "One-time label",
+          "default": "One-time purchase"
+        },
+        {
+          "type": "text",
+          "id": "subscribe_label",
+          "label": "Subscription label",
+          "default": "Subscribe & save"
+        },
+        {
+          "type": "text",
+          "id": "plan_note",
+          "label": "Subscription note",
+          "default": "Skip, pause, or cancel anytime."
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "buy_buttons",
+      "name": "t:sections.main-product.blocks.buy_buttons.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "default": false,
+          "label": "t:sections.main-product.blocks.buy_buttons.settings.show_dynamic_checkout.label",
+          "info": "t:sections.main-product.blocks.buy_buttons.settings.show_dynamic_checkout.info"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_gift_card_recipient",
+          "default": false,
+          "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
+          "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+        }
+      ]
+    },
+    {
+      "type": "reassurance",
+      "name": "Purchase reassurance",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Delivery, shipping, guarantee, and secure-checkout copy come from Theme settings → Smooch brand."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_delivery",
+          "label": "Show delivery estimate",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_shipping",
+          "label": "Show shipping message",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_guarantee",
+          "label": "Show guarantee",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_secure",
+          "label": "Show secure checkout",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_inventory",
+          "label": "Show low-inventory note (real inventory only)",
+          "default": false,
+          "info": "Only appears when Shopify tracks this variant's inventory and it is at or below the threshold. Never invents numbers."
+        },
+        {
+          "type": "range",
+          "id": "inventory_threshold",
+          "label": "Low-inventory threshold",
+          "min": 1,
+          "max": 50,
+          "step": 1,
+          "default": 10
+        }
+      ]
+    },
+    {
+      "type": "collapsible_tab",
+      "name": "Collapsible row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "How to use"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "info", "label": "Info" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "drop", "label": "Drop" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "shield", "label": "Shield" }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Content from page"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Rich text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Product description",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom liquid"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch product hero",
+      "blocks": [
+        { "type": "eyebrow" },
+        { "type": "title" },
+        { "type": "rating" },
+        { "type": "promise" },
+        { "type": "benefit", "settings": { "icon": "heart", "text": "Formulated to support desire" } },
+        { "type": "benefit", "settings": { "icon": "sparkle", "text": "Supports a steadier mood" } },
+        { "type": "benefit", "settings": { "icon": "moon", "text": "One gummy, once a day" } },
+        { "type": "benefit", "settings": { "icon": "leaf", "text": "Thoughtful, transparent ingredients" } },
+        { "type": "variant_picker" },
+        { "type": "bundles" },
+        {
+          "type": "bundle",
+          "settings": {
+            "title": "1-month supply",
+            "subtitle": "60 gummies · 30 days",
+            "quantity": 1
+          }
+        },
+        {
+          "type": "bundle",
+          "settings": {
+            "title": "2-month supply",
+            "subtitle": "120 gummies · 60 days",
+            "quantity": 2,
+            "badge": "Most popular",
+            "preselected": true
+          }
+        },
+        {
+          "type": "bundle",
+          "settings": {
+            "title": "3-month supply",
+            "subtitle": "180 gummies · 90 days",
+            "quantity": 3,
+            "badge": "Best value"
+          }
+        },
+        { "type": "subscription" },
+        { "type": "price" },
+        { "type": "buy_buttons" },
+        { "type": "reassurance" },
+        {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How to use",
+            "icon": "info",
+            "content": "<p>Take the recommended serving daily, ideally at the same time each day. Consistency matters more than timing.</p>"
+          }
+        },
+        {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Ingredients",
+            "icon": "leaf",
+            "content": "<p>Add your full ingredient list and dosages here once finalized.</p>"
+          }
+        },
+        {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping & returns",
+            "icon": "truck",
+            "content": "<p>Add your shipping timelines and return policy details here.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

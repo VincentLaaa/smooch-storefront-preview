@@ -1,0 +1,75 @@
+{% comment %}
+  Renders one bundle option card (radio + label).
+
+  All prices are real: variant price/compare-at × quantity, server-rendered for
+  the initially selected variant with no selling plan. smooch-product-form.js
+  re-renders the figures from the offer-data JSON when variant, bundle, or
+  selling plan changes.
+
+  Accepts:
+  - block: {Object} 'bundle' block
+  - index: {Number} 0-based bundle index
+  - section_id: {String}
+  - product: {Object}
+  - current_variant: {Object}
+  - checked_index: {Number} initially selected bundle index
+
+  Usage:
+  {% render 'smooch-bundle-option', block: block, index: 0, section_id: section.id, product: product, current_variant: current_variant, checked_index: 0 %}
+{% endcomment %}
+
+{%- liquid
+  assign qty = block.settings.quantity | at_least: 1
+  assign total = current_variant.price | times: qty
+  assign compare = current_variant.compare_at_price | default: 0 | times: qty
+  assign save = 0
+  if compare > total
+    assign save_amount = compare | minus: total | times: 100
+    assign save = save_amount | divided_by: compare
+  endif
+-%}
+
+<label class="smooch-bundle" {{ block.shopify_attributes }}>
+  <input
+    type="radio"
+    class="visually-hidden smooch-bundle__input"
+    name="smooch-bundle-{{ section_id }}"
+    value="{{ index }}"
+    data-smooch-bundle-radio
+    data-quantity="{{ qty }}"
+    data-variant-value="{{ block.settings.variant_value | strip | escape }}"
+    {% if index == checked_index %}checked{% endif %}
+  >
+  <span class="smooch-bundle__card">
+    {%- if block.settings.badge != blank -%}
+      <span class="smooch-bundle__badge smooch-badge smooch-badge--berry">{{ block.settings.badge }}</span>
+    {%- endif -%}
+    <span class="smooch-bundle__check" aria-hidden="true">
+      {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
+    </span>
+    {%- if block.settings.show_thumbnail and product.featured_media -%}
+      <span class="smooch-bundle__thumb">
+        {{ product.featured_media.preview_image | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60, 120', sizes: '5.6rem', alt: '' }}
+      </span>
+    {%- endif -%}
+    <span class="smooch-bundle__body">
+      <span class="smooch-bundle__title">{{ block.settings.title }}</span>
+      {%- if block.settings.subtitle != blank -%}
+        <span class="smooch-bundle__subtitle">{{ block.settings.subtitle }}</span>
+      {%- endif -%}
+      <span class="smooch-bundle__soldout smooch-caption" data-bundle-soldout hidden>
+        {{ 'products.product.sold_out' | t }}
+      </span>
+    </span>
+    <span class="smooch-bundle__pricing">
+      <span class="smooch-bundle__price smooch-num" data-bundle-price>{{ total | money }}</span>
+      <s class="smooch-strike smooch-num" data-bundle-compare {% if compare <= total %}hidden{% endif %}>{{ compare | money }}</s>
+      <span class="smooch-bundle__unit" data-bundle-unit-line {% if qty <= 1 %}hidden{% endif %}>
+        <span class="smooch-num" data-bundle-unit>{{ current_variant.price | money }}</span> each
+      </span>
+      <span class="smooch-badge smooch-badge--blush smooch-bundle__save" data-bundle-save {% if save == 0 %}hidden{% endif %}>
+        {%- if save > 0 %}Save {{ save }}%{% endif -%}
+      </span>
+    </span>
+  </span>
+</label>
