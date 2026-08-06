@@ -9,6 +9,9 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
-    "@shopify/cli": "^3.72.0"
+    "@shopify/cli": "^3.72.0",
+    "express": "^5.2.1",
+    "liquidjs": "^10.28.0",
+    "multer": "^2.2.0"
   }
 }

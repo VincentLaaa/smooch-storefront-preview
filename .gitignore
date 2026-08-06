@@ -15,3 +15,8 @@ playwright-report/
 .env
 .env.*
 qa/.auth/
+qa/results/local-artifacts/
+qa/results/local-html-report/
+qa/results/html-report/
+qa/results/test-artifacts/
+dist/
