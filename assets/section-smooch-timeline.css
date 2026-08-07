@@ -178,3 +178,37 @@
     margin-top: clamp(4rem, 5vw, 6.4rem);
   }
 }
+
+/* ---------- Practical facts row (Timing / Results / Consistency) ---------- */
+
+.smooch-timeline__facts {
+  display: grid;
+  gap: 1.6rem;
+  margin-top: clamp(3.2rem, 5vw, 4.8rem);
+  padding-top: 2.4rem;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+}
+
+@media screen and (min-width: 750px) {
+  .smooch-timeline__facts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.4rem;
+  }
+}
+
+.smooch-timeline__fact-title {
+  margin: 0 0 0.6rem;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(196, 42, 80);
+}
+
+.smooch-timeline__fact-text {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.55;
+  color: rgba(var(--color-foreground), 0.8);
+}

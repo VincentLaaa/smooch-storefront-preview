@@ -80,6 +80,20 @@
           {%- endfor -%}
         </ol>
       {%- endif -%}
+    {%- assign fact_blocks = section.blocks | where: 'type', 'fact' -%}
+    {%- if fact_blocks.size > 0 -%}
+      <div class="smooch-timeline__facts">
+        {%- for fact in fact_blocks -%}
+          {%- if fact.settings.title != blank -%}
+            <div class="smooch-timeline__fact" {{ fact.shopify_attributes }}>
+              <h3 class="smooch-timeline__fact-title">{{ fact.settings.title | escape }}</h3>
+              <p class="smooch-timeline__fact-text">{{ fact.settings.text | escape }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
 
       {%- if section.settings.disclaimer != blank -%}
         <p class="smooch-fine-print smooch-timeline__disclaimer">
@@ -168,6 +182,15 @@
     }
   ],
   "blocks": [
+    {
+      "type": "fact",
+      "name": "Practical fact",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    },
     {
       "type": "step",
       "name": "Step",
