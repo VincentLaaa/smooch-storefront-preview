@@ -122,24 +122,24 @@
           "type": "pillar",
           "settings": {
             "icon": "sparkle",
-            "title": "Mood",
-            "text": "Formulated with ingredients traditionally used to support a steadier, calmer baseline."
+            "title": "Calm the noise",
+            "text": "Formulated to support a more settled everyday mindset."
           }
         },
         "pillar-2": {
           "type": "pillar",
           "settings": {
             "icon": "heart",
-            "title": "Desire",
-            "text": "Support for the part of you that wants to want — gently, over time."
+            "title": "Support your spark",
+            "text": "Support for desire, energy, and openness — gently, over time."
           }
         },
         "pillar-3": {
           "type": "pillar",
           "settings": {
             "icon": "moon",
-            "title": "Connection",
-            "text": "When you feel more like yourself, closeness stops feeling like a task."
+            "title": "Make connection feel easier",
+            "text": "Support for feeling present, open, and connected."
           }
         }
       },

@@ -9,7 +9,9 @@
         },
         "title-1": {
           "type": "title",
-          "settings": {}
+          "settings": {
+            "heading_level": "h1"
+          }
         },
         "rating-1": {
           "type": "rating",
@@ -22,29 +24,22 @@
         "benefit-1": {
           "type": "benefit",
           "settings": {
-            "icon": "heart",
-            "text": "Formulated to support desire"
+            "icon": "sparkle",
+            "text": "Supports a calmer, more open mindset"
           }
         },
         "benefit-2": {
           "type": "benefit",
           "settings": {
-            "icon": "sparkle",
-            "text": "Supports a steadier mood"
+            "icon": "heart",
+            "text": "Supports desire and everyday connection"
           }
         },
         "benefit-3": {
           "type": "benefit",
           "settings": {
             "icon": "moon",
-            "text": "One gummy, once a day"
-          }
-        },
-        "benefit-4": {
-          "type": "benefit",
-          "settings": {
-            "icon": "leaf",
-            "text": "Thoughtful, transparent ingredients"
+            "text": "An easy daily gummy ritual"
           }
         },
         "variant_picker-1": {
@@ -58,16 +53,16 @@
         "bundle-1": {
           "type": "bundle",
           "settings": {
-            "title": "1-month supply",
-            "subtitle": "60 gummies · 30 days",
+            "title": "1 Bottle",
+            "days": 30,
             "quantity": 1
           }
         },
         "bundle-2": {
           "type": "bundle",
           "settings": {
-            "title": "2-month supply",
-            "subtitle": "120 gummies · 60 days",
+            "title": "2 Bottles",
+            "days": 60,
             "quantity": 2,
             "badge": "Most popular",
             "preselected": true
@@ -76,8 +71,8 @@
         "bundle-3": {
           "type": "bundle",
           "settings": {
-            "title": "3-month supply",
-            "subtitle": "180 gummies · 90 days",
+            "title": "3 Bottles",
+            "days": 90,
             "quantity": 3,
             "badge": "Best value"
           }
@@ -97,6 +92,33 @@
         "reassurance-1": {
           "type": "reassurance",
           "settings": {}
+        },
+        "media_card-1": {
+          "type": "media_card",
+          "settings": {
+            "kicker": "The system",
+            "heading": "Mood · Desire · Connection",
+            "text": "<p>One gummy, formulated to support all three — softly, daily.</p>",
+            "palette": "blush"
+          }
+        },
+        "media_card-2": {
+          "type": "media_card",
+          "settings": {
+            "kicker": "Inside",
+            "heading": "Four working ingredients",
+            "text": "<p>KSM-66 Ashwagandha, Black Maca, Damiana, and Cinnamon Bark.</p>",
+            "palette": "cream"
+          }
+        },
+        "media_card-3": {
+          "type": "media_card",
+          "settings": {
+            "kicker": "The ritual",
+            "heading": "One gummy, once a day",
+            "text": "<p>With or without food — consistency matters more than timing.</p>",
+            "palette": "lilac"
+          }
         },
         "collapsible_tab-1": {
           "type": "collapsible_tab",
@@ -131,7 +153,6 @@
         "benefit-1",
         "benefit-2",
         "benefit-3",
-        "benefit-4",
         "variant_picker-1",
         "bundles-1",
         "bundle-1",
@@ -141,11 +162,57 @@
         "price-1",
         "buy_buttons-1",
         "reassurance-1",
+        "media_card-1",
+        "media_card-2",
+        "media_card-3",
         "collapsible_tab-1",
         "collapsible_tab-2",
         "collapsible_tab-3"
       ],
       "settings": {}
+    },
+    "press": {
+      "type": "smooch-press-bar",
+      "blocks": {
+        "outlet-1": {
+          "type": "outlet",
+          "settings": {
+            "name": "Marie Claire",
+            "style": "serif-caps"
+          }
+        },
+        "outlet-2": {
+          "type": "outlet",
+          "settings": {
+            "name": "goop",
+            "style": "sans-lower"
+          }
+        },
+        "outlet-3": {
+          "type": "outlet",
+          "settings": {
+            "name": "VOGUE",
+            "style": "serif-caps"
+          }
+        },
+        "outlet-4": {
+          "type": "outlet",
+          "settings": {
+            "name": "COSMOPOLITAN",
+            "style": "sans-caps"
+          }
+        }
+      },
+      "block_order": [
+        "outlet-1",
+        "outlet-2",
+        "outlet-3",
+        "outlet-4"
+      ],
+      "settings": {
+        "heading": "As featured in",
+        "color_scheme": "scheme-5"
+      }
     },
     "benefit_strip": {
       "type": "smooch-benefit-strip",
@@ -184,10 +251,6 @@
         "item-3",
         "guarantee-1"
       ],
-      "settings": {}
-    },
-    "featured_story": {
-      "type": "smooch-featured-story",
       "settings": {}
     },
     "problem": {
@@ -247,24 +310,24 @@
           "type": "pillar",
           "settings": {
             "icon": "sparkle",
-            "title": "Mood",
-            "text": "Formulated with ingredients traditionally used to support a steadier, calmer baseline."
+            "title": "Calm the noise",
+            "text": "Formulated to support a more settled everyday mindset."
           }
         },
         "pillar-2": {
           "type": "pillar",
           "settings": {
             "icon": "heart",
-            "title": "Desire",
-            "text": "Support for the part of you that wants to want — gently, over time."
+            "title": "Support your spark",
+            "text": "Support for desire, energy, and openness — gently, over time."
           }
         },
         "pillar-3": {
           "type": "pillar",
           "settings": {
             "icon": "moon",
-            "title": "Connection",
-            "text": "When you feel more like yourself, closeness stops feeling like a task."
+            "title": "Make connection feel easier",
+            "text": "Support for feeling present, open, and connected."
           }
         }
       },
@@ -303,21 +366,12 @@
             "headline": "Feel more connected",
             "text": "To yourself first — the rest tends to follow. Experiences vary; consistency is the point."
           }
-        },
-        "benefit-4": {
-          "type": "benefit",
-          "settings": {
-            "eyebrow": "Ritual",
-            "headline": "A ritual that's yours",
-            "text": "One gummy. One pause. A tiny daily yes to yourself."
-          }
         }
       },
       "block_order": [
         "benefit-1",
         "benefit-2",
-        "benefit-3",
-        "benefit-4"
+        "benefit-3"
       ],
       "settings": {}
     },
@@ -327,41 +381,41 @@
         "ingredient-1": {
           "type": "ingredient",
           "settings": {
-            "name": "Maca root",
+            "name": "Black Maca",
             "category": "desire",
-            "purpose": "Traditionally used to support energy and desire. Experiences vary.",
-            "detail": "<p>Example copy — a Peruvian root with a long history in traditional wellness practices. Replace with your sourcing story and the form you chose.</p>",
-            "source_note": "Example ingredient — replace with your final formula."
+            "purpose": "A Peruvian root traditionally used to support desire and energy. Experiences vary.",
+            "detail": "<p>A Peruvian root with a long history in traditional wellness practices. Final label details — form, amount, and sourcing — will appear here.</p>",
+            "source_note": "Amounts shown once final label values are approved."
           }
         },
         "ingredient-2": {
           "type": "ingredient",
           "settings": {
-            "name": "Ashwagandha",
+            "name": "KSM-66 Ashwagandha",
             "category": "mood",
-            "purpose": "Traditionally used to support a calm, steady mood. Experiences vary.",
-            "detail": "<p>Example copy — an adaptogenic herb with a long history in Ayurvedic practice. Replace with your sourcing story and the extract you chose.</p>",
-            "source_note": "Example ingredient — replace with your final formula."
+            "purpose": "A root extract traditionally used to support a calmer everyday baseline. Experiences vary.",
+            "detail": "<p>An adaptogenic root with a long history in Ayurvedic practice, included in the KSM-66 extract form. Final label details will appear here.</p>",
+            "source_note": "Amounts shown once final label values are approved."
           }
         },
         "ingredient-3": {
           "type": "ingredient",
           "settings": {
-            "name": "Vitamin B6",
+            "name": "Damiana",
             "category": "connection",
-            "purpose": "Included to support the body’s everyday rhythms. Experiences vary.",
-            "detail": "<p>Example copy — a familiar B vitamin. Replace with the form, dose rationale, and sourcing details from your final formula.</p>",
-            "source_note": "Example ingredient — replace with your final formula."
+            "purpose": "A botanical leaf traditionally used to support relaxation and mood. Experiences vary.",
+            "detail": "<p>A botanical leaf with a long history in traditional wellness practices. Final label details will appear here.</p>",
+            "source_note": "Amounts shown once final label values are approved."
           }
         },
         "ingredient-4": {
           "type": "ingredient",
           "settings": {
-            "name": "Zinc",
+            "name": "Cinnamon Bark",
             "category": "foundation",
-            "purpose": "A foundational mineral, included to support overall wellbeing.",
-            "detail": "<p>Example copy — a foundational mineral. Replace with the form and sourcing details from your final formula.</p>",
-            "source_note": "Example ingredient — replace with your final formula."
+            "purpose": "Rounds out the blend with warmth — and a long history in traditional practices.",
+            "detail": "<p>A warming bark that finishes the formula and the flavor. Final label details will appear here.</p>",
+            "source_note": "Amounts shown once final label values are approved."
           }
         }
       },
@@ -370,6 +424,38 @@
         "ingredient-2",
         "ingredient-3",
         "ingredient-4"
+      ],
+      "settings": {}
+    },
+    "how_to_use": {
+      "type": "smooch-how-to-use",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "heading": "Take your serving",
+            "text": "Take the recommended serving — see the label for serving size."
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "heading": "Anchor it to a routine",
+            "text": "Same time, same place. Morning coffee, evening wind-down — whatever you'll actually keep."
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "heading": "Stay consistent & check in",
+            "text": "Give it consistent weeks, then reflect on how you feel."
+          }
+        }
+      },
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3"
       ],
       "settings": {}
     },
@@ -418,82 +504,6 @@
         "step-2",
         "step-3",
         "step-4"
-      ],
-      "settings": {}
-    },
-    "how_to_use": {
-      "type": "smooch-how-to-use",
-      "blocks": {
-        "step-1": {
-          "type": "step",
-          "settings": {
-            "heading": "Take your serving",
-            "text": "Take the recommended serving — see the label for serving size."
-          }
-        },
-        "step-2": {
-          "type": "step",
-          "settings": {
-            "heading": "Anchor it to a routine",
-            "text": "Same time, same place. Morning coffee, evening wind-down — whatever you'll actually keep."
-          }
-        },
-        "step-3": {
-          "type": "step",
-          "settings": {
-            "heading": "Stay consistent & check in",
-            "text": "Give it consistent weeks, then reflect on how you feel."
-          }
-        }
-      },
-      "block_order": [
-        "step-1",
-        "step-2",
-        "step-3"
-      ],
-      "settings": {}
-    },
-    "lifestyle": {
-      "type": "smooch-ugc-gallery",
-      "blocks": {
-        "image-1": {
-          "type": "image",
-          "settings": {
-            "caption": "Morning ritual"
-          }
-        },
-        "image-2": {
-          "type": "image",
-          "settings": {
-            "caption": "The nightstand edit",
-            "handle": "@sample.handle"
-          }
-        },
-        "image-3": {
-          "type": "image",
-          "settings": {
-            "caption": "Sunday reset"
-          }
-        },
-        "image-4": {
-          "type": "image",
-          "settings": {
-            "caption": "Tucked into the travel bag"
-          }
-        },
-        "image-5": {
-          "type": "image",
-          "settings": {
-            "caption": "Golden hour wind-down"
-          }
-        }
-      },
-      "block_order": [
-        "image-1",
-        "image-2",
-        "image-3",
-        "image-4",
-        "image-5"
       ],
       "settings": {}
     },
@@ -576,35 +586,6 @@
         "row-5",
         "row-6",
         "row-7"
-      ],
-      "settings": {}
-    },
-    "value": {
-      "type": "smooch-value-comparison",
-      "blocks": {
-        "item-1": {
-          "type": "item",
-          "settings": {
-            "name": "e.g. A mood supplement"
-          }
-        },
-        "item-2": {
-          "type": "item",
-          "settings": {
-            "name": "e.g. An intimacy-support herbal blend"
-          }
-        },
-        "item-3": {
-          "type": "item",
-          "settings": {
-            "name": "e.g. A women's daily multivitamin"
-          }
-        }
-      },
-      "block_order": [
-        "item-1",
-        "item-2",
-        "item-3"
       ],
       "settings": {}
     },
@@ -739,97 +720,6 @@
       ],
       "settings": {}
     },
-    "repeat_purchase": {
-      "type": "smooch-product-hero",
-      "blocks": {
-        "title-1": {
-          "type": "title",
-          "settings": {
-            "heading_level": "h2"
-          }
-        },
-        "rating-1": {
-          "type": "rating",
-          "settings": {}
-        },
-        "promise-1": {
-          "type": "promise",
-          "settings": {}
-        },
-        "variant_picker-1": {
-          "type": "variant_picker",
-          "settings": {}
-        },
-        "bundles-1": {
-          "type": "bundles",
-          "settings": {}
-        },
-        "bundle-1": {
-          "type": "bundle",
-          "settings": {
-            "title": "1-month supply",
-            "subtitle": "60 gummies · 30 days",
-            "quantity": 1
-          }
-        },
-        "bundle-2": {
-          "type": "bundle",
-          "settings": {
-            "title": "2-month supply",
-            "subtitle": "120 gummies · 60 days",
-            "quantity": 2,
-            "badge": "Most popular",
-            "preselected": true
-          }
-        },
-        "bundle-3": {
-          "type": "bundle",
-          "settings": {
-            "title": "3-month supply",
-            "subtitle": "180 gummies · 90 days",
-            "quantity": 3,
-            "badge": "Best value"
-          }
-        },
-        "subscription-1": {
-          "type": "subscription",
-          "settings": {}
-        },
-        "price-1": {
-          "type": "price",
-          "settings": {}
-        },
-        "buy_buttons-1": {
-          "type": "buy_buttons",
-          "settings": {}
-        },
-        "reassurance-1": {
-          "type": "reassurance",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "title-1",
-        "rating-1",
-        "promise-1",
-        "variant_picker-1",
-        "bundles-1",
-        "bundle-1",
-        "bundle-2",
-        "bundle-3",
-        "subscription-1",
-        "price-1",
-        "buy_buttons-1",
-        "reassurance-1"
-      ],
-      "settings": {
-        "enable_sticky_atc": false,
-        "enable_sticky_info": false,
-        "padding_top": 64,
-        "padding_bottom": 76,
-        "eager_first_image": false
-      }
-    },
     "faq": {
       "type": "smooch-faq",
       "blocks": {
@@ -872,7 +762,7 @@
           "type": "question",
           "settings": {
             "question": "What's inside?",
-            "answer": "<p>Every ingredient is listed in the formula section on this page, and the final ingredient list always appears on the label — no hidden blends.</p>"
+            "answer": "<p>Every ingredient is listed in the formula section on our product page, and the final ingredient list always appears on the label — no hidden blends.</p>"
           }
         },
         "question-7": {
@@ -942,6 +832,104 @@
       ],
       "settings": {}
     },
+    "repeat_purchase": {
+      "type": "smooch-product-hero",
+      "blocks": {
+        "eyebrow-1": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "Ready when you are"
+          }
+        },
+        "title-1": {
+          "type": "title",
+          "settings": {
+            "heading_level": "h2"
+          }
+        },
+        "rating-1": {
+          "type": "rating",
+          "settings": {}
+        },
+        "promise-1": {
+          "type": "promise",
+          "settings": {}
+        },
+        "variant_picker-1": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "bundles-1": {
+          "type": "bundles",
+          "settings": {}
+        },
+        "bundle-1": {
+          "type": "bundle",
+          "settings": {
+            "title": "1 Bottle",
+            "days": 30,
+            "quantity": 1
+          }
+        },
+        "bundle-2": {
+          "type": "bundle",
+          "settings": {
+            "title": "2 Bottles",
+            "days": 60,
+            "quantity": 2,
+            "badge": "Most popular",
+            "preselected": true
+          }
+        },
+        "bundle-3": {
+          "type": "bundle",
+          "settings": {
+            "title": "3 Bottles",
+            "days": 90,
+            "quantity": 3,
+            "badge": "Best value"
+          }
+        },
+        "subscription-1": {
+          "type": "subscription",
+          "settings": {}
+        },
+        "price-1": {
+          "type": "price",
+          "settings": {}
+        },
+        "buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "reassurance-1": {
+          "type": "reassurance",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "eyebrow-1",
+        "title-1",
+        "rating-1",
+        "promise-1",
+        "variant_picker-1",
+        "bundles-1",
+        "bundle-1",
+        "bundle-2",
+        "bundle-3",
+        "subscription-1",
+        "price-1",
+        "buy_buttons-1",
+        "reassurance-1"
+      ],
+      "settings": {
+        "enable_sticky_atc": false,
+        "enable_sticky_info": false,
+        "eager_first_image": false,
+        "padding_top": 64,
+        "padding_bottom": 76
+      }
+    },
     "final_cta": {
       "type": "smooch-final-cta",
       "settings": {
@@ -951,69 +939,23 @@
         "benefit_text": "Formulated to support desire, mood, and connection — one soft gummy a day. Experiences vary.",
         "cta_label": "Meet [brand]"
       }
-    },
-    "press": {
-      "type": "smooch-press-bar",
-      "blocks": {
-        "outlet-1": {
-          "type": "outlet",
-          "settings": {
-            "name": "Marie Claire",
-            "style": "serif-caps"
-          }
-        },
-        "outlet-2": {
-          "type": "outlet",
-          "settings": {
-            "name": "goop",
-            "style": "sans-lower"
-          }
-        },
-        "outlet-3": {
-          "type": "outlet",
-          "settings": {
-            "name": "VOGUE",
-            "style": "serif-caps"
-          }
-        },
-        "outlet-4": {
-          "type": "outlet",
-          "settings": {
-            "name": "COSMOPOLITAN",
-            "style": "sans-caps"
-          }
-        }
-      },
-      "block_order": [
-        "outlet-1",
-        "outlet-2",
-        "outlet-3",
-        "outlet-4"
-      ],
-      "settings": {
-        "heading": "As featured in",
-        "color_scheme": "scheme-5"
-      }
     }
   },
   "order": [
     "hero",
     "press",
     "benefit_strip",
-    "featured_story",
     "problem",
     "mechanism",
     "benefits",
     "formula",
-    "timeline",
     "how_to_use",
-    "lifestyle",
+    "timeline",
     "comparison",
-    "value",
     "reviews",
     "guarantee",
-    "repeat_purchase",
     "faq",
+    "repeat_purchase",
     "final_cta"
   ]
 }
