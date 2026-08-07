@@ -215,6 +215,15 @@ export function createEngine({ globals, renderSectionGroup }) {
     return `<svg class="${kw.class || ''}" role="img" width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><title>${type}</title><rect width="38" height="24" rx="4" fill="#FFFDF9" stroke="#C9BDB4"/><text x="19" y="16" text-anchor="middle" font-size="7" font-family="sans-serif" fill="#2B1220">${String(type).slice(0, 6)}</text></svg>`;
   });
 
+  // Dawn pipes image_tag output through `| escape` in thumbnail markup; on
+  // Shopify that escape binds to the alt kwarg, not the rendered tag. Match
+  // that behavior: never escape an already-rendered media tag.
+  F('escape', (v) => {
+    const s = v === null || v === undefined ? '' : String(v);
+    if (/^<(img|svg|video|iframe)\b/.test(s)) return s;
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  });
+
   F('font_face', () => '');
   F('font_url', () => '');
   F('font_modify', (font, prop, val) => ({ ...font, [prop]: val }));

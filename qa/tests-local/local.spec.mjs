@@ -360,3 +360,103 @@ test.describe('Performance signals', () => {
     expect(metrics.cls).toBeLessThan(0.1);
   });
 });
+
+// ---------------------------------------------------------------- PDP refresh
+test.describe('PDP refresh: guided purchase flow', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(PRODUCT);
+    await clearCart(page);
+  });
+
+  test('numbered steps, supply-card economics, per-bottle + exact savings', async ({ page }) => {
+    const hero = page.locator('product-info').first();
+    await expect(hero.locator('.smooch-step__num').nth(0)).toHaveText('1');
+    await expect(hero.locator('.smooch-step__num').nth(1)).toHaveText('2');
+
+    const cards = hero.locator('.smooch-bundle');
+    await expect(cards.nth(0).locator('.smooch-bundle__subtitle')).toHaveText('30-day supply');
+    await expect(cards.nth(2).locator('.smooch-bundle__subtitle')).toHaveText('90-day supply');
+    await expect(cards.nth(0).locator('[data-bundle-save-amount]')).toHaveText('Save $10.00');
+    await expect(cards.nth(2).locator('[data-bundle-save-amount]')).toHaveText('Save $30.00');
+    await expect(cards.nth(2).locator('[data-bundle-unit-line]')).toContainText('$30.00 per bottle');
+    // qty-1 card hides the per-bottle line
+    await expect(cards.nth(0).locator('[data-bundle-unit-line]')).toBeHidden();
+  });
+
+  test('one-time and plan rows show resulting totals that follow the bundle', async ({ page }) => {
+    const hero = page.locator('product-info').first();
+    // preset preselects the 2-bottle supply
+    await expect(hero.locator('[data-onetime-price]')).toHaveText('$60.00');
+    await expect(hero.locator('[data-plan-price]').first()).toHaveText('$54.00');
+
+    await hero.locator('[data-smooch-bundle-radio]').nth(2).check({ force: true });
+    await expect(hero.locator('[data-onetime-price]')).toHaveText('$90.00');
+    await expect(hero.locator('[data-plan-price]').first()).toHaveText('$81.00');
+  });
+
+  test('subscription benefits show only while subscribed; summary reflects full selection', async ({ page }) => {
+    const hero = page.locator('product-info').first();
+    const benefits = hero.locator('[data-plan-benefits]');
+    await expect(benefits).toBeHidden();
+
+    await hero.locator('[data-smooch-bundle-radio]').nth(2).check({ force: true });
+    await hero.locator('[data-smooch-plan-radio]').nth(1).check({ force: true });
+    await page.waitForTimeout(300);
+
+    await expect(benefits).toBeVisible();
+    await expect(hero.locator('[data-summary-supply]')).toHaveText('3 bottles · 90-day supply');
+    await expect(hero.locator('[data-summary-plan]')).toContainText('Subscription');
+    await expect(hero.locator('[data-smooch-price]').first()).toHaveText('$81.00');
+    await expect(hero.locator('[data-summary-save]')).toHaveText('You save $9.00');
+
+    // back to one-time: benefits hide, summary plan line hides
+    await hero.locator('[data-smooch-plan-radio]').nth(0).check({ force: true });
+    await expect(benefits).toBeHidden();
+    await expect(hero.locator('[data-summary-plan]')).toBeHidden();
+  });
+
+  test('variant switch while subscribed keeps plan pricing coherent', async ({ page }) => {
+    const hero = page.locator('product-info').first();
+    await hero.locator('[data-smooch-plan-radio]').nth(1).check({ force: true });
+    await page.waitForTimeout(200);
+    await hero.locator('label[for="hero-2-1"]').click(); // Pack → 2 Packs (variant 112)
+    const idInput = hero.locator('form[id^="product-form-"] input[name="id"]').first();
+    await expect(idInput).toHaveValue('112', { timeout: 10_000 });
+    // bundle qty 2 × v112 plan price ($50.40) = $100.80
+    await expect(hero.locator('[data-smooch-price]').first()).toHaveText('$100.80');
+    const planInput = hero.locator('[data-smooch-selling-plan]');
+    await expect(planInput).toBeEnabled();
+    expect(await planInput.inputValue()).toBe('101');
+  });
+
+  test('sticky bar mirrors the selection summary', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(PRODUCT);
+    const hero = page.locator('product-info').first();
+    await hero.locator('[data-smooch-bundle-radio]').nth(2).check({ force: true });
+    await hero.locator('[data-smooch-plan-radio]').nth(1).check({ force: true });
+    await page.waitForTimeout(300);
+    await page.evaluate(() => window.scrollTo(0, 3000));
+    const sticky = page.locator('smooch-sticky-atc').first();
+    await expect(sticky).toBeVisible({ timeout: 10_000 });
+    await expect(sticky.locator('[data-sticky-summary]')).toHaveText('3 bottles · 90-day supply · Subscription');
+    await expect(sticky.locator('[data-sticky-price]')).toHaveText('$81.00');
+  });
+
+  test('media info cards render in the gallery column', async ({ page }) => {
+    const cards = page.locator('product-info').first().locator('.smooch-media-card');
+    await expect(cards).toHaveCount(3);
+    await expect(cards.nth(0).locator('.smooch-media-card__heading')).toHaveText('Mood · Desire · Connection');
+    await page.locator('.smooch-media-cards').first().screenshot({ path: 'qa/screenshots/pdp-refresh/after-media-cards-desktop-1440.png' });
+  });
+
+  test('no subscription UI on a product without selling plans', async ({ page }) => {
+    await page.goto(SINGLE);
+    const hero = page.locator('product-info').first();
+    expect(await hero.locator('.smooch-plans').count()).toBe(0);
+    expect(await hero.locator('[data-smooch-selling-plan]').count()).toBe(0);
+    // step numbering hidden when there is only one step
+    expect(await hero.locator('.smooch-step__num').count()).toBe(0);
+  });
+});
