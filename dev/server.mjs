@@ -73,12 +73,9 @@ function coerceSetting(type, value, fallbackProduct, settingId = '') {
     return fallbackProduct ? productDrop(fallbackProduct) : null;
   }
   if (type === 'image_picker') {
-    if (value && typeof value === 'object') return value;
-    const id = settingId.toLowerCase();
-    let src = '/dev-assets/img/render.svg';
-    if (/lifestyle|couple|routine|story|ugc/.test(id)) src = '/dev-assets/img/lifestyle.svg';
-    else if (/gumm|texture|macro|ingredient/.test(id)) src = '/dev-assets/img/gummies.svg';
-    return imageDrop(src, { alt: 'Development placeholder image' });
+    // Empty image pickers stay empty so THEME-level fallbacks (bundled brand
+    // renders / placeholder blocks) render exactly as they will on Shopify.
+    return value && typeof value === 'object' ? value : null;
   }
   if (type === 'collection' || type === 'page' || type === 'blog' || type === 'article') return null;
   return value;

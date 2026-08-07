@@ -139,7 +139,7 @@ function buildOptionValues(product, optionName, names, selectedName, position) {
 /** Fixture product definitions. Prices in cents. */
 const FIXTURES = {
   'smooch-daily-gummies-qa': {
-    title: 'Smooch Daily Gummies — QA Fixture',
+    title: "Women's Libido & Mood Gummies — Dev Fixture",
     vendor: 'Smooch',
     type: "Women's Wellness Gummy",
     description: '<p><strong>Offline development fixture</strong> — all data on this page is mock data rendered locally.</p>',
@@ -148,9 +148,9 @@ const FIXTURES = {
       { name: 'Pack', values: ['1 Pack', '2 Packs', '3 Packs'] },
     ],
     media: [
-      { src: '/dev-assets/img/render.svg', alt: 'Development placeholder — product render' },
+      { src: '/assets/smooch-demo-bottle-open.png', alt: "Smooch Women's Libido & Mood bottle with open cap and gummy", width: 1086, height: 1448 },
+      { src: '/assets/smooch-demo-bottles-duo.png', alt: "Two Smooch Women's Libido & Mood bottles", width: 1254, height: 1254 },
       { src: '/dev-assets/img/gummies.svg', alt: 'Development placeholder — gummies close-up' },
-      { src: '/dev-assets/img/lifestyle.svg', alt: 'Development placeholder — lifestyle' },
     ],
     sellingPlans: [
       { id: 101, name: 'Every 30 days', discountPct: 10 },
@@ -166,12 +166,12 @@ const FIXTURES = {
     ],
   },
   'smooch-daily-gummies-qa-single': {
-    title: 'Smooch Daily Gummies — QA Single Fixture',
+    title: "Women's Libido & Mood — Single Dev Fixture",
     vendor: 'Smooch',
     type: "Women's Wellness Gummy",
     description: '<p><strong>Offline development fixture</strong> — single-variant, no compare-at, no plans.</p>',
     options: [{ name: 'Title', values: ['Default Title'] }],
-    media: [{ src: '/dev-assets/img/single.svg', alt: 'Development placeholder' }],
+    media: [{ src: '/assets/smooch-demo-bottle-open.png', alt: "Smooch Women's Libido & Mood bottle", width: 1086, height: 1448 }],
     sellingPlans: [],
     variants: [
       { id: 211, options: ['Default Title'], price: 2500, compare_at_price: null, sku: 'QA-SINGLE-1', available: true, inventory_quantity: 10, untracked: true },
@@ -184,7 +184,7 @@ export function productDrop(handle, { selectedVariantId = null, optionValueIds =
   if (!fx) return null;
   const url = `/products/${handle}`;
   const media = fx.media.map((m, i) => {
-    const img = imageDrop(m.src, { alt: m.alt });
+    const img = imageDrop(m.src, { alt: m.alt, width: m.width || 1200, height: m.height || 1500 });
     img.position = i + 1;
     img.id = img.id + i;
     return img;
