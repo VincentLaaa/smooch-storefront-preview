@@ -844,6 +844,41 @@
   padding-inline: 2.2rem;
 }
 
+/* ---------- Collage gallery ---------- */
+
+/* In the columns (collage) layouts, mixed aspect ratios leave ragged rows.
+   Uniform square tiles keep every photo visible in a tight grid; images
+   stay contain-fit so nothing is cropped. The inline --ratio Dawn stamps on
+   each container loses to !important here. */
+.smooch-product .product--columns .product-media-container,
+.smooch-product .product--mobile-columns .product-media-container {
+  --ratio: 1 !important;
+  --preview-ratio: 1 !important;
+}
+
+/* Mobile: Dawn keeps a 2-across slider when there are 3+ photos. Replace it
+   with a real two-column grid so every photo is visible without swiping. */
+@media screen and (max-width: 749.98px) {
+  .smooch-product .product--mobile-columns .product__media-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    overflow: visible;
+    scroll-snap-type: none;
+    margin-bottom: 1.6rem;
+  }
+
+  .smooch-product .product--mobile-columns .product__media-item {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .smooch-product .product--mobile-columns .slider-buttons {
+    display: none;
+  }
+}
+
 /* ---------- Media info cards (rail under the gallery) ---------- */
 
 /* The card rail lives below the gallery inside the media column. Stickiness

@@ -486,6 +486,21 @@ test.describe('PDP refresh: guided purchase flow', () => {
     }
   });
 
+  test('collage gallery: every photo visible at once, no slider chrome', async ({ page }) => {
+    for (const vw of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+      await page.setViewportSize(vw);
+      const items = page.locator('.product__media-item');
+      await expect(items).toHaveCount(4);
+      for (let i = 0; i < 4; i += 1) {
+        const box = await items.nth(i).boundingBox();
+        expect(box?.width ?? 0, `media item ${i} collapsed at ${vw.width}px`).toBeGreaterThan(50);
+      }
+      // No thumbnail strip and no visible mobile slider counter in the collage.
+      await expect(page.locator('.thumbnail-list__item')).toHaveCount(0);
+      await expect(page.locator('media-gallery .slider-buttons')).toBeHidden();
+    }
+  });
+
   test('no subscription UI on a product without selling plans', async ({ page }) => {
     await page.goto(SINGLE);
     const hero = page.locator('product-info').first();
