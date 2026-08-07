@@ -162,33 +162,42 @@ cart-drawer .drawer__inner {
   flex-shrink: 0;
 }
 
-/* ---------- Reassurance ticker ---------- */
+/* Breathing room between the estimated total and the checkout button. */
+cart-drawer .cart__ctas {
+  margin-top: 2rem;
+}
+
+/* ---------- Reassurance ticker (scrolling marquee) ---------- */
 
 .smooch-cart-ticker {
-  display: block;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.smooch-cart-ticker__track {
+  display: flex;
+  width: max-content;
+  animation: smooch-cart-ticker-scroll 18s linear infinite;
 }
 
 .smooch-cart-ticker__list {
-  position: relative;
+  display: flex;
   margin: 0;
   padding: 0;
-  min-height: 2.2rem;
   list-style: none;
 }
 
 .smooch-cart-ticker__item {
-  position: absolute;
-  inset: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.6rem;
+  padding-right: 3.2rem;
+  white-space: nowrap;
   font-size: 1.25rem;
   font-weight: 600;
   color: rgba(var(--color-foreground), 0.75);
-  opacity: 0;
-  transition: opacity 0.5s ease;
 }
 
 .smooch-cart-ticker__item .smooch-icon {
@@ -196,13 +205,30 @@ cart-drawer .drawer__inner {
   color: rgb(196, 42, 80);
 }
 
-.smooch-cart-ticker__item.is-active {
-  opacity: 1;
+@keyframes smooch-cart-ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .smooch-cart-ticker__item {
-    transition: none;
+  .smooch-cart-ticker__track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+  }
+
+  .smooch-cart-ticker__list[aria-hidden] {
+    display: none;
+  }
+
+  .smooch-cart-ticker__list {
+    flex-wrap: wrap;
+    row-gap: 0.4rem;
   }
 
   .smooch-cart-shipbar__fill {

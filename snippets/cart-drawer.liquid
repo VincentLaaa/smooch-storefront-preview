@@ -668,19 +668,30 @@
             assign smooch_ticker_raw = settings.smooch_cart_ticker | replace: '[days]', smooch_days_str
             assign smooch_ticker_lines = smooch_ticker_raw | newline_to_br | split: '<br />'
           -%}
-          <smooch-cart-ticker class="smooch-cart-ticker">
-            <ul class="smooch-cart-ticker__list" role="list">
-              {%- for line in smooch_ticker_lines -%}
-                {%- assign smooch_ticker_line = line | strip_html | strip -%}
-                {%- if smooch_ticker_line != blank -%}
-                  <li class="smooch-cart-ticker__item{% if forloop.first %} is-active{% endif %}">
-                    {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
-                    <span>{{ smooch_ticker_line }}</span>
-                  </li>
-                {%- endif -%}
-              {%- endfor -%}
-            </ul>
-          </smooch-cart-ticker>
+          {%- capture smooch_ticker_items -%}
+            {%- for line in smooch_ticker_lines -%}
+              {%- assign smooch_ticker_line = line | strip_html | strip -%}
+              {%- if smooch_ticker_line != blank -%}
+                <li class="smooch-cart-ticker__item">
+                  {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
+                  <span>{{ smooch_ticker_line }}</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endcapture -%}
+          {%- if smooch_ticker_items != blank -%}
+            <div class="smooch-cart-ticker">
+              <div class="smooch-cart-ticker__track">
+                <ul class="smooch-cart-ticker__list" role="list">
+                  {{ smooch_ticker_items }}
+                </ul>
+                {%- comment -%} Duplicate set makes the marquee loop seamless. {%- endcomment -%}
+                <ul class="smooch-cart-ticker__list" aria-hidden="true">
+                  {{ smooch_ticker_items }}
+                </ul>
+              </div>
+            </div>
+          {%- endif -%}
         {%- endif -%}
       </div>
     </div>

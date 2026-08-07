@@ -145,8 +145,11 @@ test.describe('Purchase matrix (offline harness)', () => {
     await expect(summary.locator('.smooch-cart-summary__final')).toHaveText('$81.00');
 
     await expect(drawer.locator('#CartDrawer-Checkout')).toContainText('Secure checkout');
-    expect(await drawer.locator('.smooch-cart-ticker__item').count()).toBe(3);
-    await expect(drawer.locator('.smooch-cart-ticker__item').nth(2)).toContainText('30-day money-back guarantee');
+    // Marquee ticker: one visible set of three lines plus its aria-hidden clone.
+    const tickerItems = drawer.locator('.smooch-cart-ticker__list:not([aria-hidden]) .smooch-cart-ticker__item');
+    expect(await tickerItems.count()).toBe(3);
+    await expect(tickerItems.nth(2)).toContainText('30-day money-back guarantee');
+    await expect(drawer.locator('.smooch-cart-ticker__list[aria-hidden]')).toHaveCount(1);
   });
 
   test('A3. cart drawer: progress message and deal chips drive real quantity updates', async ({ page }) => {
