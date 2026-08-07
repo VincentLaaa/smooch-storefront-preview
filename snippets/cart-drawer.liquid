@@ -7,9 +7,11 @@
 
 {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'smooch-cart.css' | asset_url | stylesheet_tag }}
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'smooch-cart.js' | asset_url }}" defer="defer"></script>
 
 <style>
   .drawer {
@@ -74,6 +76,36 @@
           </span>
         </button>
       </div>
+      {%- if settings.smooch_cart_shipbar_enabled and cart != empty -%}
+        {%- liquid
+          assign fs_threshold = settings.smooch_cart_shipbar_threshold | default: 0 | times: 100
+          assign fs_unlocked = false
+          if cart.total_price >= fs_threshold
+            assign fs_unlocked = true
+          endif
+        -%}
+        <div class="smooch-cart-shipbar{% if fs_unlocked %} smooch-cart-shipbar--unlocked{% endif %}" data-smooch-shipbar>
+          <p class="smooch-cart-shipbar__msg">
+            {% render 'smooch-icon', icon: 'truck', class: 'smooch-icon--sm' %}
+            {%- if fs_unlocked -%}
+              <span>{{ settings.smooch_cart_shipbar_unlocked | default: 'Congrats — you’ve unlocked FREE shipping!' | escape }}</span>
+            {%- else -%}
+              {%- assign fs_away = fs_threshold | minus: cart.total_price | money -%}
+              {%- assign fs_msg = settings.smooch_cart_shipbar_progress | default: 'You’re [amount] away from FREE shipping' | escape -%}
+              <span>{{ fs_msg | replace: '[amount]', fs_away }}</span>
+            {%- endif -%}
+          </p>
+          {%- liquid
+            assign fs_pct = 100
+            unless fs_unlocked
+              assign fs_pct = cart.total_price | times: 100 | divided_by: fs_threshold
+            endunless
+          -%}
+          <div class="smooch-cart-shipbar__track" aria-hidden="true">
+            <span class="smooch-cart-shipbar__fill" style="width: {{ fs_pct }}%"></span>
+          </div>
+        </div>
+      {%- endif -%}
       <cart-drawer-items
         view-event-payload="{{ cart | standard_event_data: 'view', context: 'dialog' | escape }}"
         view-event-trigger="manual"
@@ -240,6 +272,38 @@
                               </li>
                             {%- endfor -%}
                           </ul>
+
+                          {%- comment -%}
+                            Missed-deal nudges: larger quantities with the line's
+                            real per-unit saving scaled up. Rendered only when the
+                            line genuinely earns a per-unit saving, and only for
+                            tiers above the current quantity — figures are always
+                            Liquid-computed, never invented.
+                          {%- endcomment -%}
+                          {%- if settings.smooch_cart_deals_enabled and item.parent_relationship.parent == null -%}
+                            {%- assign smooch_unit_save = item.original_price | minus: item.final_price -%}
+                            {%- if smooch_unit_save > 0 -%}
+                              {%- assign smooch_deal_found = false -%}
+                              {%- capture smooch_deals_html -%}
+                                {%- assign smooch_tiers = settings.smooch_cart_deals_tiers | default: '2,3' | split: ',' -%}
+                                {%- for tier in smooch_tiers -%}
+                                  {%- assign tier_qty = tier | strip | plus: 0 -%}
+                                  {%- if tier_qty > item.quantity -%}
+                                    {%- assign smooch_deal_found = true -%}
+                                    {%- assign tier_save = smooch_unit_save | times: tier_qty -%}
+                                    <button type="button" class="smooch-cart-deal" data-smooch-deal-qty="{{ tier_qty }}">
+                                      Buy {{ tier_qty }} <span class="smooch-cart-deal__save smooch-num">Save {{ tier_save | money }}</span>
+                                    </button>
+                                  {%- endif -%}
+                                {%- endfor -%}
+                              {%- endcapture -%}
+                              {%- if smooch_deal_found -%}
+                                <div class="smooch-cart-deals" aria-label="Bigger supplies save more">
+                                  {{ smooch_deals_html }}
+                                </div>
+                              {%- endif -%}
+                            {%- endif -%}
+                          {%- endif -%}
                         </td>
 
                         <td class="cart-item__totals right" role="cell" headers="CartDrawer-ColumnTotal">
@@ -511,65 +575,64 @@
         <!-- Start blocks -->
         <!-- Subtotals -->
 
-        <div class="cart-drawer__footer" {{ block.shopify_attributes }}>
-          <div>
+        {%- liquid
+          assign smooch_cart_saved = cart.original_total_price | minus: cart.total_price
+          assign smooch_fs_threshold = settings.smooch_cart_shipbar_threshold | default: 0 | times: 100
+          assign smooch_fs_unlocked = false
+          if settings.smooch_cart_shipbar_enabled and cart.total_price >= smooch_fs_threshold
+            assign smooch_fs_unlocked = true
+          endif
+        -%}
+        <div class="cart-drawer__footer smooch-cart-summary" {{ block.shopify_attributes }}>
+          <h2 class="smooch-cart-summary__heading">Order summary</h2>
+
+          <div class="smooch-cart-summary__row">
+            <span>Subtotal</span>
+            <span class="smooch-num">{{ cart.original_total_price | money }}</span>
+          </div>
+
+          {%- if smooch_cart_saved > 0 -%}
+            <div class="smooch-cart-summary__row smooch-cart-summary__row--discount">
+              <span>{{ settings.smooch_cart_discount_label | default: 'Discount' | escape }}</span>
+              <span class="smooch-num">-{{ smooch_cart_saved | money }}</span>
+            </div>
             {%- if cart.cart_level_discount_applications.size > 0 -%}
-              <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+              <ul class="discounts list-unstyled smooch-cart-summary__codes" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                 {%- for discount in cart.cart_level_discount_applications -%}
-                  <li class="discounts__discount discounts__discount--end">
+                  <li class="discounts__discount">
                     {{- 'icon-discount.svg' | inline_asset_content -}}
                     {{ discount.title | escape }}
-                    (-{{ discount.total_allocated_amount | money }})
                   </li>
                 {%- endfor -%}
               </ul>
             {%- endif -%}
-          </div>
+          {%- endif -%}
 
-          <div class="totals" role="status">
-            <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-            <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
-          </div>
-
-          <small class="tax-note caption-large rte">
-            {%- if cart.duties_included and cart.taxes_included -%}
-              {%- if shop.shipping_policy.body == blank -%}
-                {{ 'sections.cart.duties_and_taxes_included_shipping_at_checkout_without_policy' | t }}
-              {%- else -%}
-                {{
-                  'sections.cart.duties_and_taxes_included_shipping_at_checkout_with_policy_html'
-                  | t: link: shop.shipping_policy.url
-                }}
-              {%- endif -%}
-            {%- elsif cart.duties_included == false and cart.taxes_included -%}
-              {%- if shop.shipping_policy.body == blank -%}
-                {{ 'sections.cart.taxes_included_shipping_at_checkout_without_policy' | t }}
-              {%- else -%}
-                {{
-                  'sections.cart.taxes_included_shipping_at_checkout_with_policy_html'
-                  | t: link: shop.shipping_policy.url
-                }}
-              {%- endif -%}
-            {%- elsif cart.duties_included and cart.taxes_included == false -%}
-              {%- if shop.shipping_policy.body == blank -%}
-                {{ 'sections.cart.duties_included_taxes_at_checkout_shipping_at_checkout_without_policy' | t }}
-              {%- else -%}
-                {{
-                  'sections.cart.duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html'
-                  | t: link: shop.shipping_policy.url
-                }}
-              {%- endif -%}
-            {%- elsif cart.duties_included == false and cart.taxes_included == false -%}
-              {%- if shop.shipping_policy.body == blank -%}
-                {{ 'sections.cart.taxes_at_checkout_shipping_at_checkout_without_policy' | t }}
-              {%- else -%}
-                {{
-                  'sections.cart.taxes_at_checkout_shipping_at_checkout_with_policy_html'
-                  | t: link: shop.shipping_policy.url
-                }}
-              {%- endif -%}
+          <div class="smooch-cart-summary__row">
+            <span>Shipping</span>
+            {%- if smooch_fs_unlocked -%}
+              <span class="smooch-badge smooch-badge--blush smooch-cart-summary__free">FREE SHIPPING</span>
+            {%- else -%}
+              <span class="smooch-cart-summary__muted">Calculated at checkout</span>
             {%- endif -%}
-          </small>
+          </div>
+
+          <div class="smooch-cart-summary__row">
+            <span>Taxes</span>
+            <span class="smooch-cart-summary__muted">
+              {%- if cart.taxes_included %}Included{% else %}Calculated at checkout{% endif -%}
+            </span>
+          </div>
+
+          <div class="totals smooch-cart-summary__total" role="status">
+            <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
+            <p class="totals__total-value smooch-num">
+              {%- if smooch_cart_saved > 0 -%}
+                <s class="smooch-strike">{{ cart.original_total_price | money }}</s>
+              {%- endif -%}
+              {{ cart.total_price | money }}
+            </p>
+          </div>
         </div>
 
         <!-- CTAs -->
@@ -578,16 +641,42 @@
           <button
             type="submit"
             id="CartDrawer-Checkout"
-            class="cart__checkout-button button"
+            class="cart__checkout-button button smooch-cart-checkout"
             name="checkout"
             form="CartDrawer-Form"
             {% if cart == empty %}
               disabled
             {% endif %}
           >
-            {{ 'sections.cart.checkout' | t }}
+            {% render 'smooch-icon', icon: 'lock', class: 'smooch-icon--sm' %}
+            {%- if settings.smooch_cart_checkout_label != blank -%}
+              {{- settings.smooch_cart_checkout_label | escape -}}
+            {%- else -%}
+              {{- 'sections.cart.checkout' | t -}}
+            {%- endif -%}
           </button>
         </div>
+
+        {%- if settings.smooch_cart_ticker != blank and cart != empty -%}
+          {%- liquid
+            assign smooch_days_str = settings.smooch_guarantee_days | default: 0 | append: ''
+            assign smooch_ticker_raw = settings.smooch_cart_ticker | replace: '[days]', smooch_days_str
+            assign smooch_ticker_lines = smooch_ticker_raw | newline_to_br | split: '<br />'
+          -%}
+          <smooch-cart-ticker class="smooch-cart-ticker">
+            <ul class="smooch-cart-ticker__list" role="list">
+              {%- for line in smooch_ticker_lines -%}
+                {%- assign smooch_ticker_line = line | strip_html | strip -%}
+                {%- if smooch_ticker_line != blank -%}
+                  <li class="smooch-cart-ticker__item{% if forloop.first %} is-active{% endif %}">
+                    {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
+                    <span>{{ smooch_ticker_line }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </smooch-cart-ticker>
+        {%- endif -%}
       </div>
     </div>
   </div>

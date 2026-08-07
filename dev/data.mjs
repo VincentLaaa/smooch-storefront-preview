@@ -370,7 +370,13 @@ export function cartDrop(state) {
       options_with_values: variant.options[0] === 'Default Title'
         ? []
         : variant.options.map((value, i) => ({ name: found.product.options_with_values[i].name, value })),
-      variant: { title: variant.title, options: variant.options },
+      variant: {
+        title: variant.title,
+        options: variant.options,
+        available: variant.available,
+        quantity_rule: { min: 1, max: null, increment: 1 },
+        quantity_price_breaks: [],
+      },
       unit_price: null,
       unit_price_measurement: null,
       properties: [],
@@ -382,15 +388,17 @@ export function cartDrop(state) {
   }).filter(Boolean);
 
   const total = items.reduce((a, i) => a + i.final_line_price, 0);
+  // Mirrors Shopify's totals: original = pre-discount lines, total = charged.
+  const originalTotal = items.reduce((a, i) => a + i.original_line_price, 0);
   return {
     items,
     item_count: items.reduce((a, i) => a + i.quantity, 0),
     total_price: total,
     items_subtotal_price: total,
-    original_total_price: total,
+    original_total_price: originalTotal,
     estimated_total: total,
     checkout_charge_amount: total,
-    total_discount: 0,
+    total_discount: originalTotal - total,
     cart_level_discount_applications: [],
     empty: items.length === 0,
     'empty?': items.length === 0,

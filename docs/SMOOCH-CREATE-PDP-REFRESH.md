@@ -63,6 +63,23 @@ with one sentence each under "Made to support more than one part of you."
 What's Inside = "Four ingredients. One easy ritual." — name, category, one
 cautious line, optional expandable detail; dosages remain gated.
 
+## Cart drawer (Create-style)
+Free-shipping meter at the top (merchant threshold, default $50; progress
+message → "Congrats — you’ve unlocked FREE shipping!" with a fill bar).
+Missed-deal chips under discounted lines ("Buy 2 · Save $6.00" / "Buy 3 ·
+Save $9.00") — savings scaled from the line's real per-unit discount, tiers at
+or below the current quantity hidden; clicking a chip drives Dawn's own
+quantity pipeline. Create-style order summary: Subtotal → Discount (real
+`original_total − total`, named automatic discounts/codes listed beneath) →
+Shipping (FREE SHIPPING badge when unlocked) → Taxes → struck-through total.
+Checkout button reads "Secure checkout" with a padlock. A rotating reassurance
+ticker closes the drawer (defaults: Ships quick / Limited-time discount
+auto-applied / 30-day money-back guarantee — all merchant-editable). All of it
+configurable under Theme settings → Smooch cart. The theme cannot create
+discounts: for the auto-applied discount row on the live store, create an
+automatic discount in Shopify admin; the drawer then displays its real title
+and amount. Global guarantee default moved 60 → 30 days.
+
 ## Proof
 Sample reviews, sample story, UGC placeholders, and press wordmarks are all
 absent from the polished default (regression-tested). The reviews section

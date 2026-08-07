@@ -124,6 +124,58 @@ test.describe('Purchase matrix (offline harness)', () => {
     await expect(page.locator('#cart-icon-bubble .cart-count-bubble span').first()).toContainText(String(cart.item_count));
   });
 
+  test('A2. cart drawer: shipping meter, order summary, secure checkout, ticker', async ({ page }) => {
+    const hero = page.locator('product-info').first();
+    // Default selection: 3-month subscription ($81 ≥ $50 threshold).
+    await hero.locator('button[id^="ProductSubmitButton-"]').first().click();
+    await expect(page.locator('cart-drawer.active')).toBeVisible({ timeout: 10_000 });
+    const drawer = page.locator('cart-drawer .drawer__inner');
+
+    await expect(drawer.locator('[data-smooch-shipbar]')).toHaveClass(/smooch-cart-shipbar--unlocked/);
+    await expect(drawer.locator('[data-smooch-shipbar]')).toContainText('unlocked FREE shipping');
+
+    const summary = drawer.locator('.smooch-cart-summary');
+    await expect(summary).toContainText('Order summary');
+    await expect(summary.locator('.smooch-cart-summary__row').nth(0)).toContainText('$90.00'); // subtotal
+    await expect(summary.locator('.smooch-cart-summary__row--discount')).toContainText('-$9.00');
+    await expect(summary.locator('.smooch-cart-summary__free')).toHaveText('FREE SHIPPING');
+    await expect(summary.locator('.smooch-cart-summary__total')).toContainText('$81.00');
+
+    await expect(drawer.locator('#CartDrawer-Checkout')).toContainText('Secure checkout');
+    expect(await drawer.locator('.smooch-cart-ticker__item').count()).toBe(3);
+    await expect(drawer.locator('.smooch-cart-ticker__item').nth(2)).toContainText('30-day money-back guarantee');
+  });
+
+  test('A3. cart drawer: progress message and deal chips drive real quantity updates', async ({ page }) => {
+    const hero = page.locator('product-info').first();
+    // 1-month subscription: $27 line, below the $50 free-shipping threshold.
+    await hero.locator('[data-smooch-bundle-radio]').first().check({ force: true });
+    await page.waitForTimeout(300);
+    await hero.locator('button[id^="ProductSubmitButton-"]').first().click();
+    await expect(page.locator('cart-drawer.active')).toBeVisible({ timeout: 10_000 });
+    const drawer = page.locator('cart-drawer .drawer__inner');
+
+    await expect(drawer.locator('[data-smooch-shipbar]')).not.toHaveClass(/smooch-cart-shipbar--unlocked/);
+    await expect(drawer.locator('[data-smooch-shipbar]')).toContainText('$23.00 away from FREE shipping');
+
+    // Two missed deals with real savings ($3/unit under the 30-day plan).
+    const chips = drawer.locator('.smooch-cart-deal');
+    await expect(chips).toHaveCount(2);
+    await expect(chips.nth(0)).toContainText('Save $6.00');
+    await expect(chips.nth(1)).toContainText('Save $9.00');
+
+    // Clicking "Buy 3" updates the real line quantity through Dawn's pipeline.
+    // Wait for the server-rendered drawer refresh (debounced change + section
+    // render) before reading cart state: unlocked shipbar only renders once
+    // the $81 cart came back from the server.
+    await chips.nth(1).click();
+    await expect(drawer.locator('[data-smooch-shipbar]')).toHaveClass(/smooch-cart-shipbar--unlocked/, { timeout: 10_000 });
+    await expect(drawer.locator('input.quantity__input')).toHaveValue('3');
+    await expect(drawer.locator('.smooch-cart-deal')).toHaveCount(0);
+    const cart = await cartState(page);
+    expect(cart.items[0].quantity).toBe(3);
+  });
+
   test('B. quantity bundles: totals, unit price, cart quantity', async ({ page }) => {
     const hero = page.locator('product-info').first();
     const bundles = hero.locator('[data-smooch-bundle-radio]');

@@ -1555,7 +1555,7 @@
         "min": 0,
         "max": 180,
         "step": 5,
-        "default": 60,
+        "default": 30,
         "info": "Set to 0 to hide all guarantee messaging until your policy is confirmed."
       },
       {
@@ -1627,6 +1627,90 @@
         "id": "smooch_email_text",
         "label": "Email capture text",
         "default": "Wellness notes, honest education, and subscriber-only offers. No noise."
+      }
+    ]
+  },
+  {
+    "name": "Smooch cart",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Free-shipping meter"
+      },
+      {
+        "type": "checkbox",
+        "id": "smooch_cart_shipbar_enabled",
+        "label": "Show free-shipping meter",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "smooch_cart_shipbar_threshold",
+        "label": "Free-shipping threshold",
+        "min": 0,
+        "max": 300,
+        "step": 5,
+        "default": 50,
+        "unit": "$",
+        "info": "Order total that earns free shipping. Must match a real free-shipping rate in your Shopify shipping settings; 0 treats every order as free-shipping."
+      },
+      {
+        "type": "text",
+        "id": "smooch_cart_shipbar_unlocked",
+        "label": "Unlocked message",
+        "default": "Congrats — you’ve unlocked FREE shipping!"
+      },
+      {
+        "type": "text",
+        "id": "smooch_cart_shipbar_progress",
+        "label": "Progress message",
+        "default": "You’re [amount] away from FREE shipping",
+        "info": "[amount] becomes the remaining amount."
+      },
+      {
+        "type": "header",
+        "content": "Quantity deals"
+      },
+      {
+        "type": "checkbox",
+        "id": "smooch_cart_deals_enabled",
+        "label": "Suggest bigger quantities under discounted items",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "smooch_cart_deals_tiers",
+        "label": "Suggested quantities",
+        "default": "2,3",
+        "info": "Comma-separated. Savings are computed from the line’s real per-unit discount; tiers at or below the current quantity are hidden."
+      },
+      {
+        "type": "header",
+        "content": "Order summary & checkout"
+      },
+      {
+        "type": "text",
+        "id": "smooch_cart_discount_label",
+        "label": "Discount row label",
+        "default": "Discount",
+        "info": "Named discounts (automatic discounts or codes) display their own titles beneath the row."
+      },
+      {
+        "type": "text",
+        "id": "smooch_cart_checkout_label",
+        "label": "Checkout button label",
+        "default": "Secure checkout"
+      },
+      {
+        "type": "header",
+        "content": "Reassurance ticker"
+      },
+      {
+        "type": "textarea",
+        "id": "smooch_cart_ticker",
+        "label": "Rotating messages (one per line)",
+        "default": "Ships quick\nLimited-time discount auto-applied\n[days]-day money-back guarantee",
+        "info": "[days] uses the guarantee length from Smooch brand settings. Keep only lines that are true for your store — keep “limited-time” only while the discount really has an end date."
       }
     ]
   }
