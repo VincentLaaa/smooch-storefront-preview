@@ -34,6 +34,7 @@ Categories: **Ready** · **Ready with placeholder** · **Blocked by missing busi
 | Guarantee length + refund policy | Blocked by merchant approval | 60-day default active; set real length (or 0 to hide) + legal policy |
 | Value comparison prices | Blocked by missing business data | Hidden until real substantiable prices entered |
 | Policies (refund/privacy/terms/shipping/subscription) | Ready with placeholder | Seed script writes development drafts marked "REQUIRES LEGAL REVIEW" |
+| Press-bar outlets (Marie Claire / goop / Vogue / Cosmopolitan) | Blocked by merchant approval | Merchant-asserted features — confirm each placement is real (and logo licenses, if artwork replaces text) before launch |
 | Product imagery | Blocked by missing business data | Obvious "SMOOCH QA" placeholders in staging |
 
 ## Commerce & operations

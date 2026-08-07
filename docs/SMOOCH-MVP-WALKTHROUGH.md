@@ -74,6 +74,10 @@ chosen in the Theme Editor.
   product-hero gallery fixtures plus the built-in fallbacks for the homepage
   hero, mechanism, and final CTA; taglines "Self love in a bottle" /
   "Self love, simplified" / "No pills, no fluff." adopted from the guide.
+- **Press bar** — 'As featured in' strip on the product lander (Marie Claire,
+  goop, Vogue, Cosmopolitan as typographic wordmarks; per-outlet style, link,
+  and optional licensed-logo upload). Merchant-asserted: keep it only for
+  outlets that have genuinely featured the brand.
 - **Wordmark** — no logo file was provided, so the header/footer render a
   lowercase Proxima "smooch" text approximation until the real SVG arrives.
 
