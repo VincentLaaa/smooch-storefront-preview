@@ -120,6 +120,46 @@
               endif
             -%}
             {% render 'product-media-gallery', variant_images: variant_images, lazy_load_all: lazy_gallery %}
+
+            {%- comment -%}
+              Branded informational media cards (Lemme-style): merchant-authored
+              benefit/formula/ritual cards presented as a swipeable rail under
+              the gallery. Cards with no content are skipped entirely.
+            {%- endcomment -%}
+            {%- assign media_card_blocks = section.blocks | where: 'type', 'media_card' -%}
+            {%- assign has_media_cards = false -%}
+            {%- for card in media_card_blocks -%}
+              {%- if card.settings.heading != blank or card.settings.image != blank -%}
+                {%- assign has_media_cards = true -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if has_media_cards -%}
+              <ul class="smooch-media-cards" role="list" aria-label="Product highlights">
+                {%- for card in media_card_blocks -%}
+                  {%- if card.settings.heading != blank or card.settings.image != blank -%}
+                    <li class="smooch-media-card smooch-media-card--{{ card.settings.palette }}" {{ card.shopify_attributes }}>
+                      {%- if card.settings.image != blank -%}
+                        <div class="smooch-media-card__image">
+                          {{ card.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '450, 900', sizes: '(min-width: 990px) 24vw, 72vw', alt: card.settings.image.alt | default: card.settings.heading }}
+                        </div>
+                      {%- endif -%}
+                      <div class="smooch-media-card__body">
+                        {%- if card.settings.kicker != blank -%}
+                          <p class="smooch-media-card__kicker">{{ card.settings.kicker | escape }}</p>
+                        {%- endif -%}
+                        {%- if card.settings.heading != blank -%}
+                          <p class="smooch-media-card__heading">{{ card.settings.heading | escape }}</p>
+                        {%- endif -%}
+                        {%- if card.settings.text != blank -%}
+                          <div class="smooch-media-card__text">{{ card.settings.text }}</div>
+                        {%- endif -%}
+                      </div>
+                      <span class="smooch-media-card__shape" aria-hidden="true"></span>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
           </div>
 
           <div class="product__info-wrapper grid__item smooch-product__panel">
@@ -225,10 +265,13 @@
                     {%- when 'bundles' -%}
                       {%- if has_bundles -%}
                         <fieldset class="smooch-bundles" {{ block.shopify_attributes }}>
-                          <legend class="smooch-bundles__legend">
-                            {{ block.settings.heading | default: 'Choose your bundle' }}
+                          <legend class="smooch-bundles__legend smooch-step">
+                            {%- if has_plans -%}
+                              <span class="smooch-step__num" aria-hidden="true">1</span>
+                            {%- endif -%}
+                            {{ block.settings.heading | default: 'Choose your supply' }}
                           </legend>
-                          <div class="smooch-bundles__list" role="radiogroup" aria-label="{{ block.settings.heading | default: 'Choose your bundle' | escape }}">
+                          <div class="smooch-bundles__list" role="radiogroup" aria-label="{{ block.settings.heading | default: 'Choose your supply' | escape }}">
                             {%- for bundle_block in bundle_blocks -%}
                               {% render 'smooch-bundle-option',
                                 block: bundle_block,
@@ -236,7 +279,10 @@
                                 section_id: section.id,
                                 product: product,
                                 current_variant: current_variant,
-                                checked_index: default_bundle_index
+                                checked_index: default_bundle_index,
+                                show_per_bottle: block.settings.show_per_bottle,
+                                show_per_day: block.settings.show_per_day,
+                                show_savings: block.settings.show_savings
                               %}
                             {%- endfor -%}
                           </div>
@@ -286,9 +332,13 @@
 
                     {%- when 'subscription' -%}
                       {%- if has_plans -%}
+                        {%- liquid
+                          assign initial_onetime_total = current_variant.price | times: default_bundle_qty
+                        -%}
                         <fieldset class="smooch-plans" {{ block.shopify_attributes }}>
-                          <legend class="smooch-bundles__legend">
-                            {{ block.settings.heading | default: 'How often?' }}
+                          <legend class="smooch-bundles__legend smooch-step">
+                            <span class="smooch-step__num" aria-hidden="true">2</span>
+                            {{ block.settings.heading | default: 'Choose how to buy' }}
                           </legend>
                           <div class="smooch-plans__list">
                             <label class="smooch-plan">
@@ -301,11 +351,22 @@
                                 class="smooch-plan__input visually-hidden"
                               >
                               <span class="smooch-plan__body">
-                                <span class="smooch-plan__name">{{ block.settings.onetime_label | default: 'One-time purchase' }}</span>
+                                <span class="smooch-plan__row">
+                                  <span class="smooch-plan__name">{{ block.settings.onetime_label | default: 'One-time purchase' }}</span>
+                                  <span class="smooch-plan__price smooch-num" data-onetime-price>{{ initial_onetime_total | money }}</span>
+                                </span>
                               </span>
                             </label>
                             {%- for group in product.selling_plan_groups -%}
                               {%- for plan in group.selling_plans -%}
+                                {%- liquid
+                                  assign initial_plan_total = 0
+                                  for alloc in current_variant.selling_plan_allocations
+                                    if alloc.selling_plan.id == plan.id
+                                      assign initial_plan_total = alloc.price | times: default_bundle_qty
+                                    endif
+                                  endfor
+                                -%}
                                 <label class="smooch-plan">
                                   <input
                                     type="radio"
@@ -315,19 +376,35 @@
                                     class="smooch-plan__input visually-hidden"
                                   >
                                   <span class="smooch-plan__body">
-                                    <span class="smooch-plan__name">
-                                      {{ block.settings.subscribe_label | default: 'Subscribe & save' }}
-                                      <span class="smooch-badge smooch-badge--berry" data-plan-save data-plan-id="{{ plan.id }}" hidden></span>
+                                    <span class="smooch-plan__row">
+                                      <span class="smooch-plan__name">
+                                        {{ block.settings.subscribe_label | default: 'Subscribe & save' }}
+                                        <span class="smooch-badge smooch-badge--berry" data-plan-save data-plan-id="{{ plan.id }}" hidden></span>
+                                      </span>
+                                      <span class="smooch-plan__price smooch-num" data-plan-price data-plan-id="{{ plan.id }}" {% if initial_plan_total == 0 %}hidden{% endif %}>
+                                        {%- if initial_plan_total > 0 %}{{ initial_plan_total | money }}{% endif -%}
+                                      </span>
                                     </span>
                                     <span class="smooch-plan__meta">{{ plan.name }}</span>
-                                    {%- if block.settings.plan_note != blank -%}
-                                      <span class="smooch-plan__note">{{ block.settings.plan_note }}</span>
-                                    {%- endif -%}
                                   </span>
                                 </label>
                               {%- endfor -%}
                             {%- endfor -%}
                           </div>
+                          {%- if block.settings.benefits != blank -%}
+                            {%- assign benefit_lines = block.settings.benefits | newline_to_br | split: '<br />' -%}
+                            <ul class="smooch-ticks smooch-plans__benefits" role="list" data-plan-benefits hidden>
+                              {%- for line in benefit_lines -%}
+                                {%- assign clean_line = line | strip_html | strip -%}
+                                {%- if clean_line != blank -%}
+                                  <li>
+                                    {% render 'smooch-icon', icon: 'check' %}
+                                    <span>{{ clean_line }}</span>
+                                  </li>
+                                {%- endif -%}
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
                         </fieldset>
                       {%- endif -%}
 
@@ -345,21 +422,41 @@
                           {%- render 'price', product: product, use_variant: true, show_badges: false, price_class: 'price--large' -%}
                         </div>
                         {%- if offer_ui -%}
-                          {%- assign initial_total = current_variant.price | times: default_bundle_qty -%}
-                          {%- assign initial_compare = current_variant.compare_at_price | default: 0 | times: default_bundle_qty -%}
-                          <div class="smooch-offer-price" data-smooch-offer-price role="status">
-                            <span class="smooch-offer-price__current smooch-num" data-smooch-price>{{ initial_total | money }}</span>
-                            <s class="smooch-strike smooch-num" data-smooch-compare {% if initial_compare <= initial_total %}hidden{% endif %}>{{ initial_compare | money }}</s>
-                            <span class="smooch-badge smooch-badge--blush" data-smooch-save {% if initial_compare <= initial_total %}hidden{% endif %}>
-                              {%- if initial_compare > initial_total -%}
-                                {%- assign save_amount = initial_compare | minus: initial_total | times: 100 -%}
-                                Save {{ save_amount | divided_by: initial_compare }}%
-                              {%- endif -%}
-                            </span>
+                          {%- liquid
+                            assign initial_total = current_variant.price | times: default_bundle_qty
+                            assign initial_compare = current_variant.compare_at_price | default: 0 | times: default_bundle_qty
+                            assign initial_save = 0
+                            if initial_compare > initial_total
+                              assign initial_save = initial_compare | minus: initial_total
+                            endif
+                            assign default_bundle = bundle_blocks[default_bundle_index]
+                            assign default_days = default_bundle.settings.days
+                          -%}
+                          <div class="smooch-summary" data-smooch-summary>
+                            <p class="smooch-summary__selection">
+                              <span data-summary-supply>
+                                {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
+                                {%- if default_days > 0 %} · {{ default_days }}-day supply{% endif -%}
+                              </span>
+                              <span data-summary-plan hidden></span>
+                            </p>
+                            <div class="smooch-offer-price" data-smooch-offer-price role="status">
+                              <span class="smooch-offer-price__current smooch-num" data-smooch-price>{{ initial_total | money }}</span>
+                              <s class="smooch-strike smooch-num" data-smooch-compare {% if initial_compare <= initial_total %}hidden{% endif %}>{{ initial_compare | money }}</s>
+                              <span class="smooch-badge smooch-badge--blush" data-smooch-save {% if initial_compare <= initial_total %}hidden{% endif %}>
+                                {%- if initial_compare > initial_total -%}
+                                  {%- assign save_pct_amount = initial_save | times: 100 -%}
+                                  Save {{ save_pct_amount | divided_by: initial_compare }}%
+                                {%- endif -%}
+                              </span>
+                            </div>
+                            <p class="smooch-summary__save smooch-num" data-summary-save {% if initial_save == 0 %}hidden{% endif %}>
+                              {%- if initial_save > 0 %}You save {{ initial_save | money }}{% endif -%}
+                            </p>
+                            <p class="smooch-caption smooch-offer-price__unit" data-smooch-unit-line {% if default_bundle_qty <= 1 %}hidden{% endif %}>
+                              <span data-smooch-unit>{{ current_variant.price | money }}</span> per bottle
+                            </p>
                           </div>
-                          <p class="smooch-caption smooch-offer-price__unit" data-smooch-unit-line {% if default_bundle_qty <= 1 %}hidden{% endif %}>
-                            <span data-smooch-unit>{{ current_variant.price | money }}</span> each
-                          </p>
                         {%- endif -%}
                         {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
                           <div class="smooch-fine-print">
@@ -442,11 +539,13 @@
                           {%- assign bqty = bundle_block.settings.quantity | at_least: 1 -%}
                           {
                             "quantity": {{ bqty }},
+                            "days": {{ bundle_block.settings.days | default: 0 }},
+                            "label": {{ bundle_block.settings.title | json }},
                             "variantValue": {{ bundle_block.settings.variant_value | strip | json }}
                           }{% unless forloop.last %},{% endunless %}
                         {%- endfor -%}
                         {%- if bundle_blocks.size == 0 -%}
-                          { "quantity": 1, "variantValue": "" }
+                          { "quantity": 1, "days": 0, "label": "", "variantValue": "" }
                         {%- endif -%}
                       ],
                       "plans": [
@@ -467,19 +566,30 @@
                             "base": [
                               {%- if bundle_blocks.size > 0 -%}
                                 {%- for bundle_block in bundle_blocks -%}
-                                  {%- assign bqty = bundle_block.settings.quantity | at_least: 1 -%}
-                                  {%- assign btotal = variant.price | times: bqty -%}
-                                  {%- assign bcompare = variant.compare_at_price | default: 0 | times: bqty -%}
-                                  {%- assign bsave = 0 -%}
-                                  {%- if bcompare > btotal -%}
-                                    {%- assign bsave_amount = bcompare | minus: btotal | times: 100 -%}
-                                    {%- assign bsave = bsave_amount | divided_by: bcompare -%}
-                                  {%- endif -%}
+                                  {%- liquid
+                                    assign bqty = bundle_block.settings.quantity | at_least: 1
+                                    assign bdays = bundle_block.settings.days | default: 0
+                                    assign btotal = variant.price | times: bqty
+                                    assign bcompare = variant.compare_at_price | default: 0 | times: bqty
+                                    assign bsave = 0
+                                    assign bsave_amt = 0
+                                    if bcompare > btotal
+                                      assign bsave_amt = bcompare | minus: btotal
+                                      assign bsave_pct = bsave_amt | times: 100
+                                      assign bsave = bsave_pct | divided_by: bcompare
+                                    endif
+                                    assign bper_day = 0
+                                    if bdays > 0
+                                      assign bper_day = btotal | divided_by: bdays
+                                    endif
+                                  -%}
                                   {
                                     "t": {{ btotal | money | json }},
                                     "c": {% if bcompare > btotal %}{{ bcompare | money | json }}{% else %}""{% endif %},
                                     "u": {{ variant.price | money | json }},
-                                    "s": {{ bsave }}
+                                    "s": {{ bsave }},
+                                    "sa": {% if bsave_amt > 0 %}{{ bsave_amt | money | json }}{% else %}""{% endif %},
+                                    "pd": {% if bper_day > 0 %}{{ bper_day | money | json }}{% else %}""{% endif %}
                                   }{% unless forloop.last %},{% endunless %}
                                 {%- endfor -%}
                               {%- else -%}
@@ -489,7 +599,9 @@
                                   "t": {{ btotal | money | json }},
                                   "c": {% if bcompare > btotal %}{{ bcompare | money | json }}{% else %}""{% endif %},
                                   "u": {{ variant.price | money | json }},
-                                  "s": 0
+                                  "s": 0,
+                                  "sa": {% if bcompare > btotal %}{{ bcompare | minus: btotal | money | json }}{% else %}""{% endif %},
+                                  "pd": ""
                                 }
                               {%- endif -%}
                             ],
@@ -498,35 +610,50 @@
                                 "{{ allocation.selling_plan.id }}": [
                                   {%- if bundle_blocks.size > 0 -%}
                                     {%- for bundle_block in bundle_blocks -%}
-                                      {%- assign bqty = bundle_block.settings.quantity | at_least: 1 -%}
-                                      {%- assign ptotal = allocation.price | times: bqty -%}
-                                      {%- assign pcompare_base = allocation.compare_at_price | default: variant.price -%}
-                                      {%- assign pcompare = pcompare_base | times: bqty -%}
-                                      {%- assign psave = 0 -%}
-                                      {%- if pcompare > ptotal -%}
-                                        {%- assign psave_amount = pcompare | minus: ptotal | times: 100 -%}
-                                        {%- assign psave = psave_amount | divided_by: pcompare -%}
-                                      {%- endif -%}
+                                      {%- liquid
+                                        assign bqty = bundle_block.settings.quantity | at_least: 1
+                                        assign bdays = bundle_block.settings.days | default: 0
+                                        assign ptotal = allocation.price | times: bqty
+                                        assign pcompare_base = allocation.compare_at_price | default: variant.price
+                                        assign pcompare = pcompare_base | times: bqty
+                                        assign psave = 0
+                                        assign psave_amt = 0
+                                        if pcompare > ptotal
+                                          assign psave_amt = pcompare | minus: ptotal
+                                          assign psave_pct = psave_amt | times: 100
+                                          assign psave = psave_pct | divided_by: pcompare
+                                        endif
+                                        assign pper_day = 0
+                                        if bdays > 0
+                                          assign pper_day = ptotal | divided_by: bdays
+                                        endif
+                                      -%}
                                       {
                                         "t": {{ ptotal | money | json }},
                                         "c": {% if pcompare > ptotal %}{{ pcompare | money | json }}{% else %}""{% endif %},
                                         "u": {{ allocation.price | money | json }},
-                                        "s": {{ psave }}
+                                        "s": {{ psave }},
+                                        "sa": {% if psave_amt > 0 %}{{ psave_amt | money | json }}{% else %}""{% endif %},
+                                        "pd": {% if pper_day > 0 %}{{ pper_day | money | json }}{% else %}""{% endif %}
                                       }{% unless forloop.last %},{% endunless %}
                                     {%- endfor -%}
                                   {%- else -%}
                                     {%- assign ptotal = allocation.price -%}
                                     {%- assign pcompare = allocation.compare_at_price | default: variant.price -%}
                                     {%- assign psave = 0 -%}
+                                    {%- assign psave_amt = 0 -%}
                                     {%- if pcompare > ptotal -%}
-                                      {%- assign psave_amount = pcompare | minus: ptotal | times: 100 -%}
-                                      {%- assign psave = psave_amount | divided_by: pcompare -%}
+                                      {%- assign psave_amt = pcompare | minus: ptotal -%}
+                                      {%- assign psave_pct = psave_amt | times: 100 -%}
+                                      {%- assign psave = psave_pct | divided_by: pcompare -%}
                                     {%- endif -%}
                                     {
                                       "t": {{ ptotal | money | json }},
                                       "c": {% if pcompare > ptotal %}{{ pcompare | money | json }}{% else %}""{% endif %},
                                       "u": {{ allocation.price | money | json }},
-                                      "s": {{ psave }}
+                                      "s": {{ psave }},
+                                      "sa": {% if psave_amt > 0 %}{{ psave_amt | money | json }}{% else %}""{% endif %},
+                                      "pd": ""
                                     }
                                   {%- endif -%}
                                 ]{% unless forloop.last %},{% endunless %}
@@ -557,7 +684,7 @@
               </div>
             {%- endif -%}
             <div class="smooch-sticky-atc__meta">
-              <span class="smooch-sticky-atc__title">{{ product.title | escape }}</span>
+              <span class="smooch-sticky-atc__title" data-sticky-summary>{{ product.title | escape }}</span>
               <span class="smooch-sticky-atc__price smooch-num" data-sticky-price>
                 {{- current_variant.price | times: default_bundle_qty | money -}}
               </span>
@@ -826,7 +953,7 @@
           "type": "text",
           "id": "text",
           "label": "One-sentence promise",
-          "default": "A daily gummy formulated to support desire, mood, confidence, and connection."
+          "default": "Daily support for mood, desire, and feeling connected."
         }
       ]
     },
@@ -887,38 +1014,62 @@
     },
     {
       "type": "bundles",
-      "name": "Bundle selector",
+      "name": "Supply selector",
       "limit": 1,
       "settings": [
         {
           "type": "paragraph",
-          "content": "Renders all “Bundle option” blocks as a selector. Add 1–3 “Bundle option” blocks below this block."
+          "content": "Renders all “Supply option” blocks as step 1 of the guided purchase flow. Add 1–3 “Supply option” blocks below this block."
         },
         {
           "type": "text",
           "id": "heading",
           "label": "Heading",
-          "default": "Choose your bundle"
+          "default": "Choose your supply"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_per_bottle",
+          "label": "Show per-bottle price",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_per_day",
+          "label": "Show per-day price",
+          "default": false,
+          "info": "Needs “Days of supply” set on each supply option."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_savings",
+          "label": "Show exact savings amount",
+          "default": true
         }
       ]
     },
     {
       "type": "bundle",
-      "name": "Bundle option",
+      "name": "Supply option",
       "limit": 4,
       "settings": [
         {
           "type": "text",
           "id": "title",
           "label": "Title",
-          "default": "1-month supply"
+          "default": "1 Bottle"
+        },
+        {
+          "type": "number",
+          "id": "days",
+          "label": "Days of supply",
+          "info": "Shows “N-day supply” and powers per-day pricing. Leave empty to use the subtitle below instead."
         },
         {
           "type": "text",
           "id": "subtitle",
-          "label": "Subtitle",
-          "default": "60 gummies · 30 days",
-          "info": "Servings, days, or any short supporting line."
+          "label": "Subtitle (fallback)",
+          "info": "Shown only when “Days of supply” is empty."
         },
         {
           "type": "range",
@@ -1012,7 +1163,7 @@
           "type": "text",
           "id": "heading",
           "label": "Heading",
-          "default": "How often?"
+          "default": "Choose how to buy"
         },
         {
           "type": "text",
@@ -1027,10 +1178,11 @@
           "default": "Subscribe & save"
         },
         {
-          "type": "text",
-          "id": "plan_note",
-          "label": "Subscription note",
-          "default": "Skip, pause, or cancel anytime."
+          "type": "textarea",
+          "id": "benefits",
+          "label": "Subscription benefits (one per line)",
+          "default": "Save on every delivery\nDelivery on your schedule\nManage or cancel anytime",
+          "info": "Shown when a subscription is selected. Only list capabilities your subscription app actually supports."
         }
       ]
     },
@@ -1175,6 +1327,52 @@
           "label": "Custom liquid"
         }
       ]
+    },
+    {
+      "type": "media_card",
+      "name": "Media info card",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Branded informational card in the rail under the gallery. Cards without a heading or image are hidden. Never enter claims you can't substantiate."
+        },
+        {
+          "type": "text",
+          "id": "kicker",
+          "label": "Kicker",
+          "info": "Small label above the heading, e.g. “The system”."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "palette",
+          "label": "Card palette",
+          "default": "blush",
+          "options": [
+            { "value": "blush", "label": "Soft pink" },
+            { "value": "cream", "label": "Off white" },
+            { "value": "berry", "label": "Watermelon" },
+            { "value": "plum", "label": "Purple" },
+            { "value": "lilac", "label": "Lilac" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (optional)",
+          "info": "Replaces the color block behind the card."
+        }
+      ]
     }
   ],
   "presets": [
@@ -1185,25 +1383,24 @@
         { "type": "title" },
         { "type": "rating" },
         { "type": "promise" },
-        { "type": "benefit", "settings": { "icon": "heart", "text": "Formulated to support desire" } },
-        { "type": "benefit", "settings": { "icon": "sparkle", "text": "Supports a steadier mood" } },
-        { "type": "benefit", "settings": { "icon": "moon", "text": "One gummy, once a day" } },
-        { "type": "benefit", "settings": { "icon": "leaf", "text": "Thoughtful, transparent ingredients" } },
+        { "type": "benefit", "settings": { "icon": "sparkle", "text": "Supports a calmer, more open mindset" } },
+        { "type": "benefit", "settings": { "icon": "heart", "text": "Supports desire and everyday connection" } },
+        { "type": "benefit", "settings": { "icon": "moon", "text": "An easy daily gummy ritual" } },
         { "type": "variant_picker" },
         { "type": "bundles" },
         {
           "type": "bundle",
           "settings": {
-            "title": "1-month supply",
-            "subtitle": "60 gummies · 30 days",
+            "title": "1 Bottle",
+            "days": 30,
             "quantity": 1
           }
         },
         {
           "type": "bundle",
           "settings": {
-            "title": "2-month supply",
-            "subtitle": "120 gummies · 60 days",
+            "title": "2 Bottles",
+            "days": 60,
             "quantity": 2,
             "badge": "Most popular",
             "preselected": true
@@ -1212,8 +1409,8 @@
         {
           "type": "bundle",
           "settings": {
-            "title": "3-month supply",
-            "subtitle": "180 gummies · 90 days",
+            "title": "3 Bottles",
+            "days": 90,
             "quantity": 3,
             "badge": "Best value"
           }
@@ -1222,6 +1419,33 @@
         { "type": "price" },
         { "type": "buy_buttons" },
         { "type": "reassurance" },
+        {
+          "type": "media_card",
+          "settings": {
+            "kicker": "The system",
+            "heading": "Mood · Desire · Connection",
+            "text": "<p>One gummy, formulated to support all three — softly, daily.</p>",
+            "palette": "blush"
+          }
+        },
+        {
+          "type": "media_card",
+          "settings": {
+            "kicker": "Inside",
+            "heading": "Four working ingredients",
+            "text": "<p>KSM-66 Ashwagandha, Black Maca, Damiana, and Cinnamon Bark.</p>",
+            "palette": "cream"
+          }
+        },
+        {
+          "type": "media_card",
+          "settings": {
+            "kicker": "The ritual",
+            "heading": "One gummy, once a day",
+            "text": "<p>With or without food — consistency matters more than timing.</p>",
+            "palette": "lilac"
+          }
+        },
         {
           "type": "collapsible_tab",
           "settings": {

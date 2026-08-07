@@ -18,12 +18,12 @@
   font-weight: 600 800;
   font-style: normal;
   font-display: swap;
-  /* The DEMO file replaces several glyphs (' ’ & $ % # @ …) with "DEMO"
-     watermarks. Restrict it to letters, digits, and verified-safe
-     punctuation; everything else falls back to Helvetica/Arial. Remove this
-     unicode-range once a licensed Proxima Nova replaces the demo file. */
-  unicode-range: U+0020-0021, U+002C-002E, U+0030-003B, U+003F, U+0041-005A,
-    U+0061-007A, U+2013-2014;
+  /* The DEMO file replaces several glyphs (' ’ & $ % # @ and the digit 4 …)
+     with "DEMO" watermarks. Restrict it to letters, verified-safe digits, and
+     safe punctuation; everything else falls back to Helvetica/Arial. Remove
+     this unicode-range once a licensed Proxima Nova replaces the demo file. */
+  unicode-range: U+0020-0021, U+002C-002E, U+0030-0033, U+0035-003B, U+003F,
+    U+0041-005A, U+0061-007A, U+2013-2014;
 }
 
 @font-face {
@@ -65,4 +65,7 @@
   /* Brand-specific roles consumed by Smooch components */
   --smooch-font-serif: 'Loretta', Georgia, 'Times New Roman', serif;
   --smooch-font-label: 'Proxima Nova', 'Helvetica Neue', Arial, sans-serif;
+  /* Prices and other numeral-heavy UI render in Euclid for flawless digits
+     (the DEMO Proxima can't be trusted with every glyph). */
+  --smooch-font-numeric: 'Euclid Flex', 'Helvetica Neue', Arial, sans-serif;
 }

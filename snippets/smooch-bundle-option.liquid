@@ -1,5 +1,5 @@
 {% comment %}
-  Renders one bundle option card (radio + label).
+  Renders one supply option card (radio + label) in the guided purchase flow.
 
   All prices are real: variant price/compare-at × quantity, server-rendered for
   the initially selected variant with no selling plan. smooch-product-form.js
@@ -13,19 +13,26 @@
   - product: {Object}
   - current_variant: {Object}
   - checked_index: {Number} initially selected bundle index
+  - show_per_bottle: {Boolean} show per-bottle price
+  - show_per_day: {Boolean} show per-day price (needs block days)
+  - show_savings: {Boolean} show exact savings amount
 
   Usage:
-  {% render 'smooch-bundle-option', block: block, index: 0, section_id: section.id, product: product, current_variant: current_variant, checked_index: 0 %}
+  {% render 'smooch-bundle-option', block: block, index: 0, section_id: section.id, product: product, current_variant: current_variant, checked_index: 0, show_per_bottle: true, show_per_day: false, show_savings: true %}
 {% endcomment %}
 
 {%- liquid
   assign qty = block.settings.quantity | at_least: 1
+  assign days = block.settings.days
   assign total = current_variant.price | times: qty
   assign compare = current_variant.compare_at_price | default: 0 | times: qty
-  assign save = 0
+  assign save_amount = 0
   if compare > total
-    assign save_amount = compare | minus: total | times: 100
-    assign save = save_amount | divided_by: compare
+    assign save_amount = compare | minus: total
+  endif
+  assign per_day = 0
+  if days > 0
+    assign per_day = total | divided_by: days
   endif
 
   comment
@@ -46,6 +53,8 @@
     value="{{ index }}"
     data-smooch-bundle-radio
     data-quantity="{{ qty }}"
+    data-days="{{ days | default: '' }}"
+    data-label="{{ block.settings.title | escape }}"
     data-variant-value="{{ block.settings.variant_value | strip | escape }}"
     {% if index == checked_index %}checked{% endif %}
   >
@@ -63,7 +72,9 @@
     {%- endif -%}
     <span class="smooch-bundle__body">
       <span class="smooch-bundle__title">{{ block.settings.title }}</span>
-      {%- if block.settings.subtitle != blank -%}
+      {%- if days > 0 -%}
+        <span class="smooch-bundle__subtitle">{{ days }}-day supply</span>
+      {%- elsif block.settings.subtitle != blank -%}
         <span class="smooch-bundle__subtitle">{{ block.settings.subtitle }}</span>
       {%- endif -%}
       <span class="smooch-bundle__soldout smooch-caption" data-bundle-soldout {% unless initially_unavailable %}hidden{% endunless %}>
@@ -71,14 +82,25 @@
       </span>
     </span>
     <span class="smooch-bundle__pricing">
-      <span class="smooch-bundle__price smooch-num" data-bundle-price>{{ total | money }}</span>
-      <s class="smooch-strike smooch-num" data-bundle-compare {% if compare <= total %}hidden{% endif %}>{{ compare | money }}</s>
-      <span class="smooch-bundle__unit" data-bundle-unit-line {% if qty <= 1 %}hidden{% endif %}>
-        <span class="smooch-num" data-bundle-unit>{{ current_variant.price | money }}</span> each
+      <span class="smooch-bundle__price-row">
+        <span class="smooch-bundle__price smooch-num" data-bundle-price>{{ total | money }}</span>
+        <s class="smooch-strike smooch-num" data-bundle-compare {% if compare <= total %}hidden{% endif %}>{{ compare | money }}</s>
       </span>
-      <span class="smooch-badge smooch-badge--blush smooch-bundle__save" data-bundle-save {% if save == 0 %}hidden{% endif %}>
-        {%- if save > 0 %}Save {{ save }}%{% endif -%}
-      </span>
+      {%- if show_savings -%}
+        <span class="smooch-bundle__save-amount smooch-num" data-bundle-save-amount {% if save_amount == 0 %}hidden{% endif %}>
+          {%- if save_amount > 0 %}Save {{ save_amount | money }}{% endif -%}
+        </span>
+      {%- endif -%}
+      {%- if show_per_bottle -%}
+        <span class="smooch-bundle__unit" data-bundle-unit-line {% if qty <= 1 %}hidden{% endif %}>
+          <span class="smooch-num" data-bundle-unit>{{ current_variant.price | money }}</span> per bottle
+        </span>
+      {%- endif -%}
+      {%- if show_per_day and days > 0 -%}
+        <span class="smooch-bundle__unit smooch-bundle__per-day">
+          <span class="smooch-num" data-bundle-per-day>{{ per_day | money }}</span> per day
+        </span>
+      {%- endif -%}
     </span>
   </span>
 </label>

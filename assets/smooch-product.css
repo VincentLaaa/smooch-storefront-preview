@@ -59,7 +59,7 @@
 }
 
 .smooch-offer-price__current {
-  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
   font-size: 2.6rem;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -102,11 +102,31 @@
 .smooch-bundles__legend {
   padding: 0;
   margin-bottom: 1.2rem;
+  font-family: var(--smooch-font-label, var(--font-body-family));
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(var(--color-foreground), 0.75);
+}
+
+/* Numbered purchase steps */
+.smooch-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.smooch-step__num {
+  display: inline-grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background-color: var(--smooch-berry);
+  color: rgb(255, 255, 255);
+  font-size: 1.2rem;
+  letter-spacing: 0;
 }
 
 .smooch-bundles__list {
@@ -211,14 +231,26 @@
   display: grid;
   justify-items: end;
   align-content: center;
-  gap: 0.3rem;
+  gap: 0.2rem;
   text-align: right;
 }
 
+.smooch-bundle__price-row {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.7rem;
+}
+
 .smooch-bundle__price {
-  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
   font-size: 1.8rem;
   font-weight: 700;
+}
+
+.smooch-bundle__save-amount {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: rgb(196, 42, 80);
 }
 
 .smooch-bundle__unit {
@@ -347,6 +379,13 @@
   outline-offset: 0.3rem;
 }
 
+.smooch-plan__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
 .smooch-plan__name {
   display: inline-flex;
   align-items: center;
@@ -355,14 +394,61 @@
   font-weight: 600;
 }
 
+.smooch-plan__price {
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
+  font-size: 1.5rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .smooch-plan__meta {
   font-size: 1.3rem;
   color: rgba(var(--color-foreground), 0.65);
 }
 
-.smooch-plan__note {
-  font-size: 1.25rem;
-  color: rgba(var(--color-foreground), 0.6);
+.smooch-plans__benefits {
+  margin: 1.2rem 0 0;
+  padding: 1.2rem 1.4rem;
+  background-color: rgba(var(--smooch-blush-rgb), 0.35);
+  border-radius: var(--smooch-radius-button);
+}
+
+.smooch-plans__benefits li {
+  font-size: 1.35rem;
+}
+
+.smooch-plans__benefits[hidden] {
+  display: none !important;
+}
+
+/* ---------- Purchase summary ---------- */
+
+.smooch-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.4rem 1.6rem;
+  border: 0.1rem solid var(--smooch-border-soft);
+  border-radius: var(--smooch-radius-card);
+  background-color: rgba(var(--smooch-surface-rgb), 0.75);
+}
+
+.smooch-summary__selection {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+.smooch-summary__save {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: rgb(196, 42, 80);
+}
+
+.smooch-summary__save[hidden] {
+  display: none !important;
 }
 
 /* ---------- Reassurance ---------- */
@@ -511,6 +597,123 @@
   flex-shrink: 0;
   min-height: 4.8rem;
   padding-inline: 2.2rem;
+}
+
+/* ---------- Media info cards (rail under the gallery) ---------- */
+
+.smooch-media-cards {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0 0 0.8rem;
+  display: flex;
+  gap: 1.2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--color-foreground), 0.3) transparent;
+}
+
+.smooch-media-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(26rem, 72vw);
+  min-height: 15rem;
+  scroll-snap-align: start;
+  border-radius: var(--smooch-radius-card);
+  overflow: hidden;
+  padding: 1.8rem;
+  display: flex;
+  align-items: flex-end;
+  color: var(--smooch-ink);
+  background-color: var(--smooch-blush);
+}
+
+.smooch-media-card--blush { background-color: var(--smooch-blush); }
+.smooch-media-card--cream { background-color: var(--smooch-cream); }
+.smooch-media-card--lilac { background-color: var(--smooch-lilac); }
+.smooch-media-card--berry { background-color: var(--smooch-berry); color: rgb(255, 255, 255); }
+.smooch-media-card--plum { background-color: var(--smooch-plum); color: rgb(255, 247, 244); }
+
+.smooch-media-card__image {
+  position: absolute;
+  inset: 0;
+}
+
+.smooch-media-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.smooch-media-card__body {
+  position: relative;
+  z-index: 1;
+}
+
+.smooch-media-card__image ~ .smooch-media-card__body,
+.smooch-media-card__image + .smooch-media-card__body {
+  padding: 1rem 1.2rem;
+  border-radius: 0.8rem;
+  background-color: rgba(255, 253, 249, 0.92);
+  color: var(--smooch-ink);
+}
+
+.smooch-media-card__kicker {
+  margin: 0 0 0.4rem;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.smooch-media-card__heading {
+  margin: 0;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.smooch-media-card__text {
+  margin-top: 0.5rem;
+  font-family: var(--smooch-font-serif, serif);
+  font-size: 1.4rem;
+  line-height: 1.45;
+}
+
+.smooch-media-card__text p {
+  margin: 0;
+}
+
+.smooch-media-card__shape {
+  position: absolute;
+  top: -3.4rem;
+  right: -3rem;
+  width: 11rem;
+  height: 11rem;
+  border-radius: 58% 42% 55% 45% / 55% 48% 52% 45%;
+  background-color: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+}
+
+.smooch-media-card--cream .smooch-media-card__shape {
+  background-color: rgba(var(--smooch-berry-rgb), 0.18);
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-media-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+
+  .smooch-media-card {
+    width: auto;
+  }
 }
 
 /* ---------- Placeholder (no product selected) ---------- */

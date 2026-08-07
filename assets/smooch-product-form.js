@@ -298,7 +298,24 @@ if (!customElements.get('smooch-offer')) {
             this.setText(card, '[data-bundle-price]', prices.t);
             this.setCompare(card.querySelector('[data-bundle-compare]'), prices.c);
             this.setText(card, '[data-bundle-unit]', prices.u);
-            this.setSave(card.querySelector('[data-bundle-save]'), prices.s);
+            const saveAmount = card.querySelector('[data-bundle-save-amount]');
+            if (saveAmount) {
+              if (prices.sa) {
+                saveAmount.textContent = `Save ${prices.sa}`;
+                saveAmount.hidden = false;
+              } else {
+                saveAmount.hidden = true;
+              }
+            }
+            const perDay = card.querySelector('[data-bundle-per-day]');
+            if (perDay) {
+              if (prices.pd) {
+                perDay.textContent = prices.pd;
+                perDay.parentElement.hidden = false;
+              } else {
+                perDay.parentElement.hidden = true;
+              }
+            }
           }
           const unitLine = card.querySelector('[data-bundle-unit-line]');
           if (unitLine) unitLine.hidden = (bundle.quantity || 1) <= 1;
@@ -327,6 +344,52 @@ if (!customElements.get('smooch-offer')) {
           this.setSave(badge, planPrices ? planPrices.s : 0);
         });
 
+        // Per-option resulting totals (one-time row + each plan row).
+        const baseEntry = variant.base ? variant.base[bundleIndex] : null;
+        const onetimePrice = this.querySelector('[data-onetime-price]');
+        if (onetimePrice && baseEntry) onetimePrice.textContent = baseEntry.t;
+        this.querySelectorAll('[data-plan-price]').forEach((el) => {
+          const id = el.dataset.planId;
+          const planPrices = variant.plans && variant.plans[id] ? variant.plans[id][bundleIndex] : null;
+          if (planPrices) {
+            el.textContent = planPrices.t;
+            el.hidden = false;
+          } else {
+            el.hidden = true;
+          }
+        });
+
+        // Subscription benefits show only while a subscription is selected.
+        const benefits = this.querySelector('[data-plan-benefits]');
+        if (benefits) benefits.hidden = !planId;
+
+        // Purchase summary line ("2 bottles · 60-day supply · Subscription…").
+        const bundleMeta = this.data.bundles[bundleIndex] || { quantity: 1, days: 0, label: '' };
+        const supplyEl = this.querySelector('[data-summary-supply]');
+        const bundleQty = bundleMeta.quantity || 1;
+        let supplyText = `${bundleQty} bottle${bundleQty === 1 ? '' : 's'}`;
+        if (bundleMeta.days > 0) supplyText += ` · ${bundleMeta.days}-day supply`;
+        if (supplyEl) supplyEl.textContent = supplyText;
+        const planLineEl = this.querySelector('[data-summary-plan]');
+        if (planLineEl) {
+          if (planId) {
+            const plan = (this.data.plans || []).find((p) => String(p.id) === String(planId));
+            planLineEl.textContent = ` · Subscription${plan ? ` — ${plan.name.toLowerCase()}` : ''}`;
+            planLineEl.hidden = false;
+          } else {
+            planLineEl.hidden = true;
+          }
+        }
+        const saveLineEl = this.querySelector('[data-summary-save]');
+        if (saveLineEl && mainPrices) {
+          if (mainPrices.sa) {
+            saveLineEl.textContent = `You save ${mainPrices.sa}`;
+            saveLineEl.hidden = false;
+          } else {
+            saveLineEl.hidden = true;
+          }
+        }
+
         const selectedTier = bundleIndex + 1;
         this.querySelectorAll('[data-smooch-gift]').forEach((gift) => {
           const tier = parseInt(gift.dataset.tier, 10) || 1;
@@ -344,6 +407,7 @@ if (!customElements.get('smooch-offer')) {
             detail: {
               sectionId: this.sectionId,
               priceText: mainPrices ? mainPrices.t : '',
+              summaryText: `${supplyText} · ${planId ? 'Subscription' : 'One-time'}`,
             },
           })
         );
@@ -399,6 +463,8 @@ if (!customElements.get('smooch-sticky-atc')) {
         this.boundOnOffer = (event) => {
           if (!event.detail || event.detail.sectionId !== this.sectionId) return;
           if (this.priceEl && event.detail.priceText) this.priceEl.textContent = event.detail.priceText;
+          const summaryEl = this.querySelector('[data-sticky-summary]');
+          if (summaryEl && event.detail.summaryText) summaryEl.textContent = event.detail.summaryText;
         };
         document.addEventListener('smooch:offer:change', this.boundOnOffer);
 
