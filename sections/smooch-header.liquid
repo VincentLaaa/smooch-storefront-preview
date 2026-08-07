@@ -36,7 +36,18 @@
               preload: true
           }}
         {%- else -%}
-          <span class="smooch-h3 smooch-header__wordmark">{{ brand_name }}</span>
+          {%- comment -%}
+            Bundled brand wordmark (white artwork, ink-tinted via CSS for light
+            headers). A merchant-uploaded logo in Theme settings overrides it.
+          {%- endcomment -%}
+          <img
+            src="{{ 'smooch-logo-white.webp' | asset_url }}"
+            width="712"
+            height="183"
+            class="smooch-header__logo-image smooch-header__logo-image--brand"
+            alt="{{ brand_name | escape }}"
+            style="width: {{ settings.logo_width | default: 110 }}px; height: auto;"
+          >
         {%- endif -%}
       </a>
 

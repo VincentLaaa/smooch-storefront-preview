@@ -41,6 +41,11 @@
   }
 {% endstyle %}
 
+{%- if settings.favicon == blank -%}
+  {%- comment -%} Brand "oo" submark favicon until a merchant favicon is uploaded. {%- endcomment -%}
+  <link rel="icon" type="image/svg+xml" href="{{ 'smooch-favicon.svg' | asset_url }}">
+{%- endif -%}
+
 {%- if settings.smooch_use_brand_fonts -%}
   {{ 'smooch-fonts.css' | asset_url | stylesheet_tag }}
 {%- endif -%}

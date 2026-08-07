@@ -63,7 +63,17 @@
             }}
           </a>
         {%- else -%}
-          <a href="{{ routes.root_url }}" class="smooch-footer__wordmark">{{ brand_name }}</a>
+          <a href="{{ routes.root_url }}" class="smooch-footer__logo" style="max-width: min(100%, {{ settings.logo_width | default: 110 | times: 1.3 | round }}px);">
+            <img
+              src="{{ 'smooch-logo-white.webp' | asset_url }}"
+              width="712"
+              height="183"
+              loading="lazy"
+              class="smooch-footer__logo-image"
+              alt="{{ brand_name | escape }}"
+              style="width: 100%; height: auto;"
+            >
+          </a>
         {%- endif -%}
 
         {%- if section.settings.brand_text != blank -%}

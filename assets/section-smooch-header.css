@@ -50,6 +50,19 @@
   max-width: 100%;
 }
 
+/* Bundled white wordmark, tinted to the scheme foreground for light headers.
+   brightness(0) renders the artwork near-black; on dark header schemes the
+   invert flips it back to white. */
+.smooch-header__logo-image--brand {
+  display: block;
+  filter: brightness(0) opacity(0.92);
+}
+
+.color-scheme-3 .smooch-header__logo-image--brand,
+.color-scheme-4 .smooch-header__logo-image--brand {
+  filter: none;
+}
+
 .smooch-header__wordmark {
   font-family: var(--font-heading-family);
   font-weight: 700;
