@@ -131,8 +131,9 @@
 
 .smooch-bundles__list {
   display: grid;
-  gap: 1.2rem;
+  gap: 1rem;
 }
+
 
 .smooch-bundle {
   display: block;
@@ -237,8 +238,11 @@
 
 .smooch-bundle__price-row {
   display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: baseline;
-  gap: 0.7rem;
+  gap: 0.4rem 0.7rem;
+  min-width: 0;
 }
 
 .smooch-bundle__price {
@@ -266,6 +270,47 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+/* Wide desktop: three compact Create-style cards in a row (the panel is too
+   narrow for three price columns below 1200px — rows stack there). */
+@media screen and (min-width: 1200px) {
+  .smooch-bundles__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .smooch-bundle__card {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 3.2rem 1.3rem 1.4rem;
+    text-align: center;
+  }
+
+  .smooch-bundle__check {
+    left: 50%;
+    top: 1.1rem;
+    transform: translateX(-50%);
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+
+  .smooch-bundle__badge {
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .smooch-bundle__body {
+    align-items: center;
+  }
+
+  .smooch-bundle__pricing {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .smooch-bundle__price-row {
+    justify-content: center;
+  }
 }
 
 /* ---------- Free gift display ---------- */
@@ -447,6 +492,135 @@
 
 .smooch-plans__benefits[hidden] {
   display: none !important;
+}
+
+/* ---------- Featured subscription panel (Create-style) ---------- */
+
+.smooch-subpanel {
+  position: relative;
+  padding: 2rem 1.8rem 1.6rem;
+  border: 0.15rem solid var(--smooch-berry);
+  border-radius: var(--smooch-radius-card);
+  background-color: rgba(var(--smooch-blush-rgb), 0.22);
+  transition: opacity var(--duration-short, 100ms) ease, border-color var(--duration-short, 100ms) ease;
+}
+
+.smooch-subpanel--inactive {
+  opacity: 0.62;
+  border-color: var(--smooch-border-soft);
+}
+
+.smooch-subpanel__ribbon {
+  position: absolute;
+  top: -1.1rem;
+  left: 1.6rem;
+}
+
+.smooch-subpanel__title {
+  margin: 0;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.smooch-subpanel__pct {
+  color: rgb(196, 42, 80);
+}
+
+.smooch-subpanel__price {
+  margin: 0.6rem 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.smooch-subpanel__price-current {
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
+  font-size: 2.6rem;
+  font-weight: 700;
+}
+
+.smooch-subpanel__meta {
+  margin: 0.2rem 0 0;
+  font-size: 1.35rem;
+  color: rgba(var(--smooch-ink-rgb), 0.75);
+}
+
+.smooch-subpanel__meta [hidden] {
+  display: none !important;
+}
+
+.smooch-subpanel__saving {
+  margin: 0.4rem 0 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: rgb(196, 42, 80);
+}
+
+.smooch-subpanel__saving[hidden] {
+  display: none !important;
+}
+
+.smooch-subpanel__freq {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+.smooch-freq {
+  cursor: pointer;
+}
+
+.smooch-freq__pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3.6rem;
+  padding: 0.6rem 1.4rem;
+  border: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.3);
+  border-radius: 2rem;
+  background-color: rgba(var(--smooch-surface-rgb), 0.9);
+  font-size: 1.3rem;
+  font-weight: 600;
+  transition: border-color var(--duration-short, 100ms) ease, background-color var(--duration-short, 100ms) ease;
+}
+
+.smooch-freq__input:checked + .smooch-freq__pill {
+  border-color: var(--smooch-berry);
+  box-shadow: 0 0 0 0.1rem var(--smooch-berry);
+  background-color: rgb(255, 255, 255);
+}
+
+.smooch-freq__input:focus-visible + .smooch-freq__pill {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.2rem;
+}
+
+.smooch-subpanel__perks {
+  list-style: none;
+  margin: 1.4rem 0 0;
+  padding: 1.2rem 0 0;
+  border-top: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.12);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.8rem;
+}
+
+.smooch-subpanel__perks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.smooch-subpanel__perks .smooch-icon {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  color: rgb(196, 42, 80);
 }
 
 /* ---------- Purchase summary ---------- */

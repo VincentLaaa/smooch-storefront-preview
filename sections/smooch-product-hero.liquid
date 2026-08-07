@@ -69,6 +69,8 @@
     assign has_plans = true
   endif
 
+  assign current_variant = product.selected_or_first_available_variant
+
   assign offer_ui = false
   if has_bundles or has_plans
     assign offer_ui = true
@@ -100,8 +102,6 @@
       endif
     endfor
   endif
-
-  assign current_variant = product.selected_or_first_available_variant
 
   comment
     Default bundle: first block marked preselected, else the first bundle block.
@@ -368,88 +368,110 @@
                     {%- when 'subscription' -%}
                       {%- if has_plans -%}
                         {%- liquid
+                          comment
+                            Create-style featured subscription panel: one primary
+                            offer card carrying the real selected-plan economics,
+                            frequency pills inside it, one-time as the secondary
+                            row beneath. All figures Liquid-derived.
+                          endcomment
                           assign initial_onetime_total = current_variant.price | times: default_bundle_qty
+                          assign panel_plan = product.selling_plan_groups[0].selling_plans[0]
+                          assign panel_unit = current_variant.price
+                          for alloc in current_variant.selling_plan_allocations
+                            if alloc.selling_plan.id == panel_plan.id
+                              assign panel_unit = alloc.price
+                            endif
+                          endfor
+                          assign panel_total = panel_unit | times: default_bundle_qty
+                          assign panel_save = initial_onetime_total | minus: panel_total
+                          assign panel_pct = 0
+                          if panel_save > 0
+                            assign panel_pct_amt = panel_save | times: 100
+                            assign panel_pct = panel_pct_amt | divided_by: initial_onetime_total
+                          endif
+                          assign panel_bundle = bundle_blocks[default_bundle_index]
+                          assign panel_days = panel_bundle.settings.days | default: 0
+                          assign panel_per_day = 0
+                          if panel_days > 0
+                            assign panel_per_day = panel_total | divided_by: panel_days
+                          endif
                         -%}
                         <fieldset class="smooch-plans" {{ block.shopify_attributes }}>
-                          <legend class="smooch-bundles__legend smooch-step">
-                            <span class="smooch-step__num" aria-hidden="true">2</span>
-                            {{ block.settings.heading | default: 'Choose how to buy' }}
-                          </legend>
-                          <div class="smooch-plans__list">
-                            {%- for group in product.selling_plan_groups -%}
-                              {%- for plan in group.selling_plans -%}
-                                {%- liquid
-                                  assign initial_plan_total = 0
-                                  for alloc in current_variant.selling_plan_allocations
-                                    if alloc.selling_plan.id == plan.id
-                                      assign initial_plan_total = alloc.price | times: default_bundle_qty
-                                    endif
-                                  endfor
-                                  assign plan_checked = false
-                                  if default_is_subscribe and plan.id == default_plan.id
-                                    assign plan_checked = true
-                                  endif
-                                -%}
-                                <label class="smooch-plan smooch-plan--featured">
-                                  <input
-                                    type="radio"
-                                    name="smooch-plan-{{ section.id }}"
-                                    value="{{ plan.id }}"
-                                    {% if plan_checked %}checked{% endif %}
-                                    data-smooch-plan-radio
-                                    class="smooch-plan__input visually-hidden"
-                                  >
-                                  <span class="smooch-plan__body">
-                                    <span class="smooch-plan__row">
-                                      <span class="smooch-plan__name">
-                                        {{ block.settings.subscribe_label | default: 'Subscribe & save' }}
-                                        <span class="smooch-badge smooch-badge--berry" data-plan-save data-plan-id="{{ plan.id }}" hidden></span>
-                                      </span>
-                                      <span class="smooch-plan__price-group">
-                                        <span class="smooch-plan__price smooch-num" data-plan-price data-plan-id="{{ plan.id }}" {% if initial_plan_total == 0 %}hidden{% endif %}>
-                                          {%- if initial_plan_total > 0 %}{{ initial_plan_total | money }}{% endif -%}
-                                        </span>
-                                        <s class="smooch-strike smooch-num smooch-plan__compare" data-plan-compare data-plan-id="{{ plan.id }}" {% if initial_plan_total >= initial_onetime_total %}hidden{% endif %}>
-                                          {%- if initial_plan_total < initial_onetime_total %}{{ initial_onetime_total | money }}{% endif -%}
-                                        </s>
-                                      </span>
-                                    </span>
-                                    <span class="smooch-plan__meta">{{ plan.name }}</span>
-                                  </span>
-                                </label>
-                              {%- endfor -%}
-                            {%- endfor -%}
-                            <label class="smooch-plan smooch-plan--onetime">
-                              <input
-                                type="radio"
-                                name="smooch-plan-{{ section.id }}"
-                                value=""
-                                {% unless default_is_subscribe %}checked{% endunless %}
-                                data-smooch-plan-radio
-                                class="smooch-plan__input visually-hidden"
-                              >
-                              <span class="smooch-plan__body">
-                                <span class="smooch-plan__row">
-                                  <span class="smooch-plan__name">{{ block.settings.onetime_label | default: 'One-time purchase' }}</span>
-                                  <span class="smooch-plan__price smooch-num" data-onetime-price>{{ initial_onetime_total | money }}</span>
-                                </span>
+                          <legend class="visually-hidden">{{ block.settings.heading | default: 'Choose how to buy' }}</legend>
+                          <div class="smooch-subpanel{% unless default_is_subscribe %} smooch-subpanel--inactive{% endunless %}" data-sub-panel>
+                            <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry">{{ block.settings.badge | default: 'Most popular' }}</span>
+                            <p class="smooch-subpanel__title">
+                              {{ block.settings.subscribe_label | default: 'Subscribe & Save' }}
+                              <span class="smooch-subpanel__pct" data-sub-pct {% if panel_pct == 0 %}hidden{% endif %}>{% if panel_pct > 0 %}{{ panel_pct }}%{% endif %}</span>
+                            </p>
+                            <p class="smooch-subpanel__price">
+                              <s class="smooch-strike smooch-num" data-sub-compare {% if panel_save <= 0 %}hidden{% endif %}>{{ initial_onetime_total | money }}</s>
+                              <span class="smooch-subpanel__price-current smooch-num" data-sub-price>{{ panel_total | money }}</span>
+                            </p>
+                            <p class="smooch-subpanel__meta">
+                              <span data-sub-supply>
+                                {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
+                                {%- if panel_days > 0 %} · {{ panel_days }}-day supply{% endif -%}
                               </span>
-                            </label>
-                          </div>
-                          {%- if block.settings.benefits != blank -%}
-                            {%- assign benefit_lines = block.settings.benefits | newline_to_br | split: '<br />' -%}
-                            <ul class="smooch-ticks smooch-plans__benefits" role="list" data-plan-benefits {% unless default_is_subscribe %}hidden{% endunless %}>
-                              {%- for line in benefit_lines -%}
-                                {%- assign clean_line = line | strip_html | strip -%}
-                                {%- if clean_line != blank -%}
-                                  <li>
-                                    {% render 'smooch-icon', icon: 'check' %}
-                                    <span>{{ clean_line }}</span>
-                                  </li>
-                                {%- endif -%}
+                              <span data-sub-perday-wrap {% if panel_per_day == 0 %}hidden{% endif %}> · <span class="smooch-num" data-sub-perday>{% if panel_per_day > 0 %}{{ panel_per_day | money }}{% endif %}</span> per day</span>
+                            </p>
+                            <p class="smooch-subpanel__saving smooch-num" data-sub-saving {% if panel_save <= 0 %}hidden{% endif %}>
+                              {%- if panel_save > 0 %}You’re saving {{ panel_save | money }}{% endif -%}
+                            </p>
+                            <div class="smooch-subpanel__freq" role="radiogroup" aria-label="Delivery frequency">
+                              {%- for group in product.selling_plan_groups -%}
+                                {%- for plan in group.selling_plans -%}
+                                  {%- liquid
+                                    assign plan_checked = false
+                                    if default_is_subscribe and plan.id == default_plan.id
+                                      assign plan_checked = true
+                                    endif
+                                  -%}
+                                  <label class="smooch-freq">
+                                    <input
+                                      type="radio"
+                                      name="smooch-plan-{{ section.id }}"
+                                      value="{{ plan.id }}"
+                                      {% if plan_checked %}checked{% endif %}
+                                      data-smooch-plan-radio
+                                      class="smooch-freq__input visually-hidden"
+                                    >
+                                    <span class="smooch-freq__pill">{{ plan.name }}</span>
+                                  </label>
+                                {%- endfor -%}
                               {%- endfor -%}
-                            </ul>
-                          {%- endif -%}
+                            </div>
+                            {%- if block.settings.benefits != blank -%}
+                              {%- assign benefit_lines = block.settings.benefits | newline_to_br | split: '<br />' -%}
+                              <ul class="smooch-subpanel__perks" role="list" data-plan-benefits>
+                                {%- for line in benefit_lines -%}
+                                  {%- assign clean_line = line | strip_html | strip -%}
+                                  {%- if clean_line != blank -%}
+                                    <li>
+                                      {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
+                                      <span>{{ clean_line }}</span>
+                                    </li>
+                                  {%- endif -%}
+                                {%- endfor -%}
+                              </ul>
+                            {%- endif -%}
+                          </div>
+                          <label class="smooch-plan smooch-plan--onetime">
+                            <input
+                              type="radio"
+                              name="smooch-plan-{{ section.id }}"
+                              value=""
+                              {% unless default_is_subscribe %}checked{% endunless %}
+                              data-smooch-plan-radio
+                              class="smooch-plan__input visually-hidden"
+                            >
+                            <span class="smooch-plan__body">
+                              <span class="smooch-plan__row">
+                                <span class="smooch-plan__name">{{ block.settings.onetime_label | default: 'One-time purchase' }}</span>
+                                <span class="smooch-plan__price smooch-num" data-onetime-price>{{ initial_onetime_total | money }}</span>
+                              </span>
+                            </span>
+                          </label>
                         </fieldset>
                       {%- endif -%}
 
@@ -737,9 +759,8 @@
               -%}
               <span class="smooch-sticky-atc__title" data-sticky-summary>
                 {%- if has_bundles -%}
-                  {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
-                  {%- if sticky_days > 0 %} · {{ sticky_days }}-day supply{% endif -%}
-                  {%- if default_is_subscribe %} · Subscription{% else %} · One-time{% endif -%}
+                  {{- sticky_bundle.settings.title | default: product.title -}}
+                  {%- if default_is_subscribe %} · Subscribe{% else %} · One-time{% endif -%}
                 {%- else -%}
                   {{- product.title | escape -}}
                 {%- endif -%}
@@ -1035,7 +1056,7 @@
           "type": "text",
           "id": "text",
           "label": "One-sentence promise",
-          "default": "Daily support for mood, desire, and feeling connected."
+          "default": "Daily gummies formulated to support mood, desire, and feeling connected — in one easy ritual."
         }
       ]
     },
@@ -1483,7 +1504,7 @@
       "name": "Smooch product hero",
       "blocks": [
         { "type": "eyebrow" },
-        { "type": "title" },
+        { "type": "title", "settings": { "custom_title": "[brand] Daily Gummies" } },
         { "type": "rating" },
         { "type": "social_proof" },
         { "type": "promise" },
@@ -1495,28 +1516,27 @@
         {
           "type": "bundle",
           "settings": {
-            "title": "3 Bottles",
+            "title": "1 Month",
+            "days": 30,
+            "quantity": 1
+          }
+        },
+        {
+          "type": "bundle",
+          "settings": {
+            "title": "2 Months",
+            "days": 60,
+            "quantity": 2
+          }
+        },
+        {
+          "type": "bundle",
+          "settings": {
+            "title": "3 Months",
             "days": 90,
             "quantity": 3,
             "badge": "Best value",
             "preselected": true
-          }
-        },
-        {
-          "type": "bundle",
-          "settings": {
-            "title": "2 Bottles",
-            "days": 60,
-            "quantity": 2,
-            "badge": "Most popular"
-          }
-        },
-        {
-          "type": "bundle",
-          "settings": {
-            "title": "1 Bottle",
-            "days": 30,
-            "quantity": 1
           }
         },
         { "type": "subscription" },
@@ -1553,9 +1573,17 @@
         {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "How to use",
+            "heading": "Is this right for me?",
             "icon": "info",
-            "content": "<p>Take the recommended serving daily, ideally at the same time each day. Consistency matters more than timing.</p>"
+            "content": "<p>[brand] is a daily-support gummy for women who want a simple ritual around mood, desire, and connection. It is not an on-demand product, and it isn't for anyone pregnant, breastfeeding, or on medication without talking to a qualified healthcare professional first.</p>"
+          }
+        },
+        {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How to use",
+            "icon": "clock",
+            "content": "<p>One gummy, once a day, with or without food. Consistency matters more than timing — see the final label for directions.</p>"
           }
         },
         {
@@ -1563,7 +1591,7 @@
           "settings": {
             "heading": "Ingredients",
             "icon": "leaf",
-            "content": "<p>Add your full ingredient list and dosages here once finalized.</p>"
+            "content": "<p>KSM-66 Ashwagandha, Black Maca, Damiana, and Cinnamon Bark. Full label details appear here once final amounts are approved.</p>"
           }
         },
         {

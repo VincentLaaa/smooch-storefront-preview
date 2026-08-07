@@ -72,11 +72,10 @@
     {%- endif -%}
     <span class="smooch-bundle__body">
       <span class="smooch-bundle__title">{{ block.settings.title }}</span>
-      {%- if days > 0 -%}
-        <span class="smooch-bundle__subtitle">{{ days }}-day supply</span>
-      {%- elsif block.settings.subtitle != blank -%}
-        <span class="smooch-bundle__subtitle">{{ block.settings.subtitle }}</span>
-      {%- endif -%}
+      <span class="smooch-bundle__subtitle">
+        {%- if qty == 1 %}1 bottle{% else %}{{ qty }} bottles{% endif -%}
+        {%- if days > 0 %} · {{ days }}-day supply{% elsif block.settings.subtitle != blank %} · {{ block.settings.subtitle }}{% endif -%}
+      </span>
       <span class="smooch-bundle__soldout smooch-caption" data-bundle-soldout {% unless initially_unavailable %}hidden{% endunless %}>
         {{ 'products.product.sold_out' | t }}
       </span>

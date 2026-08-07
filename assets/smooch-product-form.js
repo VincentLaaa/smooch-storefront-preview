@@ -365,9 +365,37 @@ if (!customElements.get('smooch-offer')) {
           this.setCompare(el, planPrices ? planPrices.c : '');
         });
 
-        // Subscription benefits show only while a subscription is selected.
-        const benefits = this.querySelector('[data-plan-benefits]');
-        if (benefits) benefits.hidden = !planId;
+        // Featured subscription panel (Create-style): always shows the
+        // economics of the active (or first) plan for the selected supply;
+        // dims when one-time is chosen.
+        const panel = this.querySelector('[data-sub-panel]');
+        if (panel) {
+          const panelPlanId = planId || String((this.data.plans[0] || {}).id || '');
+          const planEntry = variant.plans && variant.plans[panelPlanId] ? variant.plans[panelPlanId][bundleIndex] : null;
+          const oneTimeEntry = variant.base ? variant.base[bundleIndex] : null;
+          panel.classList.toggle('smooch-subpanel--inactive', !planId);
+          if (planEntry && oneTimeEntry) {
+            this.setText(panel, '[data-sub-price]', planEntry.t);
+            this.setCompare(panel.querySelector('[data-sub-compare]'), planEntry.c);
+            const pct = panel.querySelector('[data-sub-pct]');
+            if (pct) {
+              if (planEntry.s > 0) { pct.textContent = `${planEntry.s}%`; pct.hidden = false; }
+              else pct.hidden = true;
+            }
+            const perDayWrap = panel.querySelector('[data-sub-perday-wrap]');
+            if (perDayWrap) {
+              if (planEntry.pd) {
+                this.setText(panel, '[data-sub-perday]', planEntry.pd);
+                perDayWrap.hidden = false;
+              } else perDayWrap.hidden = true;
+            }
+            const saving = panel.querySelector('[data-sub-saving]');
+            if (saving) {
+              if (planEntry.sa) { saving.textContent = `You’re saving ${planEntry.sa}`; saving.hidden = false; }
+              else saving.hidden = true;
+            }
+          }
+        }
 
         // Purchase summary line ("2 bottles · 60-day supply · Subscription…").
         const bundleMeta = this.data.bundles[bundleIndex] || { quantity: 1, days: 0, label: '' };
@@ -376,6 +404,7 @@ if (!customElements.get('smooch-offer')) {
         let supplyText = `${bundleQty} bottle${bundleQty === 1 ? '' : 's'}`;
         if (bundleMeta.days > 0) supplyText += ` · ${bundleMeta.days}-day supply`;
         if (supplyEl) supplyEl.textContent = supplyText;
+        this.setText(this, '[data-sub-supply]', supplyText);
         const planLineEl = this.querySelector('[data-summary-plan]');
         if (planLineEl) {
           if (planId) {
@@ -413,7 +442,7 @@ if (!customElements.get('smooch-offer')) {
             detail: {
               sectionId: this.sectionId,
               priceText: mainPrices ? mainPrices.t : '',
-              summaryText: `${supplyText} · ${planId ? 'Subscription' : 'One-time'}`,
+              summaryText: `${bundleMeta.label || supplyText} · ${planId ? 'Subscribe' : 'One-time'}`,
             },
           })
         );
