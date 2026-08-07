@@ -628,9 +628,14 @@
             <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
             <p class="totals__total-value smooch-num">
               {%- if smooch_cart_saved > 0 -%}
+                {%- assign smooch_pct_amt = smooch_cart_saved | times: 100 -%}
+                {%- assign smooch_pct = smooch_pct_amt | divided_by: cart.original_total_price -%}
+                {%- if smooch_pct > 0 -%}
+                  <span class="smooch-badge smooch-badge--berry smooch-cart-summary__pct">{{ smooch_pct }}% OFF</span>
+                {%- endif -%}
                 <s class="smooch-strike">{{ cart.original_total_price | money }}</s>
               {%- endif -%}
-              {{ cart.total_price | money }}
+              <span class="smooch-cart-summary__final">{{ cart.total_price | money }}</span>
             </p>
           </div>
         </div>

@@ -139,7 +139,10 @@ test.describe('Purchase matrix (offline harness)', () => {
     await expect(summary.locator('.smooch-cart-summary__row').nth(0)).toContainText('$90.00'); // subtotal
     await expect(summary.locator('.smooch-cart-summary__row--discount')).toContainText('-$9.00');
     await expect(summary.locator('.smooch-cart-summary__free')).toHaveText('FREE SHIPPING');
-    await expect(summary.locator('.smooch-cart-summary__total')).toContainText('$81.00');
+    // Deal recap next to the total: percent badge, struck retail, final price.
+    await expect(summary.locator('.smooch-cart-summary__pct')).toHaveText('10% OFF');
+    await expect(summary.locator('.smooch-cart-summary__total .smooch-strike')).toHaveText('$90.00');
+    await expect(summary.locator('.smooch-cart-summary__final')).toHaveText('$81.00');
 
     await expect(drawer.locator('#CartDrawer-Checkout')).toContainText('Secure checkout');
     expect(await drawer.locator('.smooch-cart-ticker__item').count()).toBe(3);

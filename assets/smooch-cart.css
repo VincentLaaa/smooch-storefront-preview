@@ -1,6 +1,15 @@
 /* Smooch cart drawer: free-shipping meter, deal chips, order summary,
    secure checkout, reassurance ticker. 1rem = 10px (Dawn base). */
 
+/* ---------- Drawer width ---------- */
+
+/* Wider than Dawn's 40rem so the summary, deal chips, and line details
+   breathe. Still clamped to the viewport on small screens. */
+cart-drawer .drawer__inner {
+  width: 52rem;
+  max-width: calc(100vw - 3rem);
+}
+
 /* ---------- Free-shipping meter ---------- */
 
 .smooch-cart-shipbar {
@@ -122,10 +131,22 @@
   border-top: 0.1rem solid rgba(var(--color-foreground), 0.12);
 }
 
+.smooch-cart-summary__total .totals__total-value {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.7rem;
+}
+
 .smooch-cart-summary__total .smooch-strike {
-  margin-right: 0.6rem;
   font-size: 0.8em;
   color: rgba(var(--color-foreground), 0.55);
+}
+
+.smooch-cart-summary__pct {
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
 }
 
 /* ---------- Secure checkout ---------- */
