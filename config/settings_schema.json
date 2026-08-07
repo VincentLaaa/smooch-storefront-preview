@@ -1467,63 +1467,82 @@
         "info": "Used across all Smooch sections. Falls back to the store name when empty."
       },
       {
+        "type": "checkbox",
+        "id": "smooch_use_brand_fonts",
+        "label": "Use bundled Smooch brand fonts",
+        "default": true,
+        "info": "Proxima Nova (headings/labels), Loretta (editorial body), Euclid Flex (UI). ⚠ The bundled Proxima Nova is a DEMO file — license it before launch. Disable to fall back to the Typography settings above."
+      },
+      {
         "type": "header",
         "content": "Brand palette",
-        "info": "Accent tokens used by Smooch sections in addition to the color schemes. Keep them in step with your color schemes for a coherent look."
+        "info": "Smooch brand-guide tokens used by Smooch sections in addition to the color schemes. Keep them in step with your color schemes for a coherent look."
       },
       {
         "type": "color",
         "id": "smooch_color_cream",
-        "label": "Primary light background",
-        "default": "#FAF5EE"
+        "label": "Off white (primary light background)",
+        "default": "#FAF1EE"
       },
       {
         "type": "color",
         "id": "smooch_color_surface",
         "label": "Product surface",
-        "default": "#FFFDF9"
+        "default": "#FFFFFF"
       },
       {
         "type": "color",
         "id": "smooch_color_ink",
         "label": "Primary text",
-        "default": "#2B1220"
+        "default": "#231A1E"
       },
       {
         "type": "color",
         "id": "smooch_color_muted",
         "label": "Muted text",
-        "default": "#6E5A66"
+        "default": "#8A737C"
       },
       {
         "type": "color",
         "id": "smooch_color_berry",
-        "label": "Primary accent",
-        "default": "#BE2B54"
+        "label": "Watermelon (primary accent)",
+        "default": "#F65275"
       },
       {
         "type": "color",
         "id": "smooch_color_blush",
-        "label": "Secondary accent",
-        "default": "#F3DCE2"
+        "label": "Soft pink (secondary accent)",
+        "default": "#F2D4D7"
+      },
+      {
+        "type": "color",
+        "id": "smooch_color_pink",
+        "label": "Light pink",
+        "default": "#FCAFC0"
+      },
+      {
+        "type": "color",
+        "id": "smooch_color_lilac",
+        "label": "Lilac",
+        "default": "#C1A0DA"
       },
       {
         "type": "color",
         "id": "smooch_color_plum",
-        "label": "Dark background",
-        "default": "#3A1528"
+        "label": "Purple (dark background)",
+        "default": "#8246AF"
       },
       {
         "type": "color",
         "id": "smooch_cta_bg",
         "label": "Primary CTA background",
-        "default": "#2B1220"
+        "default": "#231A1E"
       },
       {
         "type": "color",
         "id": "smooch_cta_text",
         "label": "Primary CTA text",
-        "default": "#FFF8F2"
+        "default": "#FFF7F4"
       },
       {
         "type": "header",

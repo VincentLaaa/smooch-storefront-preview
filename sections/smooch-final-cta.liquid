@@ -59,8 +59,15 @@
             }}
           </div>
         {%- else -%}
-          <div class="smooch-final-cta__media smooch-final-cta__media--placeholder">
-            {{ 'product-1' | placeholder_svg_tag: 'smooch-final-cta__placeholder-svg' }}
+          <div class="smooch-final-cta__media">
+            <img
+              src="{{ 'smooch-demo-bottles-duo.png' | asset_url }}"
+              width="1254"
+              height="1254"
+              loading="lazy"
+              class="smooch-final-cta__img"
+              alt="{{ brand_name | escape }} gummies bottles"
+            >
           </div>
         {%- endif -%}
       </div>

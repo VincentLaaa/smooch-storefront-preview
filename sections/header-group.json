@@ -10,10 +10,17 @@
           "settings": {
             "text": "Free shipping on 2+ month supplies"
           }
+        },
+        "announcement-2": {
+          "type": "announcement",
+          "settings": {
+            "text": "No pills, no fluff."
+          }
         }
       },
       "block_order": [
-        "announcement-1"
+        "announcement-1",
+        "announcement-2"
       ],
       "settings": {}
     },

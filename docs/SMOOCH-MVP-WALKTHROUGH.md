@@ -59,8 +59,26 @@ back to the fixture product, and empty image pickers get themed placeholder art
 so pages photograph complete. On Shopify, those settings start empty and are
 chosen in the Theme Editor.
 
+## Brand system applied (from `Images for smooch/` + `Smooch_BrandGuide.pdf`)
+- **Palette** — Watermelon `#F65275`, Purple `#8246AF`, Soft Pink `#F2D4D7`,
+  Light Pink `#FCAFC0` + Lilac `#C1A0DA` (exposed as tokens), Off White
+  `#FAF1EE`; all five color schemes and Smooch tokens re-pointed; AA-tuned
+  deep-watermelon variants used for small text/links on light backgrounds.
+- **Typography** — Proxima Nova Bold (headings, all-caps labels/buttons),
+  Loretta (editorial serif body), Euclid Flex (UI text); bundled via
+  `assets/smooch-fonts.css`, toggleable with the "Use bundled Smooch brand
+  fonts" theme setting. ⚠ **The Proxima file is a Fontspring DEMO** — it
+  watermarks several glyphs (`' & $ %`), which are excluded via
+  `unicode-range` (they render in Helvetica) until a licensed copy replaces it.
+- **Imagery** — the two provided renders ship in `assets/` and back the
+  product-hero gallery fixtures plus the built-in fallbacks for the homepage
+  hero, mechanism, and final CTA; taglines "Self love in a bottle" /
+  "Self love, simplified" / "No pills, no fluff." adopted from the guide.
+- **Wordmark** — no logo file was provided, so the header/footer render a
+  lowercase Proxima "smooch" text approximation until the real SVG arrives.
+
 ## Package
-`dist/Smooch-1.0.0.zip` (1.3 MB, theme files only — regenerate with
-`npx shopify theme package`). Upload via **Online Store → Themes → Add theme →
-Upload zip**, or push the repo with `scripts/setup-staging.ps1` when Shopify
-access exists.
+`dist/Smooch-1.0.0.zip` (3.7 MB incl. brand fonts + demo renders, theme files
+only — regenerate with `npx shopify theme package`). Upload via **Online Store
+→ Themes → Add theme → Upload zip**, or push the repo with
+`scripts/setup-staging.ps1` when Shopify access exists.

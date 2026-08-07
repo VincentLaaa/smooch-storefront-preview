@@ -24,7 +24,9 @@ Categories: **Ready** · **Ready with placeholder** · **Blocked by missing busi
 ## Content
 | Item | Status | Notes |
 | --- | --- | --- |
-| Brand name / palette / typography defaults | Ready with placeholder | "Smooch" + working palette; swap in Theme settings |
+| Brand name / palette / typography | Ready | Brand-guide palette (watermelon/purple/pinks) + Loretta/Euclid applied per Smooch_BrandGuide.pdf |
+| Proxima Nova license | Blocked by merchant approval | Bundled file is a Fontspring DEMO (watermarked glyphs excluded via unicode-range). Purchase a license and replace `assets/smooch-font-proxima-bold.otf` before launch |
+| Logo / favicon files | Blocked by missing business data | Wordmark + "oo" submark exist in the brand guide PDF only; header uses a text approximation until SVG/PNG files are provided |
 | Product copy (promise, benefits, mechanism, timeline) | Ready with placeholder | Cautious-language defaults; review before paid traffic |
 | Formula ingredients + dosages | Blocked by missing business data | Examples marked as examples; dosages hidden until final formula |
 | Reviews / featured story / UGC | Blocked by missing business data | Sample-labeled by default; needs real reviews or review app |

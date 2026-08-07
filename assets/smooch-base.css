@@ -2,15 +2,20 @@
    Dawn sets html { font-size: 62.5% } so 1rem = 10px throughout. */
 
 :root {
-  --smooch-cream-rgb: 250, 245, 238;
-  --smooch-surface-rgb: 255, 253, 249;
-  --smooch-ink-rgb: 43, 18, 32;
-  --smooch-muted-rgb: 110, 90, 102;
-  --smooch-berry-rgb: 190, 43, 84;
-  --smooch-blush-rgb: 243, 220, 226;
-  --smooch-plum-rgb: 58, 21, 40;
-  --smooch-cta-bg-rgb: 43, 18, 32;
-  --smooch-cta-text-rgb: 255, 248, 242;
+  /* Brand-guide palette fallbacks (Smooch_BrandGuide.pdf p.8) */
+  --smooch-cream-rgb: 250, 241, 238;   /* Off White  #FAF1EE */
+  --smooch-surface-rgb: 255, 255, 255;
+  --smooch-ink-rgb: 35, 26, 30;        /* near-black */
+  --smooch-muted-rgb: 138, 115, 124;
+  --smooch-berry-rgb: 246, 82, 117;    /* Watermelon #F65275 */
+  --smooch-blush-rgb: 242, 212, 215;   /* Soft Pink  #F2D4D7 */
+  --smooch-pink-rgb: 252, 175, 192;    /* Light Pink #FCAFC0 */
+  --smooch-lilac-rgb: 193, 160, 218;   /* Lilac      #C1A0DA */
+  --smooch-plum-rgb: 130, 70, 175;     /* Purple     #8246AF */
+  --smooch-cta-bg-rgb: 35, 26, 30;
+  --smooch-cta-text-rgb: 255, 247, 244;
+  --smooch-font-serif: Georgia, 'Times New Roman', serif;
+  --smooch-font-label: var(--font-heading-family);
 }
 
 /* ---------- Typography scale ---------- */
@@ -53,7 +58,7 @@
 .smooch-eyebrow {
   display: inline-block;
   margin: 0 0 1.4rem;
-  font-family: var(--font-body-family);
+  font-family: var(--smooch-font-label, var(--font-body-family));
   font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -65,22 +70,35 @@
   color: var(--smooch-berry);
 }
 
-/* Berry accent falls marginally under AA on the blush scheme — use the deeper
-   berry (matches scheme-2's link color) there. */
-.color-scheme-2 .smooch-eyebrow--accent {
-  color: rgb(142, 31, 65);
+/* Watermelon fails AA for small text on light backgrounds — accent eyebrows
+   on the light schemes use the deep watermelon that matches their link color. */
+.color-scheme-1 .smooch-eyebrow--accent,
+.color-scheme-5 .smooch-eyebrow--accent {
+  color: rgb(196, 42, 80);
 }
 
+.color-scheme-2 .smooch-eyebrow--accent {
+  color: rgb(176, 38, 72);
+}
+
+/* Editorial body copy uses the brand serif (Loretta, "Grad" role);
+   UI text (captions, prices, controls) stays on the sans. */
 .smooch-lead {
   margin: 0;
-  font-size: clamp(1.7rem, 1.55rem + 0.5vw, 2rem);
+  font-family: var(--smooch-font-serif);
+  font-size: clamp(1.8rem, 1.6rem + 0.5vw, 2.1rem);
   line-height: 1.55;
-  color: rgba(var(--color-foreground), 0.8);
+  color: rgba(var(--color-foreground), 0.85);
 }
 
 .smooch-body {
-  font-size: 1.6rem;
-  line-height: 1.6;
+  font-family: var(--smooch-font-serif);
+  font-size: 1.7rem;
+  line-height: 1.65;
+}
+
+.smooch-prose {
+  font-family: var(--smooch-font-serif);
 }
 
 .smooch-caption {

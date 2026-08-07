@@ -16,6 +16,8 @@
     --smooch-berry-rgb: {{ settings.smooch_color_berry.red }}, {{ settings.smooch_color_berry.green }}, {{ settings.smooch_color_berry.blue }};
     --smooch-blush-rgb: {{ settings.smooch_color_blush.red }}, {{ settings.smooch_color_blush.green }}, {{ settings.smooch_color_blush.blue }};
     --smooch-plum-rgb: {{ settings.smooch_color_plum.red }}, {{ settings.smooch_color_plum.green }}, {{ settings.smooch_color_plum.blue }};
+    --smooch-pink-rgb: {{ settings.smooch_color_pink.red }}, {{ settings.smooch_color_pink.green }}, {{ settings.smooch_color_pink.blue }};
+    --smooch-lilac-rgb: {{ settings.smooch_color_lilac.red }}, {{ settings.smooch_color_lilac.green }}, {{ settings.smooch_color_lilac.blue }};
     --smooch-cta-bg-rgb: {{ settings.smooch_cta_bg.red }}, {{ settings.smooch_cta_bg.green }}, {{ settings.smooch_cta_bg.blue }};
     --smooch-cta-text-rgb: {{ settings.smooch_cta_text.red }}, {{ settings.smooch_cta_text.green }}, {{ settings.smooch_cta_text.blue }};
 
@@ -26,6 +28,8 @@
     --smooch-berry: rgb(var(--smooch-berry-rgb));
     --smooch-blush: rgb(var(--smooch-blush-rgb));
     --smooch-plum: rgb(var(--smooch-plum-rgb));
+    --smooch-pink: rgb(var(--smooch-pink-rgb));
+    --smooch-lilac: rgb(var(--smooch-lilac-rgb));
     --smooch-cta-bg: rgb(var(--smooch-cta-bg-rgb));
     --smooch-cta-text: rgb(var(--smooch-cta-text-rgb));
 
@@ -37,6 +41,9 @@
   }
 {% endstyle %}
 
+{%- if settings.smooch_use_brand_fonts -%}
+  {{ 'smooch-fonts.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 {{ 'smooch-base.css' | asset_url | stylesheet_tag }}
 {{ 'smooch-layout.css' | asset_url | stylesheet_tag }}
 {{ 'smooch-components.css' | asset_url | stylesheet_tag }}

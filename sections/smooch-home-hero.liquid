@@ -109,9 +109,16 @@
                 alt: product_alt
             }}
           {%- else -%}
-            <div class="smooch-home-hero__placeholder">
-              {{ 'product-1' | placeholder_svg_tag: 'smooch-home-hero__placeholder-svg' }}
-            </div>
+            {%- comment -%} Bundled demo render until the merchant picks an image. {%- endcomment -%}
+            <img
+              src="{{ 'smooch-demo-bottle-open.png' | asset_url }}"
+              width="1086"
+              height="1448"
+              loading="eager"
+              fetchpriority="high"
+              class="smooch-home-hero__product-img"
+              alt="{{ brand_name | escape }} gummies bottle with open cap"
+            >
           {%- endif -%}
         </div>
 
@@ -175,7 +182,7 @@
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
-      "default": "Meet [brand] — daily wellness gummies",
+      "default": "Self love in a bottle",
       "info": "Use [brand] to insert your brand name."
     },
     {

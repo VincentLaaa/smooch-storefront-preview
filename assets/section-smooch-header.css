@@ -51,7 +51,10 @@
 }
 
 .smooch-header__wordmark {
-  font-size: clamp(2rem, 1.7rem + 0.9vw, 2.6rem);
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  text-transform: lowercase;
+  font-size: clamp(2.2rem, 1.9rem + 0.9vw, 2.8rem);
   line-height: 1.1;
   white-space: nowrap;
   overflow: hidden;

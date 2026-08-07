@@ -84,7 +84,14 @@
                 alt: image_alt
             }}
           {%- else -%}
-            {{ 'product-1' | placeholder_svg_tag: 'smooch-mechanism__product-img smooch-mechanism__product-img--placeholder' }}
+            <img
+              src="{{ 'smooch-demo-bottle-open.png' | asset_url }}"
+              width="1086"
+              height="1448"
+              loading="lazy"
+              class="smooch-mechanism__product-img"
+              alt="{{ brand_name | escape }} gummies bottle"
+            >
           {%- endif -%}
         </div>
         {%- if section.settings.product_caption != blank -%}
