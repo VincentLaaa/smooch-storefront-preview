@@ -93,12 +93,10 @@
   endif
 
   assign default_unit_price = current_variant.price
-  assign default_compare_unit = current_variant.compare_at_price | default: 0
   if default_is_subscribe and default_plan
     for alloc in current_variant.selling_plan_allocations
       if alloc.selling_plan.id == default_plan.id
         assign default_unit_price = alloc.price
-        assign default_compare_unit = alloc.compare_at_price | default: current_variant.price
       endif
     endfor
   endif
@@ -407,6 +405,9 @@
                             <p class="smooch-subpanel__price">
                               <s class="smooch-strike smooch-num" data-sub-compare {% if panel_save <= 0 %}hidden{% endif %}>{{ initial_onetime_total | money }}</s>
                               <span class="smooch-subpanel__price-current smooch-num" data-sub-price>{{ panel_total | money }}</span>
+                              {%- if block.settings.autoapply_label != blank -%}
+                                <span class="smooch-badge smooch-badge--blush smooch-subpanel__autobadge" data-sub-autobadge {% if panel_pct == 0 %}hidden{% endif %}>{{ block.settings.autoapply_label | escape }}</span>
+                              {%- endif -%}
                             </p>
                             <p class="smooch-subpanel__meta">
                               <span data-sub-supply>
@@ -491,16 +492,18 @@
                         {%- if offer_ui -%}
                           {%- liquid
                             assign initial_total = default_unit_price | times: default_bundle_qty
-                            assign initial_compare = default_compare_unit | times: default_bundle_qty
-                            assign initial_save = 0
-                            if initial_compare > initial_total
-                              assign initial_save = initial_compare | minus: initial_total
-                            endif
                             assign default_bundle = bundle_blocks[default_bundle_index]
                             assign default_days = default_bundle.settings.days
                           -%}
-                          <div class="smooch-summary" data-smooch-summary>
-                            <p class="smooch-summary__selection">
+                          {%- comment -%}
+                            One quiet line: the selection recap and its total.
+                            The full economics (strike price, save %, per bottle)
+                            already live in the supply cards and the subscription
+                            panel directly above — repeating them here crowds the
+                            path to the add-to-cart button.
+                          {%- endcomment -%}
+                          <div class="smooch-summary-line" data-smooch-summary>
+                            <p class="smooch-summary-line__selection smooch-caption">
                               <span data-summary-supply>
                                 {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
                                 {%- if default_days > 0 %} · {{ default_days }}-day supply{% endif -%}
@@ -511,20 +514,7 @@
                             </p>
                             <div class="smooch-offer-price" data-smooch-offer-price role="status">
                               <span class="smooch-offer-price__current smooch-num" data-smooch-price>{{ initial_total | money }}</span>
-                              <s class="smooch-strike smooch-num" data-smooch-compare {% if initial_compare <= initial_total %}hidden{% endif %}>{{ initial_compare | money }}</s>
-                              <span class="smooch-badge smooch-badge--blush" data-smooch-save {% if initial_compare <= initial_total %}hidden{% endif %}>
-                                {%- if initial_compare > initial_total -%}
-                                  {%- assign save_pct_amount = initial_save | times: 100 -%}
-                                  Save {{ save_pct_amount | divided_by: initial_compare }}%
-                                {%- endif -%}
-                              </span>
                             </div>
-                            <p class="smooch-summary__save smooch-num" data-summary-save {% if initial_save == 0 %}hidden{% endif %}>
-                              {%- if initial_save > 0 %}You save {{ initial_save | money }}{% endif -%}
-                            </p>
-                            <p class="smooch-caption smooch-offer-price__unit" data-smooch-unit-line {% if default_bundle_qty <= 1 %}hidden{% endif %}>
-                              <span data-smooch-unit>{{ current_variant.price | money }}</span> per bottle
-                            </p>
                           </div>
                         {%- endif -%}
                         {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
@@ -1295,8 +1285,15 @@
           "type": "textarea",
           "id": "benefits",
           "label": "Subscription benefits (one per line)",
-          "default": "Save on every delivery\nDelivery on your schedule\nPause, edit, or cancel anytime",
-          "info": "Shown when a subscription is selected. Only list capabilities your subscription app actually supports."
+          "default": "Every order ships FREE\nVIP discounts & perks\nPause, edit, or cancel anytime",
+          "info": "Shown when a subscription is selected. Only list capabilities your subscription app and shipping settings actually support."
+        },
+        {
+          "type": "text",
+          "id": "autoapply_label",
+          "label": "Auto-applied badge",
+          "default": "Discount auto-applied",
+          "info": "Small badge beside the subscription price. Clear the text to hide it."
         }
       ]
     },

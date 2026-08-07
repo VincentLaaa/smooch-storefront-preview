@@ -424,14 +424,18 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(hero.locator('[data-summary-supply]')).toHaveText('3 bottles · 90-day supply');
     await expect(hero.locator('[data-summary-plan]')).toContainText('Subscription');
     await expect(hero.locator('[data-smooch-price]').first()).toHaveText('$81.00');
-    await expect(hero.locator('[data-summary-save]')).toHaveText('You save $9.00');
+    // Auto-applied badge shows while the discount is live.
+    await expect(hero.locator('[data-sub-autobadge]')).toBeVisible();
+    // Summary is a single quiet line: no strike/save/per-bottle repeats.
+    await expect(hero.locator('[data-summary-save]')).toHaveCount(0);
+    await expect(hero.locator('[data-smooch-compare]')).toHaveCount(0);
+    await expect(hero.locator('[data-smooch-unit-line]')).toHaveCount(0);
 
     // One-time opt-out: panel dims (still informative), summary switches.
     await selectOneTime(hero, page);
     await expect(panel).toHaveClass(/smooch-subpanel--inactive/);
     await expect(hero.locator('[data-summary-plan]')).toBeHidden();
     await expect(hero.locator('[data-smooch-price]').first()).toHaveText('$90.00');
-    await expect(hero.locator('[data-summary-save]')).toHaveText('You save $30.00');
 
     // Tapping a frequency pill re-subscribes.
     await hero.locator('[data-smooch-plan-radio][value="101"]').check({ force: true });

@@ -83,8 +83,10 @@ test.describe('Purchase matrix', () => {
       const price = (await priceEl.textContent())?.trim();
       prices.push(price);
       const qty = await bundles.nth(i).getAttribute('data-quantity');
-      const unitLine = hero.locator('[data-smooch-unit-line]').first();
-      if (Number(qty) > 1) await expect(unitLine).toBeVisible();
+      if (Number(qty) > 1) {
+        const card = hero.locator('.smooch-bundle').nth(i).locator('[data-bundle-unit-line]');
+        if (await card.count()) await expect(card.first()).toBeVisible();
+      }
     }
     expect(new Set(prices).size, `bundle tiers should show distinct totals: ${prices.join(' | ')}`).toBeGreaterThan(1);
     await screenshot(page, 'product-bundle-desktop-1440');

@@ -38,9 +38,14 @@ supply + per-day line, "You're saving $X", delivery-frequency pills (real
 selling plans), three compact perks (merchant-configurable; only
 platform-supported capabilities). One-time purchase is the clear secondary
 row beneath; choosing it dims the panel and disables `selling_plan`; tapping
-a frequency re-subscribes. Selection summary + ADD TO CART + checkmark
-reassurance chips + payment icons close the panel. Accordions: Is this right
-for me? / How to use / Ingredients / Shipping & returns.
+a frequency re-subscribes. A "Discount auto-applied" badge (merchant-editable,
+hidden at 0%) sits beside the plan price; default perks are "Every order ships
+FREE / VIP discounts & perks / Pause, edit, or cancel anytime". The selection
+summary is one quiet line (recap + total) — strike price, save %, and
+per-bottle amounts live only in the cards and panel above, keeping the path
+to ADD TO CART uncluttered. Checkmark reassurance chips + payment icons close
+the panel. Accordions: Is this right for me? / How to use / Ingredients /
+Shipping & returns.
 
 All money remains Liquid-precomputed per variant × supply × plan (`t/c/u/s/
 sa/pd`); JS selects among server strings. Native Dawn form contracts intact.

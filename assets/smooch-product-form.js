@@ -328,14 +328,6 @@ if (!customElements.get('smooch-offer')) {
         const priceWrap = this.querySelector('[data-smooch-offer-price]');
         if (priceWrap && mainPrices) {
           this.setText(priceWrap, '[data-smooch-price]', mainPrices.t);
-          this.setCompare(priceWrap.querySelector('[data-smooch-compare]'), mainPrices.c);
-          this.setSave(priceWrap.querySelector('[data-smooch-save]'), mainPrices.s);
-        }
-        const unitLine = this.querySelector('[data-smooch-unit-line]');
-        if (unitLine && mainPrices) {
-          const bundle = this.data.bundles[bundleIndex] || { quantity: 1 };
-          unitLine.hidden = (bundle.quantity || 1) <= 1;
-          this.setText(unitLine, '[data-smooch-unit]', mainPrices.u);
         }
 
         this.querySelectorAll('[data-plan-save]').forEach((badge) => {
@@ -382,6 +374,8 @@ if (!customElements.get('smooch-offer')) {
               if (planEntry.s > 0) { pct.textContent = `${planEntry.s}%`; pct.hidden = false; }
               else pct.hidden = true;
             }
+            const autoBadge = panel.querySelector('[data-sub-autobadge]');
+            if (autoBadge) autoBadge.hidden = !(planEntry.s > 0);
             const perDayWrap = panel.querySelector('[data-sub-perday-wrap]');
             if (perDayWrap) {
               if (planEntry.pd) {

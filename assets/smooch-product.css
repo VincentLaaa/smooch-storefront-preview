@@ -623,33 +623,46 @@
   color: rgb(196, 42, 80);
 }
 
-/* ---------- Purchase summary ---------- */
+/* ---------- Purchase summary (single quiet line above the button) ---------- */
 
-.smooch-summary {
+.smooch-summary-line {
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  padding: 1.4rem 1.6rem;
-  border: 0.1rem solid var(--smooch-border-soft);
-  border-radius: var(--smooch-radius-card);
-  background-color: rgba(var(--smooch-surface-rgb), 0.75);
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 0.2rem 0.2rem 0;
 }
 
-.smooch-summary__selection {
+.smooch-summary-line__selection {
   margin: 0;
-  font-size: 1.35rem;
   font-weight: 600;
-  color: rgba(var(--color-foreground), 0.8);
+  color: rgba(var(--color-foreground), 0.75);
 }
 
-.smooch-summary__save {
-  margin: 0;
-  font-size: 1.35rem;
+.smooch-summary-line .smooch-offer-price__current {
+  font-size: 2rem;
   font-weight: 700;
-  color: rgb(196, 42, 80);
 }
 
-.smooch-summary__save[hidden] {
+/* ---------- Subscription auto-applied badge ---------- */
+
+/* The price row flexes so the badge wraps to its own line on narrow screens
+   instead of widening the panel. */
+.smooch-subpanel .smooch-subpanel__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.8rem;
+  row-gap: 0.4rem;
+}
+
+.smooch-subpanel__autobadge {
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.smooch-subpanel__autobadge[hidden] {
   display: none !important;
 }
 
