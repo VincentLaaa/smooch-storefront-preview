@@ -34,28 +34,28 @@
     </p>
   {%- endif -%}
 
-  <ul class="smooch-reassurance__list" role="list">
+  <ul class="smooch-reassurance__list{% if block.settings.style == 'badges' %} smooch-reassurance__list--badges{% endif %}" role="list">
     {%- if block.settings.show_delivery and settings.smooch_delivery_estimate != blank -%}
       <li>
-        {% render 'smooch-icon', icon: 'truck' %}
+        {% if block.settings.style == 'badges' %}{% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}{% else %}{% render 'smooch-icon', icon: 'truck' %}{% endif %}
         <span>{{ settings.smooch_delivery_estimate }}</span>
       </li>
     {%- endif -%}
     {%- if block.settings.show_shipping and settings.smooch_shipping_message != blank -%}
       <li>
-        {% render 'smooch-icon', icon: 'box' %}
+        {% if block.settings.style == 'badges' %}{% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}{% else %}{% render 'smooch-icon', icon: 'box' %}{% endif %}
         <span>{{ settings.smooch_shipping_message }}</span>
       </li>
     {%- endif -%}
     {%- if block.settings.show_guarantee and settings.smooch_guarantee_days > 0 -%}
       <li>
-        {% render 'smooch-icon', icon: 'shield' %}
+        {% if block.settings.style == 'badges' %}{% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}{% else %}{% render 'smooch-icon', icon: 'shield' %}{% endif %}
         <span>{{ settings.smooch_guarantee_days }}-day {{ settings.smooch_guarantee_text | default: 'money-back guarantee' }}</span>
       </li>
     {%- endif -%}
     {%- if block.settings.show_secure and settings.smooch_secure_checkout_text != blank -%}
       <li>
-        {% render 'smooch-icon', icon: 'lock' %}
+        {% if block.settings.style == 'badges' %}{% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}{% else %}{% render 'smooch-icon', icon: 'lock' %}{% endif %}
         <span>{{ settings.smooch_secure_checkout_text }}</span>
       </li>
     {%- endif -%}

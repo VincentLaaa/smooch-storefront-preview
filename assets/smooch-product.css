@@ -386,6 +386,34 @@
   gap: 1.2rem;
 }
 
+/* Subscription-first hierarchy: featured plan rows carry a soft berry accent;
+   the one-time row stays fully usable but visually secondary. */
+.smooch-plan--featured .smooch-plan__body {
+  border-color: rgba(var(--smooch-berry-rgb), 0.4);
+  background-color: rgba(var(--smooch-blush-rgb), 0.18);
+}
+
+.smooch-plan--onetime .smooch-plan__body {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.smooch-plan--onetime .smooch-plan__name {
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.smooch-plan__price-group {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.smooch-plan__compare {
+  font-size: 1.25rem;
+}
+
 .smooch-plan__name {
   display: inline-flex;
   align-items: center;
@@ -451,6 +479,27 @@
   display: none !important;
 }
 
+/* ---------- Sales activity badge (real figures only) ---------- */
+
+.smooch-sold-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0.5rem 1.1rem;
+  align-self: flex-start;
+  border-radius: 2rem;
+  background-color: rgba(var(--smooch-blush-rgb), 0.5);
+  color: rgba(var(--smooch-ink-rgb), 0.85);
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.smooch-sold-badge .smooch-icon {
+  color: rgb(196, 42, 80);
+}
+
 /* ---------- Reassurance ---------- */
 
 .smooch-reassurance {
@@ -497,6 +546,28 @@
   flex-shrink: 0;
   margin-top: 0.1rem;
   color: var(--smooch-berry);
+}
+
+/* Checkmark-badge variant: compact chips with uniform checks. */
+.smooch-reassurance__list--badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.smooch-reassurance__list--badges li {
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.1rem;
+  border: 0.1rem solid rgba(var(--smooch-berry-rgb), 0.35);
+  border-radius: 2rem;
+  background-color: rgba(var(--smooch-surface-rgb), 0.8);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.smooch-reassurance__list--badges .smooch-icon {
+  margin-top: 0;
 }
 
 .smooch-reassurance__payment-list {

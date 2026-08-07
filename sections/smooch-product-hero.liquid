@@ -74,6 +74,33 @@
     assign offer_ui = true
   endif
 
+  comment
+    Subscription-first default (Create-style): when plans exist and the
+    subscription block opts in (default), the first plan starts selected and
+    one-time becomes the secondary choice. Initial prices below follow suit.
+  endcomment
+  assign subscription_block = section.blocks | where: 'type', 'subscription' | first
+  assign default_is_subscribe = false
+  assign default_plan = nil
+  if has_plans and subscription_block
+    assign default_purchase_pref = subscription_block.settings.default_purchase | default: 'subscribe'
+    if default_purchase_pref == 'subscribe'
+      assign default_is_subscribe = true
+      assign default_plan = product.selling_plan_groups[0].selling_plans[0]
+    endif
+  endif
+
+  assign default_unit_price = current_variant.price
+  assign default_compare_unit = current_variant.compare_at_price | default: 0
+  if default_is_subscribe and default_plan
+    for alloc in current_variant.selling_plan_allocations
+      if alloc.selling_plan.id == default_plan.id
+        assign default_unit_price = alloc.price
+        assign default_compare_unit = alloc.compare_at_price | default: current_variant.price
+      endif
+    endfor
+  endif
+
   assign current_variant = product.selected_or_first_available_variant
 
   comment
@@ -190,9 +217,9 @@
                   <input
                     type="hidden"
                     name="selling_plan"
-                    value=""
+                    value="{% if default_is_subscribe %}{{ default_plan.id }}{% endif %}"
                     form="{{ product_form_id }}"
-                    disabled
+                    {% unless default_is_subscribe %}disabled{% endunless %}
                     data-smooch-selling-plan
                   >
                 {%- endif -%}
@@ -232,6 +259,14 @@
                           link: block.settings.link_to_reviews
                         %}
                       </div>
+
+                    {%- when 'social_proof' -%}
+                      {%- if block.settings.sold_count != blank -%}
+                        <p class="smooch-sold-badge" {{ block.shopify_attributes }}>
+                          {% render 'smooch-icon', icon: 'sparkle', class: 'smooch-icon--sm' %}
+                          <span>{{ block.settings.sold_count | escape }} {{ block.settings.period_label | default: 'bought in the past month' | escape }}</span>
+                        </p>
+                      {%- endif -%}
 
                     {%- when 'promise' -%}
                       {%- if block.settings.text != blank -%}
@@ -341,12 +376,55 @@
                             {{ block.settings.heading | default: 'Choose how to buy' }}
                           </legend>
                           <div class="smooch-plans__list">
-                            <label class="smooch-plan">
+                            {%- for group in product.selling_plan_groups -%}
+                              {%- for plan in group.selling_plans -%}
+                                {%- liquid
+                                  assign initial_plan_total = 0
+                                  for alloc in current_variant.selling_plan_allocations
+                                    if alloc.selling_plan.id == plan.id
+                                      assign initial_plan_total = alloc.price | times: default_bundle_qty
+                                    endif
+                                  endfor
+                                  assign plan_checked = false
+                                  if default_is_subscribe and plan.id == default_plan.id
+                                    assign plan_checked = true
+                                  endif
+                                -%}
+                                <label class="smooch-plan smooch-plan--featured">
+                                  <input
+                                    type="radio"
+                                    name="smooch-plan-{{ section.id }}"
+                                    value="{{ plan.id }}"
+                                    {% if plan_checked %}checked{% endif %}
+                                    data-smooch-plan-radio
+                                    class="smooch-plan__input visually-hidden"
+                                  >
+                                  <span class="smooch-plan__body">
+                                    <span class="smooch-plan__row">
+                                      <span class="smooch-plan__name">
+                                        {{ block.settings.subscribe_label | default: 'Subscribe & save' }}
+                                        <span class="smooch-badge smooch-badge--berry" data-plan-save data-plan-id="{{ plan.id }}" hidden></span>
+                                      </span>
+                                      <span class="smooch-plan__price-group">
+                                        <span class="smooch-plan__price smooch-num" data-plan-price data-plan-id="{{ plan.id }}" {% if initial_plan_total == 0 %}hidden{% endif %}>
+                                          {%- if initial_plan_total > 0 %}{{ initial_plan_total | money }}{% endif -%}
+                                        </span>
+                                        <s class="smooch-strike smooch-num smooch-plan__compare" data-plan-compare data-plan-id="{{ plan.id }}" {% if initial_plan_total >= initial_onetime_total %}hidden{% endif %}>
+                                          {%- if initial_plan_total < initial_onetime_total %}{{ initial_onetime_total | money }}{% endif -%}
+                                        </s>
+                                      </span>
+                                    </span>
+                                    <span class="smooch-plan__meta">{{ plan.name }}</span>
+                                  </span>
+                                </label>
+                              {%- endfor -%}
+                            {%- endfor -%}
+                            <label class="smooch-plan smooch-plan--onetime">
                               <input
                                 type="radio"
                                 name="smooch-plan-{{ section.id }}"
                                 value=""
-                                checked
+                                {% unless default_is_subscribe %}checked{% endunless %}
                                 data-smooch-plan-radio
                                 class="smooch-plan__input visually-hidden"
                               >
@@ -357,43 +435,10 @@
                                 </span>
                               </span>
                             </label>
-                            {%- for group in product.selling_plan_groups -%}
-                              {%- for plan in group.selling_plans -%}
-                                {%- liquid
-                                  assign initial_plan_total = 0
-                                  for alloc in current_variant.selling_plan_allocations
-                                    if alloc.selling_plan.id == plan.id
-                                      assign initial_plan_total = alloc.price | times: default_bundle_qty
-                                    endif
-                                  endfor
-                                -%}
-                                <label class="smooch-plan">
-                                  <input
-                                    type="radio"
-                                    name="smooch-plan-{{ section.id }}"
-                                    value="{{ plan.id }}"
-                                    data-smooch-plan-radio
-                                    class="smooch-plan__input visually-hidden"
-                                  >
-                                  <span class="smooch-plan__body">
-                                    <span class="smooch-plan__row">
-                                      <span class="smooch-plan__name">
-                                        {{ block.settings.subscribe_label | default: 'Subscribe & save' }}
-                                        <span class="smooch-badge smooch-badge--berry" data-plan-save data-plan-id="{{ plan.id }}" hidden></span>
-                                      </span>
-                                      <span class="smooch-plan__price smooch-num" data-plan-price data-plan-id="{{ plan.id }}" {% if initial_plan_total == 0 %}hidden{% endif %}>
-                                        {%- if initial_plan_total > 0 %}{{ initial_plan_total | money }}{% endif -%}
-                                      </span>
-                                    </span>
-                                    <span class="smooch-plan__meta">{{ plan.name }}</span>
-                                  </span>
-                                </label>
-                              {%- endfor -%}
-                            {%- endfor -%}
                           </div>
                           {%- if block.settings.benefits != blank -%}
                             {%- assign benefit_lines = block.settings.benefits | newline_to_br | split: '<br />' -%}
-                            <ul class="smooch-ticks smooch-plans__benefits" role="list" data-plan-benefits hidden>
+                            <ul class="smooch-ticks smooch-plans__benefits" role="list" data-plan-benefits {% unless default_is_subscribe %}hidden{% endunless %}>
                               {%- for line in benefit_lines -%}
                                 {%- assign clean_line = line | strip_html | strip -%}
                                 {%- if clean_line != blank -%}
@@ -423,8 +468,8 @@
                         </div>
                         {%- if offer_ui -%}
                           {%- liquid
-                            assign initial_total = current_variant.price | times: default_bundle_qty
-                            assign initial_compare = current_variant.compare_at_price | default: 0 | times: default_bundle_qty
+                            assign initial_total = default_unit_price | times: default_bundle_qty
+                            assign initial_compare = default_compare_unit | times: default_bundle_qty
                             assign initial_save = 0
                             if initial_compare > initial_total
                               assign initial_save = initial_compare | minus: initial_total
@@ -438,7 +483,9 @@
                                 {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
                                 {%- if default_days > 0 %} · {{ default_days }}-day supply{% endif -%}
                               </span>
-                              <span data-summary-plan hidden></span>
+                              <span data-summary-plan {% unless default_is_subscribe %}hidden{% endunless %}>
+                                {%- if default_is_subscribe %} · Subscription — {{ default_plan.name | downcase }}{% endif -%}
+                              </span>
                             </p>
                             <div class="smooch-offer-price" data-smooch-offer-price role="status">
                               <span class="smooch-offer-price__current smooch-num" data-smooch-price>{{ initial_total | money }}</span>
@@ -684,9 +731,21 @@
               </div>
             {%- endif -%}
             <div class="smooch-sticky-atc__meta">
-              <span class="smooch-sticky-atc__title" data-sticky-summary>{{ product.title | escape }}</span>
+              {%- liquid
+                assign sticky_bundle = bundle_blocks[default_bundle_index]
+                assign sticky_days = sticky_bundle.settings.days | default: 0
+              -%}
+              <span class="smooch-sticky-atc__title" data-sticky-summary>
+                {%- if has_bundles -%}
+                  {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
+                  {%- if sticky_days > 0 %} · {{ sticky_days }}-day supply{% endif -%}
+                  {%- if default_is_subscribe %} · Subscription{% else %} · One-time{% endif -%}
+                {%- else -%}
+                  {{- product.title | escape -}}
+                {%- endif -%}
+              </span>
               <span class="smooch-sticky-atc__price smooch-num" data-sticky-price>
-                {{- current_variant.price | times: default_bundle_qty | money -}}
+                {{- default_unit_price | times: default_bundle_qty | money -}}
               </span>
             </div>
             <button type="button" class="smooch-btn smooch-btn--brand smooch-sticky-atc__button" data-sticky-submit>
@@ -945,6 +1004,29 @@
       ]
     },
     {
+      "type": "social_proof",
+      "name": "Sales activity badge",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Amazon-style purchase-activity chip (“500+ bought in the past month”). ⚠ Enter ONLY real figures you can substantiate from Shopify analytics — fabricated sales counts are deceptive advertising (FTC fake-review/testimonial rule) and litigation bait. Stays hidden while empty."
+        },
+        {
+          "type": "text",
+          "id": "sold_count",
+          "label": "Real quantity sold (e.g. “500+”)",
+          "info": "Leave empty to hide the badge."
+        },
+        {
+          "type": "text",
+          "id": "period_label",
+          "label": "Period label",
+          "default": "bought in the past month"
+        }
+      ]
+    },
+    {
       "type": "promise",
       "name": "Product promise",
       "limit": 1,
@@ -1178,10 +1260,21 @@
           "default": "Subscribe & save"
         },
         {
+          "type": "select",
+          "id": "default_purchase",
+          "label": "Preselected option",
+          "default": "subscribe",
+          "options": [
+            { "value": "subscribe", "label": "Subscription (higher take rate)" },
+            { "value": "onetime", "label": "One-time purchase" }
+          ],
+          "info": "Subscription-first raises subscriber take rate but can increase “I didn't realize I subscribed” support tickets — the selection stays clearly visible in the purchase summary either way."
+        },
+        {
           "type": "textarea",
           "id": "benefits",
           "label": "Subscription benefits (one per line)",
-          "default": "Save on every delivery\nDelivery on your schedule\nManage or cancel anytime",
+          "default": "Save on every delivery\nDelivery on your schedule\nPause, edit, or cancel anytime",
           "info": "Shown when a subscription is selected. Only list capabilities your subscription app actually supports."
         }
       ]
@@ -1221,6 +1314,16 @@
         {
           "type": "paragraph",
           "content": "Delivery, shipping, guarantee, and secure-checkout copy come from Theme settings → Smooch brand."
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "default": "badges",
+          "options": [
+            { "value": "badges", "label": "Checkmark badges" },
+            { "value": "list", "label": "Icon list" }
+          ]
         },
         {
           "type": "checkbox",
@@ -1382,18 +1485,21 @@
         { "type": "eyebrow" },
         { "type": "title" },
         { "type": "rating" },
+        { "type": "social_proof" },
         { "type": "promise" },
         { "type": "benefit", "settings": { "icon": "sparkle", "text": "Supports a calmer, more open mindset" } },
         { "type": "benefit", "settings": { "icon": "heart", "text": "Supports desire and everyday connection" } },
         { "type": "benefit", "settings": { "icon": "moon", "text": "An easy daily gummy ritual" } },
         { "type": "variant_picker" },
-        { "type": "bundles" },
+        { "type": "bundles", "settings": { "show_per_day": true } },
         {
           "type": "bundle",
           "settings": {
-            "title": "1 Bottle",
-            "days": 30,
-            "quantity": 1
+            "title": "3 Bottles",
+            "days": 90,
+            "quantity": 3,
+            "badge": "Best value",
+            "preselected": true
           }
         },
         {
@@ -1402,17 +1508,15 @@
             "title": "2 Bottles",
             "days": 60,
             "quantity": 2,
-            "badge": "Most popular",
-            "preselected": true
+            "badge": "Most popular"
           }
         },
         {
           "type": "bundle",
           "settings": {
-            "title": "3 Bottles",
-            "days": 90,
-            "quantity": 3,
-            "badge": "Best value"
+            "title": "1 Bottle",
+            "days": 30,
+            "quantity": 1
           }
         },
         { "type": "subscription" },

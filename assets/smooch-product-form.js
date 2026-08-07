@@ -358,6 +358,12 @@ if (!customElements.get('smooch-offer')) {
             el.hidden = true;
           }
         });
+        // Strike-through one-time total beside each subscription price.
+        this.querySelectorAll('[data-plan-compare]').forEach((el) => {
+          const id = el.dataset.planId;
+          const planPrices = variant.plans && variant.plans[id] ? variant.plans[id][bundleIndex] : null;
+          this.setCompare(el, planPrices ? planPrices.c : '');
+        });
 
         // Subscription benefits show only while a subscription is selected.
         const benefits = this.querySelector('[data-plan-benefits]');
@@ -467,6 +473,10 @@ if (!customElements.get('smooch-sticky-atc')) {
           if (summaryEl && event.detail.summaryText) summaryEl.textContent = event.detail.summaryText;
         };
         document.addEventListener('smooch:offer:change', this.boundOnOffer);
+        // The offer's initial render fires before this listener exists (it sits
+        // earlier in the DOM) — nudge a re-render so the bar starts in sync.
+        const offer = document.querySelector(`smooch-offer[data-section-id="${this.sectionId}"]`);
+        if (offer && typeof offer.render === 'function' && offer.data) offer.render();
 
         if (this.target && 'IntersectionObserver' in window) {
           this.observer = new IntersectionObserver(

@@ -104,12 +104,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 424,
+                  "duration": 473,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-07T05:34:14.213Z",
+                  "startTime": "2026-08-07T05:49:57.677Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -119,7 +119,7 @@
           ],
           "id": "39371fff76f09d32bbe7-36f62e2a99f5e8a767b5",
           "file": "local.spec.mjs",
-          "line": 272,
+          "line": 276,
           "column": 1
         }
       ],
@@ -127,7 +127,7 @@
         {
           "title": "Viewport sweep",
           "file": "local.spec.mjs",
-          "line": 59,
+          "line": 64,
           "column": 6,
           "specs": [
             {
@@ -146,12 +146,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 735,
+                      "duration": 809,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:33:52.094Z",
+                      "startTime": "2026-08-07T05:49:34.365Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -161,7 +161,7 @@
               ],
               "id": "39371fff76f09d32bbe7-a4be6cd290348cd3137a",
               "file": "local.spec.mjs",
-              "line": 61,
+              "line": 66,
               "column": 5
             },
             {
@@ -180,12 +180,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 811,
+                      "duration": 818,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:33:52.904Z",
+                      "startTime": "2026-08-07T05:49:35.252Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -195,7 +195,7 @@
               ],
               "id": "39371fff76f09d32bbe7-e2ed98e01d7dab0c43fe",
               "file": "local.spec.mjs",
-              "line": 72,
+              "line": 77,
               "column": 5
             },
             {
@@ -214,12 +214,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 693,
+                      "duration": 718,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:33:53.722Z",
+                      "startTime": "2026-08-07T05:49:36.077Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -229,11 +229,113 @@
               ],
               "id": "39371fff76f09d32bbe7-bf0d44c4e273c063e3fd",
               "file": "local.spec.mjs",
-              "line": 61,
+              "line": 66,
               "column": 5
             },
             {
               "title": "product @ mobile-375",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 846,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-07T05:49:36.800Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-eb3792dc5954691f8e87",
+              "file": "local.spec.mjs",
+              "line": 77,
+              "column": 5
+            },
+            {
+              "title": "homepage @ mobile-390",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 694,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-07T05:49:37.652Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-8b80454458f759bf2b06",
+              "file": "local.spec.mjs",
+              "line": 66,
+              "column": 5
+            },
+            {
+              "title": "product @ mobile-390",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 746,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-07T05:49:38.352Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-7bc44b34463a3ba43c4a",
+              "file": "local.spec.mjs",
+              "line": 77,
+              "column": 5
+            },
+            {
+              "title": "homepage @ mobile-430",
               "ok": true,
               "tags": [],
               "tests": [
@@ -253,109 +355,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:33:54.420Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-eb3792dc5954691f8e87",
-              "file": "local.spec.mjs",
-              "line": 72,
-              "column": 5
-            },
-            {
-              "title": "homepage @ mobile-390",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 711,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-07T05:33:55.156Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-8b80454458f759bf2b06",
-              "file": "local.spec.mjs",
-              "line": 61,
-              "column": 5
-            },
-            {
-              "title": "product @ mobile-390",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 728,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-07T05:33:55.872Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-7bc44b34463a3ba43c4a",
-              "file": "local.spec.mjs",
-              "line": 72,
-              "column": 5
-            },
-            {
-              "title": "homepage @ mobile-430",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 647,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-07T05:33:56.605Z",
+                      "startTime": "2026-08-07T05:49:39.103Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -365,11 +365,45 @@
               ],
               "id": "39371fff76f09d32bbe7-8d073384d5c87dd338e6",
               "file": "local.spec.mjs",
-              "line": 61,
+              "line": 66,
               "column": 5
             },
             {
               "title": "product @ mobile-430",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 779,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-07T05:49:39.839Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-2a5feaa36b91792bae99",
+              "file": "local.spec.mjs",
+              "line": 77,
+              "column": 5
+            },
+            {
+              "title": "homepage @ tablet-768",
               "ok": true,
               "tags": [],
               "tests": [
@@ -389,41 +423,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:33:57.257Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-2a5feaa36b91792bae99",
-              "file": "local.spec.mjs",
-              "line": 72,
-              "column": 5
-            },
-            {
-              "title": "homepage @ tablet-768",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 699,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-07T05:33:57.977Z",
+                      "startTime": "2026-08-07T05:49:40.623Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -433,7 +433,7 @@
               ],
               "id": "39371fff76f09d32bbe7-9757797a01683bde192d",
               "file": "local.spec.mjs",
-              "line": 61,
+              "line": 66,
               "column": 5
             },
             {
@@ -452,12 +452,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 764,
+                      "duration": 798,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:33:58.681Z",
+                      "startTime": "2026-08-07T05:49:41.344Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -467,7 +467,7 @@
               ],
               "id": "39371fff76f09d32bbe7-cc187868ac2c4a149354",
               "file": "local.spec.mjs",
-              "line": 72,
+              "line": 77,
               "column": 5
             },
             {
@@ -486,12 +486,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 697,
+                      "duration": 728,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:33:59.450Z",
+                      "startTime": "2026-08-07T05:49:42.148Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -501,7 +501,7 @@
               ],
               "id": "39371fff76f09d32bbe7-379596dcf2ee494499ec",
               "file": "local.spec.mjs",
-              "line": 61,
+              "line": 66,
               "column": 5
             },
             {
@@ -520,12 +520,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 777,
+                      "duration": 911,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:00.153Z",
+                      "startTime": "2026-08-07T05:49:42.882Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -535,7 +535,7 @@
               ],
               "id": "39371fff76f09d32bbe7-4a5dd802a577dc0707a3",
               "file": "local.spec.mjs",
-              "line": 72,
+              "line": 77,
               "column": 5
             },
             {
@@ -554,12 +554,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 720,
+                      "duration": 710,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:00.935Z",
+                      "startTime": "2026-08-07T05:49:43.798Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -569,7 +569,7 @@
               ],
               "id": "39371fff76f09d32bbe7-4ba3c1eb9915c42d45b4",
               "file": "local.spec.mjs",
-              "line": 61,
+              "line": 66,
               "column": 5
             },
             {
@@ -588,12 +588,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 790,
+                      "duration": 833,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:01.660Z",
+                      "startTime": "2026-08-07T05:49:44.514Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -603,7 +603,7 @@
               ],
               "id": "39371fff76f09d32bbe7-50045d6ce58372f5c20d",
               "file": "local.spec.mjs",
-              "line": 72,
+              "line": 77,
               "column": 5
             },
             {
@@ -622,12 +622,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 708,
+                      "duration": 762,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:02.455Z",
+                      "startTime": "2026-08-07T05:49:45.353Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -637,7 +637,7 @@
               ],
               "id": "39371fff76f09d32bbe7-2fa7317f8bb357f908e0",
               "file": "local.spec.mjs",
-              "line": 61,
+              "line": 66,
               "column": 5
             },
             {
@@ -656,12 +656,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 790,
+                      "duration": 919,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:03.167Z",
+                      "startTime": "2026-08-07T05:49:46.120Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -671,7 +671,7 @@
               ],
               "id": "39371fff76f09d32bbe7-f42a847497573d79aec5",
               "file": "local.spec.mjs",
-              "line": 72,
+              "line": 77,
               "column": 5
             },
             {
@@ -690,12 +690,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 777,
+                      "duration": 750,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:03.963Z",
+                      "startTime": "2026-08-07T05:49:47.044Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -705,7 +705,7 @@
               ],
               "id": "39371fff76f09d32bbe7-d637f127f5acc447902e",
               "file": "local.spec.mjs",
-              "line": 61,
+              "line": 66,
               "column": 5
             },
             {
@@ -724,12 +724,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 834,
+                      "duration": 872,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:04.745Z",
+                      "startTime": "2026-08-07T05:49:47.801Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -739,7 +739,7 @@
               ],
               "id": "39371fff76f09d32bbe7-5003107291b9a8faa40a",
               "file": "local.spec.mjs",
-              "line": 72,
+              "line": 77,
               "column": 5
             },
             {
@@ -758,12 +758,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2603,
+                      "duration": 2550,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:05.584Z",
+                      "startTime": "2026-08-07T05:49:48.681Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -773,7 +773,7 @@
               ],
               "id": "39371fff76f09d32bbe7-63e716439d979c287fbe",
               "file": "local.spec.mjs",
-              "line": 83,
+              "line": 88,
               "column": 3
             }
           ]
@@ -781,7 +781,7 @@
         {
           "title": "Purchase matrix (offline harness)",
           "file": "local.spec.mjs",
-          "line": 103,
+          "line": 108,
           "column": 6,
           "specs": [
             {
@@ -800,12 +800,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 484,
+                      "duration": 533,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:08.192Z",
+                      "startTime": "2026-08-07T05:49:51.237Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -815,7 +815,7 @@
               ],
               "id": "39371fff76f09d32bbe7-188527d107338ee1201d",
               "file": "local.spec.mjs",
-              "line": 110,
+              "line": 115,
               "column": 3
             },
             {
@@ -834,12 +834,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1562,
+                      "duration": 1848,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:08.681Z",
+                      "startTime": "2026-08-07T05:49:51.776Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -849,7 +849,7 @@
               ],
               "id": "39371fff76f09d32bbe7-7b1a0a78bec2338f6bc9",
               "file": "local.spec.mjs",
-              "line": 122,
+              "line": 127,
               "column": 3
             },
             {
@@ -868,12 +868,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 510,
+                      "duration": 842,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:10.249Z",
+                      "startTime": "2026-08-07T05:49:53.631Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -883,11 +883,11 @@
               ],
               "id": "39371fff76f09d32bbe7-5175dfe997905f5e4ca7",
               "file": "local.spec.mjs",
-              "line": 147,
+              "line": 152,
               "column": 3
             },
             {
-              "title": "D. subscription selector: plan posting + prices (offline mock cart)",
+              "title": "D. subscription-first selector: default plan, posting, one-time opt-out",
               "ok": true,
               "tags": [],
               "tests": [
@@ -902,12 +902,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1390,
+                      "duration": 882,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:10.765Z",
+                      "startTime": "2026-08-07T05:49:54.480Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -915,9 +915,9 @@
                   "status": "expected"
                 }
               ],
-              "id": "39371fff76f09d32bbe7-ff677e40071f6f3a62c1",
+              "id": "39371fff76f09d32bbe7-25969344ef0886cfd00b",
               "file": "local.spec.mjs",
-              "line": 171,
+              "line": 178,
               "column": 3
             },
             {
@@ -936,12 +936,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 462,
+                      "duration": 482,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:12.160Z",
+                      "startTime": "2026-08-07T05:49:55.368Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -951,7 +951,7 @@
               ],
               "id": "39371fff76f09d32bbe7-c457ed1a622f358b2ffa",
               "file": "local.spec.mjs",
-              "line": 211,
+              "line": 215,
               "column": 3
             },
             {
@@ -970,12 +970,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1015,
+                      "duration": 1232,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:12.628Z",
+                      "startTime": "2026-08-07T05:49:55.856Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -985,7 +985,7 @@
               ],
               "id": "39371fff76f09d32bbe7-7d8219ed0cfa0083e112",
               "file": "local.spec.mjs",
-              "line": 226,
+              "line": 230,
               "column": 3
             },
             {
@@ -1004,12 +1004,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 559,
+                      "duration": 577,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:13.647Z",
+                      "startTime": "2026-08-07T05:49:57.094Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1019,7 +1019,7 @@
               ],
               "id": "39371fff76f09d32bbe7-29e0de6da5b590812c78",
               "file": "local.spec.mjs",
-              "line": 252,
+              "line": 256,
               "column": 3
             }
           ]
@@ -1027,7 +1027,7 @@
         {
           "title": "Accessibility spot checks",
           "file": "local.spec.mjs",
-          "line": 287,
+          "line": 291,
           "column": 6,
           "specs": [
             {
@@ -1046,12 +1046,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 538,
+                      "duration": 609,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:14.642Z",
+                      "startTime": "2026-08-07T05:49:58.155Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1061,269 +1061,11 @@
               ],
               "id": "39371fff76f09d32bbe7-4e6d7a00ca0396a28ec9",
               "file": "local.spec.mjs",
-              "line": 288,
+              "line": 292,
               "column": 3
             },
             {
               "title": "reduced motion renders cleanly",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 802,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-07T05:34:15.184Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-8efd1416de34e5479995",
-              "file": "local.spec.mjs",
-              "line": 318,
-              "column": 3
-            }
-          ]
-        },
-        {
-          "title": "Performance signals",
-          "file": "local.spec.mjs",
-          "line": 330,
-          "column": 6,
-          "specs": [
-            {
-              "title": "homepage: ≤2 eager images, all images have reserved space",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 175,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-07T05:34:15.992Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-37fb25ca597c3aee89db",
-              "file": "local.spec.mjs",
-              "line": 331,
-              "column": 3
-            },
-            {
-              "title": "product page CLS < 0.1 (lab)",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 4279,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "[perf] product mobile (local): LCP≈144ms CLS=0.0001\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-07T05:34:16.171Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-0f598c9032213c89fd03",
-              "file": "local.spec.mjs",
-              "line": 348,
-              "column": 3
-            }
-          ]
-        },
-        {
-          "title": "PDP refresh: guided purchase flow",
-          "file": "local.spec.mjs",
-          "line": 365,
-          "column": 6,
-          "specs": [
-            {
-              "title": "numbered steps, supply-card economics, per-bottle + exact savings",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 384,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-07T05:34:20.455Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-610a7f2add21a76022b5",
-              "file": "local.spec.mjs",
-              "line": 372,
-              "column": 3
-            },
-            {
-              "title": "one-time and plan rows show resulting totals that follow the bundle",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 345,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-07T05:34:20.845Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-072ff7ad0cb7439318c5",
-              "file": "local.spec.mjs",
-              "line": 387,
-              "column": 3
-            },
-            {
-              "title": "subscription benefits show only while subscribed; summary reflects full selection",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 742,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-07T05:34:21.195Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-e2487d87c35a5d071821",
-              "file": "local.spec.mjs",
-              "line": 398,
-              "column": 3
-            },
-            {
-              "title": "variant switch while subscribed keeps plan pricing coherent",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 635,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-07T05:34:21.943Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-5c14aea99137f00886e9",
-              "file": "local.spec.mjs",
-              "line": 419,
-              "column": 3
-            },
-            {
-              "title": "sticky bar mirrors the selection summary",
               "ok": true,
               "tags": [],
               "tests": [
@@ -1343,7 +1085,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:22.583Z",
+                      "startTime": "2026-08-07T05:49:58.769Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1351,9 +1093,267 @@
                   "status": "expected"
                 }
               ],
-              "id": "39371fff76f09d32bbe7-2e5432c80104de485aae",
+              "id": "39371fff76f09d32bbe7-8efd1416de34e5479995",
+              "file": "local.spec.mjs",
+              "line": 322,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Performance signals",
+          "file": "local.spec.mjs",
+          "line": 334,
+          "column": 6,
+          "specs": [
+            {
+              "title": "homepage: ≤2 eager images, all images have reserved space",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 177,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-07T05:49:59.569Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-37fb25ca597c3aee89db",
+              "file": "local.spec.mjs",
+              "line": 335,
+              "column": 3
+            },
+            {
+              "title": "product page CLS < 0.1 (lab)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4286,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[perf] product mobile (local): LCP≈144ms CLS=0.0001\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-07T05:49:59.750Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-0f598c9032213c89fd03",
+              "file": "local.spec.mjs",
+              "line": 352,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "PDP refresh: guided purchase flow",
+          "file": "local.spec.mjs",
+          "line": 369,
+          "column": 6,
+          "specs": [
+            {
+              "title": "numbered steps, supply-card economics, per-bottle + exact savings",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 646,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-07T05:50:04.042Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-610a7f2add21a76022b5",
+              "file": "local.spec.mjs",
+              "line": 376,
+              "column": 3
+            },
+            {
+              "title": "one-time and plan rows show resulting totals that follow the bundle",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 376,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-07T05:50:04.694Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-072ff7ad0cb7439318c5",
+              "file": "local.spec.mjs",
+              "line": 401,
+              "column": 3
+            },
+            {
+              "title": "subscription-first: benefits visible by default; summary tracks the switch",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 647,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-07T05:50:05.075Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-a109dd11c5419b17167b",
+              "file": "local.spec.mjs",
+              "line": 414,
+              "column": 3
+            },
+            {
+              "title": "variant switch while subscribed keeps plan pricing coherent",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 373,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-07T05:50:05.728Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-5c14aea99137f00886e9",
               "file": "local.spec.mjs",
               "line": 433,
+              "column": 3
+            },
+            {
+              "title": "sticky bar mirrors the selection summary (subscription-first default)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 750,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-07T05:50:06.106Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-c81e0d5f2e851396f082",
+              "file": "local.spec.mjs",
+              "line": 446,
               "column": 3
             },
             {
@@ -1372,12 +1372,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 383,
+                      "duration": 434,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:23.384Z",
+                      "startTime": "2026-08-07T05:50:06.863Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1387,7 +1387,7 @@
               ],
               "id": "39371fff76f09d32bbe7-556a99df4266e3d62a72",
               "file": "local.spec.mjs",
-              "line": 447,
+              "line": 457,
               "column": 3
             },
             {
@@ -1406,12 +1406,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 382,
+                      "duration": 412,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-07T05:34:23.773Z",
+                      "startTime": "2026-08-07T05:50:07.302Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1421,7 +1421,7 @@
               ],
               "id": "39371fff76f09d32bbe7-f4e077501ea4a359b39b",
               "file": "local.spec.mjs",
-              "line": 454,
+              "line": 464,
               "column": 3
             }
           ]
@@ -1431,8 +1431,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-08-07T05:33:51.300Z",
-    "duration": 33099.095,
+    "startTime": "2026-08-07T05:49:33.487Z",
+    "duration": 34479.231,
     "expected": 38,
     "skipped": 0,
     "unexpected": 0,

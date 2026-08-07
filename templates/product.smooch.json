@@ -17,6 +17,10 @@
           "type": "rating",
           "settings": {}
         },
+        "social_proof-1": {
+          "type": "social_proof",
+          "settings": {}
+        },
         "promise-1": {
           "type": "promise",
           "settings": {}
@@ -48,14 +52,18 @@
         },
         "bundles-1": {
           "type": "bundles",
-          "settings": {}
+          "settings": {
+            "show_per_day": true
+          }
         },
         "bundle-1": {
           "type": "bundle",
           "settings": {
-            "title": "1 Bottle",
-            "days": 30,
-            "quantity": 1
+            "title": "3 Bottles",
+            "days": 90,
+            "quantity": 3,
+            "badge": "Best value",
+            "preselected": true
           }
         },
         "bundle-2": {
@@ -64,17 +72,15 @@
             "title": "2 Bottles",
             "days": 60,
             "quantity": 2,
-            "badge": "Most popular",
-            "preselected": true
+            "badge": "Most popular"
           }
         },
         "bundle-3": {
           "type": "bundle",
           "settings": {
-            "title": "3 Bottles",
-            "days": 90,
-            "quantity": 3,
-            "badge": "Best value"
+            "title": "1 Bottle",
+            "days": 30,
+            "quantity": 1
           }
         },
         "subscription-1": {
@@ -149,6 +155,7 @@
         "eyebrow-1",
         "title-1",
         "rating-1",
+        "social_proof-1",
         "promise-1",
         "benefit-1",
         "benefit-2",
@@ -170,49 +177,6 @@
         "collapsible_tab-3"
       ],
       "settings": {}
-    },
-    "press": {
-      "type": "smooch-press-bar",
-      "blocks": {
-        "outlet-1": {
-          "type": "outlet",
-          "settings": {
-            "name": "Marie Claire",
-            "style": "serif-caps"
-          }
-        },
-        "outlet-2": {
-          "type": "outlet",
-          "settings": {
-            "name": "goop",
-            "style": "sans-lower"
-          }
-        },
-        "outlet-3": {
-          "type": "outlet",
-          "settings": {
-            "name": "VOGUE",
-            "style": "serif-caps"
-          }
-        },
-        "outlet-4": {
-          "type": "outlet",
-          "settings": {
-            "name": "COSMOPOLITAN",
-            "style": "sans-caps"
-          }
-        }
-      },
-      "block_order": [
-        "outlet-1",
-        "outlet-2",
-        "outlet-3",
-        "outlet-4"
-      ],
-      "settings": {
-        "heading": "As featured in",
-        "color_scheme": "scheme-5"
-      }
     },
     "benefit_strip": {
       "type": "smooch-benefit-strip",
@@ -861,14 +825,18 @@
         },
         "bundles-1": {
           "type": "bundles",
-          "settings": {}
+          "settings": {
+            "show_per_day": true
+          }
         },
         "bundle-1": {
           "type": "bundle",
           "settings": {
-            "title": "1 Bottle",
-            "days": 30,
-            "quantity": 1
+            "title": "3 Bottles",
+            "days": 90,
+            "quantity": 3,
+            "badge": "Best value",
+            "preselected": true
           }
         },
         "bundle-2": {
@@ -877,17 +845,15 @@
             "title": "2 Bottles",
             "days": 60,
             "quantity": 2,
-            "badge": "Most popular",
-            "preselected": true
+            "badge": "Most popular"
           }
         },
         "bundle-3": {
           "type": "bundle",
           "settings": {
-            "title": "3 Bottles",
-            "days": 90,
-            "quantity": 3,
-            "badge": "Best value"
+            "title": "1 Bottle",
+            "days": 30,
+            "quantity": 1
           }
         },
         "subscription-1": {
@@ -943,7 +909,6 @@
   },
   "order": [
     "hero",
-    "press",
     "benefit_strip",
     "problem",
     "mechanism",

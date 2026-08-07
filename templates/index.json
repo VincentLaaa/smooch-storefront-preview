@@ -238,10 +238,54 @@
         "benefit_text": "Formulated to support desire, mood, and connection — one soft gummy a day. Experiences vary.",
         "cta_label": "Meet [brand]"
       }
+    },
+    "press": {
+      "type": "smooch-press-bar",
+      "blocks": {
+        "outlet-1": {
+          "type": "outlet",
+          "settings": {
+            "name": "Marie Claire",
+            "style": "serif-caps"
+          }
+        },
+        "outlet-2": {
+          "type": "outlet",
+          "settings": {
+            "name": "goop",
+            "style": "sans-lower"
+          }
+        },
+        "outlet-3": {
+          "type": "outlet",
+          "settings": {
+            "name": "VOGUE",
+            "style": "serif-caps"
+          }
+        },
+        "outlet-4": {
+          "type": "outlet",
+          "settings": {
+            "name": "COSMOPOLITAN",
+            "style": "sans-caps"
+          }
+        }
+      },
+      "block_order": [
+        "outlet-1",
+        "outlet-2",
+        "outlet-3",
+        "outlet-4"
+      ],
+      "settings": {
+        "heading": "As featured in",
+        "color_scheme": "scheme-5"
+      }
     }
   },
   "order": [
     "hero",
+    "press",
     "benefit_strip",
     "featured_product",
     "problem",
