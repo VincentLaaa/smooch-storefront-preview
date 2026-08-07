@@ -72,6 +72,14 @@ metafields.
 - 3-col supply cards overflowed the 1024px panel → cards go 3-across only
   ≥1200px; price rows wrap.
 - CSS source-order regression on the card-column block.
+- Sticky gallery slid down over the media info cards while the buybox column
+  scrolled (thumbnails/zoom targets landing on card text). The sticky unit is
+  now the whole media column (`smooch-product__gallery--sticky` wrapper);
+  Dawn's inner `media-gallery` sticky is neutralized. Regression-tested.
+- Timeline `fact` blocks double-rendered as untitled steps (steps loop now
+  filters by block type) and skipped the `[brand]` substitution.
+- Dev harness now parses Liquid per request (`cache: false`) so template edits
+  appear on refresh without restarting the server.
 
 ## Verification
 38/38 Playwright (updated + panel/dim/frequency coverage, single-form and

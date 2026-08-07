@@ -44,9 +44,10 @@
         </header>
       {%- endif -%}
 
-      {%- if section.blocks.size > 0 -%}
+      {%- assign step_blocks = section.blocks | where: 'type', 'step' -%}
+      {%- if step_blocks.size > 0 -%}
         <ol class="smooch-timeline__steps" role="list">
-          {%- for block in section.blocks -%}
+          {%- for block in step_blocks -%}
             <li class="smooch-timeline__step" {{ block.shopify_attributes }}>
               {%- if block.settings.period != blank -%}
                 <p class="smooch-timeline__period smooch-num">
@@ -86,8 +87,8 @@
         {%- for fact in fact_blocks -%}
           {%- if fact.settings.title != blank -%}
             <div class="smooch-timeline__fact" {{ fact.shopify_attributes }}>
-              <h3 class="smooch-timeline__fact-title">{{ fact.settings.title | escape }}</h3>
-              <p class="smooch-timeline__fact-text">{{ fact.settings.text | escape }}</p>
+              <h3 class="smooch-timeline__fact-title">{{ fact.settings.title | replace: '[brand]', brand_name | escape }}</h3>
+              <p class="smooch-timeline__fact-text">{{ fact.settings.text | replace: '[brand]', brand_name | escape }}</p>
             </div>
           {%- endif -%}
         {%- endfor -%}

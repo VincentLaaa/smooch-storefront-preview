@@ -470,6 +470,22 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await page.locator('.smooch-media-cards').first().screenshot({ path: 'qa/screenshots/pdp-refresh/after-media-cards-desktop-1440.png' });
   });
 
+  test('sticky gallery never slides over the media cards while scrolling', async ({ page }) => {
+    // The sticky unit must be the whole media column (gallery + card rail);
+    // sticking only Dawn's inner media-gallery lets it ride down over the cards.
+    await page.setViewportSize({ width: 1440, height: 900 });
+    for (const y of [0, 400, 800, 1200, 1600, 2200]) {
+      await page.evaluate((v) => window.scrollTo(0, v), y);
+      await page.waitForTimeout(120);
+      const overlap = await page.evaluate(() => {
+        const gal = document.querySelector('media-gallery').getBoundingClientRect();
+        const cards = document.querySelector('.smooch-media-cards').getBoundingClientRect();
+        return Math.max(0, gal.bottom - cards.top);
+      });
+      expect(overlap, `gallery overlaps cards by ${overlap}px at scrollY=${y}`).toBeLessThanOrEqual(1);
+    }
+  });
+
   test('no subscription UI on a product without selling plans', async ({ page }) => {
     await page.goto(SINGLE);
     const hero = page.locator('product-info').first();

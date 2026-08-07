@@ -64,7 +64,9 @@ export function createEngine({ globals, renderSectionGroup }) {
     root: [ROOT],
     partials: [join(ROOT, 'snippets')],
     extname: '.liquid',
-    cache: true,
+    // No template cache: the harness is a dev tool — picking up .liquid edits
+    // on refresh matters more than parse time.
+    cache: false,
     strictFilters: false,
     strictVariables: false,
     relativeReference: false,

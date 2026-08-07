@@ -139,7 +139,7 @@
     <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
       <div class="page-width">
         <div class="product product--{{ section.settings.media_size }} product--left product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %} smooch-product__layout">
-          <div class="grid__item product__media-wrapper smooch-product__gallery">
+          <div class="grid__item product__media-wrapper smooch-product__gallery{% if section.settings.enable_sticky_info %} smooch-product__gallery--sticky{% endif %}">
             {%- liquid
               assign lazy_gallery = false
               if section.settings.eager_first_image == false

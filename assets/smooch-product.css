@@ -846,6 +846,23 @@
 
 /* ---------- Media info cards (rail under the gallery) ---------- */
 
+/* The card rail lives below the gallery inside the media column. Stickiness
+   must apply to the whole column (gallery + cards), not Dawn's inner
+   media-gallery — otherwise the sticky gallery slides down over the cards
+   while the taller buybox column scrolls. */
+@media screen and (min-width: 750px) {
+  .smooch-product__gallery--sticky {
+    position: sticky;
+    top: 3rem;
+    z-index: 2;
+    align-self: flex-start;
+  }
+
+  .smooch-product__gallery--sticky .product__column-sticky {
+    position: static;
+  }
+}
+
 .smooch-media-cards {
   list-style: none;
   margin: 1.6rem 0 0;
