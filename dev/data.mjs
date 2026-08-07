@@ -150,7 +150,7 @@ const FIXTURES = {
     media: [
       { src: '/assets/smooch-demo-bottle-open.png', alt: "Smooch Women's Libido & Mood bottle with open cap and gummy", width: 1086, height: 1448 },
       { src: '/assets/smooch-demo-bottles-duo.png', alt: "Two Smooch Women's Libido & Mood bottles", width: 1254, height: 1254 },
-      { src: '/dev-assets/img/gummies.svg', alt: 'Development placeholder — gummies close-up' },
+      { src: '/assets/smooch-demo-info-card.jpg', alt: 'Smooch bottles with 60 gummies per bottle and mood, desire, and connection support highlights', width: 1600, height: 1600 },
     ],
     sellingPlans: [
       { id: 101, name: 'Every 30 days', discountPct: 10 },
