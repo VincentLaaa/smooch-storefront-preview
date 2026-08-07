@@ -5,7 +5,8 @@
   "description": "Smooch Shopify theme (Dawn 15.5 base) + staging/QA tooling",
   "scripts": {
     "check": "shopify theme check",
-    "qa": "playwright test --config qa/playwright.config.mjs"
+    "qa": "playwright test --config qa/playwright.config.mjs",
+    "dev": "node dev/server.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",

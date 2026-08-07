@@ -374,10 +374,34 @@ app.post(['/cart/clear', '/cart/clear.js'], (req, res) => { cartState.items.leng
 
 app.get('/search/suggest', (req, res) => res.json({ resources: { results: {} } }));
 
-app.listen(PORT, () => {
+// Pre-flight: if something already answers on the port (e.g. a stale harness
+// left running), say so clearly instead of half-binding and confusing everyone.
+try {
+  const probe = await fetch(`http://127.0.0.1:${PORT}/cart.js`, { signal: AbortSignal.timeout(1500) });
+  if (probe.ok) {
+    console.error(`ERROR: something is already serving http://127.0.0.1:${PORT} (probably an earlier harness instance).`);
+    console.error(`  Either just use that one in your browser, stop it (taskkill /F /IM node.exe), or run:  $env:PORT=9293; node dev/server.mjs`);
+    process.exit(1);
+  }
+} catch {
+  // nothing listening — good, proceed
+}
+
+const server = app.listen(PORT, '127.0.0.1', () => {
   console.log(`Smooch offline harness → http://127.0.0.1:${PORT}`);
   console.log(`  /                     homepage (index.json)`);
   console.log(`  /products/${PRODUCT_HANDLES[0]}   product page (product.smooch.json)`);
   console.log(`  /products/${PRODUCT_HANDLES[1]}   single-variant state`);
   console.log(`  /pages/faq  /pages/contact`);
+  console.log('  (leave this window open — Ctrl+C to stop)');
+});
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`ERROR: port ${PORT} is already in use (a previous harness instance is still running).`);
+    console.error(`  Stop it (taskkill /F /IM node.exe) or run on another port:  $env:PORT=9293; node dev/server.mjs`);
+  } else {
+    console.error('Server error:', err);
+  }
+  process.exit(1);
 });
