@@ -1,0 +1,199 @@
+/* Smooch formula — editorial ingredient breakdown.
+   Loaded as line 1 of sections/smooch-formula.liquid. 1rem = 10px (Dawn base).
+   Mobile-first; breakpoints 750 / 990. */
+
+/* ---------- Intro row (header + offset product render) ---------- */
+
+.smooch-formula__intro {
+  margin-bottom: clamp(3.2rem, 5vw, 5.6rem);
+}
+
+.smooch-formula__intro .smooch-section-head {
+  margin-bottom: 0;
+}
+
+.smooch-formula__render {
+  width: min(68%, 30rem);
+  margin: 2.8rem 0 0 auto; /* offset right on mobile too */
+}
+
+.smooch-formula__render-media {
+  aspect-ratio: 4 / 5;
+  background-color: rgba(var(--smooch-blush-rgb), 0.55);
+}
+
+.smooch-formula__render-media img {
+  object-fit: contain;
+}
+
+/* ---------- Ingredient list ---------- */
+
+.smooch-formula__group {
+  display: block;
+}
+
+.smooch-formula__list {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Each ingredient is an editorial row: thin top rule, generous air — not a card. */
+.smooch-formula__item {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: min(82vw, 33rem);
+  border-top: 0.1rem solid var(--smooch-border-strong);
+  padding-top: 2.4rem;
+}
+
+/* Meta line: oversized ghost index + category tag */
+.smooch-formula__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.smooch-formula__index {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: rgba(var(--color-foreground), 0.3);
+}
+
+/* Name + dosage on one baseline */
+.smooch-formula__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1.6rem;
+}
+
+.smooch-formula__name {
+  margin: 0;
+}
+
+.smooch-formula__amount {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(2rem, 1.7rem + 0.9vw, 2.8rem);
+  line-height: 1;
+  color: var(--smooch-berry);
+  white-space: nowrap;
+}
+
+/* Macro shot beside the copy */
+.smooch-formula__body {
+  display: grid;
+  grid-template-columns: 10.4rem minmax(0, 1fr);
+  gap: 1.6rem 2rem;
+  align-items: start;
+}
+
+.smooch-formula__media {
+  background-color: rgba(var(--smooch-blush-rgb), 0.7);
+}
+
+.smooch-formula__media--empty {
+  display: grid;
+  place-items: center;
+  color: var(--smooch-berry);
+}
+
+.smooch-formula__copy {
+  min-width: 0;
+}
+
+.smooch-formula__purpose {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.55;
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+.smooch-formula__accordion {
+  margin-top: 1.4rem;
+}
+
+.smooch-formula__accordion summary {
+  padding: 1.2rem 0.2rem;
+  font-size: 1.4rem;
+}
+
+.smooch-formula__accordion .smooch-accordion__content {
+  padding-bottom: 1.6rem;
+  font-size: 1.4rem;
+}
+
+.smooch-formula__source {
+  margin: 1.2rem 0 0;
+}
+
+/* ---------- Tablet ---------- */
+
+@media screen and (min-width: 750px) {
+  .smooch-formula__item {
+    width: min(58vw, 36rem);
+  }
+}
+
+/* ---------- Desktop ---------- */
+
+@media screen and (min-width: 990px) {
+  .smooch-formula__intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, clamp(30rem, 32vw, 40rem));
+    column-gap: clamp(4rem, 6vw, 9.6rem);
+    align-items: start;
+  }
+
+  /* Product render sits offset-right, dropped below the heading's top line */
+  .smooch-formula__render {
+    width: 100%;
+    margin: clamp(3.2rem, 5vw, 7.2rem) 0 0;
+  }
+
+  /* Scroller becomes a strict two-column editorial grid */
+  ul.smooch-formula__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(4rem, 5vw, 8rem);
+    row-gap: clamp(4.8rem, 5vw, 6.4rem);
+  }
+
+  .smooch-formula__item {
+    width: auto;
+    gap: 2rem;
+    padding-top: 3.2rem;
+  }
+
+  /* Stagger the second column for an editorial, non-grid rhythm */
+  .smooch-formula__item:nth-child(even) {
+    margin-top: 6.4rem;
+  }
+
+  .smooch-formula__index {
+    font-size: 3.2rem;
+  }
+
+  .smooch-formula__body {
+    grid-template-columns: 12.8rem minmax(0, 1fr);
+    gap: 2rem 2.8rem;
+  }
+
+  /* Alternate the macro-shot side row by row */
+  .smooch-formula__item:nth-child(even) .smooch-formula__body {
+    grid-template-columns: minmax(0, 1fr) 12.8rem;
+  }
+
+  .smooch-formula__item:nth-child(even) .smooch-formula__media {
+    order: 2;
+  }
+}

@@ -1,0 +1,145 @@
+/* Smooch benefit editorial — alternating editorial splits.
+   Loaded by sections/smooch-benefit-editorial.liquid.
+   1rem = 10px (Dawn base). Mobile-first; breakpoints 749/750/990. */
+
+.smooch-benefit-editorial__rows {
+  display: grid;
+  gap: 4rem;
+}
+
+.smooch-benefit-editorial__row {
+  /* Media track slightly narrower than copy for intentional asymmetry. */
+  --split-a: 0.85fr;
+  --split-b: 1.15fr;
+  min-width: 0;
+}
+
+/* Hairline divider between stories; padding mirrors the grid gap so the
+   rule sits centered in generous whitespace. */
+.smooch-benefit-editorial__row + .smooch-benefit-editorial__row {
+  border-top: 0.1rem solid var(--smooch-border-soft);
+  padding-top: 4rem;
+}
+
+/* ---------- Media ---------- */
+
+.smooch-benefit-editorial__media {
+  border: 0.1rem solid var(--smooch-border-soft);
+  background-color: var(--smooch-blush);
+}
+
+.smooch-benefit-editorial__media--empty {
+  display: grid;
+  place-items: center;
+}
+
+.smooch-benefit-editorial__placeholder-svg {
+  width: 58%;
+  height: auto;
+  fill: rgba(var(--smooch-ink-rgb), 0.4);
+}
+
+/* ---------- Copy ---------- */
+
+.smooch-benefit-editorial__copy {
+  max-width: 56rem;
+}
+
+/* Let the stack own vertical rhythm (the shared eyebrow carries its own
+   bottom margin otherwise). */
+.smooch-benefit-editorial__copy .smooch-eyebrow {
+  margin-bottom: 0;
+}
+
+/* Story index — small serif numeral with a short rule. Foreground-based so
+   it holds up on every color scheme. */
+.smooch-benefit-editorial__index {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: 1.7rem;
+  letter-spacing: 0.08em;
+  color: rgba(var(--color-foreground), 0.5);
+}
+
+.smooch-benefit-editorial__index::after {
+  content: '';
+  width: 5.6rem;
+  height: 0.1rem;
+  background-color: var(--smooch-border-strong);
+}
+
+/* Oversized editorial headline (h3 element, self-contained type). */
+.smooch-benefit-editorial__headline {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(2.6rem, 2.1rem + 1.7vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  color: rgb(var(--color-foreground));
+  text-wrap: balance;
+}
+
+/* Supporting-ingredient credit line — hairline-topped, like a caption
+   under a magazine spread. */
+.smooch-benefit-editorial__ingredient {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin: 0;
+  padding-top: 1.8rem;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+}
+
+.smooch-benefit-editorial__ingredient .smooch-icon {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.smooch-benefit-editorial__copy .smooch-fine-print {
+  margin-top: 1rem;
+}
+
+/* ---------- Tablet and up ---------- */
+
+@media screen and (min-width: 750px) {
+  .smooch-benefit-editorial__rows {
+    gap: 5.6rem;
+  }
+
+  .smooch-benefit-editorial__row + .smooch-benefit-editorial__row {
+    padding-top: 5.6rem;
+  }
+}
+
+/* ---------- Desktop ---------- */
+
+@media screen and (min-width: 990px) {
+  .smooch-benefit-editorial__rows {
+    gap: clamp(5.6rem, 7vw, 9.6rem);
+  }
+
+  .smooch-benefit-editorial__row + .smooch-benefit-editorial__row {
+    padding-top: clamp(5.6rem, 7vw, 9.6rem);
+  }
+
+  /* In flipped rows the copy is auto-placed into the first track, so invert
+     the ratio to keep the media the narrower column on both compositions. */
+  .smooch-benefit-editorial__row.smooch-split--flip {
+    --split-a: 1.15fr;
+    --split-b: 0.85fr;
+  }
+
+  /* Copy sits at a comfortable measure inside the wider track; the leftover
+     track space alternates sides row to row — deliberate editorial rhythm. */
+  .smooch-benefit-editorial__copy {
+    max-width: 52rem;
+  }
+}

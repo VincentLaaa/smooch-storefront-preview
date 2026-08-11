@@ -1,0 +1,76 @@
+/* Smooch benefit strip — compact trust row used directly under heroes.
+   1rem = 10px (Dawn base). Mobile-first; breakpoints 749/750/990. */
+
+.smooch-benefit-strip__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.8rem 2rem;
+}
+
+.smooch-benefit-strip__item {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  min-width: 0;
+}
+
+/* An odd trailing item spans both mobile columns and centers itself */
+.smooch-benefit-strip__item:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  justify-content: center;
+}
+
+.smooch-benefit-strip__icon {
+  flex-shrink: 0;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.smooch-benefit-strip__text {
+  font-family: var(--font-body-family);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground));
+}
+
+@media screen and (min-width: 750px) {
+  .smooch-benefit-strip__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6rem 0;
+  }
+
+  .smooch-benefit-strip__item {
+    position: relative;
+    padding-inline: clamp(2.4rem, 3.5vw, 4.8rem);
+  }
+
+  .smooch-benefit-strip__text {
+    font-size: 1.2rem;
+  }
+
+  /* Thin vertical divider between items, fixed height, vertically centered */
+  .smooch-benefit-strip__list--dividers .smooch-benefit-strip__item + .smooch-benefit-strip__item::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0.1rem;
+    height: 2.4rem;
+    background-color: var(--smooch-border-soft);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-benefit-strip__icon {
+    --icon-size: 2rem;
+  }
+}

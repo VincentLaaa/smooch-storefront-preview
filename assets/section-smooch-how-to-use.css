@@ -1,0 +1,148 @@
+/* Smooch how-to-use — editorial numbered ritual + practical details row.
+   1rem = 10px (Dawn base). Mobile-first; breakpoints 749/750/990. */
+
+.smooch-how-to-use__layout {
+  --split-a: 0.75fr;
+  --split-b: 1.25fr;
+}
+
+.smooch-how-to-use__head {
+  margin-bottom: 0;
+  max-width: 52rem;
+}
+
+.smooch-how-to-use__head > * + * {
+  margin-top: 1.6rem;
+}
+
+/* ---------- Steps ---------- */
+
+.smooch-how-to-use__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.smooch-how-to-use__step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: clamp(2rem, 3vw, 3.6rem);
+  align-items: start;
+  padding: 2.4rem 0;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+}
+
+.smooch-how-to-use__step:last-child {
+  border-bottom: 0.1rem solid var(--smooch-border-soft);
+}
+
+.smooch-how-to-use__num {
+  min-width: clamp(4.8rem, 4rem + 2.5vw, 7.6rem);
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(4.8rem, 3.8rem + 3.2vw, 8.4rem);
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+  color: var(--smooch-berry);
+  font-variant-numeric: lining-nums;
+}
+
+.smooch-how-to-use__step-body > * + * {
+  margin-top: 0.8rem;
+}
+
+.smooch-how-to-use__step-heading {
+  margin: 0;
+}
+
+.smooch-how-to-use__step-text {
+  margin: 0;
+  max-width: 52ch;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+/* ---------- Practical details row ---------- */
+
+.smooch-how-to-use__details {
+  margin-top: clamp(4rem, 7vw, 7.2rem);
+  padding-top: clamp(2.4rem, 4vw, 4rem);
+  border-top: 0.1rem solid var(--smooch-border-strong);
+}
+
+.smooch-how-to-use__details-heading {
+  margin: 0 0 2rem;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.smooch-how-to-use__facts {
+  display: grid;
+  margin: 0;
+  gap: 2rem 3.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+}
+
+.smooch-how-to-use__fact dt {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.smooch-how-to-use__fact dd {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: rgb(var(--color-foreground));
+}
+
+.smooch-how-to-use__safety {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin: 2.4rem 0 0;
+  max-width: 78ch;
+}
+
+.smooch-how-to-use__safety .smooch-icon {
+  flex-shrink: 0;
+  margin-top: 0.1em;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+/* ---------- 750px+ ---------- */
+
+@media screen and (min-width: 750px) {
+  .smooch-how-to-use__step {
+    padding: 3.2rem 0;
+  }
+
+  .smooch-how-to-use__safety {
+    margin-top: 3.2rem;
+  }
+}
+
+/* ---------- 990px+ ---------- */
+
+@media screen and (min-width: 990px) {
+  .smooch-how-to-use__step:first-child {
+    padding-top: 0.8rem;
+    border-top: 0;
+  }
+
+  .smooch-how-to-use__step:last-child {
+    border-bottom: 0;
+    padding-bottom: 0.8rem;
+  }
+
+  .smooch-how-to-use__facts {
+    gap: 2.4rem 4rem;
+  }
+}

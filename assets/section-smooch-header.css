@@ -1,0 +1,582 @@
+/* Smooch header — minimal, centered-logo conversion header.
+   1rem = 10px (Dawn base). Breakpoints: 749/750/989/990.
+
+   Brand tokens: --brand-background / --brand-text / --brand-accent /
+   --brand-secondary / --brand-border / --brand-font-heading / --brand-font-body.
+   Aliased below to the theme's existing global tokens (Theme settings >
+   Colors: smooch_color_ink/berry/blush/etc, emitted as --smooch-* in
+   snippets/smooch-theme-tokens.liquid) plus this section's color scheme
+   picker for the background/text pair. Recolor the whole header from either
+   of those two places — nothing in this file needs to change. */
+
+.smooch-header {
+  --brand-background: rgb(var(--color-background));
+  --brand-text: rgb(var(--color-foreground));
+  --brand-accent: rgb(196, 42, 80);
+  --brand-secondary: var(--smooch-blush, rgb(242, 212, 215));
+  --brand-border: var(--smooch-border-soft, rgba(var(--color-foreground), 0.12));
+  --brand-font-heading: var(--font-heading-family);
+  --brand-font-body: var(--font-body-family);
+  --smooch-header-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --smooch-header-h: 6rem;
+
+  position: relative;
+  background-color: var(--brand-background);
+  color: var(--brand-text);
+  border-bottom: 0.1rem solid transparent;
+  transition:
+    background-color 320ms var(--smooch-header-ease),
+    border-color 320ms var(--smooch-header-ease),
+    box-shadow 320ms var(--smooch-header-ease),
+    backdrop-filter 320ms var(--smooch-header-ease),
+    transform 320ms var(--smooch-header-ease);
+}
+
+@media screen and (min-width: 750px) {
+  .smooch-header {
+    --smooch-header-h: 7.2rem;
+  }
+}
+
+/* Scrolled state (JS toggles this once window.scrollY passes a small
+   threshold): background firms up, faint blur + hairline + shadow appear. */
+.smooch-header.is-scrolled {
+  background-color: rgba(var(--color-background), 0.92);
+  -webkit-backdrop-filter: blur(0.8rem);
+  backdrop-filter: blur(0.8rem);
+  border-bottom-color: var(--brand-border);
+  box-shadow: 0 0.8rem 2.4rem rgba(var(--smooch-ink-rgb, 35, 26, 30), 0.06);
+}
+
+/* Scroll-direction hide (JS; skipped entirely on product templates and
+   whenever prefers-reduced-motion is set — see smooch-header.js). */
+.smooch-header.is-hidden {
+  transform: translateY(-100%);
+}
+
+/* Transparent-until-scrolled variant, opt-in per section setting. Only use
+   on pages with a full-bleed hero directly under the header. */
+.smooch-header--transparent:not(.is-scrolled) {
+  background-color: transparent;
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+/* ---------- Grid shell: true mathematical centering ---------- */
+
+.smooch-header__inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: 1.6rem;
+  min-height: var(--smooch-header-h);
+}
+
+/* Entrance: content eases in on first paint. Guarded by reduced-motion
+   below; a11y tree/hit-testing is unaffected since only opacity/transform
+   move. */
+.smooch-header__nav,
+.smooch-header__logo,
+.smooch-header__actions,
+.smooch-header__hamburger {
+  animation: smooch-header-in 560ms var(--smooch-header-ease) both;
+}
+
+.smooch-header__logo {
+  animation-delay: 40ms;
+}
+
+.smooch-header__actions {
+  animation-delay: 80ms;
+}
+
+@keyframes smooch-header-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Logo (center column) ---------- */
+
+.smooch-header__logo {
+  grid-column: 2;
+  grid-row: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--brand-text);
+}
+
+.smooch-header__logo-image {
+  display: block;
+  width: var(--smooch-header-logo-w, 100px);
+  height: auto;
+  max-width: none;
+}
+
+/* Bundled white wordmark, tinted to the scheme foreground for light headers.
+   brightness(0) renders the artwork near-black; on dark header schemes the
+   filter is dropped so it stays white. */
+.smooch-header__logo-image--brand {
+  filter: brightness(0) opacity(0.92);
+}
+
+.color-scheme-3 .smooch-header__logo-image--brand,
+.color-scheme-4 .smooch-header__logo-image--brand {
+  filter: none;
+}
+
+/* ---------- Left: Shop / Learn nav (desktop, >=990px) ---------- */
+
+.smooch-header__nav {
+  grid-column: 1;
+  grid-row: 1;
+  display: none;
+  justify-self: start;
+  min-width: 0;
+}
+
+.smooch-header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.smooch-header__nav-item {
+  position: relative;
+}
+
+.smooch-header__trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 4.4rem;
+  padding: 0 1.2rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--brand-font-body);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-text);
+  opacity: 0.82;
+  transition: opacity 200ms ease;
+}
+
+.smooch-header__trigger:hover,
+.smooch-header__trigger[aria-expanded='true'] {
+  opacity: 1;
+}
+
+/* Refined animated underline: grows left-to-right on hover/open, reverses
+   smoothly on leave/close. transform (not width) so it's compositor-only. */
+.smooch-header__trigger::after {
+  content: '';
+  position: absolute;
+  left: 1.2rem;
+  right: 1.2rem;
+  bottom: 0.7rem;
+  height: 0.1rem;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 260ms var(--smooch-header-ease);
+}
+
+.smooch-header__trigger:hover::after,
+.smooch-header__trigger[aria-expanded='true']::after {
+  transform: scaleX(1);
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-header__nav {
+    display: block;
+  }
+}
+
+/* ---------- Mega-menu dropdown panels ---------- */
+
+.smooch-header__panel {
+  position: absolute;
+  top: calc(100% + 1.2rem);
+  left: 0;
+  transform: translateY(-6px);
+  min-width: 30rem;
+  background-color: rgb(var(--color-background));
+  border: 0.1rem solid var(--brand-border);
+  border-radius: var(--smooch-radius-card, 1.6rem);
+  box-shadow: 0 1.6rem 4rem rgba(var(--smooch-ink-rgb, 35, 26, 30), 0.14);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 240ms var(--smooch-header-ease), transform 240ms var(--smooch-header-ease), visibility 240ms;
+}
+
+smooch-header-menu.is-open .smooch-header__panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.smooch-header__panel-inner {
+  display: grid;
+  grid-template-columns: minmax(16rem, auto) 14rem;
+  gap: 2.4rem;
+  padding: 2rem;
+}
+
+.smooch-header__panel-inner--links-only {
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 22rem;
+}
+
+.smooch-header__panel-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.smooch-header__panel-link {
+  display: block;
+  padding: 0.8rem 0.4rem;
+  font-size: 1.4rem;
+  color: var(--brand-text);
+  text-decoration: none;
+  white-space: normal;
+  border-radius: 0.6rem;
+  transition: background-color 160ms ease;
+}
+
+.smooch-header__panel-link:hover {
+  background-color: var(--brand-secondary);
+}
+
+.smooch-header__panel-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  text-decoration: none;
+  color: var(--brand-text);
+}
+
+.smooch-header__panel-card-media {
+  display: block;
+  aspect-ratio: 1 / 1;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  background-color: var(--brand-secondary);
+}
+
+.smooch-header__panel-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms var(--smooch-header-ease);
+}
+
+.smooch-header__panel-card:hover .smooch-header__panel-card-media img {
+  transform: scale(1.04);
+}
+
+.smooch-header__panel-card-title {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.smooch-header__panel-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--brand-accent);
+}
+
+/* ---------- Right: actions ---------- */
+
+.smooch-header__actions {
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.4rem;
+}
+
+.smooch-header__icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.4rem;
+  min-height: 4.4rem;
+  color: var(--brand-text);
+  text-decoration: none;
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.smooch-header__icon-btn:hover {
+  transform: scale(1.04);
+  opacity: 0.75;
+}
+
+.smooch-header__cart-badge {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  padding: 0 0.3rem;
+  border-radius: 999px;
+  background-color: var(--brand-accent);
+  color: rgb(var(--color-background));
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.smooch-header--hide-count .cart-count-bubble {
+  display: none !important;
+}
+
+.smooch-header__account {
+  display: none;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-header__account {
+    display: inline-flex;
+  }
+}
+
+/* Hamburger: left column, visible below 990px only (nav takes column 1 at
+   desktop widths instead — the two never render at the same time). */
+.smooch-header__hamburger {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.4rem;
+  min-height: 4.4rem;
+  margin-left: -1rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--brand-text);
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-header__hamburger {
+    display: none;
+  }
+}
+
+/* ---------- Mobile nav drawer ---------- */
+
+smooch-mobile-nav {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+}
+
+smooch-mobile-nav[hidden] {
+  display: none;
+}
+
+.smooch-mobile-nav__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(var(--smooch-ink-rgb, 35, 26, 30), 0.32);
+  opacity: 0;
+  transition: opacity 320ms var(--smooch-header-ease);
+}
+
+smooch-mobile-nav.is-open .smooch-mobile-nav__overlay {
+  opacity: 1;
+}
+
+.smooch-mobile-nav__panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: min(36rem, 88vw);
+  background-color: rgb(var(--color-background));
+  box-shadow: 1.6rem 0 4rem rgba(var(--smooch-ink-rgb, 35, 26, 30), 0.18);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 360ms var(--smooch-header-ease);
+}
+
+smooch-mobile-nav.is-open .smooch-mobile-nav__panel {
+  transform: translateX(0);
+}
+
+.smooch-mobile-nav__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6rem 2rem;
+  border-bottom: 0.1rem solid var(--brand-border);
+}
+
+.smooch-mobile-nav__brand {
+  font-family: var(--brand-font-heading);
+  font-weight: 700;
+  text-transform: lowercase;
+  font-size: 2rem;
+}
+
+.smooch-mobile-nav__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.4rem;
+  min-height: 4.4rem;
+  margin-right: -1.2rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--brand-text);
+}
+
+.smooch-mobile-nav__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.8rem 2rem 3.2rem;
+}
+
+.smooch-mobile-nav__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.smooch-mobile-nav__group {
+  border-bottom: 0.1rem solid var(--brand-border);
+}
+
+.smooch-mobile-nav__group-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 5.6rem;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--brand-font-heading);
+  font-weight: 600;
+  font-size: 1.9rem;
+}
+
+.smooch-mobile-nav__group-label::-webkit-details-marker {
+  display: none;
+}
+
+.smooch-mobile-nav__caret {
+  transition: transform 240ms var(--smooch-header-ease);
+}
+
+.smooch-mobile-nav__group[open] .smooch-mobile-nav__caret {
+  transform: rotate(180deg);
+}
+
+.smooch-mobile-nav__sublist {
+  margin: 0 0 1.6rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.smooch-mobile-nav__sublink {
+  display: block;
+  padding: 1rem 0.4rem;
+  min-height: 4.4rem;
+  font-size: 1.5rem;
+  color: var(--brand-text);
+  text-decoration: none;
+}
+
+.smooch-mobile-nav__account {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+  min-height: 4.4rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--brand-text);
+  text-decoration: none;
+}
+
+/* Subtle open/close for the accordion children — details content itself has
+   no transition (native toggle), but the sublist eases in for polish. */
+@keyframes smooch-mobile-sublist-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.smooch-mobile-nav__group[open] .smooch-mobile-nav__sublist {
+  animation: smooch-mobile-sublist-in 220ms var(--smooch-header-ease) both;
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .smooch-header,
+  .smooch-header__nav,
+  .smooch-header__logo,
+  .smooch-header__actions,
+  .smooch-header__hamburger,
+  .smooch-header__trigger::after,
+  .smooch-header__panel,
+  .smooch-header__icon-btn,
+  .smooch-header__panel-card-media img,
+  .smooch-mobile-nav__overlay,
+  .smooch-mobile-nav__panel,
+  .smooch-mobile-nav__caret,
+  .smooch-mobile-nav__group[open] .smooch-mobile-nav__sublist {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .smooch-header.is-hidden {
+    transform: none;
+  }
+}

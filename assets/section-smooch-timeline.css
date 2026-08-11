@@ -1,0 +1,303 @@
+/* Smooch timeline — cautious "what to expect" editorial vertical timeline.
+   Thin berry rail with period markers; big numeral period labels on desktop,
+   stacked left-rail layout on mobile. 1rem = 10px (Dawn base). */
+
+/* ---------- Layout: sticky floating visual beside the steps ---------- */
+
+.smooch-timeline__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'head'
+    'visual'
+    'content';
+  gap: 3.2rem;
+}
+
+/* This element also carries the shared .smooch-story class (so the reused
+   smooch-scroll-story.js can find the scene + steps in one relative query —
+   they're siblings under this wrapper, not nested in each other). Undo the
+   couple of base .smooch-story properties that don't apply out here: it
+   isn't its own colored band (the .smooch-band ancestor already is one),
+   and overflow:clip would establish a scroll container that breaks the
+   sticky visual's positioning context. */
+.smooch-timeline__layout.smooch-story {
+  background-color: transparent;
+  color: inherit;
+  overflow: visible;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-timeline__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'head head'
+      'visual content';
+    column-gap: 6rem;
+    row-gap: 1.6rem;
+  }
+}
+
+/* No visual: collapse back to a single centered reading column (the
+   section's original layout, before the floating visual was added). */
+.smooch-timeline__layout--no-visual {
+  grid-template-areas:
+    'head'
+    'content';
+  max-width: 104rem;
+  margin-inline: auto;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-timeline__layout--no-visual {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'head'
+      'content';
+  }
+}
+
+.smooch-timeline__head {
+  grid-area: head;
+  max-width: 72rem;
+}
+
+.smooch-timeline__visual-col {
+  grid-area: visual;
+  position: relative;
+}
+
+.smooch-timeline__visual-sticky {
+  position: sticky;
+  top: 14vh;
+}
+
+.smooch-timeline__scene {
+  height: 40vh;
+  min-height: 32rem;
+  max-height: 50rem;
+}
+
+@media screen and (max-width: 989px) {
+  .smooch-timeline__visual-sticky {
+    position: static;
+    top: 0;
+  }
+
+  .smooch-timeline__scene {
+    height: 32vh;
+    min-height: 26rem;
+  }
+}
+
+.smooch-timeline__content-col {
+  grid-area: content;
+  min-width: 0;
+}
+
+.smooch-timeline__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- Step grid (mobile-first: left rail, stacked content) ---------- */
+
+.smooch-timeline__step {
+  display: grid;
+  grid-template-columns: 3.6rem minmax(0, 1fr);
+  grid-template-areas:
+    'marker period'
+    'marker body';
+  column-gap: 1.6rem;
+}
+
+/* ---------- Rail + markers ---------- */
+
+.smooch-timeline__marker {
+  grid-area: marker;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* The thin berry rail runs behind each marker; rows butt together so it reads
+   as one continuous line. */
+.smooch-timeline__marker::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 0.05rem);
+  width: 0.1rem;
+  background-color: rgba(var(--smooch-berry-rgb), 0.45);
+}
+
+/* Cap the rail at the first and last markers. */
+.smooch-timeline__step:first-child .smooch-timeline__marker::before {
+  top: 2rem;
+}
+
+.smooch-timeline__step:last-child .smooch-timeline__marker::before {
+  bottom: auto;
+  height: 2rem;
+}
+
+.smooch-timeline__step:only-child .smooch-timeline__marker::before {
+  display: none;
+}
+
+.smooch-timeline__badge {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3.6rem;
+  height: 3.6rem;
+  margin-top: 0.2rem;
+  border: 0.1rem solid rgba(var(--smooch-berry-rgb), 0.55);
+  border-radius: 50%;
+  background-color: rgb(var(--color-background));
+  color: var(--smooch-berry);
+}
+
+.smooch-timeline__badge .smooch-icon {
+  --icon-size: 1.7rem;
+}
+
+/* No icon chosen: a small solid berry point on the rail. */
+.smooch-timeline__badge--dot {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 1.4rem;
+  border: 0;
+  background-color: var(--smooch-berry);
+}
+
+/* ---------- Period label ---------- */
+
+.smooch-timeline__period {
+  grid-area: period;
+  margin: 0;
+  padding-top: 1.3rem;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--smooch-berry);
+}
+
+/* ---------- Step body ---------- */
+
+.smooch-timeline__body {
+  grid-area: body;
+  max-width: 56ch;
+  padding: 0.8rem 0 3.6rem;
+}
+
+.smooch-timeline__step:last-child .smooch-timeline__body {
+  padding-bottom: 0.4rem;
+}
+
+.smooch-timeline__heading {
+  margin: 0;
+}
+
+.smooch-timeline__text {
+  margin: 0.8rem 0 0;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+/* ---------- Disclaimer ---------- */
+
+.smooch-timeline__disclaimer {
+  max-width: 62ch;
+  margin: clamp(3.2rem, 5vw, 5.6rem) 0 0;
+  padding-top: 1.6rem;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+}
+
+/* ---------- Desktop: big numeral period column left of the rail ---------- */
+
+@media screen and (min-width: 750px) {
+  .smooch-timeline__body {
+    padding-bottom: 4.4rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-timeline__step {
+    grid-template-columns: minmax(14rem, 24rem) 4.4rem minmax(0, 1fr);
+    grid-template-areas: 'period marker body';
+    column-gap: clamp(2.4rem, 3vw, 4.8rem);
+  }
+
+  .smooch-timeline__period {
+    padding-top: 0;
+    text-align: right;
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-weight: var(--font-heading-weight);
+    font-size: clamp(2.6rem, 2rem + 0.8vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: rgb(var(--color-foreground));
+  }
+
+  .smooch-timeline__badge--dot {
+    margin-top: 1.5rem;
+  }
+
+  .smooch-timeline__body {
+    padding-top: 0.5rem;
+    padding-bottom: clamp(4.4rem, 5vw, 6.4rem);
+  }
+
+  .smooch-timeline__step:last-child .smooch-timeline__body {
+    padding-bottom: 0.4rem;
+  }
+
+  /* Disclaimer aligns with the reading column, under the rail's end. */
+  .smooch-timeline__disclaimer {
+    margin-top: clamp(4rem, 5vw, 6.4rem);
+  }
+}
+
+/* ---------- Practical facts row (Timing / Results / Consistency) ---------- */
+
+.smooch-timeline__facts {
+  display: grid;
+  gap: 1.6rem;
+  margin-top: clamp(3.2rem, 5vw, 4.8rem);
+  padding-top: 2.4rem;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+}
+
+@media screen and (min-width: 750px) {
+  .smooch-timeline__facts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.4rem;
+  }
+}
+
+.smooch-timeline__fact-title {
+  margin: 0 0 0.6rem;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(196, 42, 80);
+}
+
+.smooch-timeline__fact-text {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.55;
+  color: rgba(var(--color-foreground), 0.8);
+}

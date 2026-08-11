@@ -1,0 +1,190 @@
+/* Smooch base layer — typography, tokens fallbacks, primitives.
+   Dawn sets html { font-size: 62.5% } so 1rem = 10px throughout. */
+
+:root {
+  /* Brand-guide palette fallbacks (Smooch_BrandGuide.pdf p.8) */
+  --smooch-cream-rgb: 250, 241, 238;   /* Off White  #FAF1EE */
+  --smooch-surface-rgb: 255, 255, 255;
+  --smooch-ink-rgb: 35, 26, 30;        /* near-black */
+  --smooch-muted-rgb: 138, 115, 124;
+  --smooch-berry-rgb: 246, 82, 117;    /* Watermelon #F65275 */
+  --smooch-blush-rgb: 242, 212, 215;   /* Soft Pink  #F2D4D7 */
+  --smooch-pink-rgb: 252, 175, 192;    /* Light Pink #FCAFC0 */
+  --smooch-lilac-rgb: 193, 160, 218;   /* Lilac      #C1A0DA */
+  --smooch-plum-rgb: 130, 70, 175;     /* Purple     #8246AF */
+  --smooch-cta-bg-rgb: 35, 26, 30;
+  --smooch-cta-text-rgb: 255, 247, 244;
+  --smooch-font-serif: Georgia, 'Times New Roman', serif;
+  --smooch-font-label: var(--font-heading-family);
+}
+
+/* ---------- Typography scale ---------- */
+
+.smooch-display,
+.smooch-h1,
+.smooch-h2,
+.smooch-h3 {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  color: rgb(var(--color-foreground));
+  text-wrap: balance;
+}
+
+.smooch-display {
+  font-size: clamp(3.8rem, 2.6rem + 4.5vw, 8rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+}
+
+.smooch-h1 {
+  font-size: clamp(3.2rem, 2.4rem + 2.8vw, 5.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.smooch-h2 {
+  font-size: clamp(2.6rem, 2.1rem + 1.9vw, 4.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
+
+.smooch-h3 {
+  font-size: clamp(2rem, 1.8rem + 0.8vw, 2.8rem);
+  line-height: 1.2;
+}
+
+.smooch-eyebrow {
+  display: inline-block;
+  margin: 0 0 1.4rem;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.smooch-eyebrow--accent {
+  color: var(--smooch-berry);
+}
+
+/* Watermelon fails AA for small text on light backgrounds — accent eyebrows
+   on the light schemes use the deep watermelon that matches their link color. */
+.color-scheme-1 .smooch-eyebrow--accent,
+.color-scheme-5 .smooch-eyebrow--accent {
+  color: rgb(196, 42, 80);
+}
+
+.color-scheme-2 .smooch-eyebrow--accent {
+  color: rgb(176, 38, 72);
+}
+
+/* Editorial body copy uses the brand serif (Loretta, "Grad" role);
+   UI text (captions, prices, controls) stays on the sans. */
+.smooch-lead {
+  margin: 0;
+  font-family: var(--smooch-font-serif);
+  font-size: clamp(1.8rem, 1.6rem + 0.5vw, 2.1rem);
+  line-height: 1.55;
+  color: rgba(var(--color-foreground), 0.85);
+}
+
+.smooch-body {
+  font-family: var(--smooch-font-serif);
+  font-size: 1.7rem;
+  line-height: 1.65;
+}
+
+.smooch-prose {
+  font-family: var(--smooch-font-serif);
+}
+
+.smooch-caption {
+  font-size: 1.3rem;
+  line-height: 1.5;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.smooch-fine-print {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.smooch-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Text helpers ---------- */
+
+.smooch-prose {
+  max-width: 62ch;
+}
+
+.smooch-prose > * + * {
+  margin-top: 1.6rem;
+}
+
+.smooch-prose p {
+  margin: 0;
+}
+
+.smooch-measure-narrow {
+  max-width: 46ch;
+}
+
+.smooch-center {
+  text-align: center;
+}
+
+.smooch-center .smooch-prose,
+.smooch-center .smooch-measure-narrow {
+  margin-inline: auto;
+}
+
+.smooch-accent-text {
+  color: var(--smooch-berry);
+}
+
+.smooch-strike {
+  text-decoration: line-through;
+  text-decoration-thickness: 0.1rem;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+/* ---------- Focus (mirrors Dawn's focus treatment) ---------- */
+
+.smooch-focus:focus-visible,
+.smooch-btn:focus-visible,
+.smooch-link:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.3rem;
+  box-shadow: none;
+}
+
+/* ---------- Links ---------- */
+
+.smooch-link {
+  color: rgb(var(--color-link));
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+  text-decoration-thickness: 0.1rem;
+}
+
+.smooch-link:hover {
+  text-decoration-thickness: 0.2rem;
+}
+
+/* ---------- Motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .smooch-motion,
+  .smooch-motion *,
+  .smooch-btn {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

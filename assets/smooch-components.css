@@ -1,0 +1,309 @@
+/* Smooch component layer — buttons, badges, cards, accordions, stars, ticks.
+   1rem = 10px (Dawn base). Color vars are RGB triplets: wrap in rgb()/rgba(). */
+
+/* ---------- Buttons ---------- */
+
+.smooch-btn {
+  --btn-bg: var(--color-button);
+  --btn-fg: var(--color-button-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  min-height: 4.8rem;
+  padding: 1.2rem 2.8rem;
+  background-color: rgb(var(--btn-bg));
+  color: rgb(var(--btn-fg));
+  border: 0.1rem solid transparent;
+  border-radius: var(--smooch-radius-button);
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: opacity var(--duration-short, 100ms) ease, transform var(--duration-short, 100ms) ease;
+}
+
+.smooch-btn:hover {
+  opacity: 0.88;
+}
+
+.smooch-btn:active {
+  transform: translateY(0.1rem);
+}
+
+.smooch-btn[disabled],
+.smooch-btn[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.smooch-btn--brand {
+  --btn-bg: var(--smooch-cta-bg-rgb);
+  --btn-fg: var(--smooch-cta-text-rgb);
+}
+
+.smooch-btn--berry {
+  --btn-bg: var(--smooch-berry-rgb);
+  --btn-fg: 255, 255, 255;
+}
+
+.smooch-btn--ghost {
+  --btn-bg: 0, 0, 0;
+  background-color: transparent;
+  color: rgb(var(--color-foreground));
+  border-color: rgba(var(--color-foreground), 0.35);
+}
+
+.smooch-btn--ghost:hover {
+  opacity: 1;
+  border-color: rgb(var(--color-foreground));
+}
+
+.smooch-btn--lg {
+  min-height: 5.6rem;
+  padding: 1.4rem 3.6rem;
+  font-size: 1.6rem;
+}
+
+/* Dawn-native buttons (ATC, drawer checkout) pick up the brand button voice. */
+.button {
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.smooch-btn--full {
+  width: 100%;
+}
+
+/* ---------- Badges & chips ---------- */
+
+.smooch-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border-radius: 0.6rem;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.smooch-badge[hidden] {
+  display: none !important;
+}
+
+.smooch-badge--berry {
+  background-color: var(--smooch-berry);
+  color: rgb(255, 255, 255);
+}
+
+.smooch-badge--ink {
+  background-color: var(--smooch-cta-bg);
+  color: var(--smooch-cta-text);
+}
+
+.smooch-badge--blush {
+  background-color: var(--smooch-blush);
+  color: var(--smooch-ink);
+}
+
+.smooch-badge--lilac {
+  background-color: var(--smooch-lilac);
+  color: var(--smooch-ink);
+}
+
+.smooch-badge--outline {
+  border: 0.1rem solid rgba(var(--color-foreground), 0.3);
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+/* ---------- Cards ---------- */
+
+.smooch-card {
+  background-color: rgb(var(--color-background));
+  border: var(--text-boxes-border-width, 1px) solid var(--smooch-border-soft);
+  border-radius: var(--smooch-radius-card);
+  padding: clamp(2rem, 3vw, 3.2rem);
+}
+
+.smooch-card--flush {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* ---------- Tick list ---------- */
+
+.smooch-ticks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.smooch-ticks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: 1.5rem;
+  line-height: 1.45;
+}
+
+.smooch-ticks .smooch-icon {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  color: var(--smooch-berry);
+}
+
+/* ---------- Icon sizing ---------- */
+
+.smooch-icon {
+  display: inline-flex;
+  width: var(--icon-size, 1.8rem);
+  height: var(--icon-size, 1.8rem);
+}
+
+.smooch-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.smooch-icon--sm {
+  --icon-size: 1.4rem;
+}
+
+.smooch-icon--lg {
+  --icon-size: 2.4rem;
+}
+
+.smooch-icon--xl {
+  --icon-size: 3.2rem;
+}
+
+/* ---------- Star rating ---------- */
+
+.smooch-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  color: var(--smooch-berry);
+}
+
+.smooch-stars .smooch-icon {
+  --icon-size: 1.6rem;
+}
+
+.smooch-stars--lg .smooch-icon {
+  --icon-size: 2rem;
+}
+
+.smooch-rating {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  font-size: 1.4rem;
+}
+
+.smooch-rating__count {
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+/* ---------- Accordion (native details) ---------- */
+
+.smooch-accordion {
+  border-top: 0.1rem solid var(--smooch-border-soft);
+}
+
+.smooch-accordion details {
+  border-bottom: 0.1rem solid var(--smooch-border-soft);
+}
+
+.smooch-accordion summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  min-height: 4.4rem;
+  padding: 1.8rem 0.2rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  color: rgb(var(--color-foreground));
+}
+
+.smooch-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.smooch-accordion summary:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.2rem;
+}
+
+.smooch-accordion summary .smooch-icon {
+  flex-shrink: 0;
+  transition: transform var(--duration-default, 200ms) ease;
+}
+
+.smooch-accordion details[open] > summary .smooch-icon--toggle {
+  transform: rotate(45deg);
+}
+
+.smooch-accordion__content {
+  padding: 0 0.2rem 2rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+.smooch-accordion__content > * {
+  margin: 0;
+}
+
+.smooch-accordion__content > * + * {
+  margin-top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smooch-accordion summary .smooch-icon {
+    transition: none;
+  }
+}
+
+/* ---------- Quote ---------- */
+
+.smooch-quote {
+  margin: 0;
+  font-family: var(--smooch-font-serif, var(--font-heading-family));
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 1.9rem + 1.4vw, 3.6rem);
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.smooch-quote-attribution {
+  margin-top: 2rem;
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.65);
+}

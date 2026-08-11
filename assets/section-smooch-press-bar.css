@@ -1,0 +1,100 @@
+/* Smooch press bar — quiet "As featured in" strip. 1rem = 10px. */
+
+.smooch-press-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  text-align: center;
+}
+
+.smooch-press-bar__heading {
+  margin: 0;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.55);
+}
+
+.smooch-press-bar__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem 3.6rem;
+}
+
+.smooch-press-bar__item {
+  display: inline-flex;
+  align-items: center;
+  color: rgba(var(--color-foreground), 0.78);
+}
+
+.smooch-press-bar__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.smooch-press-bar__link:hover {
+  color: rgb(var(--color-foreground));
+}
+
+.smooch-press-bar__logo {
+  display: block;
+  max-height: 2.6rem;
+  width: auto;
+  opacity: 0.85;
+}
+
+.smooch-press-bar__wordmark {
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.smooch-press-bar__wordmark--serif-caps {
+  font-family: var(--smooch-font-serif, serif);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.smooch-press-bar__wordmark--serif {
+  font-family: var(--smooch-font-serif, serif);
+  font-size: 2.1rem;
+  font-weight: 600;
+}
+
+.smooch-press-bar__wordmark--sans-caps {
+  font-family: var(--smooch-font-label, sans-serif);
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.smooch-press-bar__wordmark--sans-lower {
+  font-family: var(--smooch-font-label, sans-serif);
+  font-size: 2.1rem;
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+}
+
+@media screen and (min-width: 750px) {
+  .smooch-press-bar {
+    flex-direction: row;
+    justify-content: center;
+    gap: 3.6rem;
+  }
+
+  .smooch-press-bar__heading {
+    flex-shrink: 0;
+  }
+}

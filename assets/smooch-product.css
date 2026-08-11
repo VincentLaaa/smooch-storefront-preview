@@ -1,0 +1,1139 @@
+/* Smooch product hero + purchase module.
+   Loads alongside Dawn's section-main-product.css; Dawn handles the media
+   gallery and grid skeleton, this file styles the buy panel, bundles, plans,
+   reassurance, and sticky ATC. 1rem = 10px. */
+
+/* ---------- Buy panel ---------- */
+
+.smooch-buybox {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  padding-top: 1.2rem;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-buybox {
+    padding-top: 0;
+    max-width: 56rem;
+  }
+}
+
+.smooch-buybox__eyebrow {
+  margin-bottom: 0;
+}
+
+.smooch-buybox__title {
+  margin: 0;
+}
+
+.smooch-buybox__promise {
+  margin: 0;
+}
+
+.smooch-buybox__benefits {
+  margin: 0.4rem 0 0;
+}
+
+.smooch-buybox__accordion + .smooch-buybox__accordion {
+  margin-top: -1.8rem; /* collapse gap between adjacent accordion rows */
+}
+
+.smooch-buybox__accordion + .smooch-buybox__accordion .smooch-accordion {
+  border-top: 0;
+}
+
+.smooch-accordion__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ---------- Offer price ---------- */
+
+.smooch-offer-price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.smooch-offer-price__current {
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: rgb(var(--color-foreground));
+}
+
+.smooch-offer-price__unit {
+  margin: 0.2rem 0 0;
+}
+
+.smooch-buybox__price-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* In offer mode Dawn's own price node stays in the DOM (variant-change swap
+   contract) but must never be visible — product-info.js strips class="hidden"
+   from it on variant changes, so hide via the parent instead. */
+.smooch-buybox__price-group--offer > [id^='price-'] {
+  display: none;
+}
+
+/* Selected combination unavailable/sold out — dim price UI rather than
+   presenting a confidently stale figure. */
+.smooch-offer--disabled .smooch-offer-price,
+.smooch-offer--disabled .smooch-offer-price__unit {
+  opacity: 0.5;
+}
+
+/* ---------- Bundle selector ---------- */
+
+.smooch-bundles {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.smooch-bundles__legend {
+  padding: 0;
+  margin-bottom: 1.2rem;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+/* Numbered purchase steps */
+.smooch-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.smooch-step__num {
+  display: inline-grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background-color: var(--smooch-berry);
+  color: rgb(255, 255, 255);
+  font-size: 1.2rem;
+  letter-spacing: 0;
+}
+
+.smooch-bundles__list {
+  display: grid;
+  gap: 1rem;
+}
+
+
+.smooch-bundle {
+  display: block;
+  cursor: pointer;
+}
+
+.smooch-bundle__card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.8rem 1.2rem;
+  padding: 1.6rem 1.6rem 1.6rem 5.2rem;
+  border: 0.1rem solid var(--smooch-border-soft);
+  border-radius: var(--smooch-radius-card);
+  background-color: rgb(var(--smooch-surface-rgb));
+  color: var(--smooch-ink);
+  transition: border-color var(--duration-short, 100ms) ease, background-color var(--duration-short, 100ms) ease;
+}
+
+.smooch-bundle__check {
+  position: absolute;
+  left: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 0.2rem solid rgba(var(--smooch-ink-rgb), 0.35);
+  border-radius: 50%;
+  color: transparent;
+  transition: background-color var(--duration-short, 100ms) ease, border-color var(--duration-short, 100ms) ease;
+}
+
+.smooch-bundle__input:checked + .smooch-bundle__card {
+  border-color: var(--smooch-berry);
+  box-shadow: 0 0 0 0.1rem var(--smooch-berry);
+  background-color: rgba(var(--smooch-blush-rgb), 0.35);
+}
+
+.smooch-bundle__input:checked + .smooch-bundle__card .smooch-bundle__check {
+  background-color: var(--smooch-berry);
+  border-color: var(--smooch-berry);
+  color: rgb(255, 255, 255);
+}
+
+.smooch-bundle__input:focus-visible + .smooch-bundle__card {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.3rem;
+}
+
+.smooch-bundle__badge {
+  position: absolute;
+  top: -1rem;
+  right: 1.4rem;
+}
+
+.smooch-bundle__card:has(.smooch-bundle__thumb) {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.smooch-bundle__thumb {
+  grid-column: 1;
+  grid-row: 1;
+  width: 5.6rem;
+  border-radius: 0.8rem;
+  overflow: hidden;
+}
+
+.smooch-bundle__thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.smooch-bundle__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.smooch-bundle__title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.smooch-bundle__subtitle {
+  font-size: 1.3rem;
+  color: rgba(var(--smooch-ink-rgb), 0.65);
+}
+
+.smooch-bundle__pricing {
+  display: grid;
+  justify-items: end;
+  align-content: center;
+  gap: 0.2rem;
+  text-align: right;
+}
+
+.smooch-bundle__price-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 0.4rem 0.7rem;
+  min-width: 0;
+}
+
+.smooch-bundle__price {
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.smooch-bundle__save-amount {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: rgb(196, 42, 80);
+}
+
+.smooch-bundle__unit {
+  font-size: 1.2rem;
+  color: rgba(var(--smooch-ink-rgb), 0.65);
+}
+
+.smooch-bundle--soldout .smooch-bundle__card {
+  opacity: 0.55;
+}
+
+.smooch-bundle__soldout {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Wide desktop: three compact Create-style cards in a row (the panel is too
+   narrow for three price columns below 1200px — rows stack there). */
+@media screen and (min-width: 1200px) {
+  .smooch-bundles__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .smooch-bundle__card {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 3.2rem 1.3rem 1.4rem;
+    text-align: center;
+  }
+
+  .smooch-bundle__check {
+    left: 50%;
+    top: 1.1rem;
+    transform: translateX(-50%);
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+
+  .smooch-bundle__badge {
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .smooch-bundle__body {
+    align-items: center;
+  }
+
+  .smooch-bundle__pricing {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .smooch-bundle__price-row {
+    justify-content: center;
+  }
+}
+
+/* ---------- Free gift display ---------- */
+
+.smooch-gifts {
+  margin-top: 1.2rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.smooch-gift {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem 1.2rem;
+  border: 0.1rem dashed rgba(var(--smooch-berry-rgb), 0.45);
+  border-radius: var(--smooch-radius-card);
+  opacity: 0.75;
+}
+
+.smooch-gift--included {
+  opacity: 1;
+  border-style: solid;
+  background-color: rgba(var(--smooch-blush-rgb), 0.3);
+}
+
+.smooch-gift__media {
+  flex-shrink: 0;
+  width: 4.4rem;
+  color: var(--smooch-berry);
+}
+
+.smooch-gift__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.6rem;
+}
+
+.smooch-gift__title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.smooch-gift__value {
+  font-weight: 400;
+  color: rgba(var(--smooch-ink-rgb), 0.65);
+}
+
+.smooch-gift__state {
+  margin: 0.2rem 0 0;
+  font-size: 1.25rem;
+  color: rgba(var(--smooch-ink-rgb), 0.75);
+}
+
+.smooch-gift__state [data-gift-included] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--smooch-berry);
+  font-weight: 600;
+}
+
+.smooch-gift__state [data-gift-included][hidden],
+.smooch-gift__state [data-gift-locked][hidden] {
+  display: none;
+}
+
+/* ---------- Subscription selector ---------- */
+
+.smooch-plans {
+  border: 0;
+  padding: 0;
+  margin: 2.4rem 0 0;
+  min-width: 0;
+}
+
+.smooch-plans__list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.smooch-plan {
+  display: block;
+  cursor: pointer;
+}
+
+.smooch-plan[hidden] {
+  display: none !important;
+}
+
+.smooch-plan__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1.2rem 1.4rem;
+  border: 0.1rem solid var(--smooch-border-soft);
+  border-radius: var(--smooch-radius-button);
+  transition: border-color var(--duration-short, 100ms) ease, background-color var(--duration-short, 100ms) ease;
+}
+
+.smooch-plan__input:checked + .smooch-plan__body {
+  border-color: var(--smooch-berry);
+  box-shadow: 0 0 0 0.1rem var(--smooch-berry);
+  background-color: rgba(var(--smooch-blush-rgb), 0.3);
+}
+
+.smooch-plan__input:focus-visible + .smooch-plan__body {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.3rem;
+}
+
+.smooch-plan__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+/* Subscription-first hierarchy: featured plan rows carry a soft berry accent;
+   the one-time row stays fully usable but visually secondary. */
+.smooch-plan--featured .smooch-plan__body {
+  border-color: rgba(var(--smooch-berry-rgb), 0.4);
+  background-color: rgba(var(--smooch-blush-rgb), 0.18);
+}
+
+.smooch-plan--onetime .smooch-plan__body {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.smooch-plan--onetime .smooch-plan__name {
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.smooch-plan__price-group {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.smooch-plan__compare {
+  font-size: 1.25rem;
+}
+
+.smooch-plan__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.smooch-plan__price {
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
+  font-size: 1.5rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.smooch-plan__meta {
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.smooch-plans__benefits {
+  margin: 1.2rem 0 0;
+  padding: 1.2rem 1.4rem;
+  background-color: rgba(var(--smooch-blush-rgb), 0.35);
+  border-radius: var(--smooch-radius-button);
+}
+
+.smooch-plans__benefits li {
+  font-size: 1.35rem;
+}
+
+.smooch-plans__benefits[hidden] {
+  display: none !important;
+}
+
+/* ---------- Featured subscription panel (Create-style) ---------- */
+
+.smooch-subpanel {
+  position: relative;
+  padding: 2rem 1.8rem 1.6rem;
+  border: 0.15rem solid var(--smooch-berry);
+  border-radius: var(--smooch-radius-card);
+  background-color: rgba(var(--smooch-blush-rgb), 0.22);
+  transition: opacity var(--duration-short, 100ms) ease, border-color var(--duration-short, 100ms) ease;
+}
+
+.smooch-subpanel--inactive {
+  opacity: 0.62;
+  border-color: var(--smooch-border-soft);
+}
+
+.smooch-subpanel__ribbon {
+  position: absolute;
+  top: -1.1rem;
+  left: 1.6rem;
+}
+
+.smooch-subpanel__title {
+  margin: 0;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.smooch-subpanel__pct {
+  color: rgb(196, 42, 80);
+}
+
+.smooch-subpanel__price {
+  margin: 0.6rem 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.smooch-subpanel__price-current {
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
+  font-size: 2.6rem;
+  font-weight: 700;
+}
+
+.smooch-subpanel__meta {
+  margin: 0.2rem 0 0;
+  font-size: 1.35rem;
+  color: rgba(var(--smooch-ink-rgb), 0.75);
+}
+
+.smooch-subpanel__meta [hidden] {
+  display: none !important;
+}
+
+.smooch-subpanel__saving {
+  margin: 0.4rem 0 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: rgb(196, 42, 80);
+}
+
+.smooch-subpanel__saving[hidden] {
+  display: none !important;
+}
+
+.smooch-subpanel__freq {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+.smooch-freq {
+  cursor: pointer;
+}
+
+.smooch-freq__pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3.6rem;
+  padding: 0.6rem 1.4rem;
+  border: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.3);
+  border-radius: 2rem;
+  background-color: rgba(var(--smooch-surface-rgb), 0.9);
+  font-size: 1.3rem;
+  font-weight: 600;
+  transition: border-color var(--duration-short, 100ms) ease, background-color var(--duration-short, 100ms) ease;
+}
+
+.smooch-freq__input:checked + .smooch-freq__pill {
+  border-color: var(--smooch-berry);
+  box-shadow: 0 0 0 0.1rem var(--smooch-berry);
+  background-color: rgb(255, 255, 255);
+}
+
+.smooch-freq__input:focus-visible + .smooch-freq__pill {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.2rem;
+}
+
+.smooch-subpanel__perks {
+  list-style: none;
+  margin: 1.4rem 0 0;
+  padding: 1.2rem 0 0;
+  border-top: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.12);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.8rem;
+}
+
+.smooch-subpanel__perks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.smooch-subpanel__perks .smooch-icon {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  color: rgb(196, 42, 80);
+}
+
+/* ---------- Purchase summary (single quiet line above the button) ---------- */
+
+.smooch-summary-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 0.2rem 0.2rem 0;
+}
+
+.smooch-summary-line__selection {
+  margin: 0;
+  font-weight: 600;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.smooch-summary-line .smooch-offer-price__current {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* ---------- Subscription auto-applied badge ---------- */
+
+/* The price row flexes so the badge wraps to its own line on narrow screens
+   instead of widening the panel. */
+.smooch-subpanel .smooch-subpanel__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.8rem;
+  row-gap: 0.4rem;
+}
+
+.smooch-subpanel__autobadge {
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.smooch-subpanel__autobadge[hidden] {
+  display: none !important;
+}
+
+/* ---------- Sales activity badge (real figures only) ---------- */
+
+.smooch-sold-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0.5rem 1.1rem;
+  align-self: flex-start;
+  border-radius: 2rem;
+  background-color: rgba(var(--smooch-blush-rgb), 0.5);
+  color: rgba(var(--smooch-ink-rgb), 0.85);
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.smooch-sold-badge .smooch-icon {
+  color: rgb(196, 42, 80);
+}
+
+/* ---------- Reassurance ---------- */
+
+.smooch-reassurance {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.smooch-reassurance__stock {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--smooch-berry);
+}
+
+.smooch-reassurance__stock.hidden {
+  display: none;
+}
+
+.smooch-reassurance__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+@media screen and (min-width: 750px) {
+  .smooch-reassurance__list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.smooch-reassurance__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  font-size: 1.35rem;
+  line-height: 1.4;
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+.smooch-reassurance__list .smooch-icon {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  color: var(--smooch-berry);
+}
+
+/* Checkmark-badge variant: compact chips with uniform checks. */
+.smooch-reassurance__list--badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.smooch-reassurance__list--badges li {
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.1rem;
+  border: 0.1rem solid rgba(var(--smooch-berry-rgb), 0.35);
+  border-radius: 2rem;
+  background-color: rgba(var(--smooch-surface-rgb), 0.8);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.smooch-reassurance__list--badges .smooch-icon {
+  margin-top: 0;
+}
+
+.smooch-reassurance__payment-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.smooch-reassurance__payment-list .icon {
+  width: 3.8rem;
+  height: 2.4rem;
+}
+
+/* ---------- Buy buttons polish (Dawn form inside our panel) ---------- */
+
+.smooch-buybox__buy .product-form__submit {
+  min-height: 5.4rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.smooch-buybox__buy .product-form__submit::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 -60%;
+  width: 40%;
+  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  transition: transform 0.65s ease;
+  pointer-events: none;
+}
+
+.smooch-buybox__buy .product-form__submit:hover,
+.smooch-buybox__buy .product-form__submit:focus-visible {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 1rem 2.2rem rgba(var(--smooch-ink-rgb, 0, 0, 0), 0.18);
+}
+
+.smooch-buybox__buy .product-form__submit:hover::after,
+.smooch-buybox__buy .product-form__submit:focus-visible::after {
+  transform: translateX(500%) skewX(-20deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smooch-buybox__buy .product-form__submit {
+    transition: none;
+  }
+
+  .smooch-buybox__buy .product-form__submit::after {
+    display: none;
+  }
+}
+
+/* ---------- Sticky mobile ATC ---------- */
+
+.smooch-sticky-atc {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 4;
+  display: none;
+  background-color: rgb(var(--smooch-surface-rgb));
+  border-top: 0.1rem solid var(--smooch-border-soft);
+  padding: 1rem 1.5rem calc(1rem + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -0.4rem 1.6rem rgba(var(--smooch-ink-rgb), 0.08);
+}
+
+.smooch-sticky-atc[hidden] {
+  display: none !important;
+}
+
+@media screen and (max-width: 989px) {
+  .smooch-sticky-atc {
+    display: block;
+  }
+
+  body.smooch-sticky-atc-visible {
+    padding-bottom: calc(8.4rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+.smooch-sticky-atc__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.smooch-sticky-atc__thumb {
+  flex-shrink: 0;
+  width: 4.4rem;
+  border-radius: 0.8rem;
+  overflow: hidden;
+}
+
+.smooch-sticky-atc__thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.smooch-sticky-atc__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.smooch-sticky-atc__title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--smooch-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.smooch-sticky-atc__price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--smooch-ink);
+}
+
+.smooch-sticky-atc__button {
+  flex-shrink: 0;
+  min-height: 4.8rem;
+  padding-inline: 2.2rem;
+}
+
+/* ---------- Collage gallery ---------- */
+
+/* In the columns (collage) layouts, mixed aspect ratios leave ragged rows.
+   Uniform square tiles keep every photo visible in a tight grid; images
+   stay contain-fit so nothing is cropped. The inline --ratio Dawn stamps on
+   each container loses to !important here. */
+.smooch-product .product--columns .product-media-container,
+.smooch-product .product--mobile-columns .product-media-container {
+  --ratio: 1 !important;
+  --preview-ratio: 1 !important;
+}
+
+/* Mobile: Dawn keeps a 2-across slider when there are 3+ photos. Replace it
+   with a real two-column grid so every photo is visible without swiping. */
+@media screen and (max-width: 749.98px) {
+  .smooch-product .product--mobile-columns .product__media-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    overflow: visible;
+    scroll-snap-type: none;
+    margin-bottom: 1.6rem;
+  }
+
+  .smooch-product .product--mobile-columns .product__media-item {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .smooch-product .product--mobile-columns .slider-buttons {
+    display: none;
+  }
+}
+
+/* ---------- Media info cards (rail under the gallery) ---------- */
+
+/* The card rail lives below the gallery inside the media column. Stickiness
+   must apply to the whole column (gallery + cards), not Dawn's inner
+   media-gallery — otherwise the sticky gallery slides down over the cards
+   while the taller buybox column scrolls. */
+@media screen and (min-width: 750px) {
+  .smooch-product__gallery--sticky {
+    position: sticky;
+    top: 3rem;
+    z-index: 2;
+    align-self: flex-start;
+  }
+
+  .smooch-product__gallery--sticky .product__column-sticky {
+    position: static;
+  }
+}
+
+.smooch-media-cards {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0 0 0.8rem;
+  display: flex;
+  gap: 1.2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--color-foreground), 0.3) transparent;
+}
+
+.smooch-media-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(26rem, 72vw);
+  min-height: 15rem;
+  scroll-snap-align: start;
+  border-radius: var(--smooch-radius-card);
+  overflow: hidden;
+  padding: 1.8rem;
+  display: flex;
+  align-items: flex-end;
+  color: var(--smooch-ink);
+  background-color: var(--smooch-blush);
+}
+
+.smooch-media-card--blush { background-color: var(--smooch-blush); }
+.smooch-media-card--cream { background-color: var(--smooch-cream); }
+.smooch-media-card--lilac { background-color: var(--smooch-lilac); }
+.smooch-media-card--berry { background-color: var(--smooch-berry); color: rgb(255, 255, 255); }
+.smooch-media-card--plum { background-color: var(--smooch-plum); color: rgb(255, 247, 244); }
+
+.smooch-media-card__image {
+  position: absolute;
+  inset: 0;
+}
+
+.smooch-media-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.smooch-media-card__body {
+  position: relative;
+  z-index: 1;
+}
+
+.smooch-media-card__image ~ .smooch-media-card__body,
+.smooch-media-card__image + .smooch-media-card__body {
+  padding: 1rem 1.2rem;
+  border-radius: 0.8rem;
+  background-color: rgba(255, 253, 249, 0.92);
+  color: var(--smooch-ink);
+}
+
+.smooch-media-card__kicker {
+  margin: 0 0 0.4rem;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.smooch-media-card__heading {
+  margin: 0;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.smooch-media-card__text {
+  margin-top: 0.5rem;
+  font-family: var(--smooch-font-serif, serif);
+  font-size: 1.4rem;
+  line-height: 1.45;
+}
+
+.smooch-media-card__text p {
+  margin: 0;
+}
+
+.smooch-media-card__shape {
+  position: absolute;
+  top: -3.4rem;
+  right: -3rem;
+  width: 11rem;
+  height: 11rem;
+  border-radius: 58% 42% 55% 45% / 55% 48% 52% 45%;
+  background-color: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+}
+
+.smooch-media-card--cream .smooch-media-card__shape {
+  background-color: rgba(var(--smooch-berry-rgb), 0.18);
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-media-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+
+  .smooch-media-card {
+    width: auto;
+  }
+}
+
+/* ---------- Placeholder (no product selected) ---------- */
+
+.smooch-product__placeholder-svg {
+  width: 60%;
+  height: auto;
+  opacity: 0.6;
+}
+
+/* ---------- Layout refinements over Dawn's product grid ---------- */
+
+@media screen and (min-width: 990px) {
+  .smooch-product__layout {
+    align-items: start;
+  }
+
+  .smooch-product .product__info-wrapper {
+    padding-left: clamp(3rem, 4vw, 6.4rem);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .smooch-buybox {
+    gap: 1.6rem;
+  }
+
+  .smooch-offer-price__current {
+    font-size: 2.4rem;
+  }
+}
+
+/* ---------- Fit a standard 1920x1080 monitor without scrolling ---------- */
+
+/* On a full-height desktop monitor, tighten the buybox rhythm and scale it
+   down slightly so the reassurance row (money-back guarantee, shipping,
+   etc.) lands inside the fold instead of requiring a scroll. Gated to large
+   viewports only — smaller screens keep normal, fully-legible spacing, and
+   `zoom` never blocks the browser's own pinch/ctrl+scroll zoom. */
+@media screen and (min-width: 1600px) and (min-height: 1000px) {
+  .smooch-buybox {
+    gap: 0.9rem;
+  }
+
+  .smooch-plans {
+    margin-top: 1.2rem;
+  }
+
+  .smooch-reassurance {
+    gap: 0.8rem;
+  }
+
+  .smooch-reassurance__list {
+    gap: 0.6rem;
+  }
+
+  .smooch-buybox__benefits {
+    gap: 0.4rem;
+  }
+
+  .smooch-subpanel {
+    padding: 1.6rem 1.8rem 1.3rem;
+  }
+
+  .smooch-bundle__card {
+    padding-top: 2.2rem;
+  }
+
+  .smooch-buybox__buy .product-form__submit {
+    min-height: 4.8rem;
+  }
+}
+
+@media screen and (min-width: 1600px) and (min-height: 1000px) and (max-height: 1300px) {
+  .smooch-product__panel {
+    zoom: 0.72;
+  }
+}

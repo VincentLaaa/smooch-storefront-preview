@@ -1,0 +1,2570 @@
+<!doctype html>
+<html class="js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="http://127.0.0.1:9292/"><link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin><title>
+      Women's Libido & Mood — Single Dev Fixture &ndash; Smooch (Offline Dev)</title>
+
+    
+      <meta name="description" content="Offline development preview">
+    
+
+    
+
+<meta property="og:site_name" content="Smooch (Offline Dev)">
+<meta property="og:url" content="http://127.0.0.1:9292/">
+<meta property="og:title" content="Women&#39;s Libido &amp; Mood — Single Dev Fixture">
+<meta property="og:type" content="product">
+<meta property="og:description" content="Offline development preview"><meta property="og:price:amount" content="25.00">
+  <meta property="og:price:currency" content="USD"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Women&#39;s Libido &amp; Mood — Single Dev Fixture">
+<meta name="twitter:description" content="Offline development preview">
+
+
+    <script type="module">
+      import * as StandardEvents from '/smooch-storefront-preview/dev-assets/standard-events-stub.js';
+
+      window.StandardEvents = StandardEvents;
+
+      customElements.define('collection-component', StandardEvents.createViewEventElement());
+      customElements.define(
+        'product-component',
+        StandardEvents.createViewEventElement(HTMLElement, { defaultTrigger: 'intersect' }),
+      );
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const template = document.querySelector('main[data-template]')?.dataset.template || '';
+        document.dispatchEvent(
+          new StandardEvents.PageViewEvent({
+            page: { template, title: document.title, url: window.location.href },
+          })
+        );
+      }, { once: true });
+    </script>
+
+    <script src="/smooch-storefront-preview/assets/constants.js" defer="defer"></script>
+    <script src="/smooch-storefront-preview/assets/pubsub.js" defer="defer"></script>
+    <script src="/smooch-storefront-preview/assets/global.js" defer="defer"></script>
+    <script src="/smooch-storefront-preview/assets/cart-disclosure-modal.js" defer="defer"></script>
+    <script src="/smooch-storefront-preview/assets/cart-disclosure-tooltip.js" defer="defer"></script>
+    <script src="/smooch-storefront-preview/assets/details-disclosure.js" defer="defer"></script>
+    <script src="/smooch-storefront-preview/assets/details-modal.js" defer="defer"></script>
+    <script src="/smooch-storefront-preview/assets/search-form.js" defer="defer"></script>
+    <script src="/smooch-storefront-preview/assets/standard-actions-override.js" defer="defer"></script><script src="/smooch-storefront-preview/assets/animations.js" defer="defer"></script><script>window.Shopify = window.Shopify || { designMode: false, shop: "offline.dev", currency: { active: "USD" }, routes: { root: "/" }, PaymentButton: { init(){} } };</script>
+
+    <style>
+      
+      
+      
+      
+      
+
+      
+        :root,
+        .color-scheme-1 {
+          --color-background: 250,241,238;
+        
+          --gradient-background: #FAF1EE;
+        
+
+        
+
+        --color-foreground: 35,26,30;
+        --color-background-contrast: 188,181,179;
+        --color-shadow: 35,26,30;
+        --color-button: 35,26,30;
+        --color-button-text: 255,247,244;
+        --color-secondary-button: 250,241,238;
+        --color-secondary-button-text: 196,42,80;
+        --color-link: 196,42,80;
+        --color-badge-foreground: 35,26,30;
+        --color-badge-background: 250,241,238;
+        --color-badge-border: 35,26,30;
+        --payment-terms-background-color: rgb(250, 241, 238);
+      }
+      
+        
+        .color-scheme-2 {
+          --color-background: 242,212,215;
+        
+          --gradient-background: #F2D4D7;
+        
+
+        
+
+        --color-foreground: 35,26,30;
+        --color-background-contrast: 182,159,161;
+        --color-shadow: 35,26,30;
+        --color-button: 35,26,30;
+        --color-button-text: 255,247,244;
+        --color-secondary-button: 242,212,215;
+        --color-secondary-button-text: 176,38,72;
+        --color-link: 176,38,72;
+        --color-badge-foreground: 35,26,30;
+        --color-badge-background: 242,212,215;
+        --color-badge-border: 35,26,30;
+        --payment-terms-background-color: rgb(242, 212, 215);
+      }
+      
+        
+        .color-scheme-3 {
+          --color-background: 246,82,117;
+        
+          --gradient-background: #F65275;
+        
+
+        
+
+        --color-foreground: 255,255,255;
+        --color-background-contrast: 185,62,88;
+        --color-shadow: 35,26,30;
+        --color-button: 255,255,255;
+        --color-button-text: 212,43,80;
+        --color-secondary-button: 246,82,117;
+        --color-secondary-button-text: 255,255,255;
+        --color-link: 255,255,255;
+        --color-badge-foreground: 255,255,255;
+        --color-badge-background: 246,82,117;
+        --color-badge-border: 255,255,255;
+        --payment-terms-background-color: rgb(246, 82, 117);
+      }
+      
+        
+        .color-scheme-4 {
+          --color-background: 130,70,175;
+        
+          --gradient-background: #8246AF;
+        
+
+        
+
+        --color-foreground: 255,247,244;
+        --color-background-contrast: 98,53,131;
+        --color-shadow: 35,26,30;
+        --color-button: 255,247,244;
+        --color-button-text: 130,70,175;
+        --color-secondary-button: 130,70,175;
+        --color-secondary-button-text: 242,212,215;
+        --color-link: 242,212,215;
+        --color-badge-foreground: 255,247,244;
+        --color-badge-background: 130,70,175;
+        --color-badge-border: 255,247,244;
+        --payment-terms-background-color: rgb(130, 70, 175);
+      }
+      
+        
+        .color-scheme-5 {
+          --color-background: 255,255,255;
+        
+          --gradient-background: #FFFFFF;
+        
+
+        
+
+        --color-foreground: 35,26,30;
+        --color-background-contrast: 191,191,191;
+        --color-shadow: 35,26,30;
+        --color-button: 246,82,117;
+        --color-button-text: 35,26,30;
+        --color-secondary-button: 255,255,255;
+        --color-secondary-button-text: 196,42,80;
+        --color-link: 196,42,80;
+        --color-badge-foreground: 35,26,30;
+        --color-badge-background: 255,255,255;
+        --color-badge-border: 35,26,30;
+        --payment-terms-background-color: rgb(255, 255, 255);
+      }
+      
+
+      body, .color-scheme-1, .color-scheme-2, .color-scheme-3, .color-scheme-4, .color-scheme-5 {
+        color: rgba(var(--color-foreground), 0.75);
+        background-color: rgb(var(--color-background));
+      }
+
+      :root {
+        --font-body-family: Assistant, sans-serif;
+        --font-body-style: normal;
+        --font-body-weight: 400;
+        --font-body-weight-bold: 700;
+
+        --font-heading-family: Playfair Display, serif;
+        --font-heading-style: normal;
+        --font-heading-weight: 500;
+
+        --font-body-scale: 1;
+        --font-heading-scale: 1.05;
+
+        --media-padding: px;
+        --media-border-opacity: 0.05;
+        --media-border-width: 1px;
+        --media-radius: 12px;
+        --media-shadow-opacity: 0;
+        --media-shadow-horizontal-offset: 0px;
+        --media-shadow-vertical-offset: 4px;
+        --media-shadow-blur-radius: 5px;
+        --media-shadow-visible: 0;
+
+        --page-width: 140rem;
+        --page-width-margin: 0rem;
+
+        --product-card-image-padding: 0rem;
+        --product-card-corner-radius: 1.2rem;
+        --product-card-text-alignment: left;
+        --product-card-border-width: 0.1rem;
+        --product-card-border-opacity: 0.15;
+        --product-card-shadow-opacity: 0;
+        --product-card-shadow-visible: 0;
+        --product-card-shadow-horizontal-offset: 0rem;
+        --product-card-shadow-vertical-offset: 0.4rem;
+        --product-card-shadow-blur-radius: 0.5rem;
+
+        --collection-card-image-padding: 0rem;
+        --collection-card-corner-radius: 1.2rem;
+        --collection-card-text-alignment: left;
+        --collection-card-border-width: 0rem;
+        --collection-card-border-opacity: 0.1;
+        --collection-card-shadow-opacity: 0;
+        --collection-card-shadow-visible: 0;
+        --collection-card-shadow-horizontal-offset: 0rem;
+        --collection-card-shadow-vertical-offset: 0.4rem;
+        --collection-card-shadow-blur-radius: 0.5rem;
+
+        --blog-card-image-padding: 0rem;
+        --blog-card-corner-radius: 1.2rem;
+        --blog-card-text-alignment: left;
+        --blog-card-border-width: 0rem;
+        --blog-card-border-opacity: 0.1;
+        --blog-card-shadow-opacity: 0;
+        --blog-card-shadow-visible: 0;
+        --blog-card-shadow-horizontal-offset: 0rem;
+        --blog-card-shadow-vertical-offset: 0.4rem;
+        --blog-card-shadow-blur-radius: 0.5rem;
+
+        --badge-corner-radius: 0.8rem;
+
+        --popup-border-width: 1px;
+        --popup-border-opacity: 0.1;
+        --popup-corner-radius: 12px;
+        --popup-shadow-opacity: 0.05;
+        --popup-shadow-horizontal-offset: 0px;
+        --popup-shadow-vertical-offset: 4px;
+        --popup-shadow-blur-radius: 5px;
+
+        --drawer-border-width: 1px;
+        --drawer-border-opacity: 0.1;
+        --drawer-shadow-opacity: 0;
+        --drawer-shadow-horizontal-offset: 0px;
+        --drawer-shadow-vertical-offset: 4px;
+        --drawer-shadow-blur-radius: 5px;
+
+        --spacing-sections-desktop: 0px;
+        --spacing-sections-mobile: 0px;
+
+        --grid-desktop-vertical-spacing: 8px;
+        --grid-desktop-horizontal-spacing: 8px;
+        --grid-mobile-vertical-spacing: 4px;
+        --grid-mobile-horizontal-spacing: 4px;
+
+        --text-boxes-border-opacity: 0.12;
+        --text-boxes-border-width: 1px;
+        --text-boxes-radius: 16px;
+        --text-boxes-shadow-opacity: 0;
+        --text-boxes-shadow-visible: 0;
+        --text-boxes-shadow-horizontal-offset: 0px;
+        --text-boxes-shadow-vertical-offset: 4px;
+        --text-boxes-shadow-blur-radius: 5px;
+
+        --buttons-radius: 8px;
+        --buttons-radius-outset: 9px;
+        --buttons-border-width: 1px;
+        --buttons-border-opacity: 1;
+        --buttons-shadow-opacity: 0;
+        --buttons-shadow-visible: 0;
+        --buttons-shadow-horizontal-offset: 0px;
+        --buttons-shadow-vertical-offset: 4px;
+        --buttons-shadow-blur-radius: 5px;
+        --buttons-border-offset: 0.3px;
+
+        --inputs-radius: 8px;
+        --inputs-border-width: 1px;
+        --inputs-border-opacity: 0.55;
+        --inputs-shadow-opacity: 0;
+        --inputs-shadow-horizontal-offset: 0px;
+        --inputs-margin-offset: 0px;
+        --inputs-shadow-vertical-offset: 4px;
+        --inputs-shadow-blur-radius: 5px;
+        --inputs-radius-outset: 9px;
+
+        --variant-pills-radius: 8px;
+        --variant-pills-border-width: 1px;
+        --variant-pills-border-opacity: 0.55;
+        --variant-pills-shadow-opacity: 0;
+        --variant-pills-shadow-horizontal-offset: 0px;
+        --variant-pills-shadow-vertical-offset: 4px;
+        --variant-pills-shadow-blur-radius: 5px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+
+      html {
+        box-sizing: border-box;
+        font-size: calc(var(--font-body-scale) * 62.5%);
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        margin: 0;
+        font-size: 1.5rem;
+        letter-spacing: 0.06rem;
+        line-height: calc(1 + 0.8 / var(--font-body-scale));
+        font-family: var(--font-body-family);
+        font-style: var(--font-body-style);
+        font-weight: var(--font-body-weight);
+      }
+
+      @media screen and (min-width: 750px) {
+        body {
+          font-size: 1.6rem;
+        }
+      }
+    </style>
+
+    <link rel="stylesheet" href="/smooch-storefront-preview/assets/base.css">
+    
+
+<style>
+  :root {
+    --smooch-cream-rgb: 250, 241, 238;
+    --smooch-surface-rgb: 255, 255, 255;
+    --smooch-ink-rgb: 35, 26, 30;
+    --smooch-muted-rgb: 138, 115, 124;
+    --smooch-berry-rgb: 246, 82, 117;
+    --smooch-blush-rgb: 242, 212, 215;
+    --smooch-plum-rgb: 130, 70, 175;
+    --smooch-pink-rgb: 252, 175, 192;
+    --smooch-lilac-rgb: 193, 160, 218;
+    --smooch-cta-bg-rgb: 35, 26, 30;
+    --smooch-cta-text-rgb: 255, 247, 244;
+
+    --smooch-cream: rgb(var(--smooch-cream-rgb));
+    --smooch-surface: rgb(var(--smooch-surface-rgb));
+    --smooch-ink: rgb(var(--smooch-ink-rgb));
+    --smooch-muted: rgb(var(--smooch-muted-rgb));
+    --smooch-berry: rgb(var(--smooch-berry-rgb));
+    --smooch-blush: rgb(var(--smooch-blush-rgb));
+    --smooch-plum: rgb(var(--smooch-plum-rgb));
+    --smooch-pink: rgb(var(--smooch-pink-rgb));
+    --smooch-lilac: rgb(var(--smooch-lilac-rgb));
+    --smooch-cta-bg: rgb(var(--smooch-cta-bg-rgb));
+    --smooch-cta-text: rgb(var(--smooch-cta-text-rgb));
+
+    --smooch-border-soft: rgba(var(--color-foreground), 0.12);
+    --smooch-border-strong: rgba(var(--color-foreground), 0.3);
+    --smooch-radius-button: var(--buttons-radius, 8px);
+    --smooch-radius-card: var(--text-boxes-radius, 16px);
+    --smooch-radius-media: var(--media-radius, 12px);
+  }
+</style><link rel="icon" type="image/svg+xml" href="/smooch-storefront-preview/assets/smooch-favicon.svg"><link rel="stylesheet" href="/smooch-storefront-preview/assets/smooch-fonts.css"><link rel="stylesheet" href="/smooch-storefront-preview/assets/smooch-base.css">
+<link rel="stylesheet" href="/smooch-storefront-preview/assets/smooch-layout.css">
+<link rel="stylesheet" href="/smooch-storefront-preview/assets/smooch-components.css">
+<script src="/smooch-storefront-preview/assets/smooch.js" defer="defer"></script>
+
+    <link rel="stylesheet" href="/smooch-storefront-preview/assets/component-cart-items.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/smooch-storefront-preview/assets/component-cart-drawer.css">
+      <link rel="stylesheet" href="/smooch-storefront-preview/assets/component-cart.css">
+      <link rel="stylesheet" href="/smooch-storefront-preview/assets/component-totals.css">
+      <link rel="stylesheet" href="/smooch-storefront-preview/assets/component-price.css">
+      <link rel="stylesheet" href="/smooch-storefront-preview/assets/component-discounts.css">
+      <link rel="preload" as="font" href="" type="font/woff2" crossorigin>
+      
+      <link rel="preload" as="font" href="" type="font/woff2" crossorigin>
+      <link
+        rel="stylesheet"
+        href="/smooch-storefront-preview/assets/component-predictive-search.css"
+        media="print"
+        onload="this.media='all'"
+      ><script>
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+  </head>
+
+  <body class="gradient">
+    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+      Skip to content
+    </a>
+
+<link rel="stylesheet" href="/smooch-storefront-preview/assets/quantity-popover.css">
+<link rel="stylesheet" href="/smooch-storefront-preview/assets/component-card.css">
+<link rel="stylesheet" href="/smooch-storefront-preview/assets/smooch-cart.css">
+
+<script src="/smooch-storefront-preview/assets/cart.js" defer="defer"></script>
+<script src="/smooch-storefront-preview/assets/quantity-popover.js" defer="defer"></script>
+<script src="/smooch-storefront-preview/assets/smooch-cart.js" defer="defer"></script>
+
+<style>
+  .drawer {
+    visibility: hidden;
+  }
+</style>
+
+<cart-drawer class="drawer">
+  <div id="CartDrawer" class="cart-drawer">
+    <div id="CartDrawer-Overlay" class="cart-drawer__overlay"></div>
+    <div
+      class="drawer__inner gradient color-scheme-1"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Your cart"
+      tabindex="-1"
+    ><div class="drawer__header">
+        <h2 class="drawer__heading">Your cart</h2>
+        <button
+          class="drawer__close"
+          type="button"
+          onclick="this.closest('cart-drawer').close()"
+          aria-label="Close"
+        >
+          <span class="svg-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-close" viewBox="0 0 18 17"><path fill="currentColor" d="M.865 15.978a.5.5 0 0 0 .707.707l7.433-7.431 7.579 7.282a.501.501 0 0 0 .846-.37.5.5 0 0 0-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 1 0-.707-.708L8.991 7.853 1.413.573a.5.5 0 1 0-.693.72l7.563 7.268z"/></svg>
+</span>
+        </button>
+      </div><div class="smooch-cart-shipbar" data-smooch-shipbar>
+          <p class="smooch-cart-shipbar__msg">
+            
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M2.5 6h11v10h-11zM13.5 9.5h4l3 3.5v3h-7"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/></svg></span>
+<span>You’re $50.00 away from FREE shipping</span></p><div class="smooch-cart-shipbar__track" aria-hidden="true">
+            <span class="smooch-cart-shipbar__fill" style="width: 0%"></span>
+          </div>
+        </div><cart-drawer-items
+        view-event-payload=""
+        view-event-trigger="manual"
+        
+      >
+        <form
+          action="/smooch-storefront-preview/cart"
+          id="CartDrawer-Form"
+          class="cart__contents cart-drawer__form"
+          method="post"
+        >
+          <div id="CartDrawer-CartItems" class="drawer__contents js-contents"><div class="drawer__cart-items-wrapper">
+                <table class="cart-items" role="table">
+                  <thead role="rowgroup">
+                    <tr role="row">
+                      <th id="CartDrawer-ColumnProductImage" role="columnheader">
+                        <span class="visually-hidden">Product image</span>
+                      </th>
+                      <th
+                        id="CartDrawer-ColumnProduct"
+                        class="caption-with-letter-spacing"
+                        scope="col"
+                        role="columnheader"
+                      >
+                        Product
+                      </th>
+                      <th
+                        id="CartDrawer-ColumnTotal"
+                        class="right caption-with-letter-spacing"
+                        scope="col"
+                        role="columnheader"
+                      >
+                        Total
+                      </th>
+                      <th id="CartDrawer-ColumnQuantity" role="columnheader">
+                        <span class="visually-hidden">Quantity</span>
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody role="rowgroup"></tbody>
+                </table>
+              </div><p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
+            <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">
+              Loading...
+            </p>
+          </div>
+          <div id="CartDrawer-CartErrors" role="alert"></div>
+        </form>
+      </cart-drawer-items>
+      <div class="drawer__footer"><!-- Start blocks -->
+        <!-- Subtotals --><div class="cart-drawer__footer smooch-cart-summary" >
+          <h2 class="smooch-cart-summary__heading">Order summary</h2>
+
+          <div class="smooch-cart-summary__row">
+            <span>Subtotal</span>
+            <span class="smooch-num">$0.00</span>
+          </div><div class="smooch-cart-summary__row">
+            <span>Shipping</span><span class="smooch-cart-summary__muted">Calculated at checkout</span></div>
+
+          <div class="smooch-cart-summary__row">
+            <span>Taxes</span>
+            <span class="smooch-cart-summary__muted">Calculated at checkout</span>
+          </div>
+
+          <div class="totals smooch-cart-summary__total" role="status">
+            <h2 class="totals__total">Estimated total</h2>
+            <p class="totals__total-value smooch-num"><span class="smooch-cart-summary__final">$0.00</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- CTAs -->
+
+        <div class="cart__ctas" >
+          <button
+            type="submit"
+            id="CartDrawer-Checkout"
+            class="cart__checkout-button button smooch-cart-checkout"
+            name="checkout"
+            form="CartDrawer-Form"
+            
+          >
+            
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4.5" y="10.5" width="15" height="9.5" rx="1.8"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/></svg></span>
+Secure checkout</button>
+        </div><div class="smooch-cart-ticker">
+              <div class="smooch-cart-ticker__track">
+                <ul class="smooch-cart-ticker__list" role="list">
+                  <li class="smooch-cart-ticker__item">
+                  
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+                  <span>Ships quick</span>
+                </li><li class="smooch-cart-ticker__item">
+                  
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+                  <span>Limited-time discount auto-applied</span>
+                </li><li class="smooch-cart-ticker__item">
+                  
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+                  <span>30-day money-back guarantee</span>
+                </li>
+                </ul><ul class="smooch-cart-ticker__list" aria-hidden="true">
+                  <li class="smooch-cart-ticker__item">
+                  
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+                  <span>Ships quick</span>
+                </li><li class="smooch-cart-ticker__item">
+                  
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+                  <span>Limited-time discount auto-applied</span>
+                </li><li class="smooch-cart-ticker__item">
+                  
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+                  <span>30-day money-back guarantee</span>
+                </li>
+                </ul>
+              </div>
+            </div></div>
+    </div>
+  </div>
+</cart-drawer>
+<div id="shopify-section-announcement-bar" class="shopify-section section"><link rel="stylesheet" href="/smooch-storefront-preview/assets/section-smooch-announcement-bar.css"><div
+    class="smooch-announcement color-scheme-4 gradient"
+    role="region"
+    aria-label="Announcement"
+  >
+    <div class="page-width">
+      <ul class="smooch-announcement__list" role="list"><li class="smooch-announcement__item" data-shopify-editor-block data-block-id="announcement-1"><span class="smooch-announcement__message">Free shipping on 2+ month supplies</span></li><li class="smooch-announcement__item" data-shopify-editor-block data-block-id="announcement-2"><span class="smooch-announcement__message">No pills, no fluff.</span></li></ul>
+    </div>
+  </div>
+</div><div id="shopify-section-header" class="shopify-section section smooch-header-section"><link rel="stylesheet" href="/smooch-storefront-preview/assets/section-smooch-header.css">
+<script src="/smooch-storefront-preview/assets/smooch-header.js" defer="defer"></script><style>#shopify-section-header {
+    --smooch-header-logo-w: 92px;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-header {
+      --smooch-header-logo-w: 120px;
+    }
+  }</style><header
+  class="smooch-header color-scheme-1 smooch-header--sticky"
+  data-smooch-header
+  data-header-sticky
+  data-header-no-autohide
+>
+  <div class="smooch-header__inner page-width">
+    <nav class="smooch-header__nav" aria-label="Menu">
+      <ul class="smooch-header__nav-list" role="list"><li class="smooch-header__nav-item">
+            <smooch-header-menu>
+              <button
+                type="button"
+                class="smooch-header__trigger smooch-focus"
+                id="SmoochShopTrigger-header"
+                aria-expanded="false"
+                aria-controls="SmoochShopPanel-header"
+              >
+                Shop
+              </button>
+              <div
+                class="smooch-header__panel"
+                id="SmoochShopPanel-header"
+                role="region"
+                aria-labelledby="SmoochShopTrigger-header"
+                hidden
+              >
+                <div class="smooch-header__panel-inner">
+                  <ul class="smooch-header__panel-links" role="list"><li>
+                        <a href="/smooch-storefront-preview/collections/all" class="smooch-header__panel-link smooch-focus">Shop All</a>
+                      </li><li>
+                        <a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa" class="smooch-header__panel-link smooch-focus">Libido + Mood Gummies</a>
+                      </li><li>
+                        <a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa#shopify-section-hero" class="smooch-header__panel-link smooch-focus">Bundles</a>
+                      </li></ul><a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa" class="smooch-header__panel-card smooch-focus">
+                      <span class="smooch-header__panel-card-media"><img src="/smooch-storefront-preview/assets/smooch-demo-bottle-open.png" loading="lazy" sizes="12rem" alt="Smooch Women's Libido & Mood bottle with open cap and gummy" width="1086" height="1448"></span>
+                      <span class="smooch-header__panel-card-body">
+                        <span class="smooch-header__panel-card-title">Women's Libido & Mood Gummies — Dev Fixture</span>
+                        <span class="smooch-header__panel-card-cta">
+                          Shop now
+                          
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span>
+
+                        </span>
+                      </span>
+                    </a></div>
+              </div>
+            </smooch-header-menu>
+          </li><li class="smooch-header__nav-item">
+            <smooch-header-menu>
+              <button
+                type="button"
+                class="smooch-header__trigger smooch-focus"
+                id="SmoochLearnTrigger-header"
+                aria-expanded="false"
+                aria-controls="SmoochLearnPanel-header"
+              >
+                Learn
+              </button>
+              <div
+                class="smooch-header__panel smooch-header__panel--simple"
+                id="SmoochLearnPanel-header"
+                role="region"
+                aria-labelledby="SmoochLearnTrigger-header"
+                hidden
+              >
+                <div class="smooch-header__panel-inner smooch-header__panel-inner--links-only">
+                  <ul class="smooch-header__panel-links" role="list"><li>
+                        <a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa#shopify-section-benefits" class="smooch-header__panel-link smooch-focus">Why Smooch</a>
+                      </li><li>
+                        <a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa#shopify-section-body" class="smooch-header__panel-link smooch-focus">How It Works</a>
+                      </li><li>
+                        <a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa#shopify-section-formula" class="smooch-header__panel-link smooch-focus">Ingredients</a>
+                      </li><li>
+                        <a href="/smooch-storefront-preview/pages/faq" class="smooch-header__panel-link smooch-focus">FAQ</a>
+                      </li></ul>
+                </div>
+              </div>
+            </smooch-header-menu>
+          </li></ul>
+    </nav>
+
+    <a href="/smooch-storefront-preview/" class="smooch-header__logo smooch-focus" aria-label="Smooch — home"><img
+          src="/smooch-storefront-preview/assets/smooch-logo-white.webp"
+          width="712"
+          height="183"
+          class="smooch-header__logo-image smooch-header__logo-image--brand"
+          alt="Smooch"
+        ></a>
+
+    <div class="smooch-header__actions"><a href="/smooch-storefront-preview/cart" id="cart-icon-bubble" class="smooch-header__icon-btn smooch-header__cart smooch-focus">
+        
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6.5 8.5h11l0.9 11.5a1.6 1.6 0 0 1-1.6 1.7H7.2a1.6 1.6 0 0 1-1.6-1.7z"/><path d="M9 8V6.8a3 3 0 0 1 6 0V8"/></svg></span>
+
+<span class="visually-hidden">Cart</span>
+      </a>
+    </div><button
+      type="button"
+      class="smooch-header__hamburger smooch-focus"
+      id="SmoochMobileToggle-header"
+      aria-expanded="false"
+      aria-controls="SmoochMobileNav-header"
+      aria-label="Menu"
+    >
+      
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span>
+
+    </button>
+  </div>
+</header>
+
+<smooch-mobile-nav id="SmoochMobileNav-header" data-toggle-id="SmoochMobileToggle-header" hidden>
+  <div class="smooch-mobile-nav__overlay" tabindex="-1"></div>
+  <div class="smooch-mobile-nav__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="smooch-mobile-nav__head">
+      <span class="smooch-mobile-nav__brand">Smooch</span>
+      <button type="button" class="smooch-mobile-nav__close smooch-focus" aria-label="Close">
+        
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+
+      </button>
+    </div>
+
+    <div class="smooch-mobile-nav__body">
+      <ul class="smooch-mobile-nav__list" role="list"><li>
+            <details class="smooch-mobile-nav__group">
+              <summary class="smooch-mobile-nav__group-label">
+                <span>Shop</span>
+                
+<span class="smooch-icon smooch-icon--sm smooch-mobile-nav__caret" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 9.5l6 6 6-6"/></svg></span>
+
+              </summary>
+              <ul class="smooch-mobile-nav__sublist" role="list"><li><a href="/smooch-storefront-preview/collections/all" class="smooch-mobile-nav__sublink smooch-focus">Shop All</a></li><li><a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa" class="smooch-mobile-nav__sublink smooch-focus">Libido + Mood Gummies</a></li><li><a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa#shopify-section-hero" class="smooch-mobile-nav__sublink smooch-focus">Bundles</a></li></ul>
+            </details>
+          </li><li>
+            <details class="smooch-mobile-nav__group">
+              <summary class="smooch-mobile-nav__group-label">
+                <span>Learn</span>
+                
+<span class="smooch-icon smooch-icon--sm smooch-mobile-nav__caret" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 9.5l6 6 6-6"/></svg></span>
+
+              </summary>
+              <ul class="smooch-mobile-nav__sublist" role="list"><li><a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa#shopify-section-benefits" class="smooch-mobile-nav__sublink smooch-focus">Why Smooch</a></li><li><a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa#shopify-section-body" class="smooch-mobile-nav__sublink smooch-focus">How It Works</a></li><li><a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa#shopify-section-formula" class="smooch-mobile-nav__sublink smooch-focus">Ingredients</a></li><li><a href="/smooch-storefront-preview/pages/faq" class="smooch-mobile-nav__sublink smooch-focus">FAQ</a></li></ul>
+            </details>
+          </li></ul></div>
+  </div>
+</smooch-mobile-nav>
+
+
+</div>
+
+    <main
+      id="MainContent"
+      class="content-for-layout focus-none"
+      role="main"
+      tabindex="-1"
+      data-template="product"
+    >
+      <div id="shopify-section-hero" class="shopify-section section smooch-product-hero-section"><link rel="stylesheet" href="/smooch-storefront-preview/assets/section-main-product.css">
+<link rel="stylesheet" href="/smooch-storefront-preview/assets/component-price.css">
+<link rel="stylesheet" href="/smooch-storefront-preview/assets/component-slider.css">
+<link rel="stylesheet" href="/smooch-storefront-preview/assets/component-deferred-media.css">
+<link rel="stylesheet" href="/smooch-storefront-preview/assets/smooch-product.css">
+
+
+
+<script src="/smooch-storefront-preview/assets/product-info.js" defer="defer"></script>
+<script src="/smooch-storefront-preview/assets/product-form.js" defer="defer"></script>
+<script src="/smooch-storefront-preview/assets/smooch-product-form.js" defer="defer"></script>
+
+<style>.section-hero-padding {
+    padding-top: 27px;
+    padding-bottom: 39px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-hero-padding {
+      padding-top: 36px;
+      padding-bottom: 52px;
+    }
+  }</style><product-info
+  id="MainProduct-hero"
+  class="smooch-product section-hero-padding color-scheme-1 gradient"
+  data-section="hero"
+  data-product-id="5001"
+  data-update-url="true"
+  data-url="/products/smooch-daily-gummies-qa-single"
+  
+>
+    <product-component view-event-payload="">
+      <div class="page-width">
+        <div class="product product--medium product--left product--columns product--mobile-columns grid grid--1-col grid--2-col-tablet smooch-product__layout">
+          <div class="grid__item product__media-wrapper smooch-product__gallery smooch-product__gallery--sticky"><media-gallery
+  id="MediaGallery-hero"
+  role="region"
+  
+    class="product__column-sticky"
+  
+  aria-label="Gallery Viewer"
+  data-desktop-layout="columns"
+>
+  <div id="GalleryStatus-hero" class="visually-hidden" role="status"></div>
+  <slider-component id="GalleryViewer-hero" class="slider-mobile-gutter">
+    <a class="skip-to-content-link button visually-hidden quick-add-hidden" href="#ProductInfo-hero">
+      Skip to product information
+    </a>
+    <ul
+      id="Slider-Gallery-hero"
+      class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile"
+      role="list"
+    ><li
+            id="Slide-hero-885026304"
+            class="product__media-item grid__item slider__slide is-active scroll-trigger animate--fade-in"
+            data-media-id="hero-885026304"
+          >
+<div
+  class="product-media-container media-type-image media-fit-contain global-media-settings gradient constrain-height"
+  style="--ratio: 0.75; --preview-ratio: 0.75;"
+>
+  <modal-opener
+    class="product__modal-opener product__modal-opener--image"
+    data-modal="#ProductModal-hero"
+  >
+    <span
+      class="product__media-icon motion-reduce quick-add-hidden product__media-icon--lightbox"
+      aria-hidden="true"
+    >
+      
+          <span class="svg-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-plus" viewBox="0 0 19 19"><path fill="currentColor" fill-rule="evenodd" d="M4.667 7.94a.5.5 0 0 1 .499-.501l5.534-.014a.5.5 0 1 1 .002 1l-5.534.014a.5.5 0 0 1-.5-.5" clip-rule="evenodd"/><path fill="currentColor" fill-rule="evenodd" d="M7.926 4.665a.5.5 0 0 1 .501.498l.014 5.534a.5.5 0 1 1-1 .003l-.014-5.534a.5.5 0 0 1 .499-.501" clip-rule="evenodd"/><path fill="currentColor" fill-rule="evenodd" d="M12.832 3.03a6.931 6.931 0 1 0-9.802 9.802 6.931 6.931 0 0 0 9.802-9.802M2.323 2.323a7.931 7.931 0 0 1 11.296 11.136l4.628 4.628a.5.5 0 0 1-.707.707l-4.662-4.662A7.932 7.932 0 0 1 2.323 2.323" clip-rule="evenodd"/></svg>
+</span>
+      
+    </span>
+
+<div class="loading__spinner hidden">
+  <svg xmlns="http://www.w3.org/2000/svg" class="spinner" viewBox="0 0 66 66"><circle stroke-width="6" cx="33" cy="33" r="30" fill="none" class="path"/></svg>
+
+</div>
+<div class="product__media media media--transparent">
+      <img src="/smooch-storefront-preview/assets/smooch-demo-bottle-open.png" sizes="(min-width: 1400px) 715px, (min-width: 990px) calc(55.00000000000001vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / 1 - 4rem)" class="image-magnify-lightbox" alt="" width="1086" height="1448">
+    </div>
+    <button
+      class="product__media-toggle quick-add-hidden product__media-zoom-lightbox"
+      type="button"
+      aria-haspopup="dialog"
+      data-media-id="885026304"
+    >
+      <span class="visually-hidden">
+        Open media 1 in modal
+      </span>
+    </button>
+  </modal-opener></div>
+
+          </li></ul>
+    <div class="slider-buttons quick-add-hidden small-hide">
+      <button
+        type="button"
+        class="slider-button slider-button--prev"
+        name="previous"
+        aria-label="Slide left"
+      >
+        <span class="svg-wrapper"><svg class="icon icon-caret" viewBox="0 0 10 6"><path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"/></svg>
+</span>
+      </button>
+      <div class="slider-counter caption">
+        <span class="slider-counter--current">1</span>
+        <span aria-hidden="true"> / </span>
+        <span class="visually-hidden">of</span>
+        <span class="slider-counter--total">1</span>
+      </div>
+      <button
+        type="button"
+        class="slider-button slider-button--next"
+        name="next"
+        aria-label="Slide right"
+      >
+        <span class="svg-wrapper"><svg class="icon icon-caret" viewBox="0 0 10 6"><path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"/></svg>
+</span>
+      </button>
+    </div>
+  </slider-component></media-gallery>
+<ul class="smooch-media-cards" role="list" aria-label="Product highlights"><li class="smooch-media-card smooch-media-card--blush" data-shopify-editor-block data-block-id="media_card-1"><div class="smooch-media-card__body"><p class="smooch-media-card__kicker">The system</p><p class="smooch-media-card__heading">Mood · Desire · Connection</p><div class="smooch-media-card__text"><p>One gummy, formulated to support all three — softly, daily.</p></div></div>
+                      <span class="smooch-media-card__shape" aria-hidden="true"></span>
+                    </li><li class="smooch-media-card smooch-media-card--cream" data-shopify-editor-block data-block-id="media_card-2"><div class="smooch-media-card__body"><p class="smooch-media-card__kicker">Inside</p><p class="smooch-media-card__heading">Four working ingredients</p><div class="smooch-media-card__text"><p>KSM-66 Ashwagandha, Black Maca, Damiana, and Cinnamon Bark.</p></div></div>
+                      <span class="smooch-media-card__shape" aria-hidden="true"></span>
+                    </li><li class="smooch-media-card smooch-media-card--lilac" data-shopify-editor-block data-block-id="media_card-3"><div class="smooch-media-card__body"><p class="smooch-media-card__kicker">The ritual</p><p class="smooch-media-card__heading">One gummy, once a day</p><div class="smooch-media-card__text"><p>With or without food — consistency matters more than timing.</p></div></div>
+                      <span class="smooch-media-card__shape" aria-hidden="true"></span>
+                    </li></ul></div>
+
+          <div class="product__info-wrapper grid__item smooch-product__panel">
+            <section
+              id="ProductInfo-hero"
+              class="product__info-container smooch-buybox product__column-sticky"
+            ><smooch-offer
+                class="smooch-offer"
+                data-section-id="hero"
+                data-current-variant="211"
+                data-default-bundle="0"
+                data-save-template="Save [percent]%"
+              ><input
+                    type="hidden"
+                    name="quantity"
+                    value="3"
+                    form="product-form-hero"
+                    data-smooch-quantity
+                  ><div class="smooch-buybox__rating" data-shopify-editor-block data-block-id="rating-1">
+                        <a class="smooch-rating smooch-focus" href="#smooch-reviews" style="text-decoration: none; color: inherit;">
+      <span class="smooch-stars" role="img" aria-label="Rated 4.8 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+    <span class="smooch-rating__count">
+      4.8 · 1692 reviews
+    </span>
+    </a>
+                      </div><h1 class="smooch-h2 smooch-buybox__title" data-shopify-editor-block data-block-id="title-1">Smooch Daily Gummies</h1><p class="smooch-sold-badge" data-shopify-editor-block data-block-id="social_proof-1">
+                          
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3v4.5M12 16.5V21M3 12h4.5M16.5 12H21M6.2 6.2l2.6 2.6M15.2 15.2l2.6 2.6M6.2 17.8l2.6-2.6M15.2 8.8l2.6-2.6"/></svg></span>
+
+                          <span>2k+ bought in the past month</span>
+                        </p><p class="smooch-lead smooch-buybox__promise" data-shopify-editor-block data-block-id="promise-1">
+                          Daily gummies formulated to support mood, desire, and feeling connected — in one easy ritual.
+                        </p><ul class="smooch-ticks smooch-buybox__benefits" role="list">
+<li data-shopify-editor-block data-block-id="benefit-1">
+  
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3v4.5M12 16.5V21M3 12h4.5M16.5 12H21M6.2 6.2l2.6 2.6M15.2 15.2l2.6 2.6M6.2 17.8l2.6-2.6M15.2 8.8l2.6-2.6"/></svg></span>
+
+  <span>Supports a calmer, more open mindset</span>
+</li>
+
+<li data-shopify-editor-block data-block-id="benefit-2">
+  
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 20.4S3.5 15.4 3.5 9.3c0-2.9 2.2-5 4.9-5 1.5 0 2.8.7 3.6 1.9.8-1.2 2.1-1.9 3.6-1.9 2.7 0 4.9 2.1 4.9 5 0 6.1-8.5 11.1-8.5 11.1z"/></svg></span>
+
+  <span>Supports desire and everyday connection</span>
+</li>
+
+<li data-shopify-editor-block data-block-id="benefit-3">
+  
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg></span>
+
+  <span>An easy daily gummy ritual</span>
+</li>
+</ul><div class="smooch-buybox__variants" data-shopify-editor-block data-block-id="variant_picker-1">
+                        
+                      </div><fieldset class="smooch-bundles" data-shopify-editor-block data-block-id="bundles-1">
+                          <legend class="smooch-bundles__legend smooch-step">Choose your supply
+                          </legend>
+                          <div class="smooch-bundles__list" role="radiogroup" aria-label="Choose your supply"><label class="smooch-bundle" data-shopify-editor-block data-block-id="bundle-3">
+  <input
+    type="radio"
+    class="visually-hidden smooch-bundle__input"
+    name="smooch-bundle-hero"
+    value="0"
+    data-smooch-bundle-radio
+    data-quantity="3"
+    data-days="90"
+    data-label="3 Months"
+    data-variant-value=""
+    checked
+  >
+  <span class="smooch-bundle__card"><span class="smooch-bundle__badge smooch-badge smooch-badge--berry">Best value</span><span class="smooch-bundle__check" aria-hidden="true">
+      
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+    </span><span class="smooch-bundle__body">
+      <span class="smooch-bundle__title">3 Months</span>
+      <span class="smooch-bundle__subtitle">3 bottles · 90-day supply</span>
+      <span class="smooch-bundle__soldout smooch-caption" data-bundle-soldout hidden>
+        Sold out
+      </span>
+    </span>
+    <span class="smooch-bundle__pricing">
+      <span class="smooch-bundle__price-row">
+        <span class="smooch-bundle__price smooch-num" data-bundle-price>$75.00</span>
+        <s class="smooch-strike smooch-num" data-bundle-compare hidden>$0.00</s>
+      </span><span class="smooch-bundle__save-amount smooch-num" data-bundle-save-amount hidden></span><span class="smooch-bundle__unit" data-bundle-unit-line >
+          <span class="smooch-num" data-bundle-unit>$25.00</span> per bottle
+        </span><span class="smooch-bundle__unit smooch-bundle__per-day">
+          <span class="smooch-num" data-bundle-per-day>$0.83</span> per day
+        </span></span>
+  </span>
+</label>
+<label class="smooch-bundle" data-shopify-editor-block data-block-id="bundle-2">
+  <input
+    type="radio"
+    class="visually-hidden smooch-bundle__input"
+    name="smooch-bundle-hero"
+    value="1"
+    data-smooch-bundle-radio
+    data-quantity="2"
+    data-days="60"
+    data-label="2 Months"
+    data-variant-value=""
+    
+  >
+  <span class="smooch-bundle__card"><span class="smooch-bundle__check" aria-hidden="true">
+      
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+    </span><span class="smooch-bundle__body">
+      <span class="smooch-bundle__title">2 Months</span>
+      <span class="smooch-bundle__subtitle">2 bottles · 60-day supply</span>
+      <span class="smooch-bundle__soldout smooch-caption" data-bundle-soldout hidden>
+        Sold out
+      </span>
+    </span>
+    <span class="smooch-bundle__pricing">
+      <span class="smooch-bundle__price-row">
+        <span class="smooch-bundle__price smooch-num" data-bundle-price>$50.00</span>
+        <s class="smooch-strike smooch-num" data-bundle-compare hidden>$0.00</s>
+      </span><span class="smooch-bundle__save-amount smooch-num" data-bundle-save-amount hidden></span><span class="smooch-bundle__unit" data-bundle-unit-line >
+          <span class="smooch-num" data-bundle-unit>$25.00</span> per bottle
+        </span><span class="smooch-bundle__unit smooch-bundle__per-day">
+          <span class="smooch-num" data-bundle-per-day>$0.83</span> per day
+        </span></span>
+  </span>
+</label>
+<label class="smooch-bundle" data-shopify-editor-block data-block-id="bundle-1">
+  <input
+    type="radio"
+    class="visually-hidden smooch-bundle__input"
+    name="smooch-bundle-hero"
+    value="2"
+    data-smooch-bundle-radio
+    data-quantity="1"
+    data-days="30"
+    data-label="1 Month"
+    data-variant-value=""
+    
+  >
+  <span class="smooch-bundle__card"><span class="smooch-bundle__check" aria-hidden="true">
+      
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+    </span><span class="smooch-bundle__body">
+      <span class="smooch-bundle__title">1 Month</span>
+      <span class="smooch-bundle__subtitle">1 bottle · 30-day supply</span>
+      <span class="smooch-bundle__soldout smooch-caption" data-bundle-soldout hidden>
+        Sold out
+      </span>
+    </span>
+    <span class="smooch-bundle__pricing">
+      <span class="smooch-bundle__price-row">
+        <span class="smooch-bundle__price smooch-num" data-bundle-price>$25.00</span>
+        <s class="smooch-strike smooch-num" data-bundle-compare hidden>$0.00</s>
+      </span><span class="smooch-bundle__save-amount smooch-num" data-bundle-save-amount hidden></span><span class="smooch-bundle__unit" data-bundle-unit-line hidden>
+          <span class="smooch-num" data-bundle-unit>$25.00</span> per bottle
+        </span><span class="smooch-bundle__unit smooch-bundle__per-day">
+          <span class="smooch-num" data-bundle-per-day>$0.83</span> per day
+        </span></span>
+  </span>
+</label>
+</div></fieldset><div class="smooch-buybox__price-group smooch-buybox__price-group--offer" data-shopify-editor-block data-block-id="price-1"><div id="price-hero" role="status"><div
+    class="
+      price price--large"
+  >
+    <div class="price__container"><div class="price__regular"><span class="visually-hidden visually-hidden--inline">Regular price</span>
+          <span class="price-item price-item--regular">
+            $25.00 USD
+          </span></div>
+      <div class="price__sale">
+          <span class="visually-hidden visually-hidden--inline">Regular price</span>
+          <span>
+            <s class="price-item price-item--regular">
+              
+                
+              
+            </s>
+          </span><span class="visually-hidden visually-hidden--inline">Sale price</span>
+        <span class="price-item price-item--sale price-item--last">
+          $25.00 USD
+        </span>
+      </div></div></div>
+
+</div><div class="smooch-summary-line" data-smooch-summary>
+                            <p class="smooch-summary-line__selection smooch-caption">
+                              <span data-summary-supply>3 bottles · 90-day supply</span>
+                              <span data-summary-plan hidden></span>
+                            </p>
+                            <div class="smooch-offer-price" data-smooch-offer-price role="status">
+                              <span class="smooch-offer-price__current smooch-num" data-smooch-price>$75.00</span>
+                            </div>
+                          </div><div><form method="post" action="/smooch-storefront-preview/cart/add" accept-charset="UTF-8" enctype="multipart/form-data" id="product-form-installment-hero" class="installment caption-large"><input type="hidden" name="form_type" value="product"><input type="hidden" name="utf8" value="✓"><input type="hidden" name="id" value="211">
+                            </form></div>
+                      </div><div class="smooch-buybox__buy" data-shopify-editor-block data-block-id="buy_buttons-1">
+<div data-shopify-editor-block data-block-id="buy_buttons-1"><product-form
+      class="product-form"
+      data-hide-errors="false"
+      data-section-id="hero"
+    >
+      <div class="product-form__error-message-wrapper" role="alert" hidden>
+        <span class="svg-wrapper"><svg class="icon icon-error" viewBox="0 0 13 13"><circle cx="6.5" cy="6.5" r="5.5" stroke="#fff" stroke-width="2"/><circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width=".7"/><path fill="#fff" d="m5.874 3.528.1 4.044h1.053l.1-4.044zm.627 6.133c.38 0 .68-.288.68-.656s-.3-.656-.68-.656-.681.288-.681.656.3.656.68.656"/><path fill="#fff" stroke="#EB001B" stroke-width=".7" d="M5.874 3.178h-.359l.01.359.1 4.044.008.341h1.736l.008-.341.1-4.044.01-.359H5.873Zm.627 6.833c.56 0 1.03-.432 1.03-1.006s-.47-1.006-1.03-1.006-1.031.432-1.031 1.006.47 1.006 1.03 1.006Z"/></svg>
+</span>
+        <span class="product-form__error-message"></span>
+      </div><form method="post" action="/smooch-storefront-preview/cart/add" accept-charset="UTF-8" enctype="multipart/form-data" id="product-form-hero" class="form" novalidate="novalidate" data-type="add-to-cart-form"><input type="hidden" name="form_type" value="product"><input type="hidden" name="utf8" value="✓"><input
+          type="hidden"
+          name="id"
+          value="211"
+          
+          class="product-variant-id"
+        ><div class="product-form__buttons"><button
+            id="ProductSubmitButton-hero"
+            type="submit"
+            name="add"
+            class="product-form__submit button button--full-width button--primary"
+            
+          >
+            <span>Add to cart</span>
+
+<div class="loading__spinner hidden">
+  <svg xmlns="http://www.w3.org/2000/svg" class="spinner" viewBox="0 0 66 66"><circle stroke-width="6" cx="33" cy="33" r="30" fill="none" class="path"/></svg>
+
+</div>
+</button></div></form></product-form></div>
+</div><div class="smooch-reassurance" data-shopify-editor-block data-block-id="reassurance-1"><ul class="smooch-reassurance__list smooch-reassurance__list--badges" role="list"><li>
+        
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+        <span>Ships within 1–2 business days</span>
+      </li><li>
+        
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+        <span>Free shipping on 2+ month supplies</span>
+      </li><li>
+        
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+        <span>30-day money-back guarantee</span>
+      </li><li>
+        
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
+
+        <span>Secure checkout</span>
+      </li></ul><div class="smooch-reassurance__payments">
+      <span class="visually-hidden">Payment methods</span>
+      <ul class="smooch-reassurance__payment-list" role="list"><li><svg class="icon icon--full-color" role="img" width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><title>visa</title><rect width="38" height="24" rx="4" fill="#FFFDF9" stroke="#C9BDB4"/><text x="19" y="16" text-anchor="middle" font-size="7" font-family="sans-serif" fill="#2B1220">visa</text></svg></li><li><svg class="icon icon--full-color" role="img" width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><title>master</title><rect width="38" height="24" rx="4" fill="#FFFDF9" stroke="#C9BDB4"/><text x="19" y="16" text-anchor="middle" font-size="7" font-family="sans-serif" fill="#2B1220">master</text></svg></li><li><svg class="icon icon--full-color" role="img" width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><title>american_express</title><rect width="38" height="24" rx="4" fill="#FFFDF9" stroke="#C9BDB4"/><text x="19" y="16" text-anchor="middle" font-size="7" font-family="sans-serif" fill="#2B1220">americ</text></svg></li><li><svg class="icon icon--full-color" role="img" width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><title>paypal</title><rect width="38" height="24" rx="4" fill="#FFFDF9" stroke="#C9BDB4"/><text x="19" y="16" text-anchor="middle" font-size="7" font-family="sans-serif" fill="#2B1220">paypal</text></svg></li><li><svg class="icon icon--full-color" role="img" width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><title>shop_pay</title><rect width="38" height="24" rx="4" fill="#FFFDF9" stroke="#C9BDB4"/><text x="19" y="16" text-anchor="middle" font-size="7" font-family="sans-serif" fill="#2B1220">shop_p</text></svg></li></ul>
+    </div></div>
+<div class="smooch-accordion smooch-buybox__accordion" data-shopify-editor-block data-block-id="collapsible_tab-1">
+                        <details id="Details-collapsible_tab-1-hero">
+                          <summary aria-controls="Accordion-collapsible_tab-1-hero">
+                            <span class="smooch-accordion__label">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5"/><circle cx="12" cy="7.8" r="0.4" fill="currentColor"/></svg></span>
+Is this right for me?
+                            </span>
+                            
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                          </summary>
+                          <div class="smooch-accordion__content" id="Accordion-collapsible_tab-1-hero">
+                            <p>[brand] is a daily-support gummy for women who want a simple ritual around mood, desire, and connection. It is not an on-demand product, and it isn't for anyone pregnant, breastfeeding, or on medication without talking to a qualified healthcare professional first.</p>
+                            
+                          </div>
+                        </details>
+                      </div><div class="smooch-accordion smooch-buybox__accordion" data-shopify-editor-block data-block-id="collapsible_tab-2">
+                        <details id="Details-collapsible_tab-2-hero">
+                          <summary aria-controls="Accordion-collapsible_tab-2-hero">
+                            <span class="smooch-accordion__label">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5.5l3.5 2"/></svg></span>
+How to use
+                            </span>
+                            
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                          </summary>
+                          <div class="smooch-accordion__content" id="Accordion-collapsible_tab-2-hero">
+                            <p>One gummy, once a day, with or without food. Consistency matters more than timing — see the final label for directions.</p>
+                            
+                          </div>
+                        </details>
+                      </div><div class="smooch-accordion smooch-buybox__accordion" data-shopify-editor-block data-block-id="collapsible_tab-3">
+                        <details id="Details-collapsible_tab-3-hero">
+                          <summary aria-controls="Accordion-collapsible_tab-3-hero">
+                            <span class="smooch-accordion__label">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 4C10 4 4.5 9.5 4.5 19.5 14.5 19.5 20 14 20 4z"/><path d="M4.5 19.5C8 14 12 10.5 17 7.5"/></svg></span>
+Ingredients
+                            </span>
+                            
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                          </summary>
+                          <div class="smooch-accordion__content" id="Accordion-collapsible_tab-3-hero">
+                            <p>KSM-66 Ashwagandha, Black Maca, Damiana, and Cinnamon Bark. Full label details appear here once final amounts are approved.</p>
+                            
+                          </div>
+                        </details>
+                      </div><div class="smooch-accordion smooch-buybox__accordion" data-shopify-editor-block data-block-id="collapsible_tab-4">
+                        <details id="Details-collapsible_tab-4-hero">
+                          <summary aria-controls="Accordion-collapsible_tab-4-hero">
+                            <span class="smooch-accordion__label">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M2.5 6h11v10h-11zM13.5 9.5h4l3 3.5v3h-7"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/></svg></span>
+Shipping & returns
+                            </span>
+                            
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                          </summary>
+                          <div class="smooch-accordion__content" id="Accordion-collapsible_tab-4-hero">
+                            <p>Add your shipping timelines and return policy details here.</p>
+                            
+                          </div>
+                        </details>
+                      </div><script type="application/json" data-smooch-offer>
+                    {
+                      "sectionId": "hero",
+                      "bundles": [{
+                            "quantity": 3,
+                            "days": 90,
+                            "label": "3 Months",
+                            "variantValue": ""
+                          },{
+                            "quantity": 2,
+                            "days": 60,
+                            "label": "2 Months",
+                            "variantValue": ""
+                          },{
+                            "quantity": 1,
+                            "days": 30,
+                            "label": "1 Month",
+                            "variantValue": ""
+                          }],
+                      "plans": [],
+                      "variants": {"211": {
+                            "available": true,
+                            "options": ["Default Title"],
+                            "base": [{
+                                    "t": "$75.00",
+                                    "c": "",
+                                    "u": "$25.00",
+                                    "s": 0,
+                                    "sa": "",
+                                    "pd": "$0.83"
+                                  },{
+                                    "t": "$50.00",
+                                    "c": "",
+                                    "u": "$25.00",
+                                    "s": 0,
+                                    "sa": "",
+                                    "pd": "$0.83"
+                                  },{
+                                    "t": "$25.00",
+                                    "c": "",
+                                    "u": "$25.00",
+                                    "s": 0,
+                                    "sa": "",
+                                    "pd": "$0.83"
+                                  }],
+                            "plans": {}
+                          }}
+                    }
+                  </script></smooch-offer>
+            </section>
+          </div>
+        </div>
+      </div><smooch-sticky-atc
+          class="smooch-sticky-atc"
+          data-section-id="hero"
+          hidden
+        >
+          <div class="smooch-sticky-atc__inner"><div class="smooch-sticky-atc__thumb">
+                <img src="/smooch-storefront-preview/assets/smooch-demo-bottle-open.png" loading="lazy" sizes="5rem" alt="" width="1086" height="1448">
+              </div><div class="smooch-sticky-atc__meta"><span class="smooch-sticky-atc__title" data-sticky-summary>3 Months · One-time</span>
+              <span class="smooch-sticky-atc__price smooch-num" data-sticky-price>$75.00</span>
+            </div>
+            <button type="button" class="smooch-btn smooch-btn--brand smooch-sticky-atc__button" data-sticky-submit>
+              <span data-sticky-label>Add to cart</span>
+            </button>
+          </div>
+        </smooch-sticky-atc>
+
+<product-modal id="ProductModal-hero" class="product-media-modal media-modal">
+  <div
+    class="product-media-modal__dialog color-scheme-1 gradient"
+    role="dialog"
+    aria-label="Media gallery"
+    aria-modal="true"
+    tabindex="-1"
+  >
+    <button
+      id="ModalClose-hero"
+      type="button"
+      class="product-media-modal__toggle"
+      aria-label="Close"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-close" viewBox="0 0 18 17"><path fill="currentColor" d="M.865 15.978a.5.5 0 0 0 .707.707l7.433-7.431 7.579 7.282a.501.501 0 0 0 .846-.37.5.5 0 0 0-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 1 0-.707-.708L8.991 7.853 1.413.573a.5.5 0 1 0-.693.72l7.563 7.268z"/></svg>
+
+    </button>
+
+    <div
+      class="product-media-modal__content color-scheme-1 gradient"
+      role="document"
+      aria-label="Media gallery"
+      tabindex="0"
+    ><img
+    class="global-media-settings global-media-settings--no-shadow"
+    srcset="/assets/smooch-demo-bottle-open.png 550w,/assets/smooch-demo-bottle-open.png 1086w
+    "
+    sizes="(min-width: 750px) calc(100vw - 22rem), 1100px"
+    src="/smooch-storefront-preview/assets/smooch-demo-bottle-open.png"
+    alt="Smooch Women&#39;s Libido &amp; Mood bottle"
+    loading="lazy"
+    width="1100"
+    height="1467"
+    data-media-id="885026304"
+  ></div>
+  </div>
+</product-modal>
+
+        <script src="/smooch-storefront-preview/assets/product-modal.js" defer="defer"></script>
+        <script src="/smooch-storefront-preview/assets/media-gallery.js" defer="defer"></script></product-component></product-info>
+
+
+</div><div id="shopify-section-benefit_strip" class="shopify-section section"><link rel="stylesheet" href="/smooch-storefront-preview/assets/section-smooch-benefit-strip.css"><style>.section-benefit_strip-padding {
+    padding-top: 21px;
+    padding-bottom: 21px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-benefit_strip-padding {
+      padding-top: 28px;
+      padding-bottom: 28px;
+    }
+  }</style><div class="smooch-band color-scheme-1 gradient">
+  <div class="page-width section-benefit_strip-padding"><h2 class="visually-hidden">Why choose Smooch</h2><ul
+      class="smooch-benefit-strip__list smooch-benefit-strip__list--dividers"
+      role="list"
+    ><li class="smooch-benefit-strip__item" data-shopify-editor-block data-block-id="item-1">
+                
+<span class="smooch-icon smooch-benefit-strip__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg></span>
+
+                <span class="smooch-benefit-strip__text">One easy daily gummy</span>
+              </li><li class="smooch-benefit-strip__item" data-shopify-editor-block data-block-id="item-2">
+                
+<span class="smooch-icon smooch-benefit-strip__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 4C10 4 4.5 9.5 4.5 19.5 14.5 19.5 20 14 20 4z"/><path d="M4.5 19.5C8 14 12 10.5 17 7.5"/></svg></span>
+
+                <span class="smooch-benefit-strip__text">Four-ingredient formula</span>
+              </li><li class="smooch-benefit-strip__item" data-shopify-editor-block data-block-id="guarantee-1">
+                
+<span class="smooch-icon smooch-benefit-strip__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3l7.5 2.7v5.6c0 4.6-3 8-7.5 9.7-4.5-1.7-7.5-5.1-7.5-9.7V5.7L12 3z"/><path d="M8.8 12l2.2 2.2 4.2-4.4"/></svg></span>
+
+                <span class="smooch-benefit-strip__text">30-day money-back guarantee</span>
+              </li><li class="smooch-benefit-strip__item" data-shopify-editor-block data-block-id="item-3">
+                
+<span class="smooch-icon smooch-benefit-strip__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 12a8 8 0 0 1 13.7-5.7L20 8.5M20 12a8 8 0 0 1-13.7 5.7L4 15.5"/><path d="M20 4v4.5h-4.5M4 20v-4.5h4.5"/></svg></span>
+
+                <span class="smooch-benefit-strip__text">Subscription optional</span>
+              </li></ul>
+  </div>
+</div>
+
+
+</div><div id="shopify-section-body" class="shopify-section section"><link rel="stylesheet" href="/smooch-storefront-preview/assets/section-smooch-timeline.css">
+<link rel="stylesheet" href="/smooch-storefront-preview/assets/smooch-scroll-story.css">
+<script src="/smooch-storefront-preview/assets/smooch-scroll-story.js" defer="defer"></script><style>.section-body-padding {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-body-padding {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+  }</style><div class="smooch-band color-scheme-1 gradient">
+  <div class="page-width section-body-padding">
+    <div
+      class="smooch-timeline__layout smooch-story"
+      
+        data-smooch-story
+        data-mode="full"
+        data-stage-count="4"
+        data-floating-enabled
+      
+    ><header class="smooch-section-head smooch-timeline__head"><p class="smooch-eyebrow smooch-eyebrow--accent">The honest expectations</p><h2 class="smooch-h2">What&#39;s happening in your body?</h2><p class="smooch-lead">Smooch is designed for consistent daily support, not an on-demand effect. Its ingredients are formulated to support areas that can influence how present, balanced, and open you feel — including mood and desire. What you notice, and when, varies from person to person.</p></header><div class="smooch-timeline__visual-col">
+          <div class="smooch-timeline__visual-sticky">
+            <div class="smooch-story__scene smooch-timeline__scene" data-smooch-scene aria-hidden="true">
+              <span class="smooch-story__halo" data-smooch-halo></span><span class="smooch-story__shadow" data-smooch-shadow></span>
+
+              <div class="smooch-story__product-scroll" data-smooch-product-scroll><span class="smooch-story__product" data-smooch-product data-floating><img src="/smooch-storefront-preview/assets/smooch-demo-bottle-open.png" loading="lazy" class="smooch-story__product-img" alt="Smooch"></span>
+              </div>
+            </div>
+          </div>
+        </div><div class="smooch-timeline__content-col"><ol class="smooch-timeline__steps" role="list"><li
+                class="smooch-timeline__step"
+                
+                  data-smooch-stage
+                  data-stage-index="0"
+                
+                data-shopify-editor-block data-block-id="step-1"
+              ><p class="smooch-timeline__period smooch-num">Week 1</p><div class="smooch-timeline__marker" aria-hidden="true"><span class="smooch-timeline__badge smooch-timeline__badge--dot"></span></div>
+
+                <div class="smooch-timeline__body"><h3 class="smooch-h3 smooch-timeline__heading">Build the ritual</h3><p class="smooch-body smooch-timeline__text">Your first week is about consistency — finding the moment in your day when Smooch is easiest to remember.</p></div>
+              </li><li
+                class="smooch-timeline__step"
+                
+                  data-smooch-stage
+                  data-stage-index="1"
+                
+                data-shopify-editor-block data-block-id="step-2"
+              ><p class="smooch-timeline__period smooch-num">Week 2</p><div class="smooch-timeline__marker" aria-hidden="true"><span class="smooch-timeline__badge smooch-timeline__badge--dot"></span></div>
+
+                <div class="smooch-timeline__body"><h3 class="smooch-h3 smooch-timeline__heading">Settle into consistency</h3><p class="smooch-body smooch-timeline__text">Keep the daily rhythm going and pay attention to your overall baseline rather than looking for an instant switch.</p></div>
+              </li><li
+                class="smooch-timeline__step"
+                
+                  data-smooch-stage
+                  data-stage-index="2"
+                
+                data-shopify-editor-block data-block-id="step-3"
+              ><p class="smooch-timeline__period smooch-num">Week 3</p><div class="smooch-timeline__marker" aria-hidden="true"><span class="smooch-timeline__badge smooch-timeline__badge--dot"></span></div>
+
+                <div class="smooch-timeline__body"><h3 class="smooch-h3 smooch-timeline__heading">Notice the subtle stuff</h3><p class="smooch-body smooch-timeline__text">A useful point to check in with things like mood, presence, and openness. Experiences vary and changes may be subtle.</p></div>
+              </li><li
+                class="smooch-timeline__step"
+                
+                  data-smooch-stage
+                  data-stage-index="3"
+                
+                data-shopify-editor-block data-block-id="step-4"
+              ><p class="smooch-timeline__period smooch-num">Week 4</p><div class="smooch-timeline__marker" aria-hidden="true"><span class="smooch-timeline__badge smooch-timeline__badge--dot"></span></div>
+
+                <div class="smooch-timeline__body"><h3 class="smooch-h3 smooch-timeline__heading">Check in with yourself</h3><p class="smooch-body smooch-timeline__text">After several consistent weeks, reflect on how you feel and whether Smooch earns a place in your routine.</p></div>
+              </li></ol><div class="smooch-timeline__facts"><div class="smooch-timeline__fact" data-shopify-editor-block data-block-id="fact-1">
+                  <h3 class="smooch-timeline__fact-title">Timing</h3>
+                  <p class="smooch-timeline__fact-text">Take the recommended serving at a time you can stay consistent with. Use the final label directions as the source of truth.</p>
+                </div><div class="smooch-timeline__fact" data-shopify-editor-block data-block-id="fact-2">
+                  <h3 class="smooch-timeline__fact-title">Results</h3>
+                  <p class="smooch-timeline__fact-text">There is no guaranteed timeline. Individual experiences vary, and daily wellness support may feel gradual rather than immediate.</p>
+                </div><div class="smooch-timeline__fact" data-shopify-editor-block data-block-id="fact-3">
+                  <h3 class="smooch-timeline__fact-title">Consistency</h3>
+                  <p class="smooch-timeline__fact-text">Smooch is designed as a daily ritual, not an on-demand product. Follow the final label directions.</p>
+                </div></div><p class="smooch-fine-print smooch-timeline__disclaimer">These are rhythm milestones, not guaranteed results. Individual experiences vary.</p></div>
+    </div>
+  </div>
+</div>
+
+
+</div><div id="shopify-section-benefits" class="shopify-section section"><link rel="stylesheet" href="/smooch-storefront-preview/assets/section-smooch-mechanism.css"><style>.section-benefits-padding {
+    padding-top: 39px;
+    padding-bottom: 48px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-benefits-padding {
+      padding-top: 52px;
+      padding-bottom: 64px;
+    }
+  }</style><div class="smooch-band smooch-mechanism color-scheme-5 gradient">
+  <div class="page-width section-benefits-padding"><div class="smooch-section-head"><p class="smooch-eyebrow smooch-eyebrow--accent">The Smooch three</p><h2 class="smooch-h2">Made to support more than one part of you</h2></div><div class="smooch-mechanism__diagram smooch-mechanism__diagram--count-3">
+      <div class="smooch-mechanism__product">
+        <div class="smooch-mechanism__disc"><img
+              src="/smooch-storefront-preview/assets/smooch-demo-bottle-open.png"
+              width="1086"
+              height="1448"
+              loading="lazy"
+              class="smooch-mechanism__product-img"
+              alt="Smooch gummies bottle"
+            ></div><p class="smooch-caption smooch-mechanism__product-caption">One daily gummy</p></div><svg
+          class="smooch-mechanism__lead"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M100 0 C 100 60, 0 42, 0 100" vector-effect="non-scaling-stroke"/>
+        </svg><div
+          class="smooch-mechanism__pillar smooch-mechanism__pillar--left"
+          data-shopify-editor-block data-block-id="pillar-1"
+        ><svg class="smooch-mechanism__connector smooch-mechanism__connector--left" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path d="M0 30 C 33 10, 67 10, 100 30" vector-effect="non-scaling-stroke"/>
+              </svg><span class="smooch-mechanism__pillar-icon">
+            
+<span class="smooch-icon smooch-icon--lg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3v4.5M12 16.5V21M3 12h4.5M16.5 12H21M6.2 6.2l2.6 2.6M15.2 15.2l2.6 2.6M6.2 17.8l2.6-2.6M15.2 8.8l2.6-2.6"/></svg></span>
+
+          </span><h3 class="smooch-h3 smooch-mechanism__pillar-title">Mood</h3><p class="smooch-mechanism__pillar-text">Support for a calmer, more settled everyday baseline.</p></div><div
+          class="smooch-mechanism__pillar smooch-mechanism__pillar--right"
+          data-shopify-editor-block data-block-id="pillar-2"
+        ><svg class="smooch-mechanism__connector smooch-mechanism__connector--right" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path d="M0 30 C 33 10, 67 10, 100 30" vector-effect="non-scaling-stroke"/>
+              </svg><span class="smooch-mechanism__pillar-icon">
+            
+<span class="smooch-icon smooch-icon--lg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 20.4S3.5 15.4 3.5 9.3c0-2.9 2.2-5 4.9-5 1.5 0 2.8.7 3.6 1.9.8-1.2 2.1-1.9 3.6-1.9 2.7 0 4.9 2.1 4.9 5 0 6.1-8.5 11.1-8.5 11.1z"/></svg></span>
+
+          </span><h3 class="smooch-h3 smooch-mechanism__pillar-title">Desire</h3><p class="smooch-mechanism__pillar-text">Daily support for desire and openness — gently, over time.</p></div><div
+          class="smooch-mechanism__pillar smooch-mechanism__pillar--belowa"
+          data-shopify-editor-block data-block-id="pillar-3"
+        ><svg class="smooch-mechanism__connector smooch-mechanism__connector--up" viewBox="0 0 10 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path d="M5 0 L5 100" vector-effect="non-scaling-stroke"/>
+              </svg><span class="smooch-mechanism__pillar-icon">
+            
+<span class="smooch-icon smooch-icon--lg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3s6.5 7 6.5 11.5a6.5 6.5 0 1 1-13 0C5.5 10 12 3 12 3z"/></svg></span>
+
+          </span><h3 class="smooch-h3 smooch-mechanism__pillar-title">Connection</h3><p class="smooch-mechanism__pillar-text">Support for feeling more present and connected, starting with yourself.</p></div></div></div>
+</div>
+
+
+</div><div id="shopify-section-review_carousel" class="shopify-section section"><link rel="stylesheet" href="/smooch-storefront-preview/assets/smooch-review-carousel.css">
+<script src="/smooch-storefront-preview/assets/smooch-review-carousel.js" defer="defer"></script><style>#shopify-section-review_carousel {
+    --smooch-rc-bg: rgb(var(--smooch-cream-rgb));
+    --smooch-rc-text: rgb(var(--smooch-ink-rgb));
+    --smooch-rc-accent: rgb(196, 42, 80);
+    --smooch-rc-gap: 24px;
+  }</style><section class="smooch-rc" data-smooch-carousel>
+  <div class="page-width">
+    <div class="smooch-rc__intro">
+      <div class="smooch-rc__stats" data-smooch-fade-up><div class="smooch-rc__stat">
+            <p class="smooch-rc__stat-num">5.0</p>
+            <p class="smooch-rc__stat-label">Stars</p>
+          </div><div class="smooch-rc__stat">
+            <p class="smooch-rc__stat-num">12</p>
+            <p class="smooch-rc__stat-label">Sample Reviews</p>
+          </div><span class="smooch-badge smooch-badge--ink smooch-rc__sample-badge">Sample</span></div>
+
+      <div class="smooch-rc__head-row"><h2 class="smooch-h2 smooch-rc__heading" data-smooch-fade-up>The reviews are in.</h2><div class="smooch-rc__arrows" data-smooch-fade-up>
+            <button type="button" class="smooch-rc__arrow" data-smooch-prev aria-label="Previous reviews">
+              
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></span>
+
+            </button>
+            <button type="button" class="smooch-rc__arrow" data-smooch-next aria-label="Next reviews">
+              
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span>
+
+            </button>
+          </div></div>
+    </div><div class="smooch-rc__track" data-smooch-track tabindex="0" role="region" aria-label="Customer reviews carousel"><article class="smooch-rc__card smooch-rc__card--long" data-shopify-editor-block data-block-id="r1">
+                <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span><p class="smooch-rc__card-title">I finally feel like me again.</p><p class="smooch-rc__card-text">I started adding Smooch to my daily routine mostly because I wanted something simple I could actually stay consistent with. The biggest thing I've noticed is that I just feel more like myself lately — more present, more in the mood, and less like I'm running on empty all the time.</p>
+                <footer class="smooch-rc__card-footer">
+                  <p class="smooch-rc__card-author">
+                    Maya T.
+                    <span class="smooch-rc__card-status">Sample Reviewer</span>
+                  </p><p class="smooch-rc__card-product">
+                      Review for: Women's Libido & Mood Gummies — Dev Fixture<a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa" class="smooch-rc__card-link">Shop Smooch →</a></p></footer>
+              </article><article class="smooch-rc__card smooch-rc__card--short" data-shopify-editor-block data-block-id="r2">
+                <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span><p class="smooch-rc__quote">My favorite part of my evening routine.</p><p class="smooch-rc__card-text">I keep the bottle right on my nightstand so I don't forget.</p>
+                <footer class="smooch-rc__card-footer">
+                  <p class="smooch-rc__card-author">
+                    Alyssa R.
+                    <span class="smooch-rc__card-status">Sample Reviewer</span>
+                  </p>
+                </footer>
+              </article><article class="smooch-rc__card smooch-rc__card--long" data-shopify-editor-block data-block-id="r3">
+                <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span><p class="smooch-rc__card-title">I didn't realize how disconnected I'd been feeling.</p><p class="smooch-rc__card-text">Between work, stress, and everything else, intimacy had slowly moved to the bottom of my list. I wanted something that felt easy instead of adding another complicated wellness routine. Smooch has become one of those little daily things I genuinely look forward to.</p>
+                <footer class="smooch-rc__card-footer">
+                  <p class="smooch-rc__card-author">
+                    Rachel M.
+                    <span class="smooch-rc__card-status">Sample Reviewer</span>
+                  </p><p class="smooch-rc__card-product">
+                      Review for: Women's Libido & Mood Gummies — Dev Fixture<a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa" class="smooch-rc__card-link">Shop Smooch →</a></p></footer>
+              </article><article class="smooch-rc__card smooch-rc__card--visual" data-shopify-editor-block data-block-id="r4">
+                <div class="smooch-rc__visual-media"><span class="smooch-rc__visual-placeholder">
+                      <span class="smooch-rc__visual-word">smooch</span>
+                    </span></div>
+                <div class="smooch-rc__visual-body"><p class="smooch-rc__quote">Self-care, but make it easy.</p><p class="smooch-rc__card-text">Two gummies and I'm done. No powders, no complicated routine.</p>
+                  <p class="smooch-rc__card-author">
+                    Chloe D.
+                    <span class="smooch-rc__card-status">Sample Reviewer</span>
+                  </p>
+                </div>
+              </article><article class="smooch-rc__card smooch-rc__card--long" data-shopify-editor-block data-block-id="r5">
+                <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span><p class="smooch-rc__card-title">Didn't expect to care about the mood side this much.</p><p class="smooch-rc__card-text">I originally found Smooch because of the libido angle, but what made it stick for me was the whole mood-and-connection positioning. It feels less like taking a 'sex supplement' and more like something that belongs in my regular wellness routine.</p>
+                <footer class="smooch-rc__card-footer">
+                  <p class="smooch-rc__card-author">
+                    Jenna P.
+                    <span class="smooch-rc__card-status">Sample Reviewer</span>
+                  </p><p class="smooch-rc__card-product">
+                      Review for: Women's Libido & Mood Gummies — Dev Fixture<a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa" class="smooch-rc__card-link">Shop Smooch →</a></p></footer>
+              </article><article class="smooch-rc__card smooch-rc__card--short" data-shopify-editor-block data-block-id="r6">
+                <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span><p class="smooch-rc__quote">Finally, women's wellness that doesn't feel clinical.</p><p class="smooch-rc__card-text">The branding got me. The routine kept me.</p>
+                <footer class="smooch-rc__card-footer">
+                  <p class="smooch-rc__card-author">
+                    Sofia L.
+                    <span class="smooch-rc__card-status">Sample Reviewer</span>
+                  </p>
+                </footer>
+              </article><article class="smooch-rc__card smooch-rc__card--long" data-shopify-editor-block data-block-id="r7">
+                <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span><p class="smooch-rc__card-title">The consistency is what surprised me.</p><p class="smooch-rc__card-text">I've bought plenty of supplements that ended up forgotten in a cabinet. These are easy enough that they've actually become part of my routine, which was the whole battle for me.</p>
+                <footer class="smooch-rc__card-footer">
+                  <p class="smooch-rc__card-author">
+                    Lauren K.
+                    <span class="smooch-rc__card-status">Sample Reviewer</span>
+                  </p><p class="smooch-rc__card-product">
+                      Review for: Women's Libido & Mood Gummies — Dev Fixture<a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa" class="smooch-rc__card-link">Shop Smooch →</a></p></footer>
+              </article><article class="smooch-rc__card smooch-rc__card--short" data-shopify-editor-block data-block-id="r8">
+                <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span><p class="smooch-rc__quote">Way easier than another capsule.</p><p class="smooch-rc__card-text">I already take enough pills. Gummies were an immediate yes.</p>
+                <footer class="smooch-rc__card-footer">
+                  <p class="smooch-rc__card-author">
+                    Natalie S.
+                    <span class="smooch-rc__card-status">Sample Reviewer</span>
+                  </p>
+                </footer>
+              </article><article class="smooch-rc__card smooch-rc__card--visual" data-shopify-editor-block data-block-id="r9">
+                <div class="smooch-rc__visual-media"><span class="smooch-rc__visual-placeholder">
+                      <span class="smooch-rc__visual-word">smooch</span>
+                    </span></div>
+                <div class="smooch-rc__visual-body"><p class="smooch-rc__quote">She's staying on the nightstand.</p><p class="smooch-rc__card-text">Pretty packaging, easy habit, and something that's actually for us.</p>
+                  <p class="smooch-rc__card-author">
+                    Camille B.
+                    <span class="smooch-rc__card-status">Sample Reviewer</span>
+                  </p>
+                </div>
+              </article><article class="smooch-rc__card smooch-rc__card--long" data-shopify-editor-block data-block-id="r10">
+                <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span><p class="smooch-rc__card-title">I wanted my spark back.</p><p class="smooch-rc__card-text">I don't think there was one dramatic moment. It was more that I started noticing I felt more intentional about that part of myself again. That's exactly what I wanted from adding something like this to my routine.</p>
+                <footer class="smooch-rc__card-footer">
+                  <p class="smooch-rc__card-author">
+                    Erin C.
+                    <span class="smooch-rc__card-status">Sample Reviewer</span>
+                  </p><p class="smooch-rc__card-product">
+                      Review for: Women's Libido & Mood Gummies — Dev Fixture<a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa" class="smooch-rc__card-link">Shop Smooch →</a></p></footer>
+              </article><article class="smooch-rc__card smooch-rc__card--short" data-shopify-editor-block data-block-id="r11">
+                <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span><p class="smooch-rc__quote">These actually taste like a treat.</p><p class="smooch-rc__card-text">Which makes remembering them very easy.</p>
+                <footer class="smooch-rc__card-footer">
+                  <p class="smooch-rc__card-author">
+                    Katie N.
+                    <span class="smooch-rc__card-status">Sample Reviewer</span>
+                  </p>
+                </footer>
+              </article><article class="smooch-rc__card smooch-rc__card--long" data-shopify-editor-block data-block-id="r12">
+                <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span><p class="smooch-rc__card-title">Made for women who have a lot going on.</p><p class="smooch-rc__card-text">I have a career, a relationship, a million things on my brain, and usually wellness products feel like one more task. Smooch doesn't. That's probably my favorite thing about it.</p>
+                <footer class="smooch-rc__card-footer">
+                  <p class="smooch-rc__card-author">
+                    Nicole A.
+                    <span class="smooch-rc__card-status">Sample Reviewer</span>
+                  </p><p class="smooch-rc__card-product">
+                      Review for: Women's Libido & Mood Gummies — Dev Fixture<a href="/smooch-storefront-preview/products/smooch-daily-gummies-qa" class="smooch-rc__card-link">Shop Smooch →</a></p></footer>
+              </article></div></div>
+</section>
+
+
+</div><div id="shopify-section-formula" class="shopify-section section"><link rel="stylesheet" href="/smooch-storefront-preview/assets/section-smooch-formula.css"><style>.section-formula-padding {
+    padding-top: 39px;
+    padding-bottom: 48px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-formula-padding {
+      padding-top: 52px;
+      padding-bottom: 64px;
+    }
+  }</style><div class="smooch-band color-scheme-5 gradient">
+  <div class="page-width section-formula-padding">
+    <div class="smooch-formula__intro">
+      <div class="smooch-section-head"><p class="smooch-eyebrow smooch-eyebrow--accent">What&#39;s inside</p><h2 class="smooch-display">Four ingredients. One easy ritual.</h2><p class="smooch-lead smooch-measure-narrow">Every ingredient earns its place. No proprietary-blend hide-and-seek.</p></div></div><smooch-details-group class="smooch-formula__group">
+        <ul class="smooch-scroller smooch-scroller--desktop-grid smooch-formula__list" role="list"><li class="smooch-formula__item" data-shopify-editor-block data-block-id="ingredient-1">
+              <div class="smooch-formula__meta">
+                <span class="smooch-formula__index smooch-num" aria-hidden="true">01</span><span class="smooch-badge smooch-badge--outline">Desire</span></div>
+
+              <div class="smooch-formula__title">
+                <h3 class="smooch-h3 smooch-formula__name">Black Maca</h3></div>
+
+              <div class="smooch-formula__body">
+                <div class="smooch-media smooch-media--square smooch-formula__media smooch-formula__media--empty">
+<span class="smooch-icon smooch-icon--xl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 4C10 4 4.5 9.5 4.5 19.5 14.5 19.5 20 14 20 4z"/><path d="M4.5 19.5C8 14 12 10.5 17 7.5"/></svg></span>
+</div>
+
+                <div class="smooch-formula__copy"><p class="smooch-formula__purpose">A Peruvian root traditionally used to support desire and energy. Experiences vary.</p><div class="smooch-accordion smooch-formula__accordion">
+                      <details id="Details-ingredient-1-formula">
+                        <summary aria-controls="SmoochFormulaDetail-ingredient-1">
+                          <span class="smooch-accordion__label">Why it’s in the formula</span>
+                          
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                        </summary>
+                        <div class="smooch-accordion__content" id="SmoochFormulaDetail-ingredient-1">
+                          <p>A Peruvian root with a long history in traditional wellness practices. Final label details — form, amount, and sourcing — will appear here.</p>
+                        </div>
+                      </details>
+                    </div><p class="smooch-fine-print smooch-formula__source">Amounts shown once final label values are approved.</p></div>
+              </div>
+            </li><li class="smooch-formula__item" data-shopify-editor-block data-block-id="ingredient-2">
+              <div class="smooch-formula__meta">
+                <span class="smooch-formula__index smooch-num" aria-hidden="true">02</span><span class="smooch-badge smooch-badge--outline">Mood</span></div>
+
+              <div class="smooch-formula__title">
+                <h3 class="smooch-h3 smooch-formula__name">KSM-66 Ashwagandha</h3></div>
+
+              <div class="smooch-formula__body">
+                <div class="smooch-media smooch-media--square smooch-formula__media smooch-formula__media--empty">
+<span class="smooch-icon smooch-icon--xl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 4C10 4 4.5 9.5 4.5 19.5 14.5 19.5 20 14 20 4z"/><path d="M4.5 19.5C8 14 12 10.5 17 7.5"/></svg></span>
+</div>
+
+                <div class="smooch-formula__copy"><p class="smooch-formula__purpose">A root extract traditionally used to support a calmer everyday baseline. Experiences vary.</p><div class="smooch-accordion smooch-formula__accordion">
+                      <details id="Details-ingredient-2-formula">
+                        <summary aria-controls="SmoochFormulaDetail-ingredient-2">
+                          <span class="smooch-accordion__label">Why it’s in the formula</span>
+                          
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                        </summary>
+                        <div class="smooch-accordion__content" id="SmoochFormulaDetail-ingredient-2">
+                          <p>An adaptogenic root with a long history in Ayurvedic practice, included in the KSM-66 extract form. Final label details will appear here.</p>
+                        </div>
+                      </details>
+                    </div><p class="smooch-fine-print smooch-formula__source">Amounts shown once final label values are approved.</p></div>
+              </div>
+            </li><li class="smooch-formula__item" data-shopify-editor-block data-block-id="ingredient-3">
+              <div class="smooch-formula__meta">
+                <span class="smooch-formula__index smooch-num" aria-hidden="true">03</span><span class="smooch-badge smooch-badge--outline">Connection</span></div>
+
+              <div class="smooch-formula__title">
+                <h3 class="smooch-h3 smooch-formula__name">Damiana</h3></div>
+
+              <div class="smooch-formula__body">
+                <div class="smooch-media smooch-media--square smooch-formula__media smooch-formula__media--empty">
+<span class="smooch-icon smooch-icon--xl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 4C10 4 4.5 9.5 4.5 19.5 14.5 19.5 20 14 20 4z"/><path d="M4.5 19.5C8 14 12 10.5 17 7.5"/></svg></span>
+</div>
+
+                <div class="smooch-formula__copy"><p class="smooch-formula__purpose">A botanical leaf traditionally used to support relaxation and mood. Experiences vary.</p><div class="smooch-accordion smooch-formula__accordion">
+                      <details id="Details-ingredient-3-formula">
+                        <summary aria-controls="SmoochFormulaDetail-ingredient-3">
+                          <span class="smooch-accordion__label">Why it’s in the formula</span>
+                          
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                        </summary>
+                        <div class="smooch-accordion__content" id="SmoochFormulaDetail-ingredient-3">
+                          <p>A botanical leaf with a long history in traditional wellness practices. Final label details will appear here.</p>
+                        </div>
+                      </details>
+                    </div><p class="smooch-fine-print smooch-formula__source">Amounts shown once final label values are approved.</p></div>
+              </div>
+            </li><li class="smooch-formula__item" data-shopify-editor-block data-block-id="ingredient-4">
+              <div class="smooch-formula__meta">
+                <span class="smooch-formula__index smooch-num" aria-hidden="true">04</span><span class="smooch-badge smooch-badge--outline">Foundation</span></div>
+
+              <div class="smooch-formula__title">
+                <h3 class="smooch-h3 smooch-formula__name">Cinnamon Bark</h3></div>
+
+              <div class="smooch-formula__body">
+                <div class="smooch-media smooch-media--square smooch-formula__media smooch-formula__media--empty">
+<span class="smooch-icon smooch-icon--xl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 4C10 4 4.5 9.5 4.5 19.5 14.5 19.5 20 14 20 4z"/><path d="M4.5 19.5C8 14 12 10.5 17 7.5"/></svg></span>
+</div>
+
+                <div class="smooch-formula__copy"><p class="smooch-formula__purpose">Rounds out the blend with warmth — and a long history in traditional practices.</p><div class="smooch-accordion smooch-formula__accordion">
+                      <details id="Details-ingredient-4-formula">
+                        <summary aria-controls="SmoochFormulaDetail-ingredient-4">
+                          <span class="smooch-accordion__label">Why it’s in the formula</span>
+                          
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                        </summary>
+                        <div class="smooch-accordion__content" id="SmoochFormulaDetail-ingredient-4">
+                          <p>A warming bark that finishes the formula and the flavor. Final label details will appear here.</p>
+                        </div>
+                      </details>
+                    </div><p class="smooch-fine-print smooch-formula__source">Amounts shown once final label values are approved.</p></div>
+              </div>
+            </li></ul>
+      </smooch-details-group></div>
+</div>
+
+
+</div><div id="shopify-section-faq" class="shopify-section section"><link rel="stylesheet" href="/smooch-storefront-preview/assets/section-smooch-faq.css"><style>.section-faq-padding {
+    padding-top: 39px;
+    padding-bottom: 48px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-faq-padding {
+      padding-top: 52px;
+      padding-bottom: 64px;
+    }
+  }</style><div class="smooch-band color-scheme-1 gradient">
+  <div class="page-width section-faq-padding">
+    <div class="smooch-faq">
+      <header class="smooch-section-head smooch-faq__head"><p class="smooch-eyebrow smooch-eyebrow--accent">Good questions</p><h2 class="smooch-h2">Everything you're wondering</h2>
+      </header><smooch-details-group class="smooch-accordion smooch-faq__list"><details id="Details-question-1-faq" data-shopify-editor-block data-block-id="question-1">
+                <summary aria-controls="Accordion-question-1-faq">
+                  <span class="smooch-accordion__label smooch-faq__question">
+                    <span class="smooch-faq__num smooch-num" aria-hidden="true">01</span>
+                    <span>What is Smooch?</span>
+                  </span>
+                  
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                </summary>
+                <div class="smooch-accordion__content" id="Accordion-question-1-faq">
+                  <p>A daily gummy formulated to support mood, desire, and feeling connected — designed as one small, consistent ritual rather than an on-demand product.</p>
+                </div>
+              </details><details id="Details-question-2-faq" data-shopify-editor-block data-block-id="question-2">
+                <summary aria-controls="Accordion-question-2-faq">
+                  <span class="smooch-accordion__label smooch-faq__question">
+                    <span class="smooch-faq__num smooch-num" aria-hidden="true">02</span>
+                    <span>How do I take it?</span>
+                  </span>
+                  
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                </summary>
+                <div class="smooch-accordion__content" id="Accordion-question-2-faq">
+                  <p>One gummy, once a day, with or without food. The final label directions are the source of truth.</p>
+                </div>
+              </details><details id="Details-question-3-faq" data-shopify-editor-block data-block-id="question-3">
+                <summary aria-controls="Accordion-question-3-faq">
+                  <span class="smooch-accordion__label smooch-faq__question">
+                    <span class="smooch-faq__num smooch-num" aria-hidden="true">03</span>
+                    <span>When should I take it?</span>
+                  </span>
+                  
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                </summary>
+                <div class="smooch-accordion__content" id="Accordion-question-3-faq">
+                  <p>Any time you can stay consistent with — morning coffee, evening wind-down, whatever you’ll actually keep.</p>
+                </div>
+              </details><details id="Details-question-4-faq" data-shopify-editor-block data-block-id="question-4">
+                <summary aria-controls="Accordion-question-4-faq">
+                  <span class="smooch-accordion__label smooch-faq__question">
+                    <span class="smooch-faq__num smooch-num" aria-hidden="true">04</span>
+                    <span>How long should I use it?</span>
+                  </span>
+                  
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                </summary>
+                <div class="smooch-accordion__content" id="Accordion-question-4-faq">
+                  <p>Give it several consistent weeks, then check in with yourself. Daily support tends to feel gradual, and experiences vary.</p>
+                </div>
+              </details><details id="Details-question-5-faq" data-shopify-editor-block data-block-id="question-5">
+                <summary aria-controls="Accordion-question-5-faq">
+                  <span class="smooch-accordion__label smooch-faq__question">
+                    <span class="smooch-faq__num smooch-num" aria-hidden="true">05</span>
+                    <span>What's inside?</span>
+                  </span>
+                  
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                </summary>
+                <div class="smooch-accordion__content" id="Accordion-question-5-faq">
+                  <p>KSM-66 Ashwagandha, Black Maca, Damiana, and Cinnamon Bark. The full ingredient list always appears on the label — no hidden blends.</p>
+                </div>
+              </details><details id="Details-question-6-faq" data-shopify-editor-block data-block-id="question-6">
+                <summary aria-controls="Accordion-question-6-faq">
+                  <span class="smooch-accordion__label smooch-faq__question">
+                    <span class="smooch-faq__num smooch-num" aria-hidden="true">06</span>
+                    <span>Can I take it with medication?</span>
+                  </span>
+                  
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                </summary>
+                <div class="smooch-accordion__content" id="Accordion-question-6-faq">
+                  <p>Talk with a qualified healthcare professional before use if you take any medication, are pregnant or breastfeeding, or have a medical condition.</p>
+                </div>
+              </details><details id="Details-question-7-faq" data-shopify-editor-block data-block-id="question-7">
+                <summary aria-controls="Accordion-question-7-faq">
+                  <span class="smooch-accordion__label smooch-faq__question">
+                    <span class="smooch-faq__num smooch-num" aria-hidden="true">07</span>
+                    <span>How does the subscription work?</span>
+                  </span>
+                  
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                </summary>
+                <div class="smooch-accordion__content" id="Accordion-question-7-faq">
+                  <p>Choose a delivery schedule at checkout and your order arrives automatically, with any subscription savings applied to each delivery. You stay in control and can manage or cancel at any time.</p>
+                </div>
+              </details><details id="Details-question-8-faq" data-shopify-editor-block data-block-id="question-8">
+                <summary aria-controls="Accordion-question-8-faq">
+                  <span class="smooch-accordion__label smooch-faq__question">
+                    <span class="smooch-faq__num smooch-num" aria-hidden="true">08</span>
+                    <span>What is the return policy?</span>
+                  </span>
+                  
+<span class="smooch-icon smooch-icon--toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>
+
+                </summary>
+                <div class="smooch-accordion__content" id="Accordion-question-8-faq">
+                  <p>Returns and refunds are handled under our refund policy — you’ll find the full details linked in the footer, and our support team is happy to help.</p>
+                </div>
+              </details></smooch-details-group><footer class="smooch-faq__closing"><p class="smooch-h3 smooch-faq__closing-text">Still curious?</p><a class="smooch-btn smooch-btn--ghost" href="/smooch-storefront-preview/pages/contact">
+              Talk to us
+              
+<span class="smooch-icon smooch-icon--sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span>
+
+            </a></footer></div>
+  </div>
+</div><script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+              "@type": "Question",
+              "name": "What is Smooch?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A daily gummy formulated to support mood, desire, and feeling connected — designed as one small, consistent ritual rather than an on-demand product."
+              }
+            },{
+              "@type": "Question",
+              "name": "How do I take it?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "One gummy, once a day, with or without food. The final label directions are the source of truth."
+              }
+            },{
+              "@type": "Question",
+              "name": "When should I take it?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Any time you can stay consistent with — morning coffee, evening wind-down, whatever you’ll actually keep."
+              }
+            },{
+              "@type": "Question",
+              "name": "How long should I use it?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Give it several consistent weeks, then check in with yourself. Daily support tends to feel gradual, and experiences vary."
+              }
+            },{
+              "@type": "Question",
+              "name": "What's inside?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "KSM-66 Ashwagandha, Black Maca, Damiana, and Cinnamon Bark. The full ingredient list always appears on the label — no hidden blends."
+              }
+            },{
+              "@type": "Question",
+              "name": "Can I take it with medication?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Talk with a qualified healthcare professional before use if you take any medication, are pregnant or breastfeeding, or have a medical condition."
+              }
+            },{
+              "@type": "Question",
+              "name": "How does the subscription work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Choose a delivery schedule at checkout and your order arrives automatically, with any subscription savings applied to each delivery. You stay in control and can manage or cancel at any time."
+              }
+            },{
+              "@type": "Question",
+              "name": "What is the return policy?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Returns and refunds are handled under our refund policy — you’ll find the full details linked in the footer, and our support team is happy to help."
+              }
+            }]
+    }
+  </script>
+</div><div id="shopify-section-reviews_full" class="shopify-section section"><link rel="stylesheet" href="/smooch-storefront-preview/assets/smooch-reviews-full.css">
+<script src="/smooch-storefront-preview/assets/smooch-reviews-full.js" defer="defer"></script><style>#shopify-section-reviews_full {
+    --smooch-rf-bg: rgb(var(--color-background));
+    --smooch-rf-accent: rgb(196, 42, 80);
+  }</style><section id="smooch-reviews" class="smooch-rf">
+    <div class="page-width">
+      <header class="smooch-rf__head"><h2 class="smooch-h2">Customer Reviews</h2><span class="smooch-badge smooch-badge--ink smooch-rf__sample-badge">Sample</span></header>
+
+      <div class="smooch-rf__summary">
+        <div class="smooch-rf__summary-left">
+          <p class="smooch-rf__avg">5.0</p>
+          <span class="smooch-stars smooch-stars--lg" role="img" aria-label="5.0 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+          <p class="smooch-rf__summary-caption">
+            Based on 12 sample reviews
+          </p>
+        </div><div class="smooch-rf__distribution"><div class="smooch-rf__dist-row">
+                <span class="smooch-rf__dist-label">5</span>
+                <span class="smooch-rf__dist-rail">
+                  <span class="smooch-rf__dist-fill" style="width: 100%;"></span>
+                </span>
+                <span class="smooch-rf__dist-count">12</span>
+              </div><div class="smooch-rf__dist-row">
+                <span class="smooch-rf__dist-label">4</span>
+                <span class="smooch-rf__dist-rail">
+                  <span class="smooch-rf__dist-fill" style="width: 0%;"></span>
+                </span>
+                <span class="smooch-rf__dist-count">0</span>
+              </div><div class="smooch-rf__dist-row">
+                <span class="smooch-rf__dist-label">3</span>
+                <span class="smooch-rf__dist-rail">
+                  <span class="smooch-rf__dist-fill" style="width: 0%;"></span>
+                </span>
+                <span class="smooch-rf__dist-count">0</span>
+              </div><div class="smooch-rf__dist-row">
+                <span class="smooch-rf__dist-label">2</span>
+                <span class="smooch-rf__dist-rail">
+                  <span class="smooch-rf__dist-fill" style="width: 0%;"></span>
+                </span>
+                <span class="smooch-rf__dist-count">0</span>
+              </div><div class="smooch-rf__dist-row">
+                <span class="smooch-rf__dist-label">1</span>
+                <span class="smooch-rf__dist-rail">
+                  <span class="smooch-rf__dist-fill" style="width: 0%;"></span>
+                </span>
+                <span class="smooch-rf__dist-count">0</span>
+              </div></div></div>
+
+      <div class="smooch-rf__toolbar">
+        <p class="smooch-rf__count">12 Reviews</p><label class="smooch-rf__sort">
+            <span class="visually-hidden">Sort reviews</span>
+            Sort by
+            <select data-smooch-sort>
+              <option value="recent">Most Recent</option>
+              <option value="highest">Highest Rating</option>
+              <option value="lowest">Lowest Rating</option>
+            </select>
+          </label></div>
+
+      <ul class="smooch-rf__list" data-smooch-review-list role="list" data-initial="6" data-batch="6"><li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="5"
+            data-order="0"
+            data-shopify-editor-block data-block-id="r1"
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+              <p class="smooch-rf__row-author">Maya T.</p>
+              <p class="smooch-rf__row-status">
+                Sample Reviewer<span class="smooch-rf__row-demo">· Demo review</span></p>
+            </div>
+            <div class="smooch-rf__row-main"><p class="smooch-rf__row-title">I finally feel like me again.</p><p class="smooch-rf__row-text">I started adding Smooch to my daily routine mostly because I wanted something simple I could actually stay consistent with. The biggest thing I've noticed is that I just feel more like myself lately — more present, more in the mood, and less like I'm running on empty all the time.</p><p class="smooch-rf__row-product">Review for: Women's Libido & Mood Gummies — Dev Fixture</p></div>
+          </li><li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="5"
+            data-order="1"
+            data-shopify-editor-block data-block-id="r2"
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+              <p class="smooch-rf__row-author">Alyssa R.</p>
+              <p class="smooch-rf__row-status">
+                Sample Reviewer<span class="smooch-rf__row-demo">· Demo review</span></p>
+            </div>
+            <div class="smooch-rf__row-main"><p class="smooch-rf__row-title">My favorite part of my evening routine.</p><p class="smooch-rf__row-text">I keep the bottle right on my nightstand so I don't forget.</p><p class="smooch-rf__row-product">Review for: Women's Libido & Mood Gummies — Dev Fixture</p></div>
+          </li><li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="5"
+            data-order="2"
+            data-shopify-editor-block data-block-id="r3"
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+              <p class="smooch-rf__row-author">Rachel M.</p>
+              <p class="smooch-rf__row-status">
+                Sample Reviewer<span class="smooch-rf__row-demo">· Demo review</span></p>
+            </div>
+            <div class="smooch-rf__row-main"><p class="smooch-rf__row-title">I didn't realize how disconnected I'd been feeling.</p><p class="smooch-rf__row-text">Between work, stress, and everything else, intimacy had slowly moved to the bottom of my list. I wanted something that felt easy instead of adding another complicated wellness routine. Smooch has become one of those little daily things I genuinely look forward to.</p><p class="smooch-rf__row-product">Review for: Women's Libido & Mood Gummies — Dev Fixture</p></div>
+          </li><li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="5"
+            data-order="3"
+            data-shopify-editor-block data-block-id="r4"
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+              <p class="smooch-rf__row-author">Chloe D.</p>
+              <p class="smooch-rf__row-status">
+                Sample Reviewer<span class="smooch-rf__row-demo">· Demo review</span></p>
+            </div>
+            <div class="smooch-rf__row-main"><p class="smooch-rf__row-title">Self-care, but make it easy.</p><p class="smooch-rf__row-text">Two gummies and I'm done. No powders, no complicated routine.</p><p class="smooch-rf__row-product">Review for: Women's Libido & Mood Gummies — Dev Fixture</p></div>
+          </li><li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="5"
+            data-order="4"
+            data-shopify-editor-block data-block-id="r5"
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+              <p class="smooch-rf__row-author">Jenna P.</p>
+              <p class="smooch-rf__row-status">
+                Sample Reviewer<span class="smooch-rf__row-demo">· Demo review</span></p>
+            </div>
+            <div class="smooch-rf__row-main"><p class="smooch-rf__row-title">Didn't expect to care about the mood side this much.</p><p class="smooch-rf__row-text">I originally found Smooch because of the libido angle, but what made it stick for me was the whole mood-and-connection positioning. It feels less like taking a 'sex supplement' and more like something that belongs in my regular wellness routine.</p><p class="smooch-rf__row-product">Review for: Women's Libido & Mood Gummies — Dev Fixture</p></div>
+          </li><li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="5"
+            data-order="5"
+            data-shopify-editor-block data-block-id="r6"
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+              <p class="smooch-rf__row-author">Sofia L.</p>
+              <p class="smooch-rf__row-status">
+                Sample Reviewer<span class="smooch-rf__row-demo">· Demo review</span></p>
+            </div>
+            <div class="smooch-rf__row-main"><p class="smooch-rf__row-title">Finally, women's wellness that doesn't feel clinical.</p><p class="smooch-rf__row-text">The branding got me. The routine kept me.</p><p class="smooch-rf__row-product">Review for: Women's Libido & Mood Gummies — Dev Fixture</p></div>
+          </li><li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="5"
+            data-order="6"
+            data-shopify-editor-block data-block-id="r7"
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+              <p class="smooch-rf__row-author">Lauren K.</p>
+              <p class="smooch-rf__row-status">
+                Sample Reviewer<span class="smooch-rf__row-demo">· Demo review</span></p>
+            </div>
+            <div class="smooch-rf__row-main"><p class="smooch-rf__row-title">The consistency is what surprised me.</p><p class="smooch-rf__row-text">I've bought plenty of supplements that ended up forgotten in a cabinet. These are easy enough that they've actually become part of my routine, which was the whole battle for me.</p><p class="smooch-rf__row-product">Review for: Women's Libido & Mood Gummies — Dev Fixture</p></div>
+          </li><li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="5"
+            data-order="7"
+            data-shopify-editor-block data-block-id="r8"
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+              <p class="smooch-rf__row-author">Natalie S.</p>
+              <p class="smooch-rf__row-status">
+                Sample Reviewer<span class="smooch-rf__row-demo">· Demo review</span></p>
+            </div>
+            <div class="smooch-rf__row-main"><p class="smooch-rf__row-title">Way easier than another capsule.</p><p class="smooch-rf__row-text">I already take enough pills. Gummies were an immediate yes.</p><p class="smooch-rf__row-product">Review for: Women's Libido & Mood Gummies — Dev Fixture</p></div>
+          </li><li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="5"
+            data-order="8"
+            data-shopify-editor-block data-block-id="r9"
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+              <p class="smooch-rf__row-author">Camille B.</p>
+              <p class="smooch-rf__row-status">
+                Sample Reviewer<span class="smooch-rf__row-demo">· Demo review</span></p>
+            </div>
+            <div class="smooch-rf__row-main"><p class="smooch-rf__row-title">She's staying on the nightstand.</p><p class="smooch-rf__row-text">Pretty packaging, easy habit, and something that's actually for us.</p><p class="smooch-rf__row-product">Review for: Women's Libido & Mood Gummies — Dev Fixture</p></div>
+          </li><li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="5"
+            data-order="9"
+            data-shopify-editor-block data-block-id="r10"
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+              <p class="smooch-rf__row-author">Erin C.</p>
+              <p class="smooch-rf__row-status">
+                Sample Reviewer<span class="smooch-rf__row-demo">· Demo review</span></p>
+            </div>
+            <div class="smooch-rf__row-main"><p class="smooch-rf__row-title">I wanted my spark back.</p><p class="smooch-rf__row-text">I don't think there was one dramatic moment. It was more that I started noticing I felt more intentional about that part of myself again. That's exactly what I wanted from adding something like this to my routine.</p><p class="smooch-rf__row-product">Review for: Women's Libido & Mood Gummies — Dev Fixture</p></div>
+          </li><li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="5"
+            data-order="10"
+            data-shopify-editor-block data-block-id="r11"
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+              <p class="smooch-rf__row-author">Katie N.</p>
+              <p class="smooch-rf__row-status">
+                Sample Reviewer<span class="smooch-rf__row-demo">· Demo review</span></p>
+            </div>
+            <div class="smooch-rf__row-main"><p class="smooch-rf__row-title">These actually taste like a treat.</p><p class="smooch-rf__row-text">Which makes remembering them very easy.</p><p class="smooch-rf__row-product">Review for: Women's Libido & Mood Gummies — Dev Fixture</p></div>
+          </li><li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="5"
+            data-order="11"
+            data-shopify-editor-block data-block-id="r12"
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="5 out of 5 stars">
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></span>
+</span>
+              <p class="smooch-rf__row-author">Nicole A.</p>
+              <p class="smooch-rf__row-status">
+                Sample Reviewer<span class="smooch-rf__row-demo">· Demo review</span></p>
+            </div>
+            <div class="smooch-rf__row-main"><p class="smooch-rf__row-title">Made for women who have a lot going on.</p><p class="smooch-rf__row-text">I have a career, a relationship, a million things on my brain, and usually wellness products feel like one more task. Smooch doesn't. That's probably my favorite thing about it.</p><p class="smooch-rf__row-product">Review for: Women's Libido & Mood Gummies — Dev Fixture</p></div>
+          </li></ul><button type="button" class="smooch-btn smooch-btn--ghost smooch-rf__more" data-smooch-show-more>
+          Show more reviews
+        </button></div>
+  </section>
+</div>
+    </main>
+
+    <div id="shopify-section-footer" class="shopify-section section"><link rel="stylesheet" href="/smooch-storefront-preview/assets/section-smooch-footer.css">
+<link rel="stylesheet" href="/smooch-storefront-preview/assets/component-list-social.css">
+<link rel="stylesheet" href="/smooch-storefront-preview/assets/component-list-payment.css"><style>.section-footer-padding {
+    padding-top: 48px;
+    padding-bottom: 30px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-footer-padding {
+      padding-top: 64px;
+      padding-bottom: 40px;
+    }
+  }</style><footer class="smooch-footer smooch-band color-scheme-4 gradient">
+  <div class="page-width section-footer-padding">
+    <h2 class="visually-hidden">Footer</h2>
+
+    <div class="smooch-footer__top">
+      <div class="smooch-footer__brand"><a href="/smooch-storefront-preview/" class="smooch-footer__logo" style="max-width: min(100%, 143px);">
+            <img
+              src="/smooch-storefront-preview/assets/smooch-logo-white.webp"
+              width="712"
+              height="183"
+              loading="lazy"
+              class="smooch-footer__logo-image"
+              alt="Smooch"
+              style="width: 100%; height: auto;"
+            >
+          </a><p class="smooch-footer__tagline">Daily formulas for desire, mood, and connection — made for real life.</p></div><nav class="smooch-footer__menus" aria-label="Footer"><div class="smooch-footer__menu" data-shopify-editor-block data-block-id="link_list-1"><h3 class="smooch-footer__menu-heading">Explore</h3><ul class="smooch-footer__menu-list" role="list"><li>
+                      <a
+                        href="/smooch-storefront-preview/pages/contact"
+                        class="smooch-footer__menu-link"
+                      >
+                        Contact
+                      </a>
+                    </li><li>
+                      <a
+                        href="/smooch-storefront-preview/pages/faq"
+                        class="smooch-footer__menu-link"
+                      >
+                        FAQ
+                      </a>
+                    </li><li>
+                      <a
+                        href="/smooch-storefront-preview/policies/shipping-policy"
+                        class="smooch-footer__menu-link"
+                      >
+                        Shipping
+                      </a>
+                    </li><li>
+                      <a
+                        href="/smooch-storefront-preview/policies/refund-policy"
+                        class="smooch-footer__menu-link"
+                      >
+                        Returns
+                      </a>
+                    </li></ul></div></nav><div class="smooch-footer__newsletter"><h3 class="smooch-footer__news-heading">Little love notes</h3><p class="smooch-footer__news-text">Wellness notes, honest education, and subscriber-only offers. No noise.</p><form method="post" action="/smooch-storefront-preview/contact#newsletter" accept-charset="UTF-8" enctype="multipart/form-data" id="SmoochFooterNewsletter-footer" class="smooch-footer__form"><input type="hidden" name="form_type" value="customer"><input type="hidden" name="utf8" value="✓"><input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="SmoochFooterEmail-footer">Email</label>
+          <div class="smooch-footer__field">
+            <input
+              id="SmoochFooterEmail-footer"
+              type="email"
+              name="contact[email]"
+              class="smooch-footer__input"
+              value=""
+              aria-required="true"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              
+              placeholder="Email"
+              required
+            >
+            <button
+              type="submit"
+              class="smooch-footer__submit"
+              name="commit"
+              aria-label="Subscribe"
+            >
+              
+<span class="smooch-icon " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span>
+
+            </button>
+          </div></form></div>
+    </div><div class="smooch-footer__meta"><div class="smooch-footer__payment">
+            <span class="visually-hidden">Payment methods</span>
+            <ul class="list list-payment" role="list"><li class="list-payment__item">
+                  <svg class="icon icon--full-color" role="img" width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><title>visa</title><rect width="38" height="24" rx="4" fill="#FFFDF9" stroke="#C9BDB4"/><text x="19" y="16" text-anchor="middle" font-size="7" font-family="sans-serif" fill="#2B1220">visa</text></svg>
+                </li><li class="list-payment__item">
+                  <svg class="icon icon--full-color" role="img" width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><title>master</title><rect width="38" height="24" rx="4" fill="#FFFDF9" stroke="#C9BDB4"/><text x="19" y="16" text-anchor="middle" font-size="7" font-family="sans-serif" fill="#2B1220">master</text></svg>
+                </li><li class="list-payment__item">
+                  <svg class="icon icon--full-color" role="img" width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><title>american_express</title><rect width="38" height="24" rx="4" fill="#FFFDF9" stroke="#C9BDB4"/><text x="19" y="16" text-anchor="middle" font-size="7" font-family="sans-serif" fill="#2B1220">americ</text></svg>
+                </li><li class="list-payment__item">
+                  <svg class="icon icon--full-color" role="img" width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><title>paypal</title><rect width="38" height="24" rx="4" fill="#FFFDF9" stroke="#C9BDB4"/><text x="19" y="16" text-anchor="middle" font-size="7" font-family="sans-serif" fill="#2B1220">paypal</text></svg>
+                </li><li class="list-payment__item">
+                  <svg class="icon icon--full-color" role="img" width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><title>shop_pay</title><rect width="38" height="24" rx="4" fill="#FFFDF9" stroke="#C9BDB4"/><text x="19" y="16" text-anchor="middle" font-size="7" font-family="sans-serif" fill="#2B1220">shop_p</text></svg>
+                </li></ul>
+          </div></div><div class="smooch-footer__bottom">
+      <div class="smooch-footer__legal"><ul class="smooch-footer__policies" role="list"><li>
+                  <a href="/smooch-storefront-preview/policies/refund-policy" class="smooch-footer__policy-link">Refund policy</a>
+                </li><li>
+                  <a href="/smooch-storefront-preview/policies/privacy-policy" class="smooch-footer__policy-link">Privacy policy</a>
+                </li><li>
+                  <a href="/smooch-storefront-preview/policies/terms-of-service" class="smooch-footer__policy-link">Terms of service</a>
+                </li></ul><small class="smooch-footer__copyright">&copy; 2026 Smooch</small>
+      </div><div class="smooch-footer__compliance">
+          <p>These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+          <p>Results and experiences vary from person to person. If you are pregnant, breastfeeding, taking medication, or have a medical condition, talk with a qualified healthcare professional before use.</p>
+        </div></div>
+  </div>
+</footer>
+
+
+</div>
+
+    <ul hidden>
+      <li id="a11y-refresh-page-message">Choosing a selection results in a full page refresh.</li>
+      <li id="a11y-new-window-message">Opens in a new window.</li>
+    </ul>
+
+    <script>
+      window.shopUrl = 'http://127.0.0.1:9292';
+      window.routes = {
+        cart_add_url: '/cart/add',
+        cart_change_url: '/cart/change',
+        cart_update_url: '/cart/update',
+        cart_url: '/cart',
+        predictive_search_url: '/search/suggest',
+      };
+
+      window.cartStrings = {
+        error: `There was an error while updating your cart. Please try again.`,
+        quantityError: `You can only add [quantity] of this item to your cart.`,
+      };
+
+      window.variantStrings = {
+        addToCart: `Add to cart`,
+        soldOut: `Sold out`,
+        unavailable: `Unavailable`,
+        unavailable_with_option: `[value] - Unavailable`,
+      };
+
+      window.quickOrderListStrings = {
+        itemsAdded: `[quantity] items added`,
+        itemAdded: `[quantity] item added`,
+        itemsRemoved: `[quantity] items removed`,
+        itemRemoved: `[quantity] item removed`,
+        viewCart: `View cart`,
+        each: `[money]/ea`,
+        min_error: `This item has a minimum of [min]`,
+        max_error: `This item has a maximum of [max]`,
+        step_error: `You can only add this item in increments of [step]`,
+      };
+
+      window.accessibilityStrings = {
+        imageAvailable: `Image [index] is now available in gallery view`,
+        shareSuccess: `Link copied to clipboard`,
+        pauseSlideshow: `Pause slideshow`,
+        playSlideshow: `Play slideshow`,
+        recipientFormExpanded: `Gift card recipient form expanded`,
+        recipientFormCollapsed: `Gift card recipient form collapsed`,
+        countrySelectorSearchCount: `[count] countries/regions found`,
+      };
+    </script><script src="/smooch-storefront-preview/assets/predictive-search.js" defer="defer"></script><script src="/smooch-storefront-preview/assets/cart-drawer.js" defer="defer"></script><div style="position:fixed;left:8px;bottom:8px;z-index:9999;background:#2B1220;color:#FFF8F2;font:11px/1.6 monospace;padding:2px 8px;border-radius:4px;opacity:.85;pointer-events:none">OFFLINE DEV — MOCK DATA</div><div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#2B1220;color:#FFF8F2;font:12px/1.6 system-ui,sans-serif;padding:6px 12px;text-align:center">STATIC DESIGN PREVIEW — cart/checkout are non-functional here (no server). Built 2026-08-11.</div></body>
+</html>

@@ -1,0 +1,264 @@
+/* Smooch value comparison — "piecing it together vs one formula" editorial duel.
+   Loaded only by sections/smooch-value-comparison.liquid. 1rem = 10px (Dawn base). */
+
+/* ---------- Duel layout (mobile-first: stacked with a centered "vs") ---------- */
+
+.smooch-value-comparison__duel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.smooch-value-comparison__card {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Tinted "their way" card */
+.smooch-value-comparison__card--their {
+  background-color: rgba(var(--color-foreground), 0.04);
+}
+
+/* Our card: stronger border + thin berry accent rule on top */
+.smooch-value-comparison__card--brand {
+  border-color: var(--smooch-border-strong);
+  border-top: 0.2rem solid var(--smooch-berry);
+}
+
+.smooch-value-comparison__vs {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.35);
+  border-radius: 50%;
+  background-color: rgb(var(--color-background));
+  font-family: var(--font-body-family);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+/* ---------- Card internals ---------- */
+
+.smooch-value-comparison__card-title {
+  margin: 0;
+}
+
+.smooch-value-comparison__list {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.smooch-value-comparison__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 1.3rem 0;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+  font-size: 1.5rem;
+  line-height: 1.45;
+}
+
+.smooch-value-comparison__row-name {
+  min-width: 0;
+  overflow-wrap: break-word;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.smooch-value-comparison__row-price {
+  flex-shrink: 0;
+  max-width: 100%;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Editor-only ghost rows for blocks that are missing a name or price */
+.smooch-value-comparison__row--ghost {
+  opacity: 0.55;
+}
+
+.smooch-value-comparison__row--ghost .smooch-value-comparison__row-name,
+.smooch-value-comparison__row--ghost .smooch-value-comparison__row-price {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.smooch-value-comparison__total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.6rem;
+  margin: 0;
+  padding-top: 1.6rem;
+  border-top: 0.1rem solid var(--smooch-border-strong);
+}
+
+.smooch-value-comparison__total-label {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.smooch-value-comparison__total-price {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(2.4rem, 2.1rem + 0.9vw, 3.2rem);
+  line-height: 1.1;
+  text-align: right;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.smooch-value-comparison__total--ghost {
+  opacity: 0.55;
+}
+
+.smooch-value-comparison__total--ghost .smooch-value-comparison__total-price {
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* ---------- Brand card price presentation ---------- */
+
+.smooch-value-comparison__price-label {
+  margin: 2rem 0 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.smooch-value-comparison__price {
+  margin-top: 0.8rem;
+}
+
+.smooch-value-comparison__price .smooch-price-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 1.2rem;
+  row-gap: 0.6rem;
+}
+
+.smooch-value-comparison__price .smooch-price-line__current {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(3.4rem, 2.8rem + 1.8vw, 5.2rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.smooch-value-comparison__price .smooch-strike {
+  font-size: 1.8rem;
+}
+
+.smooch-value-comparison__product {
+  margin: 1rem 0 0;
+}
+
+.smooch-value-comparison__price-hint {
+  margin: 1.2rem 0 0;
+  font-style: italic;
+}
+
+.smooch-value-comparison__benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 2rem 0 0;
+  padding-top: 1.6rem;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: rgba(var(--color-foreground), 0.85);
+}
+
+.smooch-value-comparison__benefit .smooch-icon {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  color: var(--smooch-berry);
+}
+
+/* ---------- Notes + editor hint ---------- */
+
+.smooch-value-comparison__note {
+  margin: 2.4rem 0 0;
+  max-width: 64rem;
+}
+
+.smooch-value-comparison__editor-hint {
+  max-width: 68rem;
+  padding: 2rem 2.4rem;
+  border: 0.1rem dashed rgba(var(--color-foreground), 0.4);
+  border-radius: var(--smooch-radius-card);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.smooch-value-comparison__editor-hint p {
+  margin: 0;
+}
+
+/* ---------- Tablet: diagonal stagger while still stacked ---------- */
+
+@media screen and (min-width: 750px) {
+  .smooch-value-comparison__card--their {
+    max-width: 56rem;
+  }
+
+  .smooch-value-comparison__card--brand {
+    max-width: 56rem;
+    margin-left: auto;
+  }
+}
+
+/* ---------- Desktop: side-by-side offset cards with a centered seam ---------- */
+
+@media screen and (min-width: 990px) {
+  .smooch-value-comparison__duel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(2.4rem, 3vw, 4rem);
+  }
+
+  .smooch-value-comparison__card--their,
+  .smooch-value-comparison__card--brand {
+    max-width: none;
+    margin-left: 0;
+  }
+
+  /* The editorial stagger: their card sits lower, ours leads */
+  .smooch-value-comparison__card--their {
+    margin-top: 5.6rem;
+  }
+
+  .smooch-value-comparison__card--brand {
+    padding: clamp(2.8rem, 3.5vw, 4rem);
+  }
+
+  .smooch-value-comparison__vs {
+    align-self: center;
+  }
+
+  .smooch-value-comparison__note {
+    margin-left: auto;
+    text-align: right;
+  }
+}
