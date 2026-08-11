@@ -12,6 +12,7 @@
   const isDesktop = () => window.matchMedia('(min-width: 990px)').matches;
 
   sections.forEach((section) => {
+    const mode = section.dataset.mode === 'compact' ? 'compact' : 'full';
     const scene = section.querySelector('[data-smooch-scene]');
     const productScroll = section.querySelector('[data-smooch-product-scroll]');
     const stages = Array.from(section.querySelectorAll('[data-smooch-stage]'));
@@ -59,7 +60,7 @@
       revealGummies(index);
     };
 
-    if (stageCount) {
+    if (mode === 'full' && stageCount) {
       // Start with stage 0's state before anything has scrolled/intersected.
       setActiveStage(0);
 
@@ -76,10 +77,19 @@
         { rootMargin: '-45% 0px -45% 0px', threshold: 0 },
       );
       stages.forEach((stage) => stageObserver.observe(stage));
+    } else if (stageCount) {
+      // Compact: no scroll-driven progression — every stage is visible at
+      // once (CSS handles that), so just reveal all the gummies up front
+      // rather than staging them in across a scroll that doesn't happen.
+      revealGummies(stageCount - 1);
     }
 
     /* --------------------------------------- scroll reaction + parallax */
-    if (prefersReducedMotion || !productScroll) return;
+    // Compact sections don't scroll-react or parallax — the whole point is
+    // that they fit in one viewport-ish block, so there's no meaningful
+    // scroll range to interpolate across, and no reason to pay for a
+    // listener.
+    if (mode === 'compact' || prefersReducedMotion || !productScroll) return;
 
     let ticking = false;
     let sectionInView = false;

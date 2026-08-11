@@ -227,6 +227,54 @@
       ],
       "settings": {}
     },
+    "scroll_story": {
+      "type": "smooch-scroll-story",
+      "blocks": {
+        "stage-1": {
+          "type": "stage",
+          "settings": {
+            "number": "01",
+            "heading": "Make it a ritual",
+            "body": "<p>A small daily habit that's easy to look forward to.</p>",
+            "icon": "sparkle"
+          }
+        },
+        "stage-2": {
+          "type": "stage",
+          "settings": {
+            "number": "02",
+            "heading": "Mood support",
+            "body": "<p>[brand] is formulated to support a calmer, more settled everyday baseline.</p>",
+            "icon": "moon"
+          }
+        },
+        "stage-3": {
+          "type": "stage",
+          "settings": {
+            "number": "03",
+            "heading": "Support your spark",
+            "body": "<p>Daily support for desire and openness — gently, over time.</p>",
+            "icon": "heart"
+          }
+        },
+        "stage-4": {
+          "type": "stage",
+          "settings": {
+            "number": "04",
+            "heading": "Feel more connected",
+            "body": "<p>Support for feeling present, open, and connected — starting with yourself.</p>",
+            "icon": "drop"
+          }
+        }
+      },
+      "block_order": ["stage-1", "stage-2", "stage-3", "stage-4"],
+      "settings": {
+        "display_mode": "full",
+        "eyebrow": "Your daily [brand]",
+        "heading": "Feel more like yourself, one day at a time.",
+        "product_alt": "[brand] Women's Libido + Mood Gummies bottle"
+      }
+    },
     "body": {
       "type": "smooch-timeline",
       "blocks": {
@@ -474,6 +522,7 @@
   "order": [
     "hero",
     "benefit_strip",
+    "scroll_story",
     "body",
     "benefits",
     "formula",

@@ -297,6 +297,21 @@ app.get('/products/:handle', page(async (req, res) => {
     tpl.order.splice(heroIndex + 1, 0, 'reviews-preview');
   }
 
+  // DEV-ONLY visual QA: ?scroll_story_preview=1 patches the full-mode
+  // scroll-story section's image settings in memory with real bundled
+  // product photos (same idea as the homepage compact preview below).
+  // Never touches templates/product.smooch.json.
+  if (req.query.scroll_story_preview) {
+    const section = tpl.sections.scroll_story;
+    if (section) {
+      const bottle = imageDrop('/assets/smooch-demo-bottle-open.png', { alt: 'Smooch bottle', width: 1086, height: 1448 });
+      const gummy = imageDrop('/assets/smooch-demo-bottles-duo.png', { alt: '', width: 1254, height: 1254 });
+      section.settings.product_image = bottle;
+      section.settings.gummy_image_1 = gummy;
+      section.settings.gummy_image_3 = gummy;
+    }
+  }
+
   if (req.query.section_id) {
     const id = req.query.section_id;
     const entry = tpl.sections[id];

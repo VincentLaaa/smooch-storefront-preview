@@ -157,44 +157,37 @@
           "type": "stage",
           "settings": {
             "number": "01",
-            "heading": "Make it a ritual",
-            "body": "<p>A small daily habit that's easy to look forward to.</p>",
-            "icon": "sparkle"
+            "heading": "Mood",
+            "body": "<p>Daily support for feeling more balanced and like yourself.</p>",
+            "icon": "moon"
           }
         },
         "stage-2": {
           "type": "stage",
           "settings": {
             "number": "02",
-            "heading": "Mood support",
-            "body": "<p>[brand] is formulated to support a calmer, more settled everyday baseline.</p>",
-            "icon": "moon"
+            "heading": "Desire",
+            "body": "<p>Designed to support your natural spark.</p>",
+            "icon": "heart"
           }
         },
         "stage-3": {
           "type": "stage",
           "settings": {
             "number": "03",
-            "heading": "Support your spark",
-            "body": "<p>Daily support for desire and openness — gently, over time.</p>",
-            "icon": "heart"
-          }
-        },
-        "stage-4": {
-          "type": "stage",
-          "settings": {
-            "number": "04",
-            "heading": "Feel more connected",
-            "body": "<p>Support for feeling present, open, and connected — starting with yourself.</p>",
+            "heading": "Connection",
+            "body": "<p>A simple ritual centered around feeling more connected.</p>",
             "icon": "drop"
           }
         }
       },
-      "block_order": ["stage-1", "stage-2", "stage-3", "stage-4"],
+      "block_order": ["stage-1", "stage-2", "stage-3"],
       "settings": {
+        "display_mode": "compact",
         "eyebrow": "Your daily [brand]",
-        "heading": "Feel more like yourself, one day at a time.",
-        "product_alt": "[brand] Women's Libido + Mood Gummies bottle"
+        "heading": "A little ritual designed to support your spark.",
+        "product_alt": "[brand] Women's Libido + Mood Gummies bottle",
+        "cta_label": "Discover [brand]"
       }
     },
     "featured_story": {

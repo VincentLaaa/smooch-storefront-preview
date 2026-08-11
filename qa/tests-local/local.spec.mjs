@@ -572,3 +572,82 @@ test.describe('PDP refresh: guided purchase flow', () => {
     expect(await hero.locator('.smooch-step__num').count()).toBe(0);
   });
 });
+
+// ---------------------------------------------------------------- scroll story
+test.describe('Scroll story: full (product page) vs compact (homepage)', () => {
+  test('homepage uses compact mode and stays roughly one section tall', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+    const story = page.locator('[data-smooch-story]');
+    await expect(story).toHaveAttribute('data-mode', 'compact');
+    const box = await story.boundingBox();
+    // Compact target is ~70-110vh; give it headroom but this must stay well
+    // under a multi-screen scroll story (which lands around 300vh).
+    expect(box.height).toBeLessThan(900 * 1.6);
+    // No long-form progress rail or sticky visual column in compact mode.
+    expect(await story.locator('.smooch-story__rail').count()).toBe(0);
+    const stickyPos = await story.locator('.smooch-story__visual-sticky').evaluate((el) => getComputedStyle(el).position);
+    expect(stickyPos).toBe('static');
+  });
+
+  test('product page uses full mode with a tall sticky scroll container', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(PRODUCT);
+    const story = page.locator('[data-smooch-story]');
+    await expect(story).toHaveAttribute('data-mode', 'full');
+    const box = await story.boundingBox();
+    expect(box.height).toBeGreaterThan(900 * 2);
+    const stickyPos = await story.locator('.smooch-story__visual-sticky').evaluate((el) => getComputedStyle(el).position);
+    expect(stickyPos).toBe('sticky');
+  });
+
+  test('product page: full-mode sticky progression cycles through all stages', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(PRODUCT + '?scroll_story_preview=1');
+    const story = page.locator('[data-smooch-story]');
+    const box = await story.boundingBox();
+    const seen = [];
+    for (const frac of [0.05, 0.3, 0.55, 0.8]) {
+      await page.evaluate((y) => window.scrollTo(0, y), box.y + box.height * frac);
+      await page.waitForTimeout(400);
+      const active = await story.locator('.smooch-story__stage.is-active').getAttribute('data-stage-index');
+      seen.push(active);
+    }
+    expect(seen).toEqual(['0', '1', '2', '3']);
+    // The sticky visual should still be within the viewport partway through
+    // (not scrolled away above it) while a middle stage is active.
+    await page.evaluate((y) => window.scrollTo(0, y), box.y + box.height * 0.4);
+    await page.waitForTimeout(400);
+    const sceneBox = await story.locator('.smooch-story__scene').boundingBox();
+    expect(sceneBox).not.toBeNull();
+    expect(sceneBox.y).toBeGreaterThan(-10);
+    expect(sceneBox.y).toBeLessThan(900);
+  });
+
+  test('compact mode does not attach the scroll-reaction listener', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/?scroll_story_preview=1');
+    const productScroll = page.locator('[data-smooch-product-scroll]').first();
+    // Scroll the whole page substantially — in full mode this drives
+    // --smooch-story-scroll-rot/x/scale; in compact it must never be set.
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(400);
+    const rot = await productScroll.evaluate((el) => el.style.getPropertyValue('--smooch-story-scroll-rot'));
+    expect(rot).toBe('');
+  });
+
+  test('both modes respect prefers-reduced-motion', async ({ browser }) => {
+    const ctx = await browser.newContext({ reducedMotion: 'reduce', viewport: { width: 1440, height: 900 } });
+    const page = await ctx.newPage();
+
+    await page.goto('/?scroll_story_preview=1');
+    const homeAnim = await page.locator('[data-floating]').first().evaluate((el) => getComputedStyle(el).animationName);
+    expect(homeAnim).toBe('none');
+
+    await page.goto(PRODUCT + '?scroll_story_preview=1');
+    const productAnim = await page.locator('[data-floating]').first().evaluate((el) => getComputedStyle(el).animationName);
+    expect(productAnim).toBe('none');
+
+    await ctx.close();
+  });
+});

@@ -499,6 +499,111 @@
   margin-top: 1em;
 }
 
+/* ---------- Compact mode (homepage teaser) ---------- */
+
+/* Same grid-template-areas as full mode (visual / head / stages) — only the
+   sizing changes. No tall sticky scroll story: the whole thing fits in one
+   viewport-ish block. Floating product/gummy animation is untouched. */
+.smooch-story--compact .smooch-story__grid {
+  padding-block: clamp(2.4rem, 5vw, 5.6rem);
+  gap: 1.6rem;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-story--compact .smooch-story__grid {
+    row-gap: 1.2rem;
+  }
+}
+
+/* The grid's own gap already separates head from the areas around it —
+   compact doesn't need the full-mode head's extra margin-bottom on top of
+   that (that margin exists there to clear the sticky stages column). */
+.smooch-story--compact .smooch-story__head {
+  margin-bottom: 0;
+}
+
+.smooch-story--compact .smooch-story__visual-sticky {
+  position: static;
+  top: auto;
+}
+
+.smooch-story--compact .smooch-story__scene {
+  height: 30vh;
+  min-height: 22rem;
+  max-height: 30rem;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-story--compact .smooch-story__scene {
+    height: 40vh;
+    min-height: 32rem;
+    max-height: 42rem;
+  }
+}
+
+.smooch-story--compact .smooch-story__stages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: 46rem;
+}
+
+.smooch-story--compact .smooch-story__stage {
+  min-height: auto;
+  padding-block: 0.6rem;
+  opacity: 1;
+}
+
+.smooch-story--compact .smooch-story__stage:last-child {
+  min-height: auto;
+}
+
+.smooch-story--compact .smooch-story__stage-body {
+  max-width: 48ch;
+}
+
+.smooch-story--compact .smooch-story__intro {
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.smooch-story--compact .smooch-story__cta {
+  margin-top: 1rem;
+}
+
+/* Optional polish: hovering the list very subtly focuses one row at a time.
+   Pure CSS, no JS, and inert on touch (no hover) — mobile just shows every
+   row at full opacity, as it should. */
+@media (hover: hover) {
+  .smooch-story--compact .smooch-story__stages:hover .smooch-story__stage {
+    opacity: 0.55;
+  }
+
+  .smooch-story--compact .smooch-story__stages .smooch-story__stage:hover {
+    opacity: 1;
+  }
+}
+
+.smooch-story__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.8rem;
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--smooch-story-accent);
+  text-decoration: none;
+}
+
+.smooch-story__cta .smooch-icon {
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.smooch-story__cta:hover .smooch-icon {
+  transform: translateX(0.3rem);
+}
+
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {

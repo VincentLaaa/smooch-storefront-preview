@@ -17,11 +17,29 @@
 {%- liquid
   assign brand_name = settings.smooch_brand_name | default: shop.name
 
+  assign display_mode = section.settings.display_mode | default: 'full'
+  assign is_compact = false
+  if display_mode == 'compact'
+    assign is_compact = true
+  endif
+
   assign stages = section.blocks | where: 'type', 'stage'
+  if is_compact
+    assign compact_limit = section.settings.compact_limit | default: 3 | at_most: 3
+    assign stages = stages | slice: 0, compact_limit
+  endif
   assign stage_count = stages.size
 
   assign desktop_size = section.settings.product_size_desktop | default: 62
   assign mobile_size = section.settings.product_size_mobile | default: 74
+
+  assign cta_url = section.settings.cta_link
+  if cta_url == blank and section.settings.cta_product != blank
+    assign cta_url = section.settings.cta_product.url
+  endif
+  if cta_url == blank
+    assign cta_url = routes.all_products_collection_url
+  endif
 -%}
 
 {%- style -%}
@@ -42,11 +60,12 @@
 {%- endstyle -%}
 
 <section
-  class="smooch-story"
+  class="smooch-story{% if is_compact %} smooch-story--compact{% endif %}"
   data-smooch-story
+  data-mode="{{ display_mode }}"
   data-stage-count="{{ stage_count }}"
   {% if section.settings.enable_floating %}data-floating-enabled{% endif %}
-  {% if section.settings.enable_parallax %}data-parallax-enabled{% endif %}
+  {% if section.settings.enable_parallax and is_compact == false %}data-parallax-enabled{% endif %}
 >
   <div class="smooch-story__grid page-width">
     <header class="smooch-story__head">
@@ -117,7 +136,7 @@
 
     {%- if stage_count > 0 -%}
       <div class="smooch-story__stages" data-smooch-stages>
-        {%- if section.settings.show_progress -%}
+        {%- if section.settings.show_progress and is_compact == false -%}
           <div class="smooch-story__rail" aria-hidden="true">
             <span class="smooch-story__rail-fill" data-smooch-rail-fill></span>
           </div>
@@ -140,6 +159,13 @@
             <div class="smooch-story__stage-body">{{ block.settings.body | replace: '[brand]', brand_name }}</div>
           </div>
         {%- endfor -%}
+
+        {%- if is_compact and section.settings.cta_label != blank -%}
+          <a href="{{ cta_url }}" class="smooch-story__cta smooch-focus">
+            {{- section.settings.cta_label | replace: '[brand]', brand_name -}}
+            {% render 'smooch-icon', icon: 'arrow-right', class: 'smooch-icon--sm' %}
+          </a>
+        {%- endif -%}
       </div>
     {%- endif -%}
   </div>
@@ -158,6 +184,17 @@
     {
       "type": "paragraph",
       "content": "A sticky floating product scene with editable storytelling stages. Upload real, transparent product/gummy photography — this section never draws a fake bottle."
+    },
+    {
+      "type": "select",
+      "id": "display_mode",
+      "label": "Section layout",
+      "default": "full",
+      "options": [
+        { "value": "full", "label": "Full scroll story" },
+        { "value": "compact", "label": "Compact homepage" }
+      ],
+      "info": "Full scroll story: a long, sticky, scroll-driven experience for the product page. Compact homepage: the same floating product in one normal-height section."
     },
     {
       "type": "header",
@@ -303,7 +340,44 @@
       "type": "checkbox",
       "id": "show_progress",
       "label": "Show progress indicator",
-      "default": true
+      "default": true,
+      "info": "Full scroll story only."
+    },
+    {
+      "type": "header",
+      "content": "Compact layout"
+    },
+    {
+      "type": "paragraph",
+      "content": "Only used when Section layout above is set to \"Compact homepage\"."
+    },
+    {
+      "type": "range",
+      "id": "compact_limit",
+      "label": "Items to show",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Discover [brand]",
+      "info": "Use [brand] to insert your brand name. Leave blank to hide."
+    },
+    {
+      "type": "product",
+      "id": "cta_product",
+      "label": "CTA product",
+      "info": "Defaults to your first product if left blank."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link",
+      "info": "Overrides the CTA product link above, if set."
     }
   ],
   "blocks": [
