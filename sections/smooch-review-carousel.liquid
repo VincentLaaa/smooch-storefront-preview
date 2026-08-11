@@ -1,0 +1,325 @@
+{{ 'smooch-review-carousel.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'smooch-review-carousel.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  DEMO REVIEW CONTENT — REPLACE BEFORE PRODUCTION.
+  Curated horizontal review carousel. Editorial social proof, inspired by
+  Create's carousel *philosophy* (oversized stat intro, mixed-width cards,
+  next-card peek) — original Smooch copy, layout, and palette.
+
+  This section's blocks are fixture/demo testimonials for visual QA only.
+  is_sample_content stays on until real reviews replace every block, and
+  that flag is the ONLY thing allowed to change "Sample Reviewer" copy to
+  "Verified Buyer" — never hardcode the verified wording.
+
+  No review/aggregateRating structured data is emitted anywhere in this
+  file, on purpose — these are not real reviews.
+{%- endcomment -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --smooch-rc-bg: {{ section.settings.background_color | default: 'rgb(var(--smooch-cream-rgb))' }};
+    --smooch-rc-text: {{ section.settings.text_color | default: 'rgb(var(--smooch-ink-rgb))' }};
+    --smooch-rc-accent: {{ section.settings.accent_color | default: 'rgb(196, 42, 80)' }};
+    --smooch-rc-gap: {{ section.settings.card_gap | default: 24 }}px;
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+  assign is_sample = section.settings.is_sample_content
+  assign reviewer_fallback = 'Sample Reviewer'
+  unless is_sample
+    assign reviewer_fallback = 'Verified Buyer'
+  endunless
+
+  assign card_count = section.blocks.size
+-%}
+
+<section class="smooch-rc" data-smooch-carousel>
+  <div class="page-width">
+    <div class="smooch-rc__intro">
+      <div class="smooch-rc__stats" data-smooch-fade-up>
+        {%- if section.settings.rating_value != blank -%}
+          <div class="smooch-rc__stat">
+            <p class="smooch-rc__stat-num">{{ section.settings.rating_value }}</p>
+            <p class="smooch-rc__stat-label">{{ section.settings.rating_label | default: 'Stars' }}</p>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.review_count_display != blank -%}
+          <div class="smooch-rc__stat">
+            <p class="smooch-rc__stat-num">{{ section.settings.review_count_display }}</p>
+            <p class="smooch-rc__stat-label">{{ section.settings.review_count_label | default: 'Sample Reviews' }}</p>
+          </div>
+        {%- endif -%}
+        {%- if is_sample -%}
+          <span class="smooch-badge smooch-badge--ink smooch-rc__sample-badge">{{ section.settings.sample_label | default: 'Sample' }}</span>
+        {%- endif -%}
+      </div>
+
+      <div class="smooch-rc__head-row">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="smooch-h2 smooch-rc__heading" data-smooch-fade-up>
+            {{- section.settings.heading | replace: '[brand]', brand_name -}}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.show_arrows and card_count > 0 -%}
+          <div class="smooch-rc__arrows" data-smooch-fade-up>
+            <button type="button" class="smooch-rc__arrow" data-smooch-prev aria-label="Previous reviews">
+              {% render 'smooch-icon', icon: 'arrow-left', class: 'smooch-icon--sm' %}
+            </button>
+            <button type="button" class="smooch-rc__arrow" data-smooch-next aria-label="Next reviews">
+              {% render 'smooch-icon', icon: 'arrow-right', class: 'smooch-icon--sm' %}
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if card_count > 0 -%}
+      <div class="smooch-rc__track" data-smooch-track tabindex="0" role="region" aria-label="Customer reviews carousel">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'long' -%}
+              <article class="smooch-rc__card smooch-rc__card--long" {{ block.shopify_attributes }}>
+                <span class="smooch-stars" role="img" aria-label="{{ block.settings.rating }} out of 5 stars">
+                  {%- assign full_stars = block.settings.rating | floor -%}
+                  {%- for i in (1..5) -%}
+                    {%- if i <= full_stars -%}
+                      {% render 'smooch-icon', icon: 'star' %}
+                    {%- else -%}
+                      {% render 'smooch-icon', icon: 'star-empty' %}
+                    {%- endif -%}
+                  {%- endfor -%}
+                </span>
+                {%- if block.settings.title != blank -%}
+                  <p class="smooch-rc__card-title">{{ block.settings.title }}</p>
+                {%- endif -%}
+                <p class="smooch-rc__card-text">{{ block.settings.text }}</p>
+                <footer class="smooch-rc__card-footer">
+                  <p class="smooch-rc__card-author">
+                    {{ block.settings.author }}
+                    <span class="smooch-rc__card-status">{{ block.settings.reviewer_label | default: reviewer_fallback }}</span>
+                  </p>
+                  {%- if block.settings.product != blank -%}
+                    <p class="smooch-rc__card-product">
+                      Review for: {{ block.settings.product.title }}
+                      {%- if section.settings.show_product_link -%}
+                        <a href="{{ block.settings.product.url }}" class="smooch-rc__card-link">Shop Smooch →</a>
+                      {%- endif -%}
+                    </p>
+                  {%- endif -%}
+                </footer>
+              </article>
+
+            {%- when 'short' -%}
+              <article class="smooch-rc__card smooch-rc__card--short" {{ block.shopify_attributes }}>
+                <span class="smooch-stars" role="img" aria-label="{{ block.settings.rating }} out of 5 stars">
+                  {%- assign full_stars = block.settings.rating | floor -%}
+                  {%- for i in (1..5) -%}
+                    {%- if i <= full_stars -%}
+                      {% render 'smooch-icon', icon: 'star' %}
+                    {%- else -%}
+                      {% render 'smooch-icon', icon: 'star-empty' %}
+                    {%- endif -%}
+                  {%- endfor -%}
+                </span>
+                {%- if block.settings.title != blank -%}
+                  <p class="smooch-rc__quote">{{ block.settings.title }}</p>
+                {%- endif -%}
+                <p class="smooch-rc__card-text">{{ block.settings.text }}</p>
+                <footer class="smooch-rc__card-footer">
+                  <p class="smooch-rc__card-author">
+                    {{ block.settings.author }}
+                    <span class="smooch-rc__card-status">{{ block.settings.reviewer_label | default: reviewer_fallback }}</span>
+                  </p>
+                </footer>
+              </article>
+
+            {%- when 'visual' -%}
+              <article class="smooch-rc__card smooch-rc__card--visual" {{ block.shopify_attributes }}>
+                <div class="smooch-rc__visual-media">
+                  {%- if block.settings.image != blank -%}
+                    {{
+                      block.settings.image
+                      | image_url: width: 480
+                      | image_tag: loading: 'lazy', widths: '240, 360, 480', sizes: '30vw', alt: block.settings.author
+                    }}
+                  {%- else -%}
+                    <span class="smooch-rc__visual-placeholder">
+                      <span class="smooch-rc__visual-word">{{ brand_name | downcase }}</span>
+                    </span>
+                  {%- endif -%}
+                </div>
+                <div class="smooch-rc__visual-body">
+                  {%- if block.settings.title != blank -%}
+                    <p class="smooch-rc__quote">{{ block.settings.title }}</p>
+                  {%- endif -%}
+                  <p class="smooch-rc__card-text">{{ block.settings.text }}</p>
+                  <p class="smooch-rc__card-author">
+                    {{ block.settings.author }}
+                    <span class="smooch-rc__card-status">{{ block.settings.reviewer_label | default: reviewer_fallback }}</span>
+                  </p>
+                </div>
+              </article>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Smooch review carousel",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "DEMO REVIEW CONTENT — REPLACE BEFORE PRODUCTION. Every block here is a fictional placeholder for visual QA. Keep \"Sample content\" on until real reviews replace them."
+    },
+    {
+      "type": "header",
+      "content": "Social proof stats"
+    },
+    {
+      "type": "text",
+      "id": "rating_value",
+      "label": "Rating value",
+      "default": "5.0",
+      "info": "Enter a real average once you have real review data."
+    },
+    {
+      "type": "text",
+      "id": "rating_label",
+      "label": "Rating label",
+      "default": "Stars"
+    },
+    {
+      "type": "text",
+      "id": "review_count_display",
+      "label": "Review count",
+      "default": "12",
+      "info": "Enter your real review count once you have one — don't default to a big number Smooch hasn't earned yet."
+    },
+    {
+      "type": "text",
+      "id": "review_count_label",
+      "label": "Review count label",
+      "default": "Sample Reviews"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The reviews are in."
+    },
+    {
+      "type": "header",
+      "content": "Honesty"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_sample_content",
+      "label": "Sample content",
+      "default": true,
+      "info": "Shows a visible \"Sample\" badge and labels reviewers \"Sample Reviewer\" instead of \"Verified Buyer\". Turn off only when every card is a real review."
+    },
+    {
+      "type": "text",
+      "id": "sample_label",
+      "label": "Sample badge text",
+      "default": "Sample"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrow controls",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_link",
+      "label": "Show \"Shop Smooch\" link on long reviews",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card gap (desktop)",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "paragraph",
+      "content": "Leave blank to inherit the theme's global brand colors."
+    },
+    { "type": "color", "id": "background_color", "label": "Background color" },
+    { "type": "color", "id": "text_color", "label": "Text color" },
+    { "type": "color", "id": "accent_color", "label": "Accent color" }
+  ],
+  "blocks": [
+    {
+      "type": "long",
+      "name": "Long review",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "Title", "default": "Sample review title" },
+        { "type": "textarea", "id": "text", "label": "Review text", "default": "Sample review text — replace with a real customer's words before launch." },
+        { "type": "text", "id": "author", "label": "Reviewer name", "default": "Sample customer" },
+        { "type": "text", "id": "reviewer_label", "label": "Reviewer status override", "info": "Leave blank to use the section's Sample/Verified default." },
+        { "type": "product", "id": "product", "label": "Product reviewed" }
+      ]
+    },
+    {
+      "type": "short",
+      "name": "Short quote",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "Quote", "default": "\"Sample quote goes here.\"" },
+        { "type": "textarea", "id": "text", "label": "Supporting line", "default": "Sample supporting sentence." },
+        { "type": "text", "id": "author", "label": "Reviewer name", "default": "Sample customer" },
+        { "type": "text", "id": "reviewer_label", "label": "Reviewer status override", "info": "Leave blank to use the section's Sample/Verified default." }
+      ]
+    },
+    {
+      "type": "visual",
+      "name": "Visual review",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Real product/gummy/lifestyle art only — never a stock or invented customer photo. Falls back to a branded placeholder if left blank." },
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "Quote", "default": "\"Sample quote goes here.\"" },
+        { "type": "textarea", "id": "text", "label": "Supporting line", "default": "Sample supporting sentence." },
+        { "type": "text", "id": "author", "label": "Reviewer name", "default": "Sample customer" },
+        { "type": "text", "id": "reviewer_label", "label": "Reviewer status override", "info": "Leave blank to use the section's Sample/Verified default." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch review carousel"
+    }
+  ]
+}
+{% endschema %}

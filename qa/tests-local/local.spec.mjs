@@ -317,8 +317,10 @@ test.describe('Purchase matrix (offline harness)', () => {
     expect(await page.locator('product-info').count()).toBe(1);
     expect(await page.locator('form[id^="product-form-"]:not([id*="installment"])').count()).toBe(1);
     expect(await page.locator('h1:visible').count()).toBe(1);
-    // No sample-proof or unbacked-press placeholders in the polished default.
-    expect(await page.locator('#smooch-reviews').count()).toBe(0);
+    // The product page now ships demo review sections (carousel + full) —
+    // both must stay honestly labeled as sample content, never presented
+    // as real. No unbacked-press placeholders either.
+    await expect(page.locator('#smooch-reviews .smooch-rf__sample-badge')).toHaveText(/sample/i);
     expect(await page.locator('.smooch-press-bar').count()).toBe(0);
   });
 });
@@ -671,6 +673,117 @@ test.describe('Scroll story: full (product page) vs compact (homepage)', () => {
     const productAnim = await page.locator('[data-floating]').first().evaluate((el) => getComputedStyle(el).animationName);
     expect(productAnim).toBe('none');
 
+    await ctx.close();
+  });
+});
+
+// ---------------------------------------------------------------- reviews
+test.describe('Reviews: curated carousel + full reviews (product page only)', () => {
+  test('carousel: honesty labeling, mixed card widths, next-card peek', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(PRODUCT);
+    const carousel = page.locator('[data-smooch-carousel]');
+    await expect(carousel).toBeVisible();
+    // Honesty: sample badge + "Sample Reviewer" wording, not "Verified".
+    await expect(carousel.locator('.smooch-rc__sample-badge')).toHaveText(/sample/i);
+    expect(await carousel.locator('.smooch-rc__card-status', { hasText: 'Sample Reviewer' }).count()).toBeGreaterThan(0);
+    expect(await carousel.locator('.smooch-rc__card-status', { hasText: 'Verified' }).count()).toBe(0);
+
+    // Mixed card types/widths present.
+    const longW = await carousel.locator('.smooch-rc__card--long').first().boundingBox();
+    const shortW = await carousel.locator('.smooch-rc__card--short').first().boundingBox();
+    expect(longW.width).not.toBe(shortW.width);
+
+    // Next card partially visible (peeking past the viewport edge) at start:
+    // some card's right edge extends beyond the track's visible edge, and
+    // not every card is fully within it.
+    const cards = carousel.locator('.smooch-rc__card');
+    const cardCount = await cards.count();
+    expect(cardCount).toBe(12);
+    const track = carousel.locator('[data-smooch-track]');
+    const trackBox = await track.boundingBox();
+    const visibleEdge = trackBox.x + trackBox.width;
+    const boxes = await cards.evaluateAll((els) => els.map((el) => el.getBoundingClientRect().right));
+    const peeking = boxes.some((right) => right > visibleEdge + 5);
+    const fullyVisible = boxes.every((right) => right <= visibleEdge + 5);
+    expect(peeking).toBe(true);
+    expect(fullyVisible).toBe(false);
+  });
+
+  test('carousel: arrows scroll the track and correctly disable at each end', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(PRODUCT);
+    const track = page.locator('[data-smooch-track]');
+    await track.scrollIntoViewIfNeeded();
+
+    expect(await page.evaluate(() => document.querySelector('[data-smooch-prev]').disabled)).toBe(true);
+
+    for (let i = 0; i < 10; i++) {
+      await page.evaluate(() => document.querySelector('[data-smooch-next]').click());
+      await page.waitForTimeout(200);
+    }
+    const info = await track.evaluate((el) => ({ scrollLeft: el.scrollLeft, max: el.scrollWidth - el.clientWidth }));
+    expect(info.scrollLeft).toBeGreaterThan(0);
+    expect(Math.abs(info.scrollLeft - info.max)).toBeLessThan(2);
+    expect(await page.evaluate(() => document.querySelector('[data-smooch-next]').disabled)).toBe(true);
+  });
+
+  test('full reviews: id="smooch-reviews" anchor, distribution math, honesty labels', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(PRODUCT);
+    const full = page.locator('#smooch-reviews');
+    await expect(full).toBeVisible();
+
+    // 12 demo reviews, all 5-star -> distribution should be 100% / 0% / 0% / 0% / 0%.
+    const fills = full.locator('.smooch-rf__dist-fill');
+    await expect(fills).toHaveCount(5);
+    const widths = await fills.evaluateAll((els) => els.map((el) => el.style.width));
+    expect(widths).toEqual(['100%', '0%', '0%', '0%', '0%']);
+
+    // No fake dates; a "Demo review" label stands in instead.
+    expect(await full.locator('.smooch-rf__row-demo').count()).toBeGreaterThan(0);
+    expect(await full.getByText(/verified buyer/i).count()).toBe(0);
+
+    // No review/aggregateRating structured data anywhere on the page.
+    const ldJsonBlocks = await page.locator('script[type="application/ld+json"]').allTextContents();
+    const hasReviewSchema = ldJsonBlocks.some((json) => /"@type"\s*:\s*"(Review|AggregateRating)"/i.test(json));
+    expect(hasReviewSchema).toBe(false);
+  });
+
+  test('full reviews: initial 6 shown, "Show more" reveals the rest and then hides, sort has no errors', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    const errors = [];
+    page.on('pageerror', (e) => errors.push(String(e)));
+    await page.goto(PRODUCT);
+    const full = page.locator('#smooch-reviews');
+    await full.scrollIntoViewIfNeeded();
+
+    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(6);
+    const moreBtn = full.locator('[data-smooch-show-more]');
+    await expect(moreBtn).toBeVisible();
+    await moreBtn.click();
+    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(12);
+    await expect(moreBtn).toBeHidden();
+
+    await page.selectOption('[data-smooch-sort]', 'highest');
+    await page.waitForTimeout(200);
+    expect(errors).toEqual([]);
+  });
+
+  test('reviews sections respect prefers-reduced-motion and stay off the homepage', async ({ page, browser }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+    expect(await page.locator('[data-smooch-carousel]').count()).toBe(0);
+    expect(await page.locator('#smooch-reviews').count()).toBe(0);
+
+    const ctx = await browser.newContext({ reducedMotion: 'reduce', viewport: { width: 1440, height: 900 } });
+    const rp = await ctx.newPage();
+    await rp.goto(PRODUCT);
+    const carousel = rp.locator('[data-smooch-carousel]');
+    await carousel.scrollIntoViewIfNeeded();
+    await rp.waitForTimeout(400);
+    const opacity = await rp.locator('[data-smooch-fade-up]').first().evaluate((el) => getComputedStyle(el).opacity);
+    expect(opacity).toBe('1');
     await ctx.close();
   });
 });

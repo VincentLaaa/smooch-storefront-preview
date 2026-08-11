@@ -1,0 +1,212 @@
+/* Smooch full reviews — dense, row-based, editorial (not cards).
+   1rem = 10px (Dawn base). Breakpoints: 749/750/989/990. */
+
+.smooch-rf {
+  background-color: var(--smooch-rf-bg);
+  padding-block: clamp(4.8rem, 8vw, 8rem);
+}
+
+.smooch-rf__head {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: clamp(2.4rem, 4vw, 3.6rem);
+}
+
+.smooch-rf__head h2 {
+  margin: 0;
+}
+
+/* ---------- Summary ---------- */
+
+.smooch-rf__summary {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.4rem;
+  padding-bottom: clamp(2.4rem, 4vw, 3.6rem);
+  border-bottom: 0.1rem solid var(--smooch-border-soft, rgba(0, 0, 0, 0.1));
+}
+
+@media screen and (min-width: 750px) {
+  .smooch-rf__summary {
+    grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+    align-items: center;
+    gap: 4.8rem;
+  }
+}
+
+.smooch-rf__summary-left {
+  line-height: 1;
+}
+
+.smooch-rf__avg {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: 5.2rem;
+  letter-spacing: -0.02em;
+}
+
+.smooch-rf__summary-left .smooch-stars {
+  margin: 0.8rem 0;
+}
+
+.smooch-rf__summary-caption {
+  margin: 0;
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.smooch-rf__distribution {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.smooch-rf__dist-row {
+  display: grid;
+  grid-template-columns: 4.4rem minmax(0, 1fr) 2.8rem;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 1.25rem;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.smooch-rf__dist-rail {
+  display: block;
+  height: 0.5rem;
+  border-radius: 999px;
+  background-color: rgba(var(--color-foreground), 0.08);
+  overflow: hidden;
+}
+
+.smooch-rf__dist-fill {
+  display: block;
+  height: 100%;
+  background-color: var(--smooch-rf-accent);
+  border-radius: inherit;
+}
+
+.smooch-rf__dist-count {
+  text-align: right;
+}
+
+/* ---------- Toolbar ---------- */
+
+.smooch-rf__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 2rem 0;
+}
+
+.smooch-rf__count {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.smooch-rf__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.smooch-rf__sort select {
+  min-height: 3.6rem;
+  padding: 0 3.2rem 0 1.2rem;
+  border: 0.1rem solid var(--smooch-border-soft, rgba(0, 0, 0, 0.15));
+  border-radius: var(--smooch-radius-button, 0.8rem);
+  background-color: rgb(var(--color-background));
+  font-size: 1.3rem;
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+}
+
+/* ---------- Rows ---------- */
+
+.smooch-rf__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.smooch-rf__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+  padding: 2.4rem 0;
+  border-bottom: 0.1rem solid var(--smooch-border-soft, rgba(0, 0, 0, 0.08));
+}
+
+.smooch-rf__row[hidden] {
+  display: none;
+}
+
+@media screen and (min-width: 750px) {
+  .smooch-rf__row {
+    grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr);
+    gap: 3.2rem;
+  }
+}
+
+.smooch-rf__row-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.smooch-rf__row-author {
+  margin: 0.4rem 0 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.smooch-rf__row-status {
+  margin: 0;
+  font-size: 1.2rem;
+  color: rgba(var(--color-foreground), 0.55);
+}
+
+.smooch-rf__row-demo {
+  font-style: italic;
+}
+
+.smooch-rf__row-main {
+  min-width: 0;
+}
+
+.smooch-rf__row-title {
+  margin: 0 0 0.6rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.smooch-rf__row-text {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.8);
+  max-width: 68ch;
+}
+
+.smooch-rf__row-product {
+  margin: 0.8rem 0 0;
+  font-size: 1.2rem;
+  color: rgba(var(--color-foreground), 0.5);
+}
+
+/* ---------- Show more ---------- */
+
+.smooch-rf__more {
+  display: flex;
+  margin: 2.4rem auto 0;
+}
+
+.smooch-rf__more[hidden] {
+  display: none;
+}

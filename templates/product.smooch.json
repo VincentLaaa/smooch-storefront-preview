@@ -469,6 +469,267 @@
         "question-8"
       ],
       "settings": {}
+    },
+    "review_carousel": {
+      "type": "smooch-review-carousel",
+      "blocks": {
+        "r1": {
+          "type": "long",
+          "settings": {
+            "rating": 5,
+            "title": "I finally feel like me again.",
+            "text": "I started adding Smooch to my daily routine mostly because I wanted something simple I could actually stay consistent with. The biggest thing I've noticed is that I just feel more like myself lately — more present, more in the mood, and less like I'm running on empty all the time.",
+            "author": "Maya T."
+          }
+        },
+        "r2": {
+          "type": "short",
+          "settings": {
+            "rating": 5,
+            "title": "My favorite part of my evening routine.",
+            "text": "I keep the bottle right on my nightstand so I don't forget.",
+            "author": "Alyssa R."
+          }
+        },
+        "r3": {
+          "type": "long",
+          "settings": {
+            "rating": 5,
+            "title": "I didn't realize how disconnected I'd been feeling.",
+            "text": "Between work, stress, and everything else, intimacy had slowly moved to the bottom of my list. I wanted something that felt easy instead of adding another complicated wellness routine. Smooch has become one of those little daily things I genuinely look forward to.",
+            "author": "Rachel M."
+          }
+        },
+        "r4": {
+          "type": "visual",
+          "settings": {
+            "rating": 5,
+            "title": "Self-care, but make it easy.",
+            "text": "Two gummies and I'm done. No powders, no complicated routine.",
+            "author": "Chloe D."
+          }
+        },
+        "r5": {
+          "type": "long",
+          "settings": {
+            "rating": 5,
+            "title": "Didn't expect to care about the mood side this much.",
+            "text": "I originally found Smooch because of the libido angle, but what made it stick for me was the whole mood-and-connection positioning. It feels less like taking a 'sex supplement' and more like something that belongs in my regular wellness routine.",
+            "author": "Jenna P."
+          }
+        },
+        "r6": {
+          "type": "short",
+          "settings": {
+            "rating": 5,
+            "title": "Finally, women's wellness that doesn't feel clinical.",
+            "text": "The branding got me. The routine kept me.",
+            "author": "Sofia L."
+          }
+        },
+        "r7": {
+          "type": "long",
+          "settings": {
+            "rating": 5,
+            "title": "The consistency is what surprised me.",
+            "text": "I've bought plenty of supplements that ended up forgotten in a cabinet. These are easy enough that they've actually become part of my routine, which was the whole battle for me.",
+            "author": "Lauren K."
+          }
+        },
+        "r8": {
+          "type": "short",
+          "settings": {
+            "rating": 5,
+            "title": "Way easier than another capsule.",
+            "text": "I already take enough pills. Gummies were an immediate yes.",
+            "author": "Natalie S."
+          }
+        },
+        "r9": {
+          "type": "visual",
+          "settings": {
+            "rating": 5,
+            "title": "She's staying on the nightstand.",
+            "text": "Pretty packaging, easy habit, and something that's actually for us.",
+            "author": "Camille B."
+          }
+        },
+        "r10": {
+          "type": "long",
+          "settings": {
+            "rating": 5,
+            "title": "I wanted my spark back.",
+            "text": "I don't think there was one dramatic moment. It was more that I started noticing I felt more intentional about that part of myself again. That's exactly what I wanted from adding something like this to my routine.",
+            "author": "Erin C."
+          }
+        },
+        "r11": {
+          "type": "short",
+          "settings": {
+            "rating": 5,
+            "title": "These actually taste like a treat.",
+            "text": "Which makes remembering them very easy.",
+            "author": "Katie N."
+          }
+        },
+        "r12": {
+          "type": "long",
+          "settings": {
+            "rating": 5,
+            "title": "Made for women who have a lot going on.",
+            "text": "I have a career, a relationship, a million things on my brain, and usually wellness products feel like one more task. Smooch doesn't. That's probably my favorite thing about it.",
+            "author": "Nicole A."
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10",
+        "r11",
+        "r12"
+      ],
+      "settings": {
+        "rating_value": "5.0",
+        "review_count_display": "12"
+      }
+    },
+    "reviews_full": {
+      "type": "smooch-reviews-full",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "I finally feel like me again.",
+            "text": "I started adding Smooch to my daily routine mostly because I wanted something simple I could actually stay consistent with. The biggest thing I've noticed is that I just feel more like myself lately — more present, more in the mood, and less like I'm running on empty all the time.",
+            "author": "Maya T."
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "My favorite part of my evening routine.",
+            "text": "I keep the bottle right on my nightstand so I don't forget.",
+            "author": "Alyssa R."
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "I didn't realize how disconnected I'd been feeling.",
+            "text": "Between work, stress, and everything else, intimacy had slowly moved to the bottom of my list. I wanted something that felt easy instead of adding another complicated wellness routine. Smooch has become one of those little daily things I genuinely look forward to.",
+            "author": "Rachel M."
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Self-care, but make it easy.",
+            "text": "Two gummies and I'm done. No powders, no complicated routine.",
+            "author": "Chloe D."
+          }
+        },
+        "r5": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Didn't expect to care about the mood side this much.",
+            "text": "I originally found Smooch because of the libido angle, but what made it stick for me was the whole mood-and-connection positioning. It feels less like taking a 'sex supplement' and more like something that belongs in my regular wellness routine.",
+            "author": "Jenna P."
+          }
+        },
+        "r6": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Finally, women's wellness that doesn't feel clinical.",
+            "text": "The branding got me. The routine kept me.",
+            "author": "Sofia L."
+          }
+        },
+        "r7": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "The consistency is what surprised me.",
+            "text": "I've bought plenty of supplements that ended up forgotten in a cabinet. These are easy enough that they've actually become part of my routine, which was the whole battle for me.",
+            "author": "Lauren K."
+          }
+        },
+        "r8": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Way easier than another capsule.",
+            "text": "I already take enough pills. Gummies were an immediate yes.",
+            "author": "Natalie S."
+          }
+        },
+        "r9": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "She's staying on the nightstand.",
+            "text": "Pretty packaging, easy habit, and something that's actually for us.",
+            "author": "Camille B."
+          }
+        },
+        "r10": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "I wanted my spark back.",
+            "text": "I don't think there was one dramatic moment. It was more that I started noticing I felt more intentional about that part of myself again. That's exactly what I wanted from adding something like this to my routine.",
+            "author": "Erin C."
+          }
+        },
+        "r11": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "These actually taste like a treat.",
+            "text": "Which makes remembering them very easy.",
+            "author": "Katie N."
+          }
+        },
+        "r12": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Made for women who have a lot going on.",
+            "text": "I have a career, a relationship, a million things on my brain, and usually wellness products feel like one more task. Smooch doesn't. That's probably my favorite thing about it.",
+            "author": "Nicole A."
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10",
+        "r11",
+        "r12"
+      ],
+      "settings": {
+        "rating_value": "5.0"
+      }
     }
   },
   "order": [
@@ -477,6 +738,8 @@
     "body",
     "benefits",
     "formula",
-    "faq"
+    "faq",
+    "review_carousel",
+    "reviews_full"
   ]
 }

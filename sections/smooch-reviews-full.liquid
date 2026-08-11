@@ -1,0 +1,297 @@
+{{ 'smooch-reviews-full.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'smooch-reviews-full.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  DEMO REVIEW CONTENT — REPLACE BEFORE PRODUCTION.
+  Expanded/full reviews: rating summary + distribution, sort, dense review
+  rows (not cards), load-more. Depth/transparency layer beneath the curated
+  carousel above it on the product page.
+
+  Blocks here are fixture/demo testimonials for visual QA only — same
+  honesty rules as the carousel: is_sample_content drives the visible
+  "Sample Reviewer" wording, no fake dates (a "Demo review" label stands in
+  for one), no fake helpful-vote counts, and NO review/aggregateRating
+  structured data is emitted anywhere in this file.
+
+  Data architecture note (see the accompanying report): this intentionally
+  does not share a data source with smooch-review-carousel.liquid — each
+  section owns its own blocks (plain Shopify section/block content, the
+  standard mechanism), so both are independently merchant-editable and
+  there's no custom fixture layer to maintain. When a real review provider
+  (Judge.me/Okendo/Yotpo/Shopify metaobjects) is connected, swap the block
+  loop below for that provider's data without touching the surrounding
+  markup/CSS.
+{%- endcomment -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --smooch-rf-bg: {{ section.settings.background_color | default: 'rgb(var(--color-background))' }};
+    --smooch-rf-accent: {{ section.settings.accent_color | default: 'rgb(196, 42, 80)' }};
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+  assign is_sample = section.settings.is_sample_content
+  assign reviewer_fallback = 'Sample Reviewer'
+  unless is_sample
+    assign reviewer_fallback = 'Verified Buyer'
+  endunless
+
+  assign reviews = section.blocks | where: 'type', 'review'
+  assign review_count = reviews.size
+
+  assign dist_5 = 0
+  assign dist_4 = 0
+  assign dist_3 = 0
+  assign dist_2 = 0
+  assign dist_1 = 0
+  for block in reviews
+    assign r = block.settings.rating | round
+    case r
+      when 5
+        assign dist_5 = dist_5 | plus: 1
+      when 4
+        assign dist_4 = dist_4 | plus: 1
+      when 3
+        assign dist_3 = dist_3 | plus: 1
+      when 2
+        assign dist_2 = dist_2 | plus: 1
+      when 1
+        assign dist_1 = dist_1 | plus: 1
+    endcase
+  endfor
+
+  assign initial_visible = section.settings.reviews_initial | default: 6
+  assign batch_size = section.settings.reviews_per_batch | default: 6
+-%}
+
+{%- if review_count > 0 -%}
+  <section id="smooch-reviews" class="smooch-rf">
+    <div class="page-width">
+      <header class="smooch-rf__head">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="smooch-h2">{{ section.settings.heading | replace: '[brand]', brand_name }}</h2>
+        {%- endif -%}
+        {%- if is_sample -%}
+          <span class="smooch-badge smooch-badge--ink smooch-rf__sample-badge">{{ section.settings.sample_label | default: 'Sample' }}</span>
+        {%- endif -%}
+      </header>
+
+      <div class="smooch-rf__summary">
+        <div class="smooch-rf__summary-left">
+          <p class="smooch-rf__avg">{{ section.settings.rating_value | default: '5.0' }}</p>
+          <span class="smooch-stars smooch-stars--lg" role="img" aria-label="{{ section.settings.rating_value | default: '5.0' }} out of 5 stars">
+            {%- assign avg_full = section.settings.rating_value | default: 5.0 | round -%}
+            {%- for i in (1..5) -%}
+              {%- if i <= avg_full -%}
+                {% render 'smooch-icon', icon: 'star' %}
+              {%- else -%}
+                {% render 'smooch-icon', icon: 'star-empty' %}
+              {%- endif -%}
+            {%- endfor -%}
+          </span>
+          <p class="smooch-rf__summary-caption">
+            Based on {{ review_count }} sample review{% if review_count != 1 %}s{% endif %}
+          </p>
+        </div>
+
+        {%- if section.settings.show_distribution -%}
+          <div class="smooch-rf__distribution">
+            {%- for star_n in (1..5) reversed -%}
+              {%- case star_n -%}
+                {%- when 5 -%}
+                  {%- assign star_count = dist_5 -%}
+                {%- when 4 -%}
+                  {%- assign star_count = dist_4 -%}
+                {%- when 3 -%}
+                  {%- assign star_count = dist_3 -%}
+                {%- when 2 -%}
+                  {%- assign star_count = dist_2 -%}
+                {%- else -%}
+                  {%- assign star_count = dist_1 -%}
+              {%- endcase -%}
+              {%- assign star_pct = 0 -%}
+              {%- if review_count > 0 -%}
+                {%- assign star_pct = star_count | times: 100 | divided_by: review_count -%}
+              {%- endif -%}
+              <div class="smooch-rf__dist-row">
+                <span class="smooch-rf__dist-label">{{ star_n }}</span>
+                <span class="smooch-rf__dist-rail">
+                  <span class="smooch-rf__dist-fill" style="width: {{ star_pct }}%;"></span>
+                </span>
+                <span class="smooch-rf__dist-count">{{ star_count }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="smooch-rf__toolbar">
+        <p class="smooch-rf__count">{{ review_count }} Review{% if review_count != 1 %}s{% endif %}</p>
+        {%- if section.settings.show_sorting -%}
+          <label class="smooch-rf__sort">
+            <span class="visually-hidden">Sort reviews</span>
+            Sort by
+            <select data-smooch-sort>
+              <option value="recent">Most Recent</option>
+              <option value="highest">Highest Rating</option>
+              <option value="lowest">Lowest Rating</option>
+            </select>
+          </label>
+        {%- endif -%}
+      </div>
+
+      <ul class="smooch-rf__list" data-smooch-review-list role="list" data-initial="{{ initial_visible }}" data-batch="{{ batch_size }}">
+        {%- for block in reviews -%}
+          <li
+            class="smooch-rf__row"
+            data-smooch-review-row
+            data-rating="{{ block.settings.rating }}"
+            data-order="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="smooch-rf__row-meta">
+              <span class="smooch-stars" role="img" aria-label="{{ block.settings.rating }} out of 5 stars">
+                {%- assign r_full = block.settings.rating | floor -%}
+                {%- for i in (1..5) -%}
+                  {%- if i <= r_full -%}
+                    {% render 'smooch-icon', icon: 'star' %}
+                  {%- else -%}
+                    {% render 'smooch-icon', icon: 'star-empty' %}
+                  {%- endif -%}
+                {%- endfor -%}
+              </span>
+              <p class="smooch-rf__row-author">{{ block.settings.author }}</p>
+              <p class="smooch-rf__row-status">
+                {{ block.settings.reviewer_label | default: reviewer_fallback }}
+                {%- if is_sample -%}
+                  <span class="smooch-rf__row-demo">· Demo review</span>
+                {%- endif -%}
+              </p>
+            </div>
+            <div class="smooch-rf__row-main">
+              {%- if block.settings.title != blank -%}
+                <p class="smooch-rf__row-title">{{ block.settings.title }}</p>
+              {%- endif -%}
+              <p class="smooch-rf__row-text">{{ block.settings.text }}</p>
+              {%- if block.settings.product != blank -%}
+                <p class="smooch-rf__row-product">Review for: {{ block.settings.product.title }}</p>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if review_count > initial_visible -%}
+        <button type="button" class="smooch-btn smooch-btn--ghost smooch-rf__more" data-smooch-show-more>
+          Show more reviews
+        </button>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Smooch reviews (full)",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 24,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "DEMO REVIEW CONTENT — REPLACE BEFORE PRODUCTION. Every block here is a fictional placeholder for visual QA. Stays hidden while empty."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "text",
+      "id": "rating_value",
+      "label": "Average rating",
+      "default": "5.0"
+    },
+    {
+      "type": "header",
+      "content": "Honesty"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_sample_content",
+      "label": "Sample content",
+      "default": true,
+      "info": "Shows a visible \"Sample\" badge, labels reviewers \"Sample Reviewer\", and marks each row \"Demo review\" instead of a fabricated date. Turn off only when every row is a real review."
+    },
+    {
+      "type": "text",
+      "id": "sample_label",
+      "label": "Sample badge text",
+      "default": "Sample"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_distribution",
+      "label": "Show rating distribution",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sorting",
+      "label": "Show sort control",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "reviews_initial",
+      "label": "Reviews shown initially",
+      "default": 6
+    },
+    {
+      "type": "number",
+      "id": "reviews_per_batch",
+      "label": "Reviews per \"Show more\"",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "paragraph",
+      "content": "Leave blank to inherit the theme's global brand colors."
+    },
+    { "type": "color", "id": "background_color", "label": "Background color" },
+    { "type": "color", "id": "accent_color", "label": "Accent color" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "Title", "default": "Sample review title" },
+        { "type": "textarea", "id": "text", "label": "Review text", "default": "Sample review text — replace with a real customer's words before launch." },
+        { "type": "text", "id": "author", "label": "Reviewer name", "default": "Sample customer" },
+        { "type": "text", "id": "reviewer_label", "label": "Reviewer status override", "info": "Leave blank to use the section's Sample/Verified default." },
+        { "type": "product", "id": "product", "label": "Product reviewed" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch reviews (full)"
+    }
+  ]
+}
+{% endschema %}
