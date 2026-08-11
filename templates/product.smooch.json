@@ -101,7 +101,9 @@
         },
         "reassurance-1": {
           "type": "reassurance",
-          "settings": {}
+          "settings": {
+            "footer_text": "HSA/FSA eligible · Save an average of 30% with a subscription"
+          }
         },
         "media_card-1": {
           "type": "media_card",

@@ -54,7 +54,12 @@ const cartState = (page) => page.evaluate(() => fetch('/cart.js').then((r) => r.
 const clearCart = (page) => page.evaluate(() => fetch('/cart/clear.js', { method: 'POST' }));
 // Subscription-first is the default; switch to one-time for base-price tests.
 const selectOneTime = async (hero, page) => {
-  await hero.locator('[data-smooch-plan-radio][value=""]').check({ force: true });
+  // Click the visible label body, like a real user taps it — the radio
+  // itself is visually-hidden (1x1, clipped) and native label click-forwarding
+  // handles the rest. Force-clicking the hidden input's own tiny hit box is
+  // fragile: its CSS static position can end up overlapped by unrelated
+  // normal-flow siblings after scroll-driven relayout.
+  await hero.locator('.smooch-plan--onetime .smooch-plan__body').click({ force: true });
   await page.waitForTimeout(200);
 };
 const shot = (page, name) => page.screenshot({ path: `qa/screenshots/${name}.png` });
@@ -296,6 +301,7 @@ test.describe('Purchase matrix (offline harness)', () => {
     await shot(page, 'sticky-atc-mobile-390');
 
     await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(sticky).toBeHidden(); // let the sticky bar clear the tap target before interacting
     const hero = page.locator('product-info').first();
     await selectOneTime(hero, page); // 3-bottle default stays selected
     await page.waitForTimeout(300);
@@ -462,14 +468,18 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(hero.locator('[data-sub-compare]')).toHaveText('$90.00');
     await expect(hero.locator('[data-sub-perday]')).toHaveText('$0.90');
     await expect(hero.locator('[data-sub-saving]')).toContainText('$9.00');
-    await expect(hero.locator('[data-sub-supply]')).toHaveText('3 bottles · 90-day supply');
+    // Meta line is compact: the bundle title (plan-label) already carries the
+    // duration, so the supply span only needs the bottle count.
+    await expect(hero.locator('[data-sub-plan-label]')).toHaveText('3 Months');
+    await expect(hero.locator('[data-sub-supply]')).toHaveText('· 3 bottles');
 
     await hero.locator('[data-smooch-bundle-radio]').last().check({ force: true });
     await expect(hero.locator('[data-onetime-price]')).toHaveText('$30.00');
     await expect(hero.locator('[data-sub-price]')).toHaveText('$27.00');
     await expect(hero.locator('[data-sub-compare]')).toHaveText('$30.00');
     await expect(hero.locator('[data-sub-perday]')).toHaveText('$0.90');
-    await expect(hero.locator('[data-sub-supply]')).toHaveText('1 bottle · 30-day supply');
+    await expect(hero.locator('[data-sub-plan-label]')).toHaveText('1 Month');
+    await expect(hero.locator('[data-sub-supply]')).toHaveText('· 1 bottle');
   });
 
   test('subscription panel featured by default; dims on one-time opt-out', async ({ page }) => {
@@ -591,10 +601,48 @@ test.describe('PDP refresh: guided purchase flow', () => {
     // template threshold: 30) — never a fabricated claim.
     await expect(hero.locator('.smooch-stock-badge')).toHaveText('Selling fast');
 
-    // The same real sales-activity copy is echoed once more directly under
-    // the Add to Cart button (Create-style trust line), sourced from the
-    // same block settings — not a second hardcoded string.
-    await expect(hero.locator('.smooch-buybox__buy-trust')).toHaveText('2k+ bought in the past month');
+    // Create-style micro-trust row directly under the Add to Cart button,
+    // sourced from the subscription block's real benefits setting.
+    const perks = hero.locator('.smooch-buybox__buy-perks li');
+    await expect(perks).toHaveCount(3);
+    await expect(perks.nth(0)).toHaveText('Every order ships FREE');
+    await expect(perks.nth(1)).toHaveText('VIP discounts & perks');
+    await expect(perks.nth(2)).toHaveText('Pause, edit, or cancel anytime');
+  });
+
+  test('Create-style buybox: one-time row, discount badge, trust grid, footer row — single source of truth', async ({ page }) => {
+    const hero = page.locator('product-info').first();
+
+    // No flavor step — the first numbered step is the size selector.
+    await expect(hero.locator('.smooch-bundles__legend')).toContainText('Select Your Size');
+    expect(await hero.locator('text=Select Your Flavor').count()).toBe(0);
+
+    // Discount badge shown by default (subscription-first) and driven by the
+    // same planId the offer engine already uses — no separate state.
+    const discountBadge = hero.locator('[data-discount-badge]');
+    await expect(discountBadge).toBeVisible();
+    await expect(discountBadge).toContainText('Discount Auto-Applied');
+
+    // One-time row: real compare-at (bundle-quantity discount) + real per-day,
+    // independent of the subscription discount.
+    const onetimeRow = hero.locator('.smooch-plan--onetime');
+    await expect(onetimeRow.locator('[data-onetime-compare]')).toHaveText('$120.00');
+    await expect(onetimeRow.locator('[data-onetime-price]')).toHaveText('$90.00');
+    await expect(onetimeRow.locator('[data-onetime-perday]')).toHaveText('$1.00');
+
+    // Selecting one-time is the single source of truth: discount badge hides,
+    // the (still real, bundle-driven) compare price stays on the one-time row.
+    await selectOneTime(hero, page);
+    await expect(discountBadge).toBeHidden();
+    await expect(hero.locator('[data-smooch-selling-plan]')).toBeDisabled();
+
+    // 3-column trust grid: real icon + short stacked title per item.
+    const trustItems = hero.locator('.smooch-trust-grid li');
+    await expect(trustItems).toHaveCount(3);
+    await expect(trustItems.nth(0)).toContainText('30-Day Money Back Guarantee');
+
+    // Small footer info row with an optional "Learn more" link.
+    await expect(hero.locator('.smooch-reassurance__footer-row')).toContainText('HSA/FSA eligible');
   });
 });
 

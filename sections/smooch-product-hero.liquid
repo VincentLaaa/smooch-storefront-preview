@@ -61,8 +61,8 @@
   assign gift_blocks = section.blocks | where: 'type', 'gift'
   assign rating_blocks = section.blocks | where: 'type', 'rating'
   assign rating_block = rating_blocks.first
-  assign social_proof_blocks = section.blocks | where: 'type', 'social_proof'
-  assign social_proof_block = social_proof_blocks.first
+  assign subscription_blocks = section.blocks | where: 'type', 'subscription'
+  assign subscription_block = subscription_blocks.first
   assign has_bundles = false
   if bundle_blocks.size > 0
     assign has_bundles = true
@@ -312,9 +312,9 @@
                         <fieldset class="smooch-bundles" {{ block.shopify_attributes }}>
                           <legend class="smooch-bundles__legend smooch-step">
                             <span class="smooch-step__num" aria-hidden="true">1</span>
-                            {{ block.settings.heading | default: 'Choose your supply' }}:
+                            {{ block.settings.heading | default: 'Select Your Size' }}:
                           </legend>
-                          <div class="smooch-bundles__list" role="radiogroup" aria-label="{{ block.settings.heading | default: 'Choose your supply' | escape }}">
+                          <div class="smooch-bundles__list" role="radiogroup" aria-label="{{ block.settings.heading | default: 'Select Your Size' | escape }}">
                             {%- for bundle_block in bundle_blocks -%}
                               {% render 'smooch-bundle-option',
                                 block: bundle_block,
@@ -383,6 +383,8 @@
                             row beneath. All figures Liquid-derived.
                           endcomment
                           assign initial_onetime_total = current_variant.price | times: default_bundle_qty
+                          assign onetime_compare_total = current_variant.compare_at_price | default: 0 | times: default_bundle_qty
+                          assign onetime_per_day = 0
                           assign panel_plan = product.selling_plan_groups[0].selling_plans[0]
                           assign panel_unit = current_variant.price
                           for alloc in current_variant.selling_plan_allocations
@@ -402,27 +404,30 @@
                           assign panel_per_day = 0
                           if panel_days > 0
                             assign panel_per_day = panel_total | divided_by: panel_days
+                            assign onetime_per_day = initial_onetime_total | divided_by: panel_days
                           endif
                         -%}
                         <fieldset class="smooch-plans" {{ block.shopify_attributes }}>
                           <legend class="visually-hidden">{{ block.settings.heading | default: 'Choose how to buy' }}</legend>
                           <div class="smooch-subpanel{% unless default_is_subscribe %} smooch-subpanel--inactive{% endunless %}" data-sub-panel>
                             <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry">{{ block.settings.badge | default: 'Most popular' }}</span>
-                            <p class="smooch-subpanel__title">
-                              {{ block.settings.subscribe_label | default: 'Subscribe & Save' }}
-                              <span class="smooch-subpanel__pct" data-sub-pct {% if panel_pct == 0 %}hidden{% endif %}>{% if panel_pct > 0 %}{{ panel_pct }}%{% endif %}</span>
-                            </p>
+                            <div class="smooch-subpanel__headline">
+                              <p class="smooch-subpanel__title">
+                                {{ block.settings.subscribe_label | default: 'Autoship & Save' }}
+                                <span class="smooch-subpanel__pct" data-sub-pct {% if panel_pct == 0 %}hidden{% endif %}>{% if panel_pct > 0 %}{{ panel_pct }}%{% endif %}</span>
+                              </p>
+                              {%- if block.settings.promo_pill_text != blank -%}
+                                <span class="smooch-badge smooch-badge--blush smooch-subpanel__autobadge" data-sub-autobadge {% if panel_pct == 0 %}hidden{% endif %}>{{ block.settings.promo_pill_text | escape }}</span>
+                              {%- endif -%}
+                            </div>
                             <p class="smooch-subpanel__price">
                               <s class="smooch-strike smooch-num" data-sub-compare {% if panel_save <= 0 %}hidden{% endif %}>{{ initial_onetime_total | money }}</s>
                               <span class="smooch-subpanel__price-current smooch-num" data-sub-price>{{ panel_total | money }}</span>
-                              {%- if block.settings.autoapply_label != blank -%}
-                                <span class="smooch-badge smooch-badge--blush smooch-subpanel__autobadge" data-sub-autobadge {% if panel_pct == 0 %}hidden{% endif %}>{{ block.settings.autoapply_label | escape }}</span>
-                              {%- endif -%}
                             </p>
                             <p class="smooch-subpanel__meta">
+                              <span data-sub-plan-label>{{ panel_bundle.settings.title | default: 'Selected size' }}</span>
                               <span data-sub-supply>
-                                {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
-                                {%- if panel_days > 0 %} · {{ panel_days }}-day supply{% endif -%}
+                                · {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
                               </span>
                               <span data-sub-perday-wrap {% if panel_per_day == 0 %}hidden{% endif %}> · <span class="smooch-num" data-sub-perday>{% if panel_per_day > 0 %}{{ panel_per_day | money }}{% endif %}</span> per day</span>
                             </p>
@@ -452,37 +457,7 @@
                                 {%- endfor -%}
                               {%- endfor -%}
                             </div>
-                            {%- if block.settings.benefits != blank -%}
-                              {%- assign benefit_lines = block.settings.benefits | newline_to_br | split: '<br />' -%}
-                              <ul class="smooch-subpanel__perks" role="list" data-plan-benefits>
-                                {%- for line in benefit_lines -%}
-                                  {%- assign clean_line = line | strip_html | strip -%}
-                                  {%- if clean_line != blank -%}
-                                    <li>
-                                      {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
-                                      <span>{{ clean_line }}</span>
-                                    </li>
-                                  {%- endif -%}
-                                {%- endfor -%}
-                              </ul>
-                            {%- endif -%}
                           </div>
-                          <label class="smooch-plan smooch-plan--onetime">
-                            <input
-                              type="radio"
-                              name="smooch-plan-{{ section.id }}"
-                              value=""
-                              {% unless default_is_subscribe %}checked{% endunless %}
-                              data-smooch-plan-radio
-                              class="smooch-plan__input visually-hidden"
-                            >
-                            <span class="smooch-plan__body">
-                              <span class="smooch-plan__row">
-                                <span class="smooch-plan__name">{{ block.settings.onetime_label | default: 'One-time purchase' }}</span>
-                                <span class="smooch-plan__price smooch-num" data-onetime-price>{{ initial_onetime_total | money }}</span>
-                              </span>
-                            </span>
-                          </label>
                         </fieldset>
                       {%- endif -%}
 
@@ -559,13 +534,52 @@
                           section_id: section.id,
                           show_pickup_availability: false
                         -%}
-                        {%- if social_proof_block.settings.sold_count != blank -%}
-                          <p class="smooch-buybox__buy-trust">
-                            {% render 'smooch-icon', icon: 'sparkle', class: 'smooch-icon--sm' %}
-                            <span>{{ social_proof_block.settings.sold_count | escape }} {{ social_proof_block.settings.period_label | default: 'bought in the past month' | escape }}</span>
-                          </p>
+                        {%- if has_plans and subscription_block.settings.benefits != blank -%}
+                          {%- assign benefit_lines = subscription_block.settings.benefits | newline_to_br | split: '<br />' -%}
+                          <ul class="smooch-subpanel__perks smooch-buybox__buy-perks" role="list" data-plan-benefits>
+                            {%- for line in benefit_lines -%}
+                              {%- assign clean_line = line | strip_html | strip -%}
+                              {%- if clean_line != blank -%}
+                                <li>
+                                  {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
+                                  <span>{{ clean_line }}</span>
+                                </li>
+                              {%- endif -%}
+                            {%- endfor -%}
+                          </ul>
                         {%- endif -%}
                       </div>
+
+                      {%- if has_plans -%}
+                        <label class="smooch-plan smooch-plan--onetime">
+                          <input
+                            type="radio"
+                            name="smooch-plan-{{ section.id }}"
+                            value=""
+                            {% unless default_is_subscribe %}checked{% endunless %}
+                            data-smooch-plan-radio
+                            class="smooch-plan__input visually-hidden"
+                          >
+                          <span class="smooch-plan__body">
+                            <span class="smooch-plan__row">
+                              <span class="smooch-plan__name">{{ subscription_block.settings.onetime_label | default: 'One-Time Purchase' }}</span>
+                              <span class="smooch-plan__price-group">
+                                <s class="smooch-strike smooch-num" data-onetime-compare {% unless onetime_compare_total > initial_onetime_total %}hidden{% endunless %}>{{ onetime_compare_total | money }}</s>
+                                <span class="smooch-plan__price smooch-num" data-onetime-price>{{ initial_onetime_total | money }}</span>
+                                <span class="smooch-plan__perday" data-onetime-perday-wrap {% if onetime_per_day == 0 %}hidden{% endif %}>(<span class="smooch-num" data-onetime-perday>{% if onetime_per_day > 0 %}{{ onetime_per_day | money }}{% endif %}</span> / Day)</span>
+                              </span>
+                            </span>
+                          </span>
+                        </label>
+
+                        {%- if subscription_block.settings.show_discount_badge -%}
+                          <p class="smooch-discount-badge" data-discount-badge {% unless default_is_subscribe %}hidden{% endunless %}>
+                            {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
+                            {{ subscription_block.settings.discount_badge_text | default: 'Discount Auto-Applied' }}
+                          </p>
+                        {%- endif -%}
+                      {%- endif -%}
+
                       {%- if section.settings.enable_sticky_atc -%}
                         <div data-smooch-sticky-sentinel data-section-id="{{ section.id }}" aria-hidden="true"></div>
                       {%- endif -%}
@@ -1248,7 +1262,7 @@
           "type": "text",
           "id": "heading",
           "label": "Heading",
-          "default": "Choose your supply"
+          "default": "Select Your Size"
         },
         {
           "type": "checkbox",
@@ -1392,13 +1406,13 @@
           "type": "text",
           "id": "onetime_label",
           "label": "One-time label",
-          "default": "One-time purchase"
+          "default": "One-Time Purchase"
         },
         {
           "type": "text",
           "id": "subscribe_label",
           "label": "Subscription label",
-          "default": "Subscribe & save"
+          "default": "Autoship & Save"
         },
         {
           "type": "select",
@@ -1419,11 +1433,31 @@
           "info": "Shown when a subscription is selected. Only list capabilities your subscription app and shipping settings actually support."
         },
         {
+          "type": "header",
+          "content": "Promo pill (beside the offer heading)"
+        },
+        {
           "type": "text",
-          "id": "autoapply_label",
-          "label": "Auto-applied badge",
-          "default": "Discount auto-applied",
-          "info": "Small badge beside the subscription price. Clear the text to hide it."
+          "id": "promo_pill_text",
+          "label": "Promo pill text",
+          "default": "Auto Discount",
+          "info": "Small configurable pill beside \"Autoship & Save\". Clear the text to hide it. Do not use a specific coupon code unless it's real and live."
+        },
+        {
+          "type": "header",
+          "content": "Discount badge (below the one-time row)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_discount_badge",
+          "label": "Show the discount-applied badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "discount_badge_text",
+          "label": "Discount badge text",
+          "default": "Discount Auto-Applied"
         }
       ]
     },
@@ -1467,11 +1501,83 @@
           "type": "select",
           "id": "style",
           "label": "Style",
-          "default": "badges",
+          "default": "grid",
           "options": [
+            { "value": "grid", "label": "3-column icon grid" },
             { "value": "badges", "label": "Checkmark badges" },
             { "value": "list", "label": "Icon list" }
           ]
+        },
+        {
+          "type": "header",
+          "content": "3-column icon grid"
+        },
+        {
+          "type": "paragraph",
+          "content": "Shown when Style is set to \"3-column icon grid\". Keep each title short — it wraps onto two lines. Only claim numbers you can back up (e.g. avoid a customer count unless it's real)."
+        },
+        {
+          "type": "select",
+          "id": "trust1_icon",
+          "label": "Item 1 icon",
+          "default": "shield",
+          "options": [
+            { "value": "shield", "label": "Shield" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "box", "label": "Box" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "check", "label": "Check" },
+            { "value": "sparkle", "label": "Sparkle" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "trust1_text",
+          "label": "Item 1 text",
+          "default": "30-Day Money Back Guarantee"
+        },
+        {
+          "type": "select",
+          "id": "trust2_icon",
+          "label": "Item 2 icon",
+          "default": "truck",
+          "options": [
+            { "value": "shield", "label": "Shield" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "box", "label": "Box" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "check", "label": "Check" },
+            { "value": "sparkle", "label": "Sparkle" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "trust2_text",
+          "label": "Item 2 text",
+          "default": "Ships Within 1 Business Day"
+        },
+        {
+          "type": "select",
+          "id": "trust3_icon",
+          "label": "Item 3 icon",
+          "default": "heart",
+          "options": [
+            { "value": "shield", "label": "Shield" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "box", "label": "Box" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "check", "label": "Check" },
+            { "value": "sparkle", "label": "Sparkle" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "trust3_text",
+          "label": "Item 3 text",
+          "default": "Loved by Early Customers"
         },
         {
           "type": "checkbox",
@@ -1512,6 +1618,27 @@
           "max": 50,
           "step": 1,
           "default": 10
+        },
+        {
+          "type": "header",
+          "content": "Small footer info row"
+        },
+        {
+          "type": "text",
+          "id": "footer_text",
+          "label": "Footer text",
+          "info": "Small, secondary line at the very bottom of the buybox. Leave blank to hide."
+        },
+        {
+          "type": "text",
+          "id": "footer_link_text",
+          "label": "Footer link text",
+          "default": "Learn more"
+        },
+        {
+          "type": "url",
+          "id": "footer_link_url",
+          "label": "Footer link URL"
         }
       ]
     },

@@ -426,9 +426,15 @@
 
 .smooch-plan__row {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 1.2rem;
+  row-gap: 0.4rem;
+  column-gap: 1.2rem;
+}
+
+.smooch-plan--onetime .smooch-plan__name {
+  white-space: nowrap;
 }
 
 /* Subscription-first hierarchy: featured plan rows carry a soft berry accent;
@@ -502,7 +508,15 @@
   border: 0.15rem solid var(--smooch-berry);
   border-radius: var(--smooch-radius-card);
   background-color: rgba(var(--smooch-blush-rgb), 0.22);
+  box-shadow: 0 0.6rem 1.8rem rgba(var(--smooch-ink-rgb), 0.08);
   transition: opacity var(--duration-short, 100ms) ease, border-color var(--duration-short, 100ms) ease;
+}
+
+.smooch-subpanel__headline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
 }
 
 .smooch-subpanel--inactive {
@@ -623,7 +637,113 @@
   color: rgb(196, 42, 80);
 }
 
-/* ---------- Purchase summary (single quiet line above the button) ---------- */
+/* Same perks list, relocated directly under the Add to Cart button (Create's
+   micro-trust-row position) instead of inside the subscription card. */
+.smooch-buybox__buy-perks {
+  border-top: none;
+  margin: 1.2rem 0 0;
+  padding: 0;
+  justify-items: center;
+  text-align: center;
+}
+
+.smooch-buybox__buy-perks li {
+  justify-content: center;
+}
+
+/* ---------- One-time purchase row ---------- */
+
+.smooch-plan__perday {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: rgba(var(--smooch-ink-rgb), 0.6);
+  white-space: nowrap;
+}
+
+/* ---------- Discount-applied badge ---------- */
+
+.smooch-discount-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgba(var(--smooch-ink-rgb), 0.75);
+  text-align: center;
+}
+
+.smooch-discount-badge .smooch-icon {
+  color: rgb(46, 138, 92);
+}
+
+.smooch-discount-badge[hidden] {
+  display: none !important;
+}
+
+/* ---------- Trust icon grid (3-column) ---------- */
+
+.smooch-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin: 1.6rem 0 0;
+  padding: 1.6rem 0 0;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+  list-style: none;
+}
+
+.smooch-trust-grid li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: center;
+}
+
+.smooch-trust-grid .smooch-icon {
+  color: var(--smooch-berry);
+}
+
+.smooch-trust-grid span {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--smooch-ink);
+}
+
+/* ---------- Small footer info row ---------- */
+
+.smooch-reassurance__footer-row {
+  margin: 1.4rem 0 0;
+  padding-top: 1.2rem;
+  border-top: 0.1rem solid var(--smooch-border-soft);
+  font-size: 1.15rem;
+  color: rgba(var(--smooch-ink-rgb), 0.6);
+  text-align: center;
+}
+
+.smooch-reassurance__footer-link {
+  margin-left: 0.5rem;
+  color: var(--smooch-ink);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* ---------- Purchase summary (single quiet line above the button) ----------
+   Visually hidden in the Create-style buybox layout: the subscription card
+   and one-time row already carry this exact recap (size, count, per-day,
+   total), so repeating it here between the card and the CTA button just
+   adds clutter to a flow that's meant to read straight down to Add to Cart.
+   Kept in the DOM (not removed) — product-form.js still writes into its
+   data-summary-supply / data-smooch-price nodes as part of the single
+   offer-state render pipeline, and the sticky-ATC bar's own price field is
+   independent of this one, so hiding it here is purely cosmetic. */
+
+.smooch-buybox__price-group--offer .smooch-summary-line {
+  display: none;
+}
 
 .smooch-summary-line {
   display: flex;

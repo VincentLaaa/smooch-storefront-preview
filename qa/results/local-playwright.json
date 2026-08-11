@@ -103,12 +103,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 666,
+                  "duration": 709,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-11T21:31:01.147Z",
+                  "startTime": "2026-08-11T22:18:52.868Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -118,7 +118,7 @@
           ],
           "id": "39371fff76f09d32bbe7-36f62e2a99f5e8a767b5",
           "file": "local.spec.mjs",
-          "line": 329,
+          "line": 335,
           "column": 1
         }
       ],
@@ -126,7 +126,7 @@
         {
           "title": "Viewport sweep",
           "file": "local.spec.mjs",
-          "line": 64,
+          "line": 69,
           "column": 6,
           "specs": [
             {
@@ -145,12 +145,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 722,
+                      "duration": 776,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:30:31.068Z",
+                      "startTime": "2026-08-11T22:18:20.831Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -160,7 +160,7 @@
               ],
               "id": "39371fff76f09d32bbe7-a4be6cd290348cd3137a",
               "file": "local.spec.mjs",
-              "line": 66,
+              "line": 71,
               "column": 5
             },
             {
@@ -179,12 +179,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 897,
+                      "duration": 914,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:30:31.865Z",
+                      "startTime": "2026-08-11T22:18:21.683Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -194,7 +194,7 @@
               ],
               "id": "39371fff76f09d32bbe7-e2ed98e01d7dab0c43fe",
               "file": "local.spec.mjs",
-              "line": 77,
+              "line": 82,
               "column": 5
             },
             {
@@ -218,7 +218,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:30:32.768Z",
+                      "startTime": "2026-08-11T22:18:22.603Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -228,7 +228,7 @@
               ],
               "id": "39371fff76f09d32bbe7-bf0d44c4e273c063e3fd",
               "file": "local.spec.mjs",
-              "line": 66,
+              "line": 71,
               "column": 5
             },
             {
@@ -247,12 +247,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 902,
+                      "duration": 937,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:30:33.481Z",
+                      "startTime": "2026-08-11T22:18:23.316Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -262,7 +262,7 @@
               ],
               "id": "39371fff76f09d32bbe7-eb3792dc5954691f8e87",
               "file": "local.spec.mjs",
-              "line": 77,
+              "line": 82,
               "column": 5
             },
             {
@@ -281,12 +281,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 723,
+                      "duration": 754,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:30:34.388Z",
+                      "startTime": "2026-08-11T22:18:24.258Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -296,631 +296,11 @@
               ],
               "id": "39371fff76f09d32bbe7-8b80454458f759bf2b06",
               "file": "local.spec.mjs",
-              "line": 66,
+              "line": 71,
               "column": 5
             },
             {
               "title": "product @ mobile-390",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 934,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:35.116Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-7bc44b34463a3ba43c4a",
-              "file": "local.spec.mjs",
-              "line": 77,
-              "column": 5
-            },
-            {
-              "title": "homepage @ mobile-430",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 705,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:36.056Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-8d073384d5c87dd338e6",
-              "file": "local.spec.mjs",
-              "line": 66,
-              "column": 5
-            },
-            {
-              "title": "product @ mobile-430",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 925,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:36.766Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-2a5feaa36b91792bae99",
-              "file": "local.spec.mjs",
-              "line": 77,
-              "column": 5
-            },
-            {
-              "title": "homepage @ tablet-768",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 791,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:37.695Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-9757797a01683bde192d",
-              "file": "local.spec.mjs",
-              "line": 66,
-              "column": 5
-            },
-            {
-              "title": "product @ tablet-768",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 934,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:38.492Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-cc187868ac2c4a149354",
-              "file": "local.spec.mjs",
-              "line": 77,
-              "column": 5
-            },
-            {
-              "title": "homepage @ tablet-1024",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 792,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:39.430Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-379596dcf2ee494499ec",
-              "file": "local.spec.mjs",
-              "line": 66,
-              "column": 5
-            },
-            {
-              "title": "product @ tablet-1024",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 960,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:40.228Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-4a5dd802a577dc0707a3",
-              "file": "local.spec.mjs",
-              "line": 77,
-              "column": 5
-            },
-            {
-              "title": "homepage @ desktop-1280",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 805,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:41.193Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-4ba3c1eb9915c42d45b4",
-              "file": "local.spec.mjs",
-              "line": 66,
-              "column": 5
-            },
-            {
-              "title": "product @ desktop-1280",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 1001,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:42.003Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-50045d6ce58372f5c20d",
-              "file": "local.spec.mjs",
-              "line": 77,
-              "column": 5
-            },
-            {
-              "title": "homepage @ desktop-1440",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 814,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:43.009Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-2fa7317f8bb357f908e0",
-              "file": "local.spec.mjs",
-              "line": 66,
-              "column": 5
-            },
-            {
-              "title": "product @ desktop-1440",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 1003,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:43.828Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-f42a847497573d79aec5",
-              "file": "local.spec.mjs",
-              "line": 77,
-              "column": 5
-            },
-            {
-              "title": "homepage @ desktop-1920",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 795,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:44.836Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-d637f127f5acc447902e",
-              "file": "local.spec.mjs",
-              "line": 66,
-              "column": 5
-            },
-            {
-              "title": "product @ desktop-1920",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 1003,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:45.636Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-5003107291b9a8faa40a",
-              "file": "local.spec.mjs",
-              "line": 77,
-              "column": 5
-            },
-            {
-              "title": "FAQ + full-page captures",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 2485,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:46.645Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-63e716439d979c287fbe",
-              "file": "local.spec.mjs",
-              "line": 88,
-              "column": 3
-            }
-          ]
-        },
-        {
-          "title": "Purchase matrix (offline harness)",
-          "file": "local.spec.mjs",
-          "line": 108,
-          "column": 6,
-          "specs": [
-            {
-              "title": "A. standard add-to-cart opens drawer, bubble + line price correct",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 741,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:49.135Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-188527d107338ee1201d",
-              "file": "local.spec.mjs",
-              "line": 115,
-              "column": 3
-            },
-            {
-              "title": "A2. cart drawer: shipping meter, order summary, secure checkout, ticker",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 809,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:49.881Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-f00dc52b12fbd03e58ab",
-              "file": "local.spec.mjs",
-              "line": 127,
-              "column": 3
-            },
-            {
-              "title": "A3. cart drawer: progress message and deal chips drive real quantity updates",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 2113,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:50.695Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-39cb7f76675d1a2e7e1c",
-              "file": "local.spec.mjs",
-              "line": 155,
-              "column": 3
-            },
-            {
-              "title": "B. quantity bundles: totals, unit price, cart quantity",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 2030,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:30:52.814Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-7b1a0a78bec2338f6bc9",
-              "file": "local.spec.mjs",
-              "line": 185,
-              "column": 3
-            },
-            {
-              "title": "C. variant picker drives Dawn pipeline: price, form id, cart variant",
               "ok": true,
               "tags": [],
               "tests": [
@@ -940,7 +320,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:30:54.849Z",
+                      "startTime": "2026-08-11T22:18:25.017Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -948,13 +328,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "39371fff76f09d32bbe7-5175dfe997905f5e4ca7",
+              "id": "39371fff76f09d32bbe7-7bc44b34463a3ba43c4a",
               "file": "local.spec.mjs",
-              "line": 210,
-              "column": 3
+              "line": 82,
+              "column": 5
             },
             {
-              "title": "D. subscription-first selector: default plan, posting, one-time opt-out",
+              "title": "homepage @ mobile-430",
               "ok": true,
               "tags": [],
               "tests": [
@@ -969,12 +349,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1311,
+                      "duration": 755,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:30:55.839Z",
+                      "startTime": "2026-08-11T22:18:26.008Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -982,13 +362,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "39371fff76f09d32bbe7-25969344ef0886cfd00b",
+              "id": "39371fff76f09d32bbe7-8d073384d5c87dd338e6",
               "file": "local.spec.mjs",
-              "line": 236,
-              "column": 3
+              "line": 71,
+              "column": 5
             },
             {
-              "title": "E. sold-out variant: ATC disabled, bundle cards flagged, price dims",
+              "title": "product @ mobile-430",
               "ok": true,
               "tags": [],
               "tests": [
@@ -1003,12 +383,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 791,
+                      "duration": 939,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:30:57.156Z",
+                      "startTime": "2026-08-11T22:18:26.769Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1016,13 +396,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "39371fff76f09d32bbe7-c457ed1a622f358b2ffa",
+              "id": "39371fff76f09d32bbe7-2a5feaa36b91792bae99",
               "file": "local.spec.mjs",
-              "line": 272,
-              "column": 3
+              "line": 82,
+              "column": 5
             },
             {
-              "title": "F. mobile sticky ATC: appears, syncs price, proxies form, hides with drawer",
+              "title": "homepage @ tablet-768",
               "ok": true,
               "tags": [],
               "tests": [
@@ -1037,12 +417,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2685,
+                      "duration": 729,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:30:57.952Z",
+                      "startTime": "2026-08-11T22:18:27.714Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1050,13 +430,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "39371fff76f09d32bbe7-7d8219ed0cfa0083e112",
+              "id": "39371fff76f09d32bbe7-9757797a01683bde192d",
               "file": "local.spec.mjs",
-              "line": 287,
-              "column": 3
+              "line": 71,
+              "column": 5
             },
             {
-              "title": "G. one canonical product form; no placeholder proof on the default PDP",
+              "title": "product @ tablet-768",
               "ok": true,
               "tags": [],
               "tests": [
@@ -1071,12 +451,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 500,
+                      "duration": 980,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:00.642Z",
+                      "startTime": "2026-08-11T22:18:28.448Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1084,21 +464,327 @@
                   "status": "expected"
                 }
               ],
-              "id": "39371fff76f09d32bbe7-258672eb1a2c58615062",
+              "id": "39371fff76f09d32bbe7-cc187868ac2c4a149354",
               "file": "local.spec.mjs",
-              "line": 313,
+              "line": 82,
+              "column": 5
+            },
+            {
+              "title": "homepage @ tablet-1024",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 808,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:29.432Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-379596dcf2ee494499ec",
+              "file": "local.spec.mjs",
+              "line": 71,
+              "column": 5
+            },
+            {
+              "title": "product @ tablet-1024",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1026,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:30.245Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-4a5dd802a577dc0707a3",
+              "file": "local.spec.mjs",
+              "line": 82,
+              "column": 5
+            },
+            {
+              "title": "homepage @ desktop-1280",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 808,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:31.277Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-4ba3c1eb9915c42d45b4",
+              "file": "local.spec.mjs",
+              "line": 71,
+              "column": 5
+            },
+            {
+              "title": "product @ desktop-1280",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 999,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:32.089Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-50045d6ce58372f5c20d",
+              "file": "local.spec.mjs",
+              "line": 82,
+              "column": 5
+            },
+            {
+              "title": "homepage @ desktop-1440",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 815,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:33.093Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-2fa7317f8bb357f908e0",
+              "file": "local.spec.mjs",
+              "line": 71,
+              "column": 5
+            },
+            {
+              "title": "product @ desktop-1440",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 986,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:33.912Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-f42a847497573d79aec5",
+              "file": "local.spec.mjs",
+              "line": 82,
+              "column": 5
+            },
+            {
+              "title": "homepage @ desktop-1920",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 830,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:34.904Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-d637f127f5acc447902e",
+              "file": "local.spec.mjs",
+              "line": 71,
+              "column": 5
+            },
+            {
+              "title": "product @ desktop-1920",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1053,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:35.738Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-5003107291b9a8faa40a",
+              "file": "local.spec.mjs",
+              "line": 82,
+              "column": 5
+            },
+            {
+              "title": "FAQ + full-page captures",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2587,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:36.797Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-63e716439d979c287fbe",
+              "file": "local.spec.mjs",
+              "line": 93,
               "column": 3
             }
           ]
         },
         {
-          "title": "Accessibility spot checks",
+          "title": "Purchase matrix (offline harness)",
           "file": "local.spec.mjs",
-          "line": 344,
+          "line": 113,
           "column": 6,
           "specs": [
             {
-              "title": "h1 uniqueness, accordion aria sync, keyboard bundles, focus visibility",
+              "title": "A. standard add-to-cart opens drawer, bubble + line price correct",
               "ok": true,
               "tags": [],
               "tests": [
@@ -1113,12 +799,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 767,
+                      "duration": 775,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:01.818Z",
+                      "startTime": "2026-08-11T22:18:39.389Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1126,135 +812,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "39371fff76f09d32bbe7-4e6d7a00ca0396a28ec9",
+              "id": "39371fff76f09d32bbe7-188527d107338ee1201d",
               "file": "local.spec.mjs",
-              "line": 345,
+              "line": 120,
               "column": 3
             },
             {
-              "title": "reduced motion renders cleanly",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 929,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:31:02.590Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-8efd1416de34e5479995",
-              "file": "local.spec.mjs",
-              "line": 375,
-              "column": 3
-            }
-          ]
-        },
-        {
-          "title": "Performance signals",
-          "file": "local.spec.mjs",
-          "line": 387,
-          "column": 6,
-          "specs": [
-            {
-              "title": "homepage: ≤2 eager images, all images have reserved space",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 219,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:31:03.523Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-37fb25ca597c3aee89db",
-              "file": "local.spec.mjs",
-              "line": 388,
-              "column": 3
-            },
-            {
-              "title": "product page CLS < 0.1 (lab)",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 4455,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "[perf] product mobile (local): LCP≈276ms CLS=0.0001\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-11T21:31:03.747Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-0f598c9032213c89fd03",
-              "file": "local.spec.mjs",
-              "line": 405,
-              "column": 3
-            }
-          ]
-        },
-        {
-          "title": "PDP refresh: guided purchase flow",
-          "file": "local.spec.mjs",
-          "line": 422,
-          "column": 6,
-          "specs": [
-            {
-              "title": "numbered steps, supply-card economics, per-bottle + exact savings",
+              "title": "A2. cart drawer: shipping meter, order summary, secure checkout, ticker",
               "ok": true,
               "tags": [],
               "tests": [
@@ -1274,7 +838,443 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:08.208Z",
+                      "startTime": "2026-08-11T22:18:40.169Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-f00dc52b12fbd03e58ab",
+              "file": "local.spec.mjs",
+              "line": 132,
+              "column": 3
+            },
+            {
+              "title": "A3. cart drawer: progress message and deal chips drive real quantity updates",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2014,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:41.016Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-39cb7f76675d1a2e7e1c",
+              "file": "local.spec.mjs",
+              "line": 160,
+              "column": 3
+            },
+            {
+              "title": "B. quantity bundles: totals, unit price, cart quantity",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1963,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:43.036Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-7b1a0a78bec2338f6bc9",
+              "file": "local.spec.mjs",
+              "line": 190,
+              "column": 3
+            },
+            {
+              "title": "C. variant picker drives Dawn pipeline: price, form id, cart variant",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1195,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:45.005Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-5175dfe997905f5e4ca7",
+              "file": "local.spec.mjs",
+              "line": 215,
+              "column": 3
+            },
+            {
+              "title": "D. subscription-first selector: default plan, posting, one-time opt-out",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1264,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:46.205Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-25969344ef0886cfd00b",
+              "file": "local.spec.mjs",
+              "line": 241,
+              "column": 3
+            },
+            {
+              "title": "E. sold-out variant: ATC disabled, bundle cards flagged, price dims",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 793,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:47.474Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-c457ed1a622f358b2ffa",
+              "file": "local.spec.mjs",
+              "line": 277,
+              "column": 3
+            },
+            {
+              "title": "F. mobile sticky ATC: appears, syncs price, proxies form, hides with drawer",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4018,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:48.273Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-7d8219ed0cfa0083e112",
+              "file": "local.spec.mjs",
+              "line": 292,
+              "column": 3
+            },
+            {
+              "title": "G. one canonical product form; no placeholder proof on the default PDP",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 567,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:52.296Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-258672eb1a2c58615062",
+              "file": "local.spec.mjs",
+              "line": 319,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Accessibility spot checks",
+          "file": "local.spec.mjs",
+          "line": 350,
+          "column": 6,
+          "specs": [
+            {
+              "title": "h1 uniqueness, accordion aria sync, keyboard bundles, focus visibility",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 806,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:53.582Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-4e6d7a00ca0396a28ec9",
+              "file": "local.spec.mjs",
+              "line": 351,
+              "column": 3
+            },
+            {
+              "title": "reduced motion renders cleanly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 980,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:54.393Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-8efd1416de34e5479995",
+              "file": "local.spec.mjs",
+              "line": 381,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Performance signals",
+          "file": "local.spec.mjs",
+          "line": 393,
+          "column": 6,
+          "specs": [
+            {
+              "title": "homepage: ≤2 eager images, all images have reserved space",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 235,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:55.377Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-37fb25ca597c3aee89db",
+              "file": "local.spec.mjs",
+              "line": 394,
+              "column": 3
+            },
+            {
+              "title": "product page CLS < 0.1 (lab)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4436,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[perf] product mobile (local): LCP≈304ms CLS=0.0001\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:18:55.617Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-0f598c9032213c89fd03",
+              "file": "local.spec.mjs",
+              "line": 411,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "PDP refresh: guided purchase flow",
+          "file": "local.spec.mjs",
+          "line": 428,
+          "column": 6,
+          "specs": [
+            {
+              "title": "numbered steps, supply-card economics, per-bottle + exact savings",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 940,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:19:00.058Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1284,7 +1284,7 @@
               ],
               "id": "39371fff76f09d32bbe7-610a7f2add21a76022b5",
               "file": "local.spec.mjs",
-              "line": 429,
+              "line": 435,
               "column": 3
             },
             {
@@ -1303,12 +1303,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 561,
+                      "duration": 604,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:09.053Z",
+                      "startTime": "2026-08-11T22:19:01.005Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1318,7 +1318,7 @@
               ],
               "id": "39371fff76f09d32bbe7-9835af49e94220e4fabb",
               "file": "local.spec.mjs",
-              "line": 457,
+              "line": 463,
               "column": 3
             },
             {
@@ -1337,12 +1337,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 849,
+                      "duration": 885,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:09.620Z",
+                      "startTime": "2026-08-11T22:19:01.614Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1352,7 +1352,7 @@
               ],
               "id": "39371fff76f09d32bbe7-888a4a5d0ef35fdc0bd6",
               "file": "local.spec.mjs",
-              "line": 475,
+              "line": 485,
               "column": 3
             },
             {
@@ -1371,12 +1371,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 607,
+                      "duration": 729,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:10.475Z",
+                      "startTime": "2026-08-11T22:19:02.505Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1386,7 +1386,7 @@
               ],
               "id": "39371fff76f09d32bbe7-5c14aea99137f00886e9",
               "file": "local.spec.mjs",
-              "line": 506,
+              "line": 516,
               "column": 3
             },
             {
@@ -1405,12 +1405,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1035,
+                      "duration": 1085,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:11.087Z",
+                      "startTime": "2026-08-11T22:19:03.240Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1420,7 +1420,7 @@
               ],
               "id": "39371fff76f09d32bbe7-c81e0d5f2e851396f082",
               "file": "local.spec.mjs",
-              "line": 519,
+              "line": 529,
               "column": 3
             },
             {
@@ -1439,12 +1439,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 551,
+                      "duration": 620,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:12.129Z",
+                      "startTime": "2026-08-11T22:19:04.330Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1454,7 +1454,7 @@
               ],
               "id": "39371fff76f09d32bbe7-556a99df4266e3d62a72",
               "file": "local.spec.mjs",
-              "line": 530,
+              "line": 540,
               "column": 3
             },
             {
@@ -1473,12 +1473,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1340,
+                      "duration": 1434,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:12.685Z",
+                      "startTime": "2026-08-11T22:19:04.958Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1488,7 +1488,7 @@
               ],
               "id": "39371fff76f09d32bbe7-6e54bc1ea9134e3b7138",
               "file": "local.spec.mjs",
-              "line": 537,
+              "line": 547,
               "column": 3
             },
             {
@@ -1507,12 +1507,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 570,
+                      "duration": 620,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:14.030Z",
+                      "startTime": "2026-08-11T22:19:06.400Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1522,7 +1522,7 @@
               ],
               "id": "39371fff76f09d32bbe7-238f0fde9bcef1b12e3c",
               "file": "local.spec.mjs",
-              "line": 553,
+              "line": 563,
               "column": 3
             },
             {
@@ -1541,12 +1541,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 751,
+                      "duration": 717,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:14.606Z",
+                      "startTime": "2026-08-11T22:19:07.025Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1556,7 +1556,7 @@
               ],
               "id": "39371fff76f09d32bbe7-f4e077501ea4a359b39b",
               "file": "local.spec.mjs",
-              "line": 568,
+              "line": 578,
               "column": 3
             },
             {
@@ -1575,12 +1575,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 496,
+                      "duration": 567,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:15.362Z",
+                      "startTime": "2026-08-11T22:19:07.748Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1590,7 +1590,41 @@
               ],
               "id": "39371fff76f09d32bbe7-bb00db595099ac038cbd",
               "file": "local.spec.mjs",
-              "line": 577,
+              "line": 587,
+              "column": 3
+            },
+            {
+              "title": "Create-style buybox: one-time row, discount badge, trust grid, footer row — single source of truth",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 828,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-11T22:19:08.320Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-b0787480393a378cdae0",
+              "file": "local.spec.mjs",
+              "line": 613,
               "column": 3
             }
           ]
@@ -1598,7 +1632,7 @@
         {
           "title": "Scroll story: full (product page) vs compact (homepage)",
           "file": "local.spec.mjs",
-          "line": 602,
+          "line": 650,
           "column": 6,
           "specs": [
             {
@@ -1617,12 +1651,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 289,
+                      "duration": 285,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:15.864Z",
+                      "startTime": "2026-08-11T22:19:09.153Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1632,7 +1666,7 @@
               ],
               "id": "39371fff76f09d32bbe7-735afe13c54aa7098c8b",
               "file": "local.spec.mjs",
-              "line": 603,
+              "line": 651,
               "column": 3
             },
             {
@@ -1651,12 +1685,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 486,
+                      "duration": 573,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:16.158Z",
+                      "startTime": "2026-08-11T22:19:09.443Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1666,7 +1700,7 @@
               ],
               "id": "39371fff76f09d32bbe7-b2e522d313f81c11e0f5",
               "file": "local.spec.mjs",
-              "line": 623,
+              "line": 671,
               "column": 3
             },
             {
@@ -1685,12 +1719,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3480,
+                      "duration": 3606,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:16.649Z",
+                      "startTime": "2026-08-11T22:19:10.021Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1700,7 +1734,7 @@
               ],
               "id": "39371fff76f09d32bbe7-e8905f8dafe70fdd9ad5",
               "file": "local.spec.mjs",
-              "line": 637,
+              "line": 685,
               "column": 3
             },
             {
@@ -1719,12 +1753,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 695,
+                      "duration": 683,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:20.135Z",
+                      "startTime": "2026-08-11T22:19:13.632Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1734,7 +1768,7 @@
               ],
               "id": "39371fff76f09d32bbe7-855649bcd777b3c68820",
               "file": "local.spec.mjs",
-              "line": 675,
+              "line": 723,
               "column": 3
             },
             {
@@ -1753,12 +1787,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 661,
+                      "duration": 705,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:20.834Z",
+                      "startTime": "2026-08-11T22:19:14.320Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1768,7 +1802,7 @@
               ],
               "id": "39371fff76f09d32bbe7-e4a6cd0c554a11c6d691",
               "file": "local.spec.mjs",
-              "line": 687,
+              "line": 735,
               "column": 3
             }
           ]
@@ -1776,7 +1810,7 @@
         {
           "title": "Reviews: curated carousel + full reviews (product page only)",
           "file": "local.spec.mjs",
-          "line": 704,
+          "line": 752,
           "column": 6,
           "specs": [
             {
@@ -1795,12 +1829,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 513,
+                      "duration": 683,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:21.500Z",
+                      "startTime": "2026-08-11T22:19:15.030Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1810,7 +1844,7 @@
               ],
               "id": "39371fff76f09d32bbe7-9789762628e5c658503e",
               "file": "local.spec.mjs",
-              "line": 705,
+              "line": 753,
               "column": 3
             },
             {
@@ -1834,7 +1868,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:22.017Z",
+                      "startTime": "2026-08-11T22:19:15.718Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1844,7 +1878,7 @@
               ],
               "id": "39371fff76f09d32bbe7-73cb27e6d349642eca54",
               "file": "local.spec.mjs",
-              "line": 736,
+              "line": 784,
               "column": 3
             },
             {
@@ -1863,12 +1897,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 487,
+                      "duration": 521,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:24.722Z",
+                      "startTime": "2026-08-11T22:19:18.425Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1878,7 +1912,7 @@
               ],
               "id": "39371fff76f09d32bbe7-230b2ae5b12b81a77f80",
               "file": "local.spec.mjs",
-              "line": 754,
+              "line": 802,
               "column": 3
             },
             {
@@ -1897,12 +1931,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 777,
+                      "duration": 774,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:25.213Z",
+                      "startTime": "2026-08-11T22:19:18.951Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1912,7 +1946,7 @@
               ],
               "id": "39371fff76f09d32bbe7-886318c27a72002f6d72",
               "file": "local.spec.mjs",
-              "line": 776,
+              "line": 824,
               "column": 3
             },
             {
@@ -1931,12 +1965,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1224,
+                      "duration": 1328,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-11T21:31:25.997Z",
+                      "startTime": "2026-08-11T22:19:19.729Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1946,7 +1980,7 @@
               ],
               "id": "39371fff76f09d32bbe7-65ba2c5a23946e9a47bb",
               "file": "local.spec.mjs",
-              "line": 796,
+              "line": 844,
               "column": 3
             }
           ]
@@ -1956,9 +1990,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-08-11T21:30:30.546Z",
-    "duration": 56883.076,
-    "expected": 53,
+    "startTime": "2026-08-11T22:18:20.354Z",
+    "duration": 60928.924999999996,
+    "expected": 54,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

@@ -340,6 +340,16 @@ if (!customElements.get('smooch-offer')) {
         const baseEntry = variant.base ? variant.base[bundleIndex] : null;
         const onetimePrice = this.querySelector('[data-onetime-price]');
         if (onetimePrice && baseEntry) onetimePrice.textContent = baseEntry.t;
+        this.setCompare(this.querySelector('[data-onetime-compare]'), baseEntry ? baseEntry.c : '');
+        const onetimePerDayWrap = this.querySelector('[data-onetime-perday-wrap]');
+        if (onetimePerDayWrap) {
+          if (baseEntry && baseEntry.pd) {
+            this.setText(this, '[data-onetime-perday]', baseEntry.pd);
+            onetimePerDayWrap.hidden = false;
+          } else {
+            onetimePerDayWrap.hidden = true;
+          }
+        }
         this.querySelectorAll('[data-plan-price]').forEach((el) => {
           const id = el.dataset.planId;
           const planPrices = variant.plans && variant.plans[id] ? variant.plans[id][bundleIndex] : null;
@@ -391,14 +401,22 @@ if (!customElements.get('smooch-offer')) {
           }
         }
 
+        const discountBadge = this.querySelector('[data-discount-badge]');
+        if (discountBadge) discountBadge.hidden = !planId;
+
         // Purchase summary line ("2 bottles · 60-day supply · Subscription…").
         const bundleMeta = this.data.bundles[bundleIndex] || { quantity: 1, days: 0, label: '' };
+        const planLabelEl = this.querySelector('[data-sub-plan-label]');
+        if (planLabelEl && bundleMeta.label) planLabelEl.textContent = bundleMeta.label;
         const supplyEl = this.querySelector('[data-summary-supply]');
         const bundleQty = bundleMeta.quantity || 1;
-        let supplyText = `${bundleQty} bottle${bundleQty === 1 ? '' : 's'}`;
+        const bottleText = `${bundleQty} bottle${bundleQty === 1 ? '' : 's'}`;
+        let supplyText = bottleText;
         if (bundleMeta.days > 0) supplyText += ` · ${bundleMeta.days}-day supply`;
         if (supplyEl) supplyEl.textContent = supplyText;
-        this.setText(this, '[data-sub-supply]', supplyText);
+        // Subscription card's meta line stays compact: "3 Months · 3 bottles · $X/day" —
+        // the bundle title already conveys duration, so this only needs the count.
+        this.setText(this, '[data-sub-supply]', `· ${bottleText}`);
         const planLineEl = this.querySelector('[data-summary-plan]');
         if (planLineEl) {
           if (planId) {
@@ -670,3 +688,29 @@ if (!customElements.get('smooch-sticky-atc')) {
     }
   );
 }
+
+/* Swap the main Add to Cart button's label to "Adding…" while product-form.js
+   has it in its `.loading` state (submit in flight). Purely a label swap —
+   Dawn's own disabled/spinner handling on this button is untouched; we only
+   watch it via MutationObserver, the same non-invasive pattern the sticky
+   ATC bar already uses to mirror this button's state. Guarded per-button so
+   theme-editor re-execution can't attach a second observer. */
+document.querySelectorAll('.smooch-buybox__buy [id^="ProductSubmitButton-"]').forEach((button) => {
+  if (button.dataset.smoochLoadingLabelBound) return;
+  button.dataset.smoochLoadingLabelBound = 'true';
+
+  const label = button.querySelector('span');
+  if (!label) return;
+  const defaultText = label.textContent.trim();
+  const loadingText = 'Adding…';
+
+  const sync = () => {
+    if (button.classList.contains('loading')) {
+      if (label.textContent !== loadingText) label.textContent = loadingText;
+    } else if (label.textContent === loadingText) {
+      label.textContent = defaultText;
+    }
+  };
+
+  new MutationObserver(sync).observe(button, { attributes: true, attributeFilter: ['class'] });
+});
