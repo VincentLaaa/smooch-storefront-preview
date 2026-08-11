@@ -403,86 +403,66 @@
   display: none !important;
 }
 
-.smooch-plan__body {
+/* One-time purchase row: a centered, underlined label flanked by rule lines
+   ("── One-Time Purchase - $60 $45 ($1.50 / Day) ──"), the whole row stays
+   clickable (it's the real one-time <label>) via native label forwarding to
+   its visually-hidden radio — no separate click handler needed. */
+.smooch-plan--onetime {
+  margin-top: 1.6rem;
+}
+
+.smooch-plan__divider-row {
   display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  padding: 1.2rem 1.4rem;
-  border: 0.1rem solid var(--smooch-border-soft);
-  border-radius: var(--smooch-radius-button);
-  transition: border-color var(--duration-short, 100ms) ease, background-color var(--duration-short, 100ms) ease;
+  align-items: center;
+  gap: 1rem;
 }
 
-.smooch-plan__input:checked + .smooch-plan__body {
-  border-color: var(--smooch-berry);
-  box-shadow: 0 0 0 0.1rem var(--smooch-berry);
-  background-color: rgba(var(--smooch-blush-rgb), 0.3);
+.smooch-plan__divider-line {
+  flex: 1 1 1.6rem;
+  min-width: 1.6rem;
+  height: 0.1rem;
+  background-color: var(--smooch-border-soft);
 }
 
-.smooch-plan__input:focus-visible + .smooch-plan__body {
-  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
-  outline-offset: 0.3rem;
-}
-
-.smooch-plan__row {
+.smooch-plan__divider-text {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  justify-content: space-between;
-  row-gap: 0.4rem;
-  column-gap: 1.2rem;
-}
-
-.smooch-plan--onetime .smooch-plan__name {
-  white-space: nowrap;
-}
-
-/* Subscription-first hierarchy: featured plan rows carry a soft berry accent;
-   the one-time row stays fully usable but visually secondary. */
-.smooch-plan--featured .smooch-plan__body {
-  border-color: rgba(var(--smooch-berry-rgb), 0.4);
-  background-color: rgba(var(--smooch-blush-rgb), 0.18);
-}
-
-.smooch-plan--onetime .smooch-plan__body {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.smooch-plan--onetime .smooch-plan__name {
-  font-weight: 500;
+  justify-content: center;
+  gap: 0.4rem 0.5rem;
+  flex: 0 1 auto;
+  min-width: 0;
   font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--smooch-ink);
 }
 
-.smooch-plan__price-group {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  white-space: nowrap;
+.smooch-plan__input:checked + .smooch-plan__divider-row .smooch-plan__divider-line {
+  background-color: var(--smooch-berry);
 }
 
-.smooch-plan__compare {
-  font-size: 1.25rem;
+.smooch-plan__input:focus-visible + .smooch-plan__divider-row {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.3rem;
+  border-radius: var(--smooch-radius-button);
 }
 
 .smooch-plan__name {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-size: 1.5rem;
-  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+  white-space: nowrap;
 }
 
 .smooch-plan__price {
   font-family: var(--smooch-font-numeric, var(--font-body-family));
-  font-size: 1.5rem;
   font-weight: 700;
   white-space: nowrap;
 }
 
-.smooch-plan__meta {
-  font-size: 1.3rem;
-  color: rgba(var(--color-foreground), 0.65);
+.smooch-plan__perday {
+  font-weight: 500;
+  color: rgba(var(--smooch-ink-rgb), 0.65);
+  white-space: nowrap;
 }
 
 .smooch-plans__benefits {
@@ -503,6 +483,8 @@
 /* ---------- Featured subscription panel (Create-style) ---------- */
 
 .smooch-subpanel {
+  --smooch-promo-orange-rgb: 237, 137, 54;
+  --smooch-promo-peach-rgb: 252, 224, 178;
   position: relative;
   padding: 2rem 1.8rem 1.6rem;
   border: 0.15rem solid var(--smooch-berry);
@@ -510,13 +492,6 @@
   background-color: rgba(var(--smooch-blush-rgb), 0.22);
   box-shadow: 0 0.6rem 1.8rem rgba(var(--smooch-ink-rgb), 0.08);
   transition: opacity var(--duration-short, 100ms) ease, border-color var(--duration-short, 100ms) ease;
-}
-
-.smooch-subpanel__headline {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.6rem 1rem;
 }
 
 .smooch-subpanel--inactive {
@@ -530,36 +505,96 @@
   left: 1.6rem;
 }
 
-.smooch-subpanel__title {
-  margin: 0;
-  font-family: var(--smooch-font-label, var(--font-body-family));
-  font-size: 1.6rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+/* Two space-between rows: headline+price, then size/per-day+savings. */
+.smooch-subpanel__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem 1.2rem;
+  margin-top: 0.8rem;
 }
 
-.smooch-subpanel__pct {
-  color: rgb(196, 42, 80);
+.smooch-subpanel__row:first-of-type {
+  margin-top: 0;
+}
+
+.smooch-subpanel__headline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.8rem;
+  min-width: 0;
+}
+
+.smooch-subpanel__title {
+  font-family: var(--smooch-font-body, var(--font-body-family));
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.smooch-subpanel__pct-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  background-color: rgb(var(--smooch-promo-orange-rgb));
+  color: rgb(255, 255, 255);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.smooch-subpanel__pct-pill[hidden] {
+  display: none !important;
+}
+
+.smooch-subpanel__promo-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  border: 0.1rem dashed rgba(var(--smooch-ink-rgb), 0.35);
+  border-radius: 2rem;
+  background-color: rgb(var(--smooch-surface-rgb));
+  color: var(--smooch-ink);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.smooch-subpanel__promo-pill .smooch-icon {
+  color: rgb(var(--smooch-promo-orange-rgb));
+}
+
+.smooch-subpanel__promo-pill[hidden] {
+  display: none !important;
 }
 
 .smooch-subpanel__price {
-  margin: 0.6rem 0 0;
+  margin: 0;
   display: flex;
   align-items: baseline;
   gap: 1rem;
+  flex-shrink: 0;
 }
 
 .smooch-subpanel__price-current {
   font-family: var(--smooch-font-numeric, var(--font-body-family));
-  font-size: 2.6rem;
+  font-size: 2.4rem;
   font-weight: 700;
 }
 
 .smooch-subpanel__meta {
-  margin: 0.2rem 0 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
   font-size: 1.35rem;
-  color: rgba(var(--smooch-ink-rgb), 0.75);
+  font-weight: 600;
+  color: var(--smooch-ink);
 }
 
 .smooch-subpanel__meta [hidden] {
@@ -567,10 +602,11 @@
 }
 
 .smooch-subpanel__saving {
-  margin: 0.4rem 0 0;
-  font-size: 1.35rem;
+  margin: 0;
+  font-size: 1.3rem;
   font-weight: 700;
   color: rgb(196, 42, 80);
+  white-space: nowrap;
 }
 
 .smooch-subpanel__saving[hidden] {
@@ -651,6 +687,22 @@
   justify-content: center;
 }
 
+.smooch-buybox__buy-perks .smooch-icon {
+  display: grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background-color: var(--smooch-ink);
+  color: rgb(255, 255, 255);
+  margin-top: 0;
+}
+
+.smooch-buybox__buy-perks .smooch-icon svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
 /* ---------- One-time purchase row ---------- */
 
 .smooch-plan__perday {
@@ -664,13 +716,17 @@
 
 .smooch-discount-badge {
   display: flex;
+  width: fit-content;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin: 1rem 0 0;
+  margin: 1.2rem auto 0;
+  padding: 0.6rem 1.4rem;
+  border-radius: 2rem;
+  background-color: rgba(237, 137, 54, 0.16);
   font-size: 1.2rem;
-  font-weight: 600;
-  color: rgba(var(--smooch-ink-rgb), 0.75);
+  font-weight: 700;
+  color: var(--smooch-ink);
   text-align: center;
 }
 
@@ -703,7 +759,18 @@
 }
 
 .smooch-trust-grid .smooch-icon {
-  color: var(--smooch-berry);
+  display: grid;
+  place-items: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  background-color: var(--smooch-ink);
+  color: rgb(255, 255, 255);
+}
+
+.smooch-trust-grid .smooch-icon svg {
+  width: 1.8rem;
+  height: 1.8rem;
 }
 
 .smooch-trust-grid span {
@@ -716,6 +783,11 @@
 /* ---------- Small footer info row ---------- */
 
 .smooch-reassurance__footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   margin: 1.4rem 0 0;
   padding-top: 1.2rem;
   border-top: 0.1rem solid var(--smooch-border-soft);
@@ -724,8 +796,11 @@
   text-align: center;
 }
 
+.smooch-reassurance__footer-row .smooch-icon {
+  color: rgba(var(--smooch-ink-rgb), 0.5);
+}
+
 .smooch-reassurance__footer-link {
-  margin-left: 0.5rem;
   color: var(--smooch-ink);
   text-decoration: underline;
   font-weight: 600;
@@ -924,11 +999,20 @@
 
 .smooch-buybox__buy .product-form__submit {
   min-height: 5.4rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.04em;
   position: relative;
   overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background-color: rgb(237, 137, 54);
+  border-color: rgb(237, 137, 54);
+  color: rgb(255, 255, 255);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.smooch-buybox__buy .product-form__submit:hover,
+.smooch-buybox__buy .product-form__submit:focus-visible {
+  background-color: rgb(224, 122, 40);
+  border-color: rgb(224, 122, 40);
 }
 
 .smooch-buybox__buy .product-form__submit::after {

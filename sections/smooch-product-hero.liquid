@@ -411,29 +411,36 @@
                           <legend class="visually-hidden">{{ block.settings.heading | default: 'Choose how to buy' }}</legend>
                           <div class="smooch-subpanel{% unless default_is_subscribe %} smooch-subpanel--inactive{% endunless %}" data-sub-panel>
                             <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry">{{ block.settings.badge | default: 'Most popular' }}</span>
-                            <div class="smooch-subpanel__headline">
-                              <p class="smooch-subpanel__title">
-                                {{ block.settings.subscribe_label | default: 'Autoship & Save' }}
-                                <span class="smooch-subpanel__pct" data-sub-pct {% if panel_pct == 0 %}hidden{% endif %}>{% if panel_pct > 0 %}{{ panel_pct }}%{% endif %}</span>
+                            <div class="smooch-subpanel__row">
+                              <div class="smooch-subpanel__headline">
+                                <span class="smooch-subpanel__title">{{ block.settings.subscribe_label | default: 'Autoship &' }}</span>
+                                <span class="smooch-subpanel__pct-pill" data-sub-pct-pill {% if panel_pct == 0 %}hidden{% endif %}>
+                                  SAVE <span data-sub-pct>{% if panel_pct > 0 %}{{ panel_pct }}{% endif %}</span>%
+                                </span>
+                                {%- if block.settings.promo_pill_text != blank -%}
+                                  <span class="smooch-subpanel__promo-pill" data-sub-autobadge {% if panel_pct == 0 %}hidden{% endif %}>
+                                    {% render 'smooch-icon', icon: 'tag', class: 'smooch-icon--sm' %}
+                                    {{ block.settings.promo_pill_text | escape }}
+                                  </span>
+                                {%- endif -%}
+                              </div>
+                              <p class="smooch-subpanel__price">
+                                <s class="smooch-strike smooch-num" data-sub-compare {% if panel_save <= 0 %}hidden{% endif %}>{{ initial_onetime_total | money }}</s>
+                                <span class="smooch-subpanel__price-current smooch-num" data-sub-price>{{ panel_total | money }}</span>
                               </p>
-                              {%- if block.settings.promo_pill_text != blank -%}
-                                <span class="smooch-badge smooch-badge--blush smooch-subpanel__autobadge" data-sub-autobadge {% if panel_pct == 0 %}hidden{% endif %}>{{ block.settings.promo_pill_text | escape }}</span>
-                              {%- endif -%}
                             </div>
-                            <p class="smooch-subpanel__price">
-                              <s class="smooch-strike smooch-num" data-sub-compare {% if panel_save <= 0 %}hidden{% endif %}>{{ initial_onetime_total | money }}</s>
-                              <span class="smooch-subpanel__price-current smooch-num" data-sub-price>{{ panel_total | money }}</span>
-                            </p>
-                            <p class="smooch-subpanel__meta">
-                              <span data-sub-plan-label>{{ panel_bundle.settings.title | default: 'Selected size' }}</span>
-                              <span data-sub-supply>
-                                · {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
-                              </span>
-                              <span data-sub-perday-wrap {% if panel_per_day == 0 %}hidden{% endif %}> · <span class="smooch-num" data-sub-perday>{% if panel_per_day > 0 %}{{ panel_per_day | money }}{% endif %}</span> per day</span>
-                            </p>
-                            <p class="smooch-subpanel__saving smooch-num" data-sub-saving {% if panel_save <= 0 %}hidden{% endif %}>
-                              {%- if panel_save > 0 %}You’re saving {{ panel_save | money }}{% endif -%}
-                            </p>
+                            <div class="smooch-subpanel__row">
+                              <p class="smooch-subpanel__meta">
+                                <span data-sub-plan-label>{{ panel_bundle.settings.title | default: 'Selected size' }}</span>
+                                <span data-sub-supply>
+                                  {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
+                                </span>
+                                <span data-sub-perday-wrap {% if panel_per_day == 0 %}hidden{% endif %}><span class="smooch-num" data-sub-perday>{% if panel_per_day > 0 %}{{ panel_per_day | money }}{% endif %}</span> / Day</span>
+                              </p>
+                              <p class="smooch-subpanel__saving smooch-num" data-sub-saving {% if panel_save <= 0 %}hidden{% endif %}>
+                                {%- if panel_save > 0 %}You’re saving {{ panel_save | money }}{% endif -%}
+                              </p>
+                            </div>
                             <div class="smooch-subpanel__freq" role="radiogroup" aria-label="Delivery frequency">
                               {%- for group in product.selling_plan_groups -%}
                                 {%- for plan in group.selling_plans -%}
@@ -560,15 +567,15 @@
                             data-smooch-plan-radio
                             class="smooch-plan__input visually-hidden"
                           >
-                          <span class="smooch-plan__body">
-                            <span class="smooch-plan__row">
-                              <span class="smooch-plan__name">{{ subscription_block.settings.onetime_label | default: 'One-Time Purchase' }}</span>
-                              <span class="smooch-plan__price-group">
-                                <s class="smooch-strike smooch-num" data-onetime-compare {% unless onetime_compare_total > initial_onetime_total %}hidden{% endunless %}>{{ onetime_compare_total | money }}</s>
-                                <span class="smooch-plan__price smooch-num" data-onetime-price>{{ initial_onetime_total | money }}</span>
-                                <span class="smooch-plan__perday" data-onetime-perday-wrap {% if onetime_per_day == 0 %}hidden{% endif %}>(<span class="smooch-num" data-onetime-perday>{% if onetime_per_day > 0 %}{{ onetime_per_day | money }}{% endif %}</span> / Day)</span>
-                              </span>
+                          <span class="smooch-plan__divider-row">
+                            <span class="smooch-plan__divider-line" aria-hidden="true"></span>
+                            <span class="smooch-plan__divider-text">
+                              <span class="smooch-plan__name">{{ subscription_block.settings.onetime_label | default: 'One-Time Purchase' }} -</span>
+                              <s class="smooch-strike smooch-num" data-onetime-compare {% unless onetime_compare_total > initial_onetime_total %}hidden{% endunless %}>{{ onetime_compare_total | money }}</s>
+                              <span class="smooch-plan__price smooch-num" data-onetime-price>{{ initial_onetime_total | money }}</span>
+                              <span class="smooch-plan__perday" data-onetime-perday-wrap {% if onetime_per_day == 0 %}hidden{% endif %}>(<span class="smooch-num" data-onetime-perday>{% if onetime_per_day > 0 %}{{ onetime_per_day | money }}{% endif %}</span> / Day)</span>
                             </span>
+                            <span class="smooch-plan__divider-line" aria-hidden="true"></span>
                           </span>
                         </label>
 
@@ -1528,7 +1535,8 @@
             { "value": "lock", "label": "Lock" },
             { "value": "heart", "label": "Heart" },
             { "value": "check", "label": "Check" },
-            { "value": "sparkle", "label": "Sparkle" }
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "briefcase", "label": "Briefcase" }
           ]
         },
         {
@@ -1549,7 +1557,8 @@
             { "value": "lock", "label": "Lock" },
             { "value": "heart", "label": "Heart" },
             { "value": "check", "label": "Check" },
-            { "value": "sparkle", "label": "Sparkle" }
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "briefcase", "label": "Briefcase" }
           ]
         },
         {
@@ -1570,7 +1579,8 @@
             { "value": "lock", "label": "Lock" },
             { "value": "heart", "label": "Heart" },
             { "value": "check", "label": "Check" },
-            { "value": "sparkle", "label": "Sparkle" }
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "briefcase", "label": "Briefcase" }
           ]
         },
         {

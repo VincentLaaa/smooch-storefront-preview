@@ -380,9 +380,10 @@ if (!customElements.get('smooch-offer')) {
             this.setText(panel, '[data-sub-price]', planEntry.t);
             this.setCompare(panel.querySelector('[data-sub-compare]'), planEntry.c);
             const pct = panel.querySelector('[data-sub-pct]');
-            if (pct) {
-              if (planEntry.s > 0) { pct.textContent = `${planEntry.s}%`; pct.hidden = false; }
-              else pct.hidden = true;
+            const pctPill = panel.querySelector('[data-sub-pct-pill]');
+            if (pct && pctPill) {
+              if (planEntry.s > 0) { pct.textContent = planEntry.s; pctPill.hidden = false; }
+              else pctPill.hidden = true;
             }
             const autoBadge = panel.querySelector('[data-sub-autobadge]');
             if (autoBadge) autoBadge.hidden = !(planEntry.s > 0);

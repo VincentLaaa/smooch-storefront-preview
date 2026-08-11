@@ -59,7 +59,7 @@ const selectOneTime = async (hero, page) => {
   // handles the rest. Force-clicking the hidden input's own tiny hit box is
   // fragile: its CSS static position can end up overlapped by unrelated
   // normal-flow siblings after scroll-driven relayout.
-  await hero.locator('.smooch-plan--onetime .smooch-plan__body').click({ force: true });
+  await hero.locator('.smooch-plan--onetime .smooch-plan__divider-text').click({ force: true });
   await page.waitForTimeout(200);
 };
 const shot = (page, name) => page.screenshot({ path: `qa/screenshots/${name}.png` });
@@ -250,7 +250,8 @@ test.describe('Purchase matrix (offline harness)', () => {
     // 3-bottle default × $27 plan price, one-time total struck through.
     await expect(hero.locator('[data-smooch-price]').first()).toHaveText('$81.00');
     await expect(hero.locator('[data-sub-compare]')).toHaveText('$90.00');
-    await expect(hero.locator('[data-sub-pct]')).toHaveText('10%');
+    await expect(hero.locator('[data-sub-pct]')).toHaveText('10');
+    await expect(hero.locator('[data-sub-pct-pill]')).toContainText('SAVE 10%');
     await shot(page, 'product-subscription-desktop-1440');
 
     // frequency change (second plan radio)
