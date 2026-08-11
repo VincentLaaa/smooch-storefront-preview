@@ -61,6 +61,8 @@
   assign gift_blocks = section.blocks | where: 'type', 'gift'
   assign rating_blocks = section.blocks | where: 'type', 'rating'
   assign rating_block = rating_blocks.first
+  assign social_proof_blocks = section.blocks | where: 'type', 'social_proof'
+  assign social_proof_block = social_proof_blocks.first
   assign has_bundles = false
   if bundle_blocks.size > 0
     assign has_bundles = true
@@ -261,12 +263,20 @@
                       </div>
 
                     {%- when 'social_proof' -%}
-                      {%- if block.settings.sold_count != blank -%}
-                        <p class="smooch-sold-badge" {{ block.shopify_attributes }}>
-                          {% render 'smooch-icon', icon: 'sparkle', class: 'smooch-icon--sm' %}
-                          <span>{{ block.settings.sold_count | escape }} {{ block.settings.period_label | default: 'bought in the past month' | escape }}</span>
-                        </p>
-                      {%- endif -%}
+                      <div class="smooch-buybox__proof-row" {{ block.shopify_attributes }}>
+                        {%- if block.settings.sold_count != blank -%}
+                          <p class="smooch-sold-badge">
+                            {% render 'smooch-icon', icon: 'sparkle', class: 'smooch-icon--sm' %}
+                            <span>{{ block.settings.sold_count | escape }} {{ block.settings.period_label | default: 'bought in the past month' | escape }}</span>
+                          </p>
+                        {%- endif -%}
+                        {%- if block.settings.show_low_stock and current_variant.inventory_management == 'shopify' and current_variant.inventory_policy != 'continue' and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= block.settings.low_stock_threshold -%}
+                          <p class="smooch-stock-badge">
+                            {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
+                            <span>Selling fast</span>
+                          </p>
+                        {%- endif -%}
+                      </div>
 
                     {%- when 'promise' -%}
                       {%- if block.settings.text != blank -%}
@@ -301,10 +311,8 @@
                       {%- if has_bundles -%}
                         <fieldset class="smooch-bundles" {{ block.shopify_attributes }}>
                           <legend class="smooch-bundles__legend smooch-step">
-                            {%- if has_plans -%}
-                              <span class="smooch-step__num" aria-hidden="true">1</span>
-                            {%- endif -%}
-                            {{ block.settings.heading | default: 'Choose your supply' }}
+                            <span class="smooch-step__num" aria-hidden="true">1</span>
+                            {{ block.settings.heading | default: 'Choose your supply' }}:
                           </legend>
                           <div class="smooch-bundles__list" role="radiogroup" aria-label="{{ block.settings.heading | default: 'Choose your supply' | escape }}">
                             {%- for bundle_block in bundle_blocks -%}
@@ -551,6 +559,12 @@
                           section_id: section.id,
                           show_pickup_availability: false
                         -%}
+                        {%- if social_proof_block.settings.sold_count != blank -%}
+                          <p class="smooch-buybox__buy-trust">
+                            {% render 'smooch-icon', icon: 'sparkle', class: 'smooch-icon--sm' %}
+                            <span>{{ social_proof_block.settings.sold_count | escape }} {{ social_proof_block.settings.period_label | default: 'bought in the past month' | escape }}</span>
+                          </p>
+                        {%- endif -%}
                       </div>
                       {%- if section.settings.enable_sticky_atc -%}
                         <div data-smooch-sticky-sentinel data-section-id="{{ section.id }}" aria-hidden="true"></div>
@@ -1127,6 +1141,29 @@
           "id": "period_label",
           "label": "Period label",
           "default": "bought in the past month"
+        },
+        {
+          "type": "header",
+          "content": "Low-stock badge"
+        },
+        {
+          "type": "paragraph",
+          "content": "Reads real Shopify inventory — never a merchant-typed claim. Shows only when tracked inventory is at or below the threshold."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_low_stock",
+          "label": "Show a \"Selling fast\" badge when stock is low",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "low_stock_threshold",
+          "label": "Low-stock threshold (units)",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "default": 15
         }
       ]
     },
@@ -1594,7 +1631,7 @@
       "name": "Smooch product hero",
       "blocks": [
         { "type": "eyebrow" },
-        { "type": "title", "settings": { "custom_title": "[brand] Daily Gummies" } },
+        { "type": "title", "settings": { "custom_title": "[brand] Women's Libido & Mood Gummies" } },
         { "type": "rating" },
         { "type": "social_proof" },
         { "type": "promise" },

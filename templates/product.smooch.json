@@ -6,7 +6,7 @@
         "title-1": {
           "type": "title",
           "settings": {
-            "custom_title": "[brand] Daily Gummies",
+            "custom_title": "[brand] Women's Libido & Mood Gummies",
             "heading_level": "h1"
           }
         },
@@ -21,7 +21,9 @@
           "type": "social_proof",
           "settings": {
             "sold_count": "2k+",
-            "period_label": "bought in the past month"
+            "period_label": "bought in the past month",
+            "show_low_stock": true,
+            "low_stock_threshold": 30
           }
         },
         "promise-1": {
@@ -163,8 +165,8 @@
       },
       "block_order": [
         "rating-1",
-        "title-1",
         "social_proof-1",
+        "title-1",
         "promise-1",
         "benefit-1",
         "benefit-2",

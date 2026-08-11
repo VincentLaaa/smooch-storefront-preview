@@ -570,8 +570,31 @@ test.describe('PDP refresh: guided purchase flow', () => {
     const hero = page.locator('product-info').first();
     expect(await hero.locator('.smooch-plans').count()).toBe(0);
     expect(await hero.locator('[data-smooch-selling-plan]').count()).toBe(0);
-    // step numbering hidden when there is only one step
-    expect(await hero.locator('.smooch-step__num').count()).toBe(0);
+    // the supply step is numbered "1" regardless of whether selling plans exist
+    expect(await hero.locator('.smooch-step__num').count()).toBe(1);
+  });
+
+  test('product name, prominent sales-activity badge, real-inventory "selling fast" badge, CTA trust line', async ({ page }) => {
+    const hero = page.locator('product-info').first();
+
+    await expect(page.locator('h1').first()).toHaveText("Smooch Women's Libido & Mood Gummies");
+
+    // Sales-activity badge renders before the title (subtitle-row placement).
+    const proofBadge = hero.locator('.smooch-sold-badge');
+    const title = hero.locator('h1').first();
+    const proofBox = await proofBadge.boundingBox();
+    const titleBox = await title.boundingBox();
+    expect(proofBox.y).toBeLessThan(titleBox.y);
+    await expect(proofBadge).toHaveText('2k+ bought in the past month');
+
+    // Low-stock badge reads real inventory (default fixture variant: 25 units,
+    // template threshold: 30) — never a fabricated claim.
+    await expect(hero.locator('.smooch-stock-badge')).toHaveText('Selling fast');
+
+    // The same real sales-activity copy is echoed once more directly under
+    // the Add to Cart button (Create-style trust line), sourced from the
+    // same block settings — not a second hardcoded string.
+    await expect(hero.locator('.smooch-buybox__buy-trust')).toHaveText('2k+ bought in the past month');
   });
 });
 

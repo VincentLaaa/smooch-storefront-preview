@@ -2,10 +2,10 @@
  * Seeds the Smooch staging store with development QA data.
  *
  * Creates (idempotently, keyed by handle/title):
- *   - "Smooch Daily Gummies — QA Product"  (multi-variant: Pack,
+ *   - "Smooch Women's Libido & Mood Gummies — QA Product"  (multi-variant: Pack,
  *     compare-at + no-compare-at variants, one sold-out tracked variant,
  *     product.smooch template, placeholder media)
- *   - "Smooch Daily Gummies — QA Single"   (single variant, untracked
+ *   - "Smooch Women's Libido & Mood Gummies — QA Single"   (single variant, untracked
  *     inventory, one image, product.smooch template)
  *   - FAQ + Contact pages (templates page.faq / page.contact)
  *   - Development draft policies (marked as requiring legal review)
@@ -76,7 +76,7 @@ async function ensureMultiVariantProduct() {
       }
     }`, {
     input: {
-      title: 'Smooch Daily Gummies — QA Product',
+      title: "Smooch Women's Libido & Mood Gummies — QA Product",
       handle,
       vendor: 'Smooch',
       productType: "Women's Wellness Gummy",
@@ -163,7 +163,7 @@ async function ensureSingleVariantProduct() {
       }
     }`, {
     input: {
-      title: 'Smooch Daily Gummies — QA Single',
+      title: "Smooch Women's Libido & Mood Gummies — QA Single",
       handle,
       vendor: 'Smooch',
       productType: "Women's Wellness Gummy",
