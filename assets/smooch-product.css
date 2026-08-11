@@ -814,44 +814,80 @@
   }
 }
 
-/* ---------- Sticky mobile ATC ---------- */
+/* Dawn hides empty block-level elements globally (base.css `:empty`) — this
+   sentinel is intentionally empty, so it needs an explicit override to keep
+   taking up layout space for the IntersectionObserver to read a real rect. */
+[data-smooch-sticky-sentinel]:empty {
+  display: block !important;
+  height: 1px;
+}
+
+/* ---------- Sticky add-to-cart bar ---------- */
+/* Appears once the visitor scrolls past the main purchase controls
+   (assets/smooch-product-form.js drives an `is-visible` class via a
+   sentinel-based IntersectionObserver — never via a scroll handler).
+   z-index 4 keeps it below the cart drawer (1000+) and mobile nav drawer;
+   see assets/smooch-header.js / component-cart-drawer.css for that scale. */
 
 .smooch-sticky-atc {
+  --smooch-sticky-ease: cubic-bezier(0.22, 1, 0.36, 1);
   position: fixed;
   inset-inline: 0;
   bottom: 0;
   z-index: 4;
-  display: none;
   background-color: rgb(var(--smooch-surface-rgb));
   border-top: 0.1rem solid var(--smooch-border-soft);
-  padding: 1rem 1.5rem calc(1rem + env(safe-area-inset-bottom, 0px));
   box-shadow: 0 -0.4rem 1.6rem rgba(var(--smooch-ink-rgb), 0.08);
+  padding: 1rem 1.5rem calc(1rem + env(safe-area-inset-bottom, 0px));
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(100%);
+  transition:
+    transform 360ms var(--smooch-sticky-ease),
+    opacity 360ms var(--smooch-sticky-ease),
+    visibility 0s linear 360ms;
 }
 
-.smooch-sticky-atc[hidden] {
-  display: none !important;
+.smooch-sticky-atc.is-visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    transform 360ms var(--smooch-sticky-ease),
+    opacity 360ms var(--smooch-sticky-ease),
+    visibility 0s linear 0s;
 }
 
-@media screen and (max-width: 989px) {
+@media (prefers-reduced-motion: reduce) {
   .smooch-sticky-atc {
-    display: block;
+    transform: none;
+    transition: opacity 120ms linear, visibility 0s linear 120ms;
   }
 
+  .smooch-sticky-atc.is-visible {
+    transition: opacity 120ms linear, visibility 0s linear 0s;
+  }
+}
+
+body.smooch-sticky-atc-visible {
+  padding-bottom: calc(8.4rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media screen and (min-width: 990px) {
   body.smooch-sticky-atc-visible {
-    padding-bottom: calc(8.4rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(8rem + env(safe-area-inset-bottom, 0px));
   }
 }
 
 .smooch-sticky-atc__inner {
-  display: flex;
+  display: grid;
   align-items: center;
-  gap: 1.2rem;
-  max-width: 60rem;
+  max-width: 138rem;
   margin: 0 auto;
 }
 
 .smooch-sticky-atc__thumb {
-  flex-shrink: 0;
+  grid-area: thumb;
   width: 4.4rem;
   border-radius: 0.8rem;
   overflow: hidden;
@@ -863,12 +899,27 @@
   height: auto;
 }
 
-.smooch-sticky-atc__meta {
+.smooch-sticky-atc__info {
+  grid-area: info;
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  gap: 0.2rem;
   min-width: 0;
-  flex: 1;
+}
+
+.smooch-sticky-atc__rating .smooch-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.smooch-sticky-atc__rating .smooch-stars {
+  font-size: 1.1rem;
+}
+
+.smooch-sticky-atc__rating .smooch-rating__count {
+  font-size: 1.2rem;
+  color: rgba(var(--smooch-ink-rgb), 0.7);
 }
 
 .smooch-sticky-atc__title {
@@ -880,16 +931,157 @@
   text-overflow: ellipsis;
 }
 
+.smooch-sticky-atc__save {
+  grid-area: save;
+  justify-self: end;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--smooch-berry);
+  white-space: nowrap;
+}
+
+.smooch-sticky-atc__price-wrap {
+  grid-area: price;
+  justify-self: end;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.smooch-sticky-atc__compare {
+  font-size: 1.2rem;
+  color: rgba(var(--smooch-ink-rgb), 0.5);
+}
+
 .smooch-sticky-atc__price {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--smooch-ink);
 }
 
+.smooch-sticky-atc__perday {
+  font-size: 1.1rem;
+  color: rgba(var(--smooch-ink-rgb), 0.6);
+  white-space: nowrap;
+}
+
 .smooch-sticky-atc__button {
-  flex-shrink: 0;
+  grid-area: button;
   min-height: 4.8rem;
   padding-inline: 2.2rem;
+  position: relative;
+}
+
+.smooch-sticky-atc__button.loading {
+  color: transparent;
+}
+
+.smooch-sticky-atc__button.loading > .loading__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.smooch-sticky-atc__button.loading > .loading__spinner .path {
+  stroke: rgb(var(--btn-fg, var(--smooch-cta-text-rgb)));
+}
+
+/* ----- Mobile (< 990px): compact, priority-ordered layout -----
+   1) Add to Cart  2) price  3) savings badge  4) review count  5) title —
+   rating+save share a row, price+CTA share the dominant row, title is the
+   one line that would get cut first if this ever needs to shrink further. */
+@media screen and (max-width: 989px) {
+  .smooch-sticky-atc {
+    padding-block: 0.9rem;
+  }
+
+  .smooch-sticky-atc__inner {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'rating rating'
+      'title  title'
+      'save   button'
+      'price  button';
+    row-gap: 0.3rem;
+    column-gap: 1rem;
+  }
+
+  .smooch-sticky-atc__thumb {
+    display: none;
+  }
+
+  .smooch-sticky-atc__info {
+    display: contents;
+  }
+
+  .smooch-sticky-atc__rating {
+    grid-area: rating;
+    align-self: center;
+    overflow: hidden;
+  }
+
+  .smooch-sticky-atc__rating .smooch-rating {
+    white-space: nowrap;
+  }
+
+  .smooch-sticky-atc__save {
+    justify-self: start;
+  }
+
+  .smooch-sticky-atc__title {
+    grid-area: title;
+  }
+
+  .smooch-sticky-atc__price-wrap {
+    justify-self: start;
+  }
+
+  .smooch-sticky-atc__button {
+    min-height: 4.8rem;
+    padding-inline: 1.6rem;
+    font-size: 1.3rem;
+    white-space: nowrap;
+  }
+}
+
+/* ----- Desktop (>= 990px): premium compact purchasing dock -----
+   thumb | title+rating | savings badge over price+per-day | CTA, one row. */
+@media screen and (min-width: 990px) {
+  .smooch-sticky-atc {
+    padding-block: 1.4rem;
+  }
+
+  .smooch-sticky-atc__inner {
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      'thumb info save   button'
+      'thumb info price  button';
+    column-gap: 1.8rem;
+    row-gap: 0.2rem;
+  }
+
+  .smooch-sticky-atc__rating {
+    margin-bottom: 0.2rem;
+  }
+
+  .smooch-sticky-atc__title {
+    font-size: 1.5rem;
+  }
+
+  .smooch-sticky-atc__price {
+    font-size: 1.9rem;
+  }
+
+  .smooch-sticky-atc__button {
+    min-height: 5.2rem;
+    padding-inline: 3.2rem;
+    align-self: center;
+  }
 }
 
 /* ---------- Collage gallery ---------- */
