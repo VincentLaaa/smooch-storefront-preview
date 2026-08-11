@@ -14,7 +14,7 @@
           "type": "rating",
           "settings": {
             "fallback_rating": 4.8,
-            "fallback_count": 1000
+            "fallback_count": 1692
           }
         },
         "social_proof-1": {
