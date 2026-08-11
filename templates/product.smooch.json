@@ -20,7 +20,10 @@
         },
         "social_proof-1": {
           "type": "social_proof",
-          "settings": {}
+          "settings": {
+            "sold_count": "2k+",
+            "period_label": "bought in the past month"
+          }
         },
         "promise-1": {
           "type": "promise",
