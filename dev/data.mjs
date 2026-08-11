@@ -144,7 +144,6 @@ const FIXTURES = {
     type: "Women's Wellness Gummy",
     description: '<p><strong>Offline development fixture</strong> — all data on this page is mock data rendered locally.</p>',
     options: [
-      { name: 'Flavor', values: ['Strawberry', 'Raspberry'] },
       { name: 'Pack', values: ['1 Pack', '2 Packs', '3 Packs'] },
     ],
     media: [
@@ -158,12 +157,9 @@ const FIXTURES = {
       { id: 102, name: 'Every 60 days', discountPct: 10 },
     ],
     variants: [
-      { id: 111, options: ['Strawberry', '1 Pack'], price: 3000, compare_at_price: 4000, sku: 'QA-STR-1', available: true, inventory_quantity: 25 },
-      { id: 112, options: ['Strawberry', '2 Packs'], price: 5600, compare_at_price: 8000, sku: 'QA-STR-2', available: true, inventory_quantity: 25 },
-      { id: 113, options: ['Strawberry', '3 Packs'], price: 7500, compare_at_price: 12000, sku: 'QA-STR-3', available: true, inventory_quantity: 25 },
-      { id: 114, options: ['Raspberry', '1 Pack'], price: 3000, compare_at_price: null, sku: 'QA-RSP-1', available: false, inventory_quantity: 0 },
-      { id: 115, options: ['Raspberry', '2 Packs'], price: 5600, compare_at_price: 8000, sku: 'QA-RSP-2', available: true, inventory_quantity: 25 },
-      { id: 116, options: ['Raspberry', '3 Packs'], price: 7500, compare_at_price: 12000, sku: 'QA-RSP-3', available: true, inventory_quantity: 25 },
+      { id: 111, options: ['1 Pack'], price: 3000, compare_at_price: 4000, sku: 'QA-1', available: true, inventory_quantity: 25 },
+      { id: 112, options: ['2 Packs'], price: 5600, compare_at_price: 8000, sku: 'QA-2', available: true, inventory_quantity: 25 },
+      { id: 113, options: ['3 Packs'], price: 7500, compare_at_price: null, sku: 'QA-3', available: false, inventory_quantity: 0 },
     ],
   },
   'smooch-daily-gummies-qa-single': {

@@ -150,13 +150,10 @@ test.describe('Purchase matrix', () => {
   test('E. sold-out variant disables ATC, sticky bar mirrors, price dims', async ({ page }) => {
     const hero = page.locator('product-info').first();
     const groups = hero.locator('variant-selects .product-form__input');
-    test.skip((await groups.count()) < 2, 'Needs Flavor × Pack QA product');
+    test.skip((await groups.count()) < 1, 'Needs the Pack QA product');
 
-    // Raspberry / 1 Pack is the seeded sold-out variant.
-    await groups.first().locator('input[type="radio"]', { hasNot: page.locator(':checked') });
-    await groups.first().locator('input[type="radio"]').nth(1).check({ force: true }); // Raspberry
-    await page.waitForTimeout(600);
-    await groups.last().locator('input[type="radio"]').nth(0).check({ force: true }); // 1 Pack
+    // "3 Packs" is the seeded sold-out variant.
+    await groups.first().locator('input[type="radio"]').nth(2).check({ force: true }); // 3 Packs
     const atc = hero.locator('button[id^="ProductSubmitButton-"]').first();
     await expect(atc).toBeDisabled({ timeout: 10_000 });
     await expect(atc.locator('span').first()).toContainText(/sold out/i);

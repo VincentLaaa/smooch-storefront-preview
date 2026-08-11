@@ -2,7 +2,7 @@
  * Seeds the Smooch staging store with development QA data.
  *
  * Creates (idempotently, keyed by handle/title):
- *   - "Smooch Daily Gummies — QA Product"  (multi-variant: Flavor × Pack,
+ *   - "Smooch Daily Gummies — QA Product"  (multi-variant: Pack,
  *     compare-at + no-compare-at variants, one sold-out tracked variant,
  *     product.smooch template, placeholder media)
  *   - "Smooch Daily Gummies — QA Single"   (single variant, untracked
@@ -84,23 +84,19 @@ async function ensureMultiVariantProduct() {
       templateSuffix: 'smooch',
       descriptionHtml: '<p><strong>DEVELOPMENT TEST PRODUCT</strong> — not for sale. Prices are test values.</p>',
       productOptions: [
-        { name: 'Flavor', values: [{ name: 'Strawberry' }, { name: 'Raspberry' }] },
         { name: 'Pack', values: [{ name: '1 Pack' }, { name: '2 Packs' }, { name: '3 Packs' }] },
       ],
       variants: [
-        { optionValues: [{ optionName: 'Flavor', name: 'Strawberry' }, { optionName: 'Pack', name: '1 Pack' }], price: '30.00', compareAtPrice: '40.00', sku: 'QA-STR-1' },
-        { optionValues: [{ optionName: 'Flavor', name: 'Strawberry' }, { optionName: 'Pack', name: '2 Packs' }], price: '56.00', compareAtPrice: '80.00', sku: 'QA-STR-2' },
-        { optionValues: [{ optionName: 'Flavor', name: 'Strawberry' }, { optionName: 'Pack', name: '3 Packs' }], price: '75.00', compareAtPrice: '120.00', sku: 'QA-STR-3' },
-        { optionValues: [{ optionName: 'Flavor', name: 'Raspberry' }, { optionName: 'Pack', name: '1 Pack' }], price: '30.00', sku: 'QA-RSP-1' },
-        { optionValues: [{ optionName: 'Flavor', name: 'Raspberry' }, { optionName: 'Pack', name: '2 Packs' }], price: '56.00', compareAtPrice: '80.00', sku: 'QA-RSP-2' },
-        { optionValues: [{ optionName: 'Flavor', name: 'Raspberry' }, { optionName: 'Pack', name: '3 Packs' }], price: '75.00', compareAtPrice: '120.00', sku: 'QA-RSP-3' },
+        { optionValues: [{ optionName: 'Pack', name: '1 Pack' }], price: '30.00', compareAtPrice: '40.00', sku: 'QA-1' },
+        { optionValues: [{ optionName: 'Pack', name: '2 Packs' }], price: '56.00', compareAtPrice: '80.00', sku: 'QA-2' },
+        { optionValues: [{ optionName: 'Pack', name: '3 Packs' }], price: '75.00', sku: 'QA-3' },
       ],
     },
   });
   userErrors(d.productSet, 'productSet');
   const product = d.productSet.product;
 
-  // Inventory: track everything at the first location; QA-RSP-1 stays at 0 (sold out).
+  // Inventory: track everything at the first location; QA-3 stays at 0 (sold out).
   const loc = await gql(`{ locations(first: 1) { nodes { id name } } }`);
   const locationId = loc.locations.nodes[0].id;
   const variants = product.variants.nodes;
@@ -127,7 +123,7 @@ async function ensureMultiVariantProduct() {
       quantities: variants.map((v) => ({
         inventoryItemId: v.inventoryItem.id,
         locationId,
-        quantity: v.sku === 'QA-RSP-1' ? 0 : 25,
+        quantity: v.sku === 'QA-3' ? 0 : 25,
       })),
     },
   });

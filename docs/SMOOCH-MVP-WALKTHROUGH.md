@@ -21,9 +21,9 @@ A small "OFFLINE DEV — MOCK DATA" badge marks every page (disable with
 `HARNESS_BADGE=0`).
 
 ## Demo states covered by the fixtures
-- **Normal product / multiple variants** — Flavor (Strawberry, Raspberry) × Pack (1/2/3 Packs)
+- **Normal product / multiple variants** — Pack (1/2/3 Packs)
 - **Compare-at pricing** — $40/$80/$120 vs $30/$56/$75 (Save-% badges everywhere they should be, absent where compare-at is absent)
-- **Sold-out variant** — Raspberry / 1 Pack: disabled ATC ("Sold out"), flagged bundle cards, dimmed offer price, mirrored sticky bar
+- **Sold-out variant** — 3 Packs: disabled ATC ("Sold out"), flagged bundle cards, dimmed offer price, mirrored sticky bar
 - **Subscription selection** — 2 fixture frequencies at 10% off: plan radios, per-plan savings badges, `selling_plan` posted only when a plan is chosen
 - **Quantity bundles** — 1/2/3-month tiers: totals $30/$60/$90, per-unit line, cart receives the right quantity
 - **Cart quantities** — mock cart drawer round-trip incl. line prices and icon-bubble count

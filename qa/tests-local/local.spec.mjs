@@ -218,7 +218,7 @@ test.describe('Purchase matrix (offline harness)', () => {
     // Switch Pack option to "2 Packs" → variant 112. Click the LABEL like a
     // real user: Dawn's radios are 1×1 visually-hidden inputs, and Dawn swaps
     // the variant-selects DOM after the change event.
-    await hero.locator('label[for="hero-2-1"]').click();
+    await hero.locator('label[for="hero-1-1"]').click();
     await expect(idInput).toHaveValue('112', { timeout: 10_000 });
 
     // Offer price = selected bundle qty (preset preselects 3 bottles) × variant 112.
@@ -271,10 +271,10 @@ test.describe('Purchase matrix (offline harness)', () => {
 
   test('E. sold-out variant: ATC disabled, bundle cards flagged, price dims', async ({ page }) => {
     const hero = page.locator('product-info').first();
-    // Raspberry via its label (see matrix C note) → Raspberry / 1 Pack = 114 (sold out)
-    await hero.locator('label[for="hero-1-1"]').click();
+    // "3 Packs" via its label → variant 113 (sold out)
+    await hero.locator('label[for="hero-1-2"]').click();
     const idInput = hero.locator('form[id^="product-form-"] input[name="id"]').first();
-    await expect(idInput).toHaveValue('114', { timeout: 10_000 });
+    await expect(idInput).toHaveValue('113', { timeout: 10_000 });
 
     const atc = hero.locator('button[id^="ProductSubmitButton-"]').first();
     await expect(atc).toBeDisabled();
@@ -504,7 +504,7 @@ test.describe('PDP refresh: guided purchase flow', () => {
   test('variant switch while subscribed keeps plan pricing coherent', async ({ page }) => {
     const hero = page.locator('product-info').first();
     // Subscribed by default (plan 101). Switch Pack → 2 Packs (variant 112).
-    await hero.locator('label[for="hero-2-1"]').click();
+    await hero.locator('label[for="hero-1-1"]').click();
     const idInput = hero.locator('form[id^="product-form-"] input[name="id"]').first();
     await expect(idInput).toHaveValue('112', { timeout: 10_000 });
     // bundle qty 3 × v112 plan price ($50.40) = $151.20
