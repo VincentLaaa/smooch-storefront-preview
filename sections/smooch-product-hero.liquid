@@ -63,6 +63,8 @@
   assign rating_block = rating_blocks.first
   assign subscription_blocks = section.blocks | where: 'type', 'subscription'
   assign subscription_block = subscription_blocks.first
+  assign buy_buttons_blocks = section.blocks | where: 'type', 'buy_buttons'
+  assign buy_buttons_block = buy_buttons_blocks.first
   assign has_bundles = false
   if bundle_blocks.size > 0
     assign has_bundles = true
@@ -411,59 +413,88 @@
                           <legend class="visually-hidden">{{ block.settings.heading | default: 'Choose how to buy' }}</legend>
                           <div class="smooch-subpanel{% unless default_is_subscribe %} smooch-subpanel--inactive{% endunless %}" data-sub-panel>
                             <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry">{{ block.settings.badge | default: 'Most popular' }}</span>
-                            <div class="smooch-subpanel__row">
-                              <div class="smooch-subpanel__headline">
-                                <span class="smooch-subpanel__title">{{ block.settings.subscribe_label | default: 'Autoship &' }}</span>
-                                <span class="smooch-subpanel__pct-pill" data-sub-pct-pill {% if panel_pct == 0 %}hidden{% endif %}>
-                                  SAVE <span data-sub-pct>{% if panel_pct > 0 %}{{ panel_pct }}{% endif %}</span>%
-                                </span>
-                                {%- if block.settings.promo_pill_text != blank -%}
-                                  <span class="smooch-subpanel__promo-pill" data-sub-autobadge {% if panel_pct == 0 %}hidden{% endif %}>
-                                    {% render 'smooch-icon', icon: 'tag', class: 'smooch-icon--sm' %}
-                                    {{ block.settings.promo_pill_text | escape }}
+                            <div class="smooch-subpanel__content">
+                              <div class="smooch-subpanel__row">
+                                <div class="smooch-subpanel__headline">
+                                  <span class="smooch-subpanel__title">{{ block.settings.subscribe_label | default: 'Autoship &' }}</span>
+                                  <span class="smooch-subpanel__pct-pill" data-sub-pct-pill {% if panel_pct == 0 %}hidden{% endif %}>
+                                    SAVE <span data-sub-pct>{% if panel_pct > 0 %}{{ panel_pct }}{% endif %}</span>%
                                   </span>
-                                {%- endif -%}
+                                  {%- if block.settings.promo_pill_text != blank -%}
+                                    <span class="smooch-subpanel__promo-pill" data-sub-autobadge {% if panel_pct == 0 %}hidden{% endif %}>
+                                      {% render 'smooch-icon', icon: 'tag', class: 'smooch-icon--sm' %}
+                                      {{ block.settings.promo_pill_text | escape }}
+                                    </span>
+                                  {%- endif -%}
+                                </div>
+                                <p class="smooch-subpanel__price">
+                                  <s class="smooch-strike smooch-num" data-sub-compare {% if panel_save <= 0 %}hidden{% endif %}>{{ initial_onetime_total | money }}</s>
+                                  <span class="smooch-subpanel__price-current smooch-num" data-sub-price>{{ panel_total | money }}</span>
+                                </p>
                               </div>
-                              <p class="smooch-subpanel__price">
-                                <s class="smooch-strike smooch-num" data-sub-compare {% if panel_save <= 0 %}hidden{% endif %}>{{ initial_onetime_total | money }}</s>
-                                <span class="smooch-subpanel__price-current smooch-num" data-sub-price>{{ panel_total | money }}</span>
-                              </p>
-                            </div>
-                            <div class="smooch-subpanel__row">
-                              <p class="smooch-subpanel__meta">
-                                <span data-sub-plan-label>{{ panel_bundle.settings.title | default: 'Selected size' }}</span>
-                                <span data-sub-supply>
-                                  {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
-                                </span>
-                                <span data-sub-perday-wrap {% if panel_per_day == 0 %}hidden{% endif %}><span class="smooch-num" data-sub-perday>{% if panel_per_day > 0 %}{{ panel_per_day | money }}{% endif %}</span> / Day</span>
-                              </p>
-                              <p class="smooch-subpanel__saving smooch-num" data-sub-saving {% if panel_save <= 0 %}hidden{% endif %}>
-                                {%- if panel_save > 0 %}You’re saving {{ panel_save | money }}{% endif -%}
-                              </p>
-                            </div>
-                            <div class="smooch-subpanel__freq" role="radiogroup" aria-label="Delivery frequency">
-                              {%- for group in product.selling_plan_groups -%}
-                                {%- for plan in group.selling_plans -%}
-                                  {%- liquid
-                                    assign plan_checked = false
-                                    if default_is_subscribe and plan.id == default_plan.id
-                                      assign plan_checked = true
-                                    endif
-                                  -%}
-                                  <label class="smooch-freq">
-                                    <input
-                                      type="radio"
-                                      name="smooch-plan-{{ section.id }}"
-                                      value="{{ plan.id }}"
-                                      {% if plan_checked %}checked{% endif %}
-                                      data-smooch-plan-radio
-                                      class="smooch-freq__input visually-hidden"
-                                    >
-                                    <span class="smooch-freq__pill">{{ plan.name }}</span>
-                                  </label>
+                              <div class="smooch-subpanel__row">
+                                <p class="smooch-subpanel__meta">
+                                  <span data-sub-plan-label>{{ panel_bundle.settings.title | default: 'Selected size' }}</span>
+                                  <span data-sub-supply>
+                                    {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
+                                  </span>
+                                  <span data-sub-perday-wrap {% if panel_per_day == 0 %}hidden{% endif %}><span class="smooch-num" data-sub-perday>{% if panel_per_day > 0 %}{{ panel_per_day | money }}{% endif %}</span> / Day</span>
+                                </p>
+                                <p class="smooch-subpanel__saving smooch-num" data-sub-saving {% if panel_save <= 0 %}hidden{% endif %}>
+                                  {%- if panel_save > 0 %}You’re saving {{ panel_save | money }}{% endif -%}
+                                </p>
+                              </div>
+                              <div class="smooch-subpanel__freq" role="radiogroup" aria-label="Delivery frequency">
+                                {%- for group in product.selling_plan_groups -%}
+                                  {%- for plan in group.selling_plans -%}
+                                    {%- liquid
+                                      assign plan_checked = false
+                                      if default_is_subscribe and plan.id == default_plan.id
+                                        assign plan_checked = true
+                                      endif
+                                    -%}
+                                    <label class="smooch-freq">
+                                      <input
+                                        type="radio"
+                                        name="smooch-plan-{{ section.id }}"
+                                        value="{{ plan.id }}"
+                                        {% if plan_checked %}checked{% endif %}
+                                        data-smooch-plan-radio
+                                        class="smooch-freq__input visually-hidden"
+                                      >
+                                      <span class="smooch-freq__pill">{{ plan.name }}</span>
+                                    </label>
+                                  {%- endfor -%}
                                 {%- endfor -%}
-                              {%- endfor -%}
+                              </div>
                             </div>
+
+                            <div class="smooch-buybox__buy smooch-subpanel__buy">
+                              {%- render 'buy-buttons',
+                                block: buy_buttons_block,
+                                product: product,
+                                product_form_id: product_form_id,
+                                section_id: section.id,
+                                show_pickup_availability: false
+                              -%}
+                              {%- if block.settings.benefits != blank -%}
+                                {%- assign benefit_lines = block.settings.benefits | newline_to_br | split: '<br />' -%}
+                                <ul class="smooch-subpanel__perks smooch-buybox__buy-perks" role="list" data-plan-benefits>
+                                  {%- for line in benefit_lines -%}
+                                    {%- assign clean_line = line | strip_html | strip -%}
+                                    {%- if clean_line != blank -%}
+                                      <li>
+                                        {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
+                                        <span>{{ clean_line }}</span>
+                                      </li>
+                                    {%- endif -%}
+                                  {%- endfor -%}
+                                </ul>
+                              {%- endif -%}
+                            </div>
+                            {%- if section.settings.enable_sticky_atc -%}
+                              <div data-smooch-sticky-sentinel data-section-id="{{ section.id }}" aria-hidden="true"></div>
+                            {%- endif -%}
                           </div>
                         </fieldset>
                       {%- endif -%}
@@ -533,29 +564,27 @@
                       </div>
 
                     {%- when 'buy_buttons' -%}
-                      <div class="smooch-buybox__buy" {{ block.shopify_attributes }}>
-                        {%- render 'buy-buttons',
-                          block: block,
-                          product: product,
-                          product_form_id: product_form_id,
-                          section_id: section.id,
-                          show_pickup_availability: false
-                        -%}
-                        {%- if has_plans and subscription_block.settings.benefits != blank -%}
-                          {%- assign benefit_lines = subscription_block.settings.benefits | newline_to_br | split: '<br />' -%}
-                          <ul class="smooch-subpanel__perks smooch-buybox__buy-perks" role="list" data-plan-benefits>
-                            {%- for line in benefit_lines -%}
-                              {%- assign clean_line = line | strip_html | strip -%}
-                              {%- if clean_line != blank -%}
-                                <li>
-                                  {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
-                                  <span>{{ clean_line }}</span>
-                                </li>
-                              {%- endif -%}
-                            {%- endfor -%}
-                          </ul>
+                      {%- unless has_plans -%}
+                        {%- comment -%}
+                          Subscription-plan products get their Add to Cart button rendered
+                          inside the subscription card itself (see the 'subscription' case
+                          above) so the button + micro-trust row sit in the same bordered
+                          box as the offer pricing. Products with no selling plans have no
+                          such card to live in, so they keep this standalone rendering.
+                        {%- endcomment -%}
+                        <div class="smooch-buybox__buy" {{ block.shopify_attributes }}>
+                          {%- render 'buy-buttons',
+                            block: block,
+                            product: product,
+                            product_form_id: product_form_id,
+                            section_id: section.id,
+                            show_pickup_availability: false
+                          -%}
+                        </div>
+                        {%- if section.settings.enable_sticky_atc -%}
+                          <div data-smooch-sticky-sentinel data-section-id="{{ section.id }}" aria-hidden="true"></div>
                         {%- endif -%}
-                      </div>
+                      {%- endunless -%}
 
                       {%- if has_plans -%}
                         <label class="smooch-plan smooch-plan--onetime">
@@ -585,10 +614,6 @@
                             {{ subscription_block.settings.discount_badge_text | default: 'Discount Auto-Applied' }}
                           </p>
                         {%- endif -%}
-                      {%- endif -%}
-
-                      {%- if section.settings.enable_sticky_atc -%}
-                        <div data-smooch-sticky-sentinel data-section-id="{{ section.id }}" aria-hidden="true"></div>
                       {%- endif -%}
 
                     {%- when 'reassurance' -%}
