@@ -57,7 +57,7 @@ function sectionSchema(type) {
       }
       blockMeta[b.type] = { types, defaults };
     }
-    schemaCache.set(type, { class: schema.class || 'section', settingTypes, settingDefaults, blockMeta });
+    schemaCache.set(type, { class: schema.class || 'section', settingTypes, settingDefaults, blockMeta, presets: schema.presets || [] });
   }
   return schemaCache.get(type);
 }
@@ -252,6 +252,33 @@ app.get('/products/:handle', page(async (req, res) => {
   setGlobals(currentScope);
 
   const tpl = JSON.parse(readFileSync(join(ROOT, 'templates', 'product.smooch.json'), 'utf8'));
+
+  // DEV-ONLY visual QA: ?reviews_preview=1 drops the theme's own "Smooch
+  // reviews" section (sections/smooch-reviews.liquid) onto the page, using
+  // ITS OWN built-in preset content — clearly labeled sample reviews with a
+  // visible "Sample" badge (is_sample_content stays true). Purely in-memory;
+  // never touches the template file, so the real product page still ships
+  // with no reviews section until real Judge.me data replaces this preset.
+  if (req.query.reviews_preview) {
+    const meta = sectionSchema('smooch-reviews');
+    const preset = meta.presets[0] || { blocks: [] };
+    const blocks = {};
+    const order = [];
+    preset.blocks.forEach((b, i) => {
+      const id = `preview-${i + 1}`;
+      order.push(id);
+      blocks[id] = { type: b.type, settings: b.settings || {} };
+    });
+    tpl.sections['reviews-preview'] = {
+      type: 'smooch-reviews',
+      settings: { is_sample_content: true, review_count: 1247 },
+      blocks,
+      block_order: order,
+    };
+    const heroIndex = tpl.order.indexOf('hero');
+    tpl.order.splice(heroIndex + 1, 0, 'reviews-preview');
+  }
+
   if (req.query.section_id) {
     const id = req.query.section_id;
     const entry = tpl.sections[id];
