@@ -1,0 +1,564 @@
+/* Smooch scroll story — sticky floating product scene + storytelling stages.
+   1rem = 10px (Dawn base). Breakpoints: 749/750/989/990.
+
+   Brand tokens: --smooch-story-bg/text/accent are set inline per-section
+   instance (see the section's {%- style -%} block), falling back to the
+   theme's global color tokens when the section's own color pickers are
+   left blank. Recolor per-instance via the section settings, or globally
+   via Theme settings > Colors — nothing here needs to change either way.
+
+   Layout, stage count, gummy count, and product art are all data-driven
+   (Liquid loops + JS reading data-attributes), not hardcoded, so the whole
+   section can be re-skinned without editing this file. */
+
+.smooch-story {
+  --smooch-story-float-amplitude: -6px;
+
+  position: relative;
+  background-color: var(--smooch-story-bg);
+  color: var(--smooch-story-text);
+  overflow: clip;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-story {
+    --smooch-story-float-amplitude: -10px;
+  }
+}
+
+/* Named grid areas so mobile can reorder (headline -> visual -> stages)
+   without touching the DOM — desktop puts the headline above the stage
+   list within the right-hand column, visual spanning both rows on the
+   left. Deliberately NOT align-items: start on desktop — the visual
+   column's grid item must stretch to the full row height (stages, which
+   run much taller) so its sticky child has a containing block tall enough
+   to actually stick within; default `stretch` does that. */
+.smooch-story__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'head'
+    'visual'
+    'stages';
+  gap: 4rem;
+  padding-block: clamp(4.8rem, 8vw, 9.6rem);
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-story__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'visual head'
+      'visual stages';
+    column-gap: 6rem;
+    row-gap: 2rem;
+  }
+}
+
+.smooch-story__head {
+  grid-area: head;
+  max-width: 52rem;
+  margin-bottom: clamp(1.6rem, 3vw, 2.4rem);
+  min-width: 0;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-story__head {
+    margin-bottom: 0;
+  }
+}
+
+/* ---------- Visual column ---------- */
+
+.smooch-story__visual-col {
+  grid-area: visual;
+  position: relative;
+}
+
+.smooch-story__visual-sticky {
+  position: sticky;
+  top: var(--smooch-story-sticky-top);
+}
+
+.smooch-story__scene {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42vh;
+  min-height: 30rem;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-story__scene {
+    height: 66vh;
+    min-height: 44rem;
+    max-height: 72rem;
+  }
+}
+
+/* Oversized faint background word — an optional editorial "campaign" moment. */
+.smooch-story__bgword {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(6rem, 5vw + 4rem, 14rem);
+  line-height: 1;
+  color: var(--smooch-story-text);
+  opacity: 0.06;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Soft abstract halo behind the product — intensifies slightly across stages
+   via --smooch-story-progress (0..1), set by JS on the .smooch-story__scene
+   element as the active stage advances. */
+.smooch-story__halo {
+  position: absolute;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--smooch-story-accent) 0%, transparent 70%);
+  opacity: calc(0.05 + (var(--smooch-story-progress, 0) * 0.09));
+  filter: blur(4rem);
+  pointer-events: none;
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Soft elliptical ground shadow. Its own float loop runs in phase with the
+   bottle's (same duration/timing so they read as one dimensional object). */
+.smooch-story__shadow {
+  position: absolute;
+  bottom: 8%;
+  width: 38%;
+  height: 3.2rem;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(var(--smooch-ink-rgb), 0.22) 0%, transparent 72%);
+  filter: blur(0.4rem);
+  pointer-events: none;
+}
+
+[data-floating-enabled] .smooch-story__shadow {
+  animation: smooch-story-shadow-float 6.2s ease-in-out infinite alternate;
+}
+
+/* ---------- Product ---------- */
+
+/* Outer wrapper: scroll-reaction transform only (rotate/translateX/scale),
+   driven by inline custom properties from JS. Kept separate from the float
+   keyframe below so the two transforms compose instead of fighting over the
+   same `transform` declaration. */
+.smooch-story__product-scroll {
+  display: block;
+  transform:
+    rotate(var(--smooch-story-scroll-rot, 0deg))
+    translateX(var(--smooch-story-scroll-x, 0px))
+    scale(var(--smooch-story-scroll-scale, 1));
+}
+
+.smooch-story__product {
+  position: relative;
+  display: block;
+  width: var(--smooch-story-product-size, 62%);
+  margin-inline: auto;
+}
+
+.smooch-story__product-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.smooch-story__product--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--smooch-story-product-size, 62%);
+  aspect-ratio: 3 / 4;
+  border: 0.1rem dashed var(--smooch-border-soft, rgba(0, 0, 0, 0.15));
+  border-radius: var(--smooch-radius-card, 1.6rem);
+  text-align: center;
+  padding: 2rem;
+}
+
+[data-floating-enabled] [data-floating] {
+  will-change: transform;
+  animation: smooch-story-float-bottle 6.2s ease-in-out infinite alternate;
+}
+
+/* Entrance (see JS: .is-visible added once the section enters the viewport). */
+.smooch-story__product {
+  opacity: 0;
+  transform: translateY(25px) scale(0.94);
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.smooch-story.is-visible .smooch-story__product {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@keyframes smooch-story-float-bottle {
+  from {
+    transform: translateY(0) rotate(-1deg);
+  }
+
+  to {
+    transform: translateY(var(--smooch-story-float-amplitude, -10px)) rotate(1deg);
+  }
+}
+
+@keyframes smooch-story-shadow-float {
+  from {
+    opacity: 0.9;
+    transform: scaleX(1);
+  }
+
+  to {
+    opacity: 0.55;
+    transform: scaleX(1.18);
+  }
+}
+
+/* ---------- Gummies ---------- */
+
+.smooch-story__gummy {
+  position: absolute;
+  display: block;
+  opacity: 0;
+  transform: translateY(10px) scale(0.9);
+  transition: opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.smooch-story__gummy-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.smooch-story.is-visible .smooch-story__gummy.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Entrance stagger — set as an inline custom property per gummy would be
+   nicer, but nth-of-type keeps this file self-contained for up to 5. */
+.smooch-story.is-visible .smooch-story__gummy--1.is-revealed {
+  transition-delay: 80ms;
+}
+
+.smooch-story.is-visible .smooch-story__gummy--2.is-revealed {
+  transition-delay: 160ms;
+}
+
+.smooch-story.is-visible .smooch-story__gummy--3.is-revealed {
+  transition-delay: 240ms;
+}
+
+.smooch-story.is-visible .smooch-story__gummy--4.is-revealed {
+  transition-delay: 320ms;
+}
+
+.smooch-story.is-visible .smooch-story__gummy--5.is-revealed {
+  transition-delay: 400ms;
+}
+
+/* Positions + sizes: five distinct depths/spots around the bottle. */
+.smooch-story__gummy--1 {
+  top: 12%;
+  left: 6%;
+  width: 15%;
+  z-index: 2;
+}
+
+.smooch-story__gummy--2 {
+  top: 8%;
+  right: 8%;
+  width: 10%;
+  z-index: 2;
+}
+
+.smooch-story__gummy--3 {
+  bottom: 10%;
+  left: 2%;
+  width: 19%;
+  z-index: 3;
+}
+
+.smooch-story__gummy--4 {
+  top: 38%;
+  right: 2%;
+  width: 12%;
+  z-index: 1;
+  opacity: 0;
+}
+
+.smooch-story.is-visible .smooch-story__gummy--4.is-revealed {
+  opacity: 0.82;
+}
+
+.smooch-story__gummy--5 {
+  bottom: 24%;
+  right: 16%;
+  width: 9%;
+  z-index: 2;
+}
+
+/* Independent, non-synchronized float loops (see spec: different
+   amplitude/duration per gummy so movement reads as organic, not looped). */
+[data-floating-enabled] .smooch-story__gummy--1 {
+  animation: smooch-story-float-1 6.5s ease-in-out infinite alternate;
+}
+
+[data-floating-enabled] .smooch-story__gummy--2 {
+  animation: smooch-story-float-2 7.8s ease-in-out infinite alternate;
+}
+
+[data-floating-enabled] .smooch-story__gummy--3 {
+  animation: smooch-story-float-3 5.9s ease-in-out infinite alternate;
+}
+
+[data-floating-enabled] .smooch-story__gummy--4 {
+  animation: smooch-story-float-4 7.1s ease-in-out infinite alternate;
+}
+
+[data-floating-enabled] .smooch-story__gummy--5 {
+  animation: smooch-story-float-5 6.9s ease-in-out infinite alternate;
+}
+
+@keyframes smooch-story-float-1 {
+  from {
+    transform: translate(0, 0) rotate(-5deg);
+  }
+
+  to {
+    transform: translate(3px, -12px) rotate(5deg);
+  }
+}
+
+@keyframes smooch-story-float-2 {
+  from {
+    transform: translate(-5px, 0) rotate(-8deg);
+  }
+
+  to {
+    transform: translate(0, -8px) rotate(8deg);
+  }
+}
+
+@keyframes smooch-story-float-3 {
+  from {
+    transform: translateY(0) rotate(4deg);
+  }
+
+  to {
+    transform: translateY(-14px) rotate(-4deg);
+  }
+}
+
+@keyframes smooch-story-float-4 {
+  from {
+    transform: translate(0, -4px) rotate(3deg);
+  }
+
+  to {
+    transform: translate(-4px, 6px) rotate(-3deg);
+  }
+}
+
+@keyframes smooch-story-float-5 {
+  from {
+    transform: translate(4px, 2px) rotate(-6deg);
+  }
+
+  to {
+    transform: translate(-2px, -9px) rotate(6deg);
+  }
+}
+
+/* Parallax: extremely small translateY offsets from JS scroll progress. */
+[data-parallax-enabled] .smooch-story__bgword {
+  transform: translateY(calc(var(--smooch-story-scroll, 0) * -1 * var(--smooch-story-parallax-bg, 14px)));
+}
+
+[data-parallax-enabled] .smooch-story__gummy--3 {
+  transform: translateY(calc(var(--smooch-story-scroll, 0) * var(--smooch-story-parallax-fg, 16px)));
+}
+
+/* ---------- Content column ---------- */
+
+.smooch-story__heading {
+  margin: 0.6rem 0 1.2rem;
+}
+
+.smooch-story__intro {
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.smooch-story__stages {
+  grid-area: stages;
+  position: relative;
+  min-width: 0;
+  max-width: 52rem;
+}
+
+/* Progress rail: a thin vertical line beside the stage numbers that fills
+   downward as the visitor progresses. Editorial, not a software timeline. */
+.smooch-story__rail {
+  position: absolute;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  left: -2.4rem;
+  width: 0.1rem;
+  background-color: var(--smooch-story-accent);
+  opacity: 0.18;
+  display: none;
+}
+
+.smooch-story__rail-fill {
+  display: block;
+  width: 100%;
+  height: calc(var(--smooch-story-rail-progress, 0) * 100%);
+  background-color: var(--smooch-story-accent);
+  transition: height 200ms linear;
+}
+
+@media screen and (min-width: 750px) {
+  .smooch-story__rail {
+    display: block;
+  }
+}
+
+.smooch-story__stage {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 3.2rem;
+  opacity: 0.4;
+  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-story__stage {
+    min-height: 68vh;
+  }
+}
+
+.smooch-story__stage.is-active {
+  opacity: 1;
+}
+
+.smooch-story__stage:last-child {
+  min-height: 40vh;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-story__stage:last-child {
+    min-height: 50vh;
+  }
+}
+
+.smooch-story__stage-num {
+  margin: 0 0 1rem;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--smooch-story-accent);
+  transition: opacity 400ms ease;
+}
+
+.smooch-story__stage-icon {
+  color: var(--smooch-story-accent);
+  margin-bottom: 1rem;
+}
+
+.smooch-story__stage-heading {
+  margin: 0 0 1rem;
+  color: var(--smooch-story-text);
+}
+
+.smooch-story__stage-body {
+  color: rgba(var(--color-foreground), 0.78);
+  max-width: 44ch;
+}
+
+.smooch-story__stage-body p {
+  margin: 0;
+}
+
+.smooch-story__stage-body p + p {
+  margin-top: 1em;
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .smooch-story__product,
+  .smooch-story__gummy,
+  .smooch-story__stage,
+  .smooch-story__halo,
+  .smooch-story__rail-fill {
+    transition-duration: 200ms;
+  }
+
+  [data-floating-enabled] [data-floating],
+  [data-floating-enabled] .smooch-story__gummy--1,
+  [data-floating-enabled] .smooch-story__gummy--2,
+  [data-floating-enabled] .smooch-story__gummy--3,
+  [data-floating-enabled] .smooch-story__gummy--4,
+  [data-floating-enabled] .smooch-story__gummy--5,
+  [data-floating-enabled] .smooch-story__shadow {
+    animation: none !important;
+  }
+
+  .smooch-story__product-scroll,
+  .smooch-story__bgword,
+  [data-parallax-enabled] .smooch-story__gummy--3 {
+    transform: none !important;
+  }
+
+  .smooch-story__stage {
+    opacity: 1;
+  }
+}
+
+/* ---------- Mobile: redesigned, not shrunk ---------- */
+
+@media screen and (max-width: 989px) {
+  /* Not sticky on mobile — the spec's own fallback: with headline, visual,
+     and stages stacked as separate grid rows there's no shared tall
+     containing block for a sticky element to stick within (and forcing one
+     would mean overlaying the scene on top of the stage text, which risks
+     obscuring content). The scene sits inline between the headline and the
+     stages instead, and still reacts to whichever stage is active — it just
+     doesn't follow the scroll. */
+  .smooch-story__visual-sticky {
+    position: relative;
+    top: 0;
+  }
+
+  .smooch-story__gummy--1 {
+    width: 17%;
+  }
+
+  .smooch-story__gummy--3 {
+    width: 21%;
+  }
+
+  /* Fewer floating gummies on mobile (spec: 2-3 vs 3-5 desktop) — 4 and 5
+     stay static (no float loop) and start hidden to reduce clutter; JS also
+     skips revealing them on small screens. */
+  [data-floating-enabled] .smooch-story__gummy--4,
+  [data-floating-enabled] .smooch-story__gummy--5 {
+    animation: none;
+  }
+}

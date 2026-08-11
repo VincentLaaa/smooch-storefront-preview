@@ -166,8 +166,9 @@ async function renderSection(type, entry, sectionId) {
   return `<div id="shopify-section-${sectionId}" class="shopify-section ${meta.class}">${inner}</div>`;
 }
 
-async function renderTemplate(templateName) {
+async function renderTemplate(templateName, { patch } = {}) {
   const tpl = JSON.parse(readFileSync(join(ROOT, 'templates', `${templateName}.json`), 'utf8'));
+  if (patch) patch(tpl);
   let html = '';
   for (const id of tpl.order) {
     html += await renderSection(tpl.sections[id].type, tpl.sections[id], id);
@@ -236,7 +237,24 @@ const page = (handler) => (req, res) => {
 app.get('/', page(async (req, res) => {
   currentScope = baseScope();
   setGlobals(currentScope);
-  const body = await renderTemplate('index');
+
+  // DEV-ONLY visual QA: ?scroll_story_preview=1 patches the scroll-story
+  // section's image settings in memory with real bundled product photos, so
+  // the floating/parallax/stage mechanics can be previewed before a real
+  // transparent product cutout is uploaded. Never touches templates/index.json.
+  const patch = req.query.scroll_story_preview
+    ? (tpl) => {
+        const section = tpl.sections.scroll_story;
+        if (!section) return;
+        const bottle = imageDrop('/assets/smooch-demo-bottle-open.png', { alt: 'Smooch bottle', width: 1086, height: 1448 });
+        const gummy = imageDrop('/assets/smooch-demo-bottles-duo.png', { alt: '', width: 1254, height: 1254 });
+        section.settings.product_image = bottle;
+        section.settings.gummy_image_1 = gummy;
+        section.settings.gummy_image_3 = gummy;
+      }
+    : undefined;
+
+  const body = await renderTemplate('index', { patch });
   res.send(await renderLayout(body, { pageTitle: 'Smooch — offline dev', templateName: 'index' }));
 }));
 

@@ -1,0 +1,394 @@
+{{ 'smooch-scroll-story.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'smooch-scroll-story.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  Sticky-floating product scroll story. Left column: a sticky visual scene
+  (product + gummy images, all merchant-uploaded — no fake product art in
+  code) that floats gently and evolves as the visitor scrolls past the
+  right-column story stages. Right column: editable storytelling blocks.
+
+  Deliberately decoupled from any fixed stage/gummy count or color so the
+  whole thing can be re-skinned (product photography, palette, copy, number
+  of stages) without touching this file — see the "Brand tokens" comment in
+  assets/smooch-scroll-story.css and the flexible stage-reveal math in
+  assets/smooch-scroll-story.js.
+{%- endcomment -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+
+  assign stages = section.blocks | where: 'type', 'stage'
+  assign stage_count = stages.size
+
+  assign desktop_size = section.settings.product_size_desktop | default: 62
+  assign mobile_size = section.settings.product_size_mobile | default: 74
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --smooch-story-bg: {{ section.settings.background_color | default: 'rgb(var(--smooch-cream-rgb))' }};
+    --smooch-story-text: {{ section.settings.text_color | default: 'rgb(var(--smooch-ink-rgb))' }};
+    --smooch-story-accent: {{ section.settings.accent_color | default: 'rgb(196, 42, 80)' }};
+    --smooch-story-product-size: {{ mobile_size }}%;
+    --smooch-story-sticky-top: 8rem;
+  }
+
+  @media screen and (min-width: 990px) {
+    #shopify-section-{{ section.id }} {
+      --smooch-story-product-size: {{ desktop_size }}%;
+      --smooch-story-sticky-top: 17vh;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="smooch-story"
+  data-smooch-story
+  data-stage-count="{{ stage_count }}"
+  {% if section.settings.enable_floating %}data-floating-enabled{% endif %}
+  {% if section.settings.enable_parallax %}data-parallax-enabled{% endif %}
+>
+  <div class="smooch-story__grid page-width">
+    <header class="smooch-story__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="smooch-eyebrow smooch-eyebrow--accent">{{ section.settings.eyebrow | replace: '[brand]', brand_name }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="smooch-h2 smooch-story__heading">{{ section.settings.heading | replace: '[brand]', brand_name }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <div class="smooch-lead smooch-story__intro">{{ section.settings.intro | replace: '[brand]', brand_name }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="smooch-story__visual-col">
+      <div class="smooch-story__visual-sticky">
+        <div class="smooch-story__scene" data-smooch-scene aria-hidden="true">
+          {%- if section.settings.show_bg_word and section.settings.bg_word_text != blank -%}
+            <span class="smooch-story__bgword" data-smooch-parallax data-depth="0.94">
+              {{- section.settings.bg_word_text -}}
+            </span>
+          {%- endif -%}
+
+          <span class="smooch-story__halo" data-smooch-halo></span>
+
+          {%- for i in (1..5) -%}
+            {%- assign img_key = 'gummy_image_' | append: i -%}
+            {%- assign gummy_img = section.settings[img_key] -%}
+            {%- if gummy_img != blank -%}
+              <span class="smooch-story__gummy smooch-story__gummy--{{ i }}" data-smooch-gummy data-gummy-index="{{ i }}">
+                {{
+                  gummy_img
+                  | image_url: width: 240
+                  | image_tag: loading: 'lazy', widths: '80, 120, 180, 240', sizes: '10vw', alt: '', class: 'smooch-story__gummy-img'
+                }}
+              </span>
+            {%- endif -%}
+          {%- endfor -%}
+
+          <span class="smooch-story__shadow" data-smooch-shadow></span>
+
+          <div class="smooch-story__product-scroll" data-smooch-product-scroll>
+            {%- if section.settings.product_image != blank -%}
+              {%- assign product_alt = section.settings.product_alt | default: brand_name -%}
+              <span class="smooch-story__product" data-smooch-product data-floating>
+                {{
+                  section.settings.product_image
+                  | image_url: width: 900
+                  | image_tag:
+                    loading: 'eager',
+                    widths: '300, 450, 600, 750, 900',
+                    sizes: '(min-width: 990px) 32vw, 60vw',
+                    alt: product_alt,
+                    class: 'smooch-story__product-img'
+                }}
+              </span>
+            {%- else -%}
+              <span class="smooch-story__product smooch-story__product--empty">
+                {%- if request.design_mode -%}
+                  <span class="smooch-caption">Upload a product image in section settings.</span>
+                {%- endif -%}
+              </span>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- if stage_count > 0 -%}
+      <div class="smooch-story__stages" data-smooch-stages>
+        {%- if section.settings.show_progress -%}
+          <div class="smooch-story__rail" aria-hidden="true">
+            <span class="smooch-story__rail-fill" data-smooch-rail-fill></span>
+          </div>
+        {%- endif -%}
+
+        {%- for block in stages -%}
+          <div
+            class="smooch-story__stage"
+            data-smooch-stage
+            data-stage-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            <p class="smooch-story__stage-num" data-smooch-stage-num>
+              {{ block.settings.number | default: forloop.index | prepend: '00' | slice: -2, 2 }}
+            </p>
+            {%- if block.settings.icon != blank and block.settings.icon != 'none' -%}
+              {% render 'smooch-icon', icon: block.settings.icon, class: 'smooch-icon--lg smooch-story__stage-icon' %}
+            {%- endif -%}
+            <h3 class="smooch-h3 smooch-story__stage-heading">{{ block.settings.heading | replace: '[brand]', brand_name }}</h3>
+            <div class="smooch-story__stage-body">{{ block.settings.body | replace: '[brand]', brand_name }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Smooch scroll story",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "A sticky floating product scene with editable storytelling stages. Upload real, transparent product/gummy photography — this section never draws a fake bottle."
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Your daily [brand]",
+      "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Feel more like yourself, one day at a time.",
+      "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro paragraph",
+      "default": "<p>A simple daily ritual designed to support mood, desire, and connection — without making wellness feel like another chore.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Product scene"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image",
+      "info": "A transparent PNG/WebP works best. Stays hidden until set."
+    },
+    {
+      "type": "text",
+      "id": "product_alt",
+      "label": "Product image alt text",
+      "info": "Defaults to your brand name if left blank."
+    },
+    {
+      "type": "image_picker",
+      "id": "gummy_image_1",
+      "label": "Gummy image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "gummy_image_2",
+      "label": "Gummy image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "gummy_image_3",
+      "label": "Gummy image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "gummy_image_4",
+      "label": "Gummy image 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "gummy_image_5",
+      "label": "Gummy image 5"
+    },
+    {
+      "type": "range",
+      "id": "product_size_desktop",
+      "label": "Product size (desktop)",
+      "min": 40,
+      "max": 85,
+      "step": 1,
+      "unit": "%",
+      "default": 62
+    },
+    {
+      "type": "range",
+      "id": "product_size_mobile",
+      "label": "Product size (mobile)",
+      "min": 40,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "default": 74
+    },
+    {
+      "type": "header",
+      "content": "Background moment"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bg_word",
+      "label": "Show oversized background word",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "bg_word_text",
+      "label": "Background word",
+      "default": "Smooch"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "paragraph",
+      "content": "Leave any of these blank to inherit the theme's global brand colors (Theme settings > Colors)."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color"
+    },
+    {
+      "type": "header",
+      "content": "Motion"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_floating",
+      "label": "Enable floating animation",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_parallax",
+      "label": "Enable scroll parallax",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress",
+      "label": "Show progress indicator",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stage",
+      "name": "Story stage",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number / eyebrow",
+          "info": "Defaults to the block's position (01, 02, ...) if left blank."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Make it a ritual"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Body copy",
+          "default": "<p>A small daily habit that's easy to look forward to.</p>"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "moon", "label": "Moon" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "drop", "label": "Drop" },
+            { "value": "check", "label": "Check" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch scroll story",
+      "blocks": [
+        {
+          "type": "stage",
+          "settings": {
+            "number": "01",
+            "heading": "Make it a ritual",
+            "body": "<p>A small daily habit that's easy to look forward to.</p>",
+            "icon": "sparkle"
+          }
+        },
+        {
+          "type": "stage",
+          "settings": {
+            "number": "02",
+            "heading": "Mood support",
+            "body": "<p>Space for product-appropriate educational copy explaining how the formula supports mood.</p>",
+            "icon": "moon"
+          }
+        },
+        {
+          "type": "stage",
+          "settings": {
+            "number": "03",
+            "heading": "Support your spark",
+            "body": "<p>Space for product-appropriate educational copy around desire and feeling more like yourself.</p>",
+            "icon": "heart"
+          }
+        },
+        {
+          "type": "stage",
+          "settings": {
+            "number": "04",
+            "heading": "Feel more connected",
+            "body": "<p>Space for product-appropriate educational copy around connection and overall experience.</p>",
+            "icon": "drop"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
