@@ -457,6 +457,23 @@ export const linklists = {
       { title: 'Returns', url: '/policies/refund-policy', active: false, current: false, links: [] },
     ],
   },
+  shop: {
+    handle: 'shop', title: 'Shop',
+    links: [
+      { title: 'Shop All', url: '/collections/all', active: false, current: false, links: [] },
+      { title: 'Libido + Mood Gummies', url: '/products/smooch-daily-gummies-qa', active: false, current: false, links: [] },
+      { title: 'Bundles', url: '/products/smooch-daily-gummies-qa#shopify-section-hero', active: false, current: false, links: [] },
+    ],
+  },
+  learn: {
+    handle: 'learn', title: 'Learn',
+    links: [
+      { title: 'Why Smooch', url: '/products/smooch-daily-gummies-qa#shopify-section-benefits', active: false, current: false, links: [] },
+      { title: 'How It Works', url: '/products/smooch-daily-gummies-qa#shopify-section-body', active: false, current: false, links: [] },
+      { title: 'Ingredients', url: '/products/smooch-daily-gummies-qa#shopify-section-formula', active: false, current: false, links: [] },
+      { title: 'FAQ', url: '/pages/faq', active: false, current: false, links: [] },
+    ],
+  },
 };
 
 export const shopDrop = {

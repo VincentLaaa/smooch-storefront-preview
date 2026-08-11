@@ -28,10 +28,11 @@
       "type": "smooch-header",
       "settings": {
         "color_scheme": "scheme-1",
-        "menu": "main-menu",
-        "cta_label": "Shop now",
-        "cta_link": "/collections/all",
-        "show_account": false
+        "shop_menu": "shop",
+        "learn_menu": "learn",
+        "sticky_enabled": true,
+        "show_account": true,
+        "show_cart_count": true
       }
     }
   },

@@ -1,0 +1,26 @@
+{% comment %}
+  Cart icon-bubble contract. This exact markup is rendered both by the header
+  on first paint AND by sections/cart-icon-bubble.liquid — the fragment Dawn's
+  cart.js/cart-drawer.js fetch (`?sections=cart-icon-bubble`) and swap into
+  #cart-icon-bubble's innerHTML after every cart mutation. Keep the two in
+  sync (or better: only edit this file) so the icon never flickers to a
+  different style right after an add-to-cart.
+
+  The count bubble is always rendered when the cart isn't empty; the header's
+  "Show cart item count" setting hides it via a CSS class on the header
+  wrapper (a class that survives the innerHTML swap), not by omitting the
+  markup here.
+
+  Usage:
+  {% render 'smooch-cart-icon' %}
+{% endcomment %}
+{% render 'smooch-icon', icon: 'bag' %}
+<span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+{%- if cart.item_count > 0 -%}
+  <div class="cart-count-bubble smooch-header__cart-badge">
+    {%- if cart.item_count < 100 -%}
+      <span aria-hidden="true">{{ cart.item_count }}</span>
+    {%- endif -%}
+    <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+  </div>
+{%- endif -%}

@@ -4,12 +4,14 @@
   assign brand_name = settings.smooch_brand_name | default: shop.name
 
   assign has_content = false
-  for block in section.blocks
-    if block.settings.text != blank
-      assign has_content = true
-      break
-    endif
-  endfor
+  if section.settings.enabled
+    for block in section.blocks
+      if block.settings.text != blank
+        assign has_content = true
+        break
+      endif
+    endfor
+  endif
 -%}
 
 {%- if has_content -%}
@@ -55,6 +57,12 @@
     {
       "type": "paragraph",
       "content": "No fake urgency — only real offers and truthful shipping info."
+    },
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Enable announcement bar",
+      "default": true
     },
     {
       "type": "color_scheme",
