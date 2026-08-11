@@ -1,4 +1,19 @@
 {{ 'section-smooch-timeline.css' | asset_url | stylesheet_tag }}
+{{ 'smooch-scroll-story.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'smooch-scroll-story.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  Sticky floating product visual beside the timeline steps, reusing the same
+  scene markup/CSS classes and JS (assets/smooch-scroll-story.*) as the
+  product-page scroll story — no separate animation system to maintain.
+  Each step doubles as that JS's "stage" (data-smooch-stage), so gummies
+  reveal progressively as the visitor reads through the timeline, without
+  changing the steps' own look.
+
+  No fake product art: if no image is picked in section settings, this falls
+  back to the theme's bundled real product photo (same pattern as the header
+  logo's bundled-wordmark fallback) rather than drawing a placeholder shape.
+{%- endcomment -%}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -16,16 +31,27 @@
 
 {%- liquid
   assign brand_name = settings.smooch_brand_name | default: shop.name
+  assign step_blocks = section.blocks | where: 'type', 'step'
+  assign fact_blocks = section.blocks | where: 'type', 'fact'
+  assign show_visual = section.settings.show_visual
 -%}
 
 <div class="smooch-band color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width section-{{ section.id }}-padding">
-    <div class="smooch-timeline__inner">
+    <div
+      class="smooch-timeline__layout{% unless show_visual %} smooch-timeline__layout--no-visual{% endunless %}{% if show_visual %} smooch-story{% endif %}"
+      {% if show_visual %}
+        data-smooch-story
+        data-mode="full"
+        data-stage-count="{{ step_blocks.size }}"
+        {% if section.settings.enable_floating %}data-floating-enabled{% endif %}
+      {% endif %}
+    >
       {%- if section.settings.eyebrow != blank
         or section.settings.heading != blank
         or section.settings.lead != blank
       -%}
-        <header class="smooch-section-head">
+        <header class="smooch-section-head smooch-timeline__head">
           {%- if section.settings.eyebrow != blank -%}
             <p class="smooch-eyebrow smooch-eyebrow--accent">
               {{- section.settings.eyebrow | replace: '[brand]', brand_name | escape -}}
@@ -44,63 +70,129 @@
         </header>
       {%- endif -%}
 
-      {%- assign step_blocks = section.blocks | where: 'type', 'step' -%}
-      {%- if step_blocks.size > 0 -%}
-        <ol class="smooch-timeline__steps" role="list">
-          {%- for block in step_blocks -%}
-            <li class="smooch-timeline__step" {{ block.shopify_attributes }}>
-              {%- if block.settings.period != blank -%}
-                <p class="smooch-timeline__period smooch-num">
-                  {{- block.settings.period | escape -}}
-                </p>
-              {%- endif -%}
+      {%- if show_visual -%}
+        <div class="smooch-timeline__visual-col">
+          <div class="smooch-timeline__visual-sticky">
+            <div class="smooch-story__scene smooch-timeline__scene" data-smooch-scene aria-hidden="true">
+              <span class="smooch-story__halo" data-smooch-halo></span>
 
-              <div class="smooch-timeline__marker" aria-hidden="true">
-                {%- if block.settings.icon != blank and block.settings.icon != 'none' -%}
-                  <span class="smooch-timeline__badge">
-                    {%- render 'smooch-icon', icon: block.settings.icon -%}
+              {%- for i in (1..3) -%}
+                {%- assign img_key = 'gummy_image_' | append: i -%}
+                {%- assign gummy_img = section.settings[img_key] -%}
+                {%- if gummy_img != blank -%}
+                  <span class="smooch-story__gummy smooch-story__gummy--{{ i }}" data-smooch-gummy data-gummy-index="{{ i }}">
+                    {{
+                      gummy_img
+                      | image_url: width: 240
+                      | image_tag: loading: 'lazy', widths: '80, 120, 180, 240', sizes: '10vw', alt: '', class: 'smooch-story__gummy-img'
+                    }}
                   </span>
-                {%- else -%}
-                  <span class="smooch-timeline__badge smooch-timeline__badge--dot"></span>
                 {%- endif -%}
-              </div>
+              {%- endfor -%}
 
-              <div class="smooch-timeline__body">
-                {%- if block.settings.heading != blank -%}
-                  <h3 class="smooch-h3 smooch-timeline__heading">
-                    {{- block.settings.heading | replace: '[brand]', brand_name | escape -}}
-                  </h3>
-                {%- endif -%}
-                {%- if block.settings.text != blank -%}
-                  <p class="smooch-body smooch-timeline__text">
-                    {{- block.settings.text | replace: '[brand]', brand_name | escape -}}
+              <span class="smooch-story__shadow" data-smooch-shadow></span>
+
+              <div class="smooch-story__product-scroll" data-smooch-product-scroll>
+                {%- assign product_alt = section.settings.product_alt | default: brand_name -%}
+                <span class="smooch-story__product" data-smooch-product data-floating>
+                  {%- if section.settings.product_image != blank -%}
+                    {{
+                      section.settings.product_image
+                      | image_url: width: 900
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '300, 450, 600, 750, 900',
+                        sizes: '(min-width: 990px) 26vw, 60vw',
+                        alt: product_alt,
+                        class: 'smooch-story__product-img'
+                    }}
+                  {%- else -%}
+                    {%- comment -%}
+                      Bundled real product photo used until a merchant picks
+                      one — see the paragraph note in this section's schema.
+                    {%- endcomment -%}
+                    {{
+                      'smooch-demo-bottle-open.png'
+                      | asset_url
+                      | image_tag:
+                        loading: 'lazy',
+                        width: 1086,
+                        height: 1448,
+                        alt: product_alt,
+                        class: 'smooch-story__product-img'
+                    }}
+                  {%- endif -%}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="smooch-timeline__content-col">
+        {%- if step_blocks.size > 0 -%}
+          <ol class="smooch-timeline__steps" role="list">
+            {%- for block in step_blocks -%}
+              <li
+                class="smooch-timeline__step"
+                {% if show_visual %}
+                  data-smooch-stage
+                  data-stage-index="{{ forloop.index0 }}"
+                {% endif %}
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.period != blank -%}
+                  <p class="smooch-timeline__period smooch-num">
+                    {{- block.settings.period | escape -}}
                   </p>
                 {%- endif -%}
-              </div>
-            </li>
-          {%- endfor -%}
-        </ol>
-      {%- endif -%}
-    {%- assign fact_blocks = section.blocks | where: 'type', 'fact' -%}
-    {%- if fact_blocks.size > 0 -%}
-      <div class="smooch-timeline__facts">
-        {%- for fact in fact_blocks -%}
-          {%- if fact.settings.title != blank -%}
-            <div class="smooch-timeline__fact" {{ fact.shopify_attributes }}>
-              <h3 class="smooch-timeline__fact-title">{{ fact.settings.title | replace: '[brand]', brand_name | escape }}</h3>
-              <p class="smooch-timeline__fact-text">{{ fact.settings.text | replace: '[brand]', brand_name | escape }}</p>
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
+
+                <div class="smooch-timeline__marker" aria-hidden="true">
+                  {%- if block.settings.icon != blank and block.settings.icon != 'none' -%}
+                    <span class="smooch-timeline__badge">
+                      {%- render 'smooch-icon', icon: block.settings.icon -%}
+                    </span>
+                  {%- else -%}
+                    <span class="smooch-timeline__badge smooch-timeline__badge--dot"></span>
+                  {%- endif -%}
+                </div>
+
+                <div class="smooch-timeline__body">
+                  {%- if block.settings.heading != blank -%}
+                    <h3 class="smooch-h3 smooch-timeline__heading">
+                      {{- block.settings.heading | replace: '[brand]', brand_name | escape -}}
+                    </h3>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <p class="smooch-body smooch-timeline__text">
+                      {{- block.settings.text | replace: '[brand]', brand_name | escape -}}
+                    </p>
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ol>
+        {%- endif -%}
+
+        {%- if fact_blocks.size > 0 -%}
+          <div class="smooch-timeline__facts">
+            {%- for fact in fact_blocks -%}
+              {%- if fact.settings.title != blank -%}
+                <div class="smooch-timeline__fact" {{ fact.shopify_attributes }}>
+                  <h3 class="smooch-timeline__fact-title">{{ fact.settings.title | replace: '[brand]', brand_name | escape }}</h3>
+                  <p class="smooch-timeline__fact-text">{{ fact.settings.text | replace: '[brand]', brand_name | escape }}</p>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.disclaimer != blank -%}
+          <p class="smooch-fine-print smooch-timeline__disclaimer">
+            {{- section.settings.disclaimer | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
       </div>
-    {%- endif -%}
-
-
-      {%- if section.settings.disclaimer != blank -%}
-        <p class="smooch-fine-print smooch-timeline__disclaimer">
-          {{- section.settings.disclaimer | replace: '[brand]', brand_name | escape -}}
-        </p>
-      {%- endif -%}
     </div>
   </div>
 </div>
@@ -145,6 +237,49 @@
       "id": "lead",
       "label": "Lead paragraph",
       "default": "This is a daily-support formula, not a switch. Here's the shape most consistent routines take — experiences vary."
+    },
+    {
+      "type": "header",
+      "content": "Floating product visual"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_visual",
+      "label": "Show floating product visual",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image",
+      "info": "A transparent PNG/WebP works best. Falls back to a bundled product photo until you set one."
+    },
+    {
+      "type": "text",
+      "id": "product_alt",
+      "label": "Product image alt text",
+      "info": "Defaults to your brand name if left blank."
+    },
+    {
+      "type": "image_picker",
+      "id": "gummy_image_1",
+      "label": "Gummy image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "gummy_image_2",
+      "label": "Gummy image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "gummy_image_3",
+      "label": "Gummy image 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_floating",
+      "label": "Enable floating animation",
+      "default": true
     },
     {
       "type": "header",

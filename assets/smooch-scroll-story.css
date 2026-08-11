@@ -12,7 +12,7 @@
    section can be re-skinned without editing this file. */
 
 .smooch-story {
-  --smooch-story-float-amplitude: -6px;
+  --smooch-story-float-amplitude: -11px;
 
   position: relative;
   background-color: var(--smooch-story-bg);
@@ -22,7 +22,7 @@
 
 @media screen and (min-width: 990px) {
   .smooch-story {
-    --smooch-story-float-amplitude: -10px;
+    --smooch-story-float-amplitude: -18px;
   }
 }
 
@@ -189,7 +189,7 @@
 
 [data-floating-enabled] [data-floating] {
   will-change: transform;
-  animation: smooch-story-float-bottle 6.2s ease-in-out infinite alternate;
+  animation: smooch-story-float-bottle 5.2s ease-in-out infinite alternate;
 }
 
 /* Entrance (see JS: .is-visible added once the section enters the viewport). */
@@ -206,11 +206,11 @@
 
 @keyframes smooch-story-float-bottle {
   from {
-    transform: translateY(0) rotate(-1deg);
+    transform: translateY(0) rotate(-2deg);
   }
 
   to {
-    transform: translateY(var(--smooch-story-float-amplitude, -10px)) rotate(1deg);
+    transform: translateY(var(--smooch-story-float-amplitude, -10px)) rotate(2deg);
   }
 }
 

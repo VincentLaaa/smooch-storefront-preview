@@ -2,8 +2,97 @@
    Thin berry rail with period markers; big numeral period labels on desktop,
    stacked left-rail layout on mobile. 1rem = 10px (Dawn base). */
 
-.smooch-timeline__inner {
+/* ---------- Layout: sticky floating visual beside the steps ---------- */
+
+.smooch-timeline__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'head'
+    'visual'
+    'content';
+  gap: 3.2rem;
+}
+
+/* This element also carries the shared .smooch-story class (so the reused
+   smooch-scroll-story.js can find the scene + steps in one relative query —
+   they're siblings under this wrapper, not nested in each other). Undo the
+   couple of base .smooch-story properties that don't apply out here: it
+   isn't its own colored band (the .smooch-band ancestor already is one),
+   and overflow:clip would establish a scroll container that breaks the
+   sticky visual's positioning context. */
+.smooch-timeline__layout.smooch-story {
+  background-color: transparent;
+  color: inherit;
+  overflow: visible;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-timeline__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'head head'
+      'visual content';
+    column-gap: 6rem;
+    row-gap: 1.6rem;
+  }
+}
+
+/* No visual: collapse back to a single centered reading column (the
+   section's original layout, before the floating visual was added). */
+.smooch-timeline__layout--no-visual {
+  grid-template-areas:
+    'head'
+    'content';
   max-width: 104rem;
+  margin-inline: auto;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-timeline__layout--no-visual {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'head'
+      'content';
+  }
+}
+
+.smooch-timeline__head {
+  grid-area: head;
+  max-width: 72rem;
+}
+
+.smooch-timeline__visual-col {
+  grid-area: visual;
+  position: relative;
+}
+
+.smooch-timeline__visual-sticky {
+  position: sticky;
+  top: 14vh;
+}
+
+.smooch-timeline__scene {
+  height: 40vh;
+  min-height: 32rem;
+  max-height: 50rem;
+}
+
+@media screen and (max-width: 989px) {
+  .smooch-timeline__visual-sticky {
+    position: static;
+    top: 0;
+  }
+
+  .smooch-timeline__scene {
+    height: 32vh;
+    min-height: 26rem;
+  }
+}
+
+.smooch-timeline__content-col {
+  grid-area: content;
+  min-width: 0;
 }
 
 .smooch-timeline__steps {

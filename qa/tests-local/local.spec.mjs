@@ -590,35 +590,58 @@ test.describe('Scroll story: full (product page) vs compact (homepage)', () => {
     expect(stickyPos).toBe('static');
   });
 
-  test('product page uses full mode with a tall sticky scroll container', async ({ page }) => {
+  // The full-mode floating visual now lives inside the product page's
+  // timeline section ("What's happening in your body?") rather than as its
+  // own standalone section — [data-smooch-story] there is the visual column
+  // (the same reused smooch-scroll-story JS/CSS), and the timeline's own
+  // Week 1-4 steps double as its "stages".
+  test('product page: timeline section uses a tall sticky floating visual', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(PRODUCT);
-    const story = page.locator('[data-smooch-story]');
+    const timelineSection = page.locator('#shopify-section-body');
+    const box = await timelineSection.boundingBox();
+    expect(box.height).toBeGreaterThan(900 * 1.2);
+    const story = timelineSection.locator('[data-smooch-story]');
     await expect(story).toHaveAttribute('data-mode', 'full');
-    const box = await story.boundingBox();
-    expect(box.height).toBeGreaterThan(900 * 2);
-    const stickyPos = await story.locator('.smooch-story__visual-sticky').evaluate((el) => getComputedStyle(el).position);
+    const stickyPos = await story.locator('.smooch-timeline__visual-sticky').evaluate((el) => getComputedStyle(el).position);
     expect(stickyPos).toBe('sticky');
+    // Real bundled product photo fallback shows even with no image picked.
+    await expect(story.locator('.smooch-story__product-img')).toBeVisible();
   });
 
-  test('product page: full-mode sticky progression cycles through all stages', async ({ page }) => {
+  test('product page: timeline steps drive the floating visual\'s active-stage state', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto(PRODUCT + '?scroll_story_preview=1');
-    const story = page.locator('[data-smooch-story]');
-    const box = await story.boundingBox();
+    await page.goto(PRODUCT);
+    const timelineSection = page.locator('#shopify-section-body');
+    const steps = timelineSection.locator('.smooch-timeline__step');
+    const stepCount = await steps.count();
+    expect(stepCount).toBe(4);
+
+    // Scroll each step's own vertical center to the middle of the viewport
+    // (matching the observer's -45%/-45% rootMargin band) rather than
+    // guessing a fraction of the whole section — the section also contains
+    // the header/facts/disclaimer, so its total height isn't proportional
+    // to the 4 steps alone.
     const seen = [];
-    for (const frac of [0.05, 0.3, 0.55, 0.8]) {
-      await page.evaluate((y) => window.scrollTo(0, y), box.y + box.height * frac);
-      await page.waitForTimeout(400);
-      const active = await story.locator('.smooch-story__stage.is-active').getAttribute('data-stage-index');
-      seen.push(active);
+    for (let i = 0; i < stepCount; i++) {
+      // boundingBox() is viewport-relative, not document-absolute — add the
+      // current scroll position to get a real target for window.scrollTo.
+      const stepBox = await steps.nth(i).boundingBox();
+      const currentScrollY = await page.evaluate(() => window.scrollY);
+      const targetY = currentScrollY + stepBox.y + stepBox.height / 2 - 450;
+      await page.evaluate((y) => window.scrollTo(0, y), targetY);
+      await page.waitForTimeout(600);
+      const active = await timelineSection.locator('.smooch-timeline__step.is-active').getAttribute('data-stage-index');
+      seen.push(active === null ? null : Number(active));
     }
-    expect(seen).toEqual(['0', '1', '2', '3']);
+    expect(seen).toEqual([0, 1, 2, 3]);
     // The sticky visual should still be within the viewport partway through
-    // (not scrolled away above it) while a middle stage is active.
-    await page.evaluate((y) => window.scrollTo(0, y), box.y + box.height * 0.4);
+    // (not scrolled away above it) while a middle step is active.
+    const midStepBox = await steps.nth(1).boundingBox();
+    const scrollYNow = await page.evaluate(() => window.scrollY);
+    await page.evaluate((y) => window.scrollTo(0, y), scrollYNow + midStepBox.y + midStepBox.height / 2 - 450);
     await page.waitForTimeout(400);
-    const sceneBox = await story.locator('.smooch-story__scene').boundingBox();
+    const sceneBox = await timelineSection.locator('.smooch-story__scene').boundingBox();
     expect(sceneBox).not.toBeNull();
     expect(sceneBox.y).toBeGreaterThan(-10);
     expect(sceneBox.y).toBeLessThan(900);
