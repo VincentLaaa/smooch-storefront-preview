@@ -436,6 +436,10 @@ if (!customElements.get('smooch-offer')) {
             detail: {
               sectionId: this.sectionId,
               priceText: mainPrices ? mainPrices.t : '',
+              compareText: mainPrices && mainPrices.c ? mainPrices.c : '',
+              perDayText: mainPrices && mainPrices.pd ? mainPrices.pd : '',
+              saveText: mainPrices && planId && mainPrices.s > 0 ? `Subscribe & Save ${mainPrices.s}%` : '',
+              isSubscribe: !!planId,
               summaryText: `${bundleMeta.label || supplyText} · ${planId ? 'Subscribe' : 'One-time'}`,
             },
           })
@@ -480,12 +484,22 @@ if (!customElements.get('smooch-sticky-atc')) {
         this.button = this.querySelector('[data-sticky-submit]');
         this.label = this.querySelector('[data-sticky-label]');
         this.priceEl = this.querySelector('[data-sticky-price]');
+        this.compareEl = this.querySelector('[data-sticky-compare]');
+        this.saveEl = this.querySelector('[data-sticky-save]');
+        this.perDayWrap = this.querySelector('[data-sticky-perday-wrap]');
+        this.perDayEl = this.querySelector('[data-sticky-perday]');
         this.target = document.getElementById(`ProductSubmitButton-${this.sectionId}`);
+        this.sentinel = document.querySelector(
+          `[data-smooch-sticky-sentinel][data-section-id="${this.sectionId}"]`
+        );
         this.visible = false;
         this.drawerOpen = false;
 
         this.boundOnClick = () => {
-          if (this.target && !this.target.hasAttribute('disabled')) this.target.click();
+          if (!this.target) return;
+          if (this.target.hasAttribute('disabled')) return;
+          if (this.target.getAttribute('aria-disabled') === 'true') return;
+          this.target.click();
         };
         if (this.button) this.button.addEventListener('click', this.boundOnClick);
 
@@ -494,6 +508,30 @@ if (!customElements.get('smooch-sticky-atc')) {
           if (this.priceEl && event.detail.priceText) this.priceEl.textContent = event.detail.priceText;
           const summaryEl = this.querySelector('[data-sticky-summary]');
           if (summaryEl && event.detail.summaryText) summaryEl.textContent = event.detail.summaryText;
+          if (this.compareEl) {
+            if (event.detail.compareText) {
+              this.compareEl.textContent = event.detail.compareText;
+              this.compareEl.hidden = false;
+            } else {
+              this.compareEl.hidden = true;
+            }
+          }
+          if (this.saveEl) {
+            if (event.detail.saveText) {
+              this.saveEl.textContent = event.detail.saveText;
+              this.saveEl.hidden = false;
+            } else {
+              this.saveEl.hidden = true;
+            }
+          }
+          if (this.perDayWrap && this.perDayEl) {
+            if (event.detail.perDayText) {
+              this.perDayEl.textContent = event.detail.perDayText;
+              this.perDayWrap.hidden = false;
+            } else {
+              this.perDayWrap.hidden = true;
+            }
+          }
         };
         document.addEventListener('smooch:offer:change', this.boundOnOffer);
         // The offer's initial render fires before this listener exists (it sits
@@ -501,27 +539,56 @@ if (!customElements.get('smooch-sticky-atc')) {
         const offer = document.querySelector(`smooch-offer[data-section-id="${this.sectionId}"]`);
         if (offer && typeof offer.render === 'function' && offer.data) offer.render();
 
-        if (this.target && 'IntersectionObserver' in window) {
-          this.observer = new IntersectionObserver(
-            (entries) => {
-              this.visible = !entries[0].isIntersecting;
+        // Visibility is driven by a sentinel placed immediately after the real
+        // purchase controls, NOT by observing the button itself — a button-only
+        // observer reports "not intersecting" both when the visitor has scrolled
+        // past it AND when they haven't reached it yet (e.g. it starts below the
+        // fold), which would show the bar before the purchase controls are ever
+        // seen. The sentinel's rect tells the two cases apart: only a rect whose
+        // bottom has moved above the viewport top means "scrolled past." An
+        // IntersectionObserver only fires on a genuine crossing of its target's
+        // intersection ratio — an instant jump that skips over the sentinel
+        // entirely (e.g. a deep link landing already past the fold) never
+        // registers a crossing and would leave the bar stuck in its prior
+        // state. A passive, rAF-throttled rect check driven by scroll/resize
+        // (never a raw unthrottled scroll handler) is correct in both cases.
+        const sentinelTarget = this.sentinel || this.target;
+        if (sentinelTarget) {
+          let ticking = false;
+          this.boundCheckSentinel = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+              ticking = false;
+              this.visible = sentinelTarget.getBoundingClientRect().bottom < 0;
               this.update();
-            },
-            { threshold: 0 }
-          );
-          this.observer.observe(this.target);
+            });
+          };
+          window.addEventListener('scroll', this.boundCheckSentinel, { passive: true });
+          window.addEventListener('resize', this.boundCheckSentinel, { passive: true });
+          this.boundCheckSentinel();
+        }
 
+        if (this.target) {
           this.boundSyncState = () => {
             const disabled =
               this.target.hasAttribute('disabled') || this.target.getAttribute('aria-disabled') === 'true';
-            if (this.button) this.button.disabled = disabled;
+            if (this.button) {
+              this.button.disabled = disabled;
+              this.button.classList.toggle('loading', this.target.classList.contains('loading'));
+            }
             const span = this.target.querySelector('span');
             if (this.label && span) this.label.textContent = span.textContent.trim();
+            const targetSpinner = this.target.querySelector('.loading__spinner');
+            const stickySpinner = this.button && this.button.querySelector('.loading__spinner');
+            if (targetSpinner && stickySpinner) {
+              stickySpinner.classList.toggle('hidden', targetSpinner.classList.contains('hidden'));
+            }
           };
           this.stateObserver = new MutationObserver(this.boundSyncState);
           this.stateObserver.observe(this.target, {
             attributes: true,
-            attributeFilter: ['disabled', 'aria-disabled'],
+            attributeFilter: ['disabled', 'aria-disabled', 'class'],
             childList: true,
             subtree: true,
             characterData: true,
@@ -572,19 +639,28 @@ if (!customElements.get('smooch-sticky-atc')) {
           });
         }
 
+        // Remove the no-JS-fallback `hidden` attribute now that this element is
+        // upgraded: visibility from here on is animated via the `is-visible`
+        // class (opacity/transform/visibility), not the `hidden` attribute,
+        // so showing/hiding can transition instead of snapping.
+        this.hidden = false;
         this.update();
       }
 
       update() {
         const show = this.visible && !this.drawerOpen;
-        this.hidden = !show;
+        this.classList.toggle('is-visible', show);
+        this.setAttribute('aria-hidden', show ? 'false' : 'true');
         document.body.classList.toggle('smooch-sticky-atc-visible', show);
       }
 
       disconnectedCallback() {
         if (this.button) this.button.removeEventListener('click', this.boundOnClick);
         document.removeEventListener('smooch:offer:change', this.boundOnOffer);
-        if (this.observer) this.observer.disconnect();
+        if (this.boundCheckSentinel) {
+          window.removeEventListener('scroll', this.boundCheckSentinel);
+          window.removeEventListener('resize', this.boundCheckSentinel);
+        }
         if (this.stateObserver) this.stateObserver.disconnect();
         if (this.drawerObserver) this.drawerObserver.disconnect();
         if (this.cartErrorUnsubscriber) this.cartErrorUnsubscriber();

@@ -59,6 +59,8 @@
 
   assign bundle_blocks = section.blocks | where: 'type', 'bundle'
   assign gift_blocks = section.blocks | where: 'type', 'gift'
+  assign rating_blocks = section.blocks | where: 'type', 'rating'
+  assign rating_block = rating_blocks.first
   assign has_bundles = false
   if bundle_blocks.size > 0
     assign has_bundles = true
@@ -550,6 +552,9 @@
                           show_pickup_availability: false
                         -%}
                       </div>
+                      {%- if section.settings.enable_sticky_atc -%}
+                        <div data-smooch-sticky-sentinel data-section-id="{{ section.id }}" aria-hidden="true"></div>
+                      {%- endif -%}
 
                     {%- when 'reassurance' -%}
                       {% render 'smooch-purchase-reassurance', block: block, product: product, section_id: section.id %}
@@ -731,22 +736,62 @@
       </div>
 
       {%- if section.settings.enable_sticky_atc -%}
+        {%- liquid
+          assign sticky_bundle = bundle_blocks[default_bundle_index]
+          assign sticky_days = sticky_bundle.settings.days | default: 0
+          assign sticky_qty = default_bundle_qty
+          assign sticky_total = default_unit_price | times: sticky_qty
+
+          assign sticky_compare_unit = 0
+          if default_is_subscribe and default_plan
+            assign sticky_compare_unit = current_variant.price
+            for alloc in current_variant.selling_plan_allocations
+              if alloc.selling_plan.id == default_plan.id
+                assign sticky_compare_unit = alloc.compare_at_price | default: current_variant.price
+              endif
+            endfor
+          else
+            assign sticky_compare_unit = current_variant.compare_at_price | default: 0
+          endif
+          assign sticky_compare_total = sticky_compare_unit | times: sticky_qty
+
+          assign sticky_save_amt = 0
+          assign sticky_save_pct = 0
+          if sticky_compare_total > sticky_total
+            assign sticky_save_amt = sticky_compare_total | minus: sticky_total
+            assign sticky_save_pct_amt = sticky_save_amt | times: 100
+            assign sticky_save_pct = sticky_save_pct_amt | divided_by: sticky_compare_total
+          endif
+
+          assign sticky_per_day = 0
+          if sticky_days > 0
+            assign sticky_per_day = sticky_total | divided_by: sticky_days
+          endif
+        -%}
         <smooch-sticky-atc
           class="smooch-sticky-atc"
           data-section-id="{{ section.id }}"
           hidden
         >
           <div class="smooch-sticky-atc__inner">
-            {%- if product.featured_media -%}
+            {%- if section.settings.sticky_atc_show_thumbnail and product.featured_media -%}
               <div class="smooch-sticky-atc__thumb">
                 {{ product.featured_media.preview_image | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60, 120', sizes: '5rem', alt: '' }}
               </div>
             {%- endif -%}
-            <div class="smooch-sticky-atc__meta">
-              {%- liquid
-                assign sticky_bundle = bundle_blocks[default_bundle_index]
-                assign sticky_days = sticky_bundle.settings.days | default: 0
-              -%}
+
+            <div class="smooch-sticky-atc__info">
+              {%- if section.settings.sticky_atc_show_rating and rating_block -%}
+                <div class="smooch-sticky-atc__rating">
+                  {% render 'smooch-rating',
+                    product: product,
+                    fallback_rating: rating_block.settings.fallback_rating,
+                    fallback_count: rating_block.settings.fallback_count,
+                    show_sample_label: false,
+                    link: true
+                  %}
+                </div>
+              {%- endif -%}
               <span class="smooch-sticky-atc__title" data-sticky-summary>
                 {%- if has_bundles -%}
                   {{- sticky_bundle.settings.title | default: product.title -}}
@@ -755,12 +800,28 @@
                   {{- product.title | escape -}}
                 {%- endif -%}
               </span>
-              <span class="smooch-sticky-atc__price smooch-num" data-sticky-price>
-                {{- default_unit_price | times: default_bundle_qty | money -}}
-              </span>
             </div>
+
+            {%- if section.settings.sticky_atc_show_savings -%}
+              <span class="smooch-sticky-atc__save" data-sticky-save {% unless sticky_save_pct > 0 %}hidden{% endunless %}>
+                {%- if sticky_save_pct > 0 %}Subscribe & Save {{ sticky_save_pct }}%{% endif -%}
+              </span>
+            {%- endif -%}
+            <span class="smooch-sticky-atc__price-wrap">
+              <s class="smooch-sticky-atc__compare smooch-num" data-sticky-compare {% unless sticky_compare_total > sticky_total %}hidden{% endunless %}>
+                {{- sticky_compare_total | money -}}
+              </s>
+              <span class="smooch-sticky-atc__price smooch-num" data-sticky-price>{{- sticky_total | money -}}</span>
+              {%- if section.settings.sticky_atc_show_per_day -%}
+                <span class="smooch-sticky-atc__perday" data-sticky-perday-wrap {% if sticky_per_day == 0 %}hidden{% endif %}>
+                  <span class="smooch-num" data-sticky-perday>{% if sticky_per_day > 0 %}{{ sticky_per_day | money }}{% endif %}</span> / day
+                </span>
+              {%- endif -%}
+            </span>
+
             <button type="button" class="smooch-btn smooch-btn--brand smooch-sticky-atc__button" data-sticky-submit>
-              <span data-sticky-label>{{ 'products.product.add_to_cart' | t }}</span>
+              <span data-sticky-label>{% if section.settings.sticky_atc_cta_text != blank %}{{ section.settings.sticky_atc_cta_text | escape }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}</span>
+              {%- render 'loading-spinner' -%}
             </button>
           </div>
         </smooch-sticky-atc>
@@ -827,7 +888,39 @@
     {
       "type": "checkbox",
       "id": "enable_sticky_atc",
-      "label": "Sticky add-to-cart bar on mobile",
+      "label": "Sticky add-to-cart bar",
+      "info": "Shows once the visitor scrolls past the main purchase controls.",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sticky_atc_cta_text",
+      "label": "Sticky bar button text",
+      "info": "Leave blank to match the main Add to cart button.",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_atc_show_rating",
+      "label": "Sticky bar: show review rating",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_atc_show_savings",
+      "label": "Sticky bar: show subscribe & save badge",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_atc_show_per_day",
+      "label": "Sticky bar: show per-day price",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_atc_show_thumbnail",
+      "label": "Sticky bar: show product thumbnail (desktop)",
       "default": true
     },
     {
