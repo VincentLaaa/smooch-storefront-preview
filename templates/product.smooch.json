@@ -3,10 +3,6 @@
     "hero": {
       "type": "smooch-product-hero",
       "blocks": {
-        "eyebrow-1": {
-          "type": "eyebrow",
-          "settings": {}
-        },
         "title-1": {
           "type": "title",
           "settings": {
@@ -16,7 +12,10 @@
         },
         "rating-1": {
           "type": "rating",
-          "settings": {}
+          "settings": {
+            "fallback_rating": 4.8,
+            "fallback_count": 1000
+          }
         },
         "social_proof-1": {
           "type": "social_proof",
@@ -163,9 +162,8 @@
         }
       },
       "block_order": [
-        "eyebrow-1",
-        "title-1",
         "rating-1",
+        "title-1",
         "social_proof-1",
         "promise-1",
         "benefit-1",
