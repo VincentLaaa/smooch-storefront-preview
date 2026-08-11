@@ -777,6 +777,41 @@
   min-height: 5.4rem;
   font-weight: 600;
   letter-spacing: 0.04em;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.smooch-buybox__buy .product-form__submit::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 -60%;
+  width: 40%;
+  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  transition: transform 0.65s ease;
+  pointer-events: none;
+}
+
+.smooch-buybox__buy .product-form__submit:hover,
+.smooch-buybox__buy .product-form__submit:focus-visible {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 1rem 2.2rem rgba(var(--smooch-ink-rgb, 0, 0, 0), 0.18);
+}
+
+.smooch-buybox__buy .product-form__submit:hover::after,
+.smooch-buybox__buy .product-form__submit:focus-visible::after {
+  transform: translateX(500%) skewX(-20deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smooch-buybox__buy .product-form__submit {
+    transition: none;
+  }
+
+  .smooch-buybox__buy .product-form__submit::after {
+    display: none;
+  }
 }
 
 /* ---------- Sticky mobile ATC ---------- */

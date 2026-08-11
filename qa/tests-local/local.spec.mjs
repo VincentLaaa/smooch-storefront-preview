@@ -155,7 +155,7 @@ test.describe('Purchase matrix (offline harness)', () => {
   test('A3. cart drawer: progress message and deal chips drive real quantity updates', async ({ page }) => {
     const hero = page.locator('product-info').first();
     // 1-month subscription: $27 line, below the $50 free-shipping threshold.
-    await hero.locator('[data-smooch-bundle-radio]').first().check({ force: true });
+    await hero.locator('[data-smooch-bundle-radio]').last().check({ force: true });
     await page.waitForTimeout(300);
     await hero.locator('button[id^="ProductSubmitButton-"]').first().click();
     await expect(page.locator('cart-drawer.active')).toBeVisible({ timeout: 10_000 });
@@ -188,7 +188,7 @@ test.describe('Purchase matrix (offline harness)', () => {
     expect(await bundles.count()).toBe(3);
     await selectOneTime(hero, page);
 
-    // Anchored largest-first: 3 → 2 → 1 bottles.
+    // Cards render largest-first: 3 → 2 → 1 bottles.
     const priceEl = hero.locator('[data-smooch-price]').first();
     const seen = [];
     for (let i = 0; i < 3; i++) {
@@ -196,15 +196,15 @@ test.describe('Purchase matrix (offline harness)', () => {
       await page.waitForTimeout(300);
       seen.push((await priceEl.textContent()).trim());
     }
-    expect(seen).toEqual(['$30.00', '$60.00', '$90.00']);
+    expect(seen).toEqual(['$90.00', '$60.00', '$30.00']);
     await shot(page, 'product-bundle-desktop-1440');
 
-    // Last selection is the 3-month supply.
+    // Last selection is the 1-month supply.
     await hero.locator('button[id^="ProductSubmitButton-"]').first().click();
     await expect(page.locator('cart-drawer.active')).toBeVisible();
     const cart = await cartState(page);
-    expect(cart.item_count).toBe(3);
-    expect(cart.items[0].final_line_price).toBe(9000);
+    expect(cart.item_count).toBe(1);
+    expect(cart.items[0].final_line_price).toBe(3000);
   });
 
   test('C. variant picker drives Dawn pipeline: price, form id, cart variant', async ({ page }) => {
@@ -430,26 +430,26 @@ test.describe('PDP refresh: guided purchase flow', () => {
     expect(await hero.locator('.smooch-step__num').count()).toBe(1);
     await expect(hero.locator('.smooch-step__num').first()).toHaveText('1');
 
-    // Create-style month cards, 1 → 2 → 3, best value preselected on 3.
+    // Create-style month cards, 3 → 2 → 1 (best value first, auto-selected).
     const cards = hero.locator('.smooch-bundle');
-    await expect(cards.nth(0).locator('.smooch-bundle__title')).toHaveText('1 Month');
-    await expect(cards.nth(0).locator('.smooch-bundle__subtitle')).toHaveText('1 bottle · 30-day supply');
-    await expect(cards.nth(2).locator('.smooch-bundle__subtitle')).toHaveText('3 bottles · 90-day supply');
-    expect(await cards.nth(2).locator('.smooch-bundle__input').isChecked()).toBe(true);
+    await expect(cards.nth(2).locator('.smooch-bundle__title')).toHaveText('1 Month');
+    await expect(cards.nth(2).locator('.smooch-bundle__subtitle')).toHaveText('1 bottle · 30-day supply');
+    await expect(cards.nth(0).locator('.smooch-bundle__subtitle')).toHaveText('3 bottles · 90-day supply');
+    expect(await cards.nth(0).locator('.smooch-bundle__input').isChecked()).toBe(true);
 
     // Subscription-first default: cards reflect plan pricing (save vs one-time).
-    await expect(cards.nth(2).locator('[data-bundle-price]')).toHaveText('$81.00');
-    await expect(cards.nth(2).locator('[data-bundle-save-amount]')).toHaveText('Save $9.00');
+    await expect(cards.nth(0).locator('[data-bundle-price]')).toHaveText('$81.00');
+    await expect(cards.nth(0).locator('[data-bundle-save-amount]')).toHaveText('Save $9.00');
 
     // One-time: cards switch to base pricing with compare-at savings.
     await selectOneTime(hero, page);
-    await expect(cards.nth(2).locator('[data-bundle-price]')).toHaveText('$90.00');
-    await expect(cards.nth(2).locator('[data-bundle-save-amount]')).toHaveText('Save $30.00');
-    await expect(cards.nth(0).locator('[data-bundle-save-amount]')).toHaveText('Save $10.00');
-    await expect(cards.nth(2).locator('[data-bundle-unit-line]')).toContainText('$30.00 per bottle');
-    await expect(cards.nth(2).locator('[data-bundle-per-day]')).toHaveText('$1.00');
+    await expect(cards.nth(0).locator('[data-bundle-price]')).toHaveText('$90.00');
+    await expect(cards.nth(0).locator('[data-bundle-save-amount]')).toHaveText('Save $30.00');
+    await expect(cards.nth(2).locator('[data-bundle-save-amount]')).toHaveText('Save $10.00');
+    await expect(cards.nth(0).locator('[data-bundle-unit-line]')).toContainText('$30.00 per bottle');
+    await expect(cards.nth(0).locator('[data-bundle-per-day]')).toHaveText('$1.00');
     // qty-1 card hides the per-bottle line
-    await expect(cards.nth(0).locator('[data-bundle-unit-line]')).toBeHidden();
+    await expect(cards.nth(2).locator('[data-bundle-unit-line]')).toBeHidden();
   });
 
   test('subscription panel and one-time row track the selected supply', async ({ page }) => {
@@ -462,7 +462,7 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(hero.locator('[data-sub-saving]')).toContainText('$9.00');
     await expect(hero.locator('[data-sub-supply]')).toHaveText('3 bottles · 90-day supply');
 
-    await hero.locator('[data-smooch-bundle-radio]').nth(0).check({ force: true });
+    await hero.locator('[data-smooch-bundle-radio]').last().check({ force: true });
     await expect(hero.locator('[data-onetime-price]')).toHaveText('$30.00');
     await expect(hero.locator('[data-sub-price]')).toHaveText('$27.00');
     await expect(hero.locator('[data-sub-compare]')).toHaveText('$30.00');
