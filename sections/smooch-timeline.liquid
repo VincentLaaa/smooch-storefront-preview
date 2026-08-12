@@ -1,5 +1,11 @@
-{{ 'section-smooch-timeline.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  Shared scroll-story styles load first so this section's own
+  .smooch-timeline__* rules (equal specificity, e.g. both override
+  .smooch-story__scene's height/min-height) reliably win cascade ties —
+  load order, not just media-query nesting, decides those ties.
+{%- endcomment -%}
 {{ 'smooch-scroll-story.css' | asset_url | stylesheet_tag }}
+{{ 'section-smooch-timeline.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'smooch-scroll-story.js' | asset_url }}" defer="defer"></script>
 
 {%- comment -%}

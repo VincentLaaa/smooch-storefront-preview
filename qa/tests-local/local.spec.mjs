@@ -699,13 +699,16 @@ test.describe('Scroll story: full (product page) vs compact (homepage)', () => {
   // timeline section ("What's happening in your body?") rather than as its
   // own standalone section — [data-smooch-story] there is the visual column
   // (the same reused smooch-scroll-story JS/CSS), and the timeline's own
-  // Week 1-4 steps double as its "stages".
-  test('product page: timeline section uses a tall sticky floating visual', async ({ page }) => {
+  // Week 1-4 steps double as its "stages". The section is intentionally
+  // compact (not a tall scroll-jacked reveal) — boss feedback was that the
+  // old deliberately-tall layout meant too much scrolling — so this only
+  // checks the sticky visual mechanics still work, not a minimum height.
+  test('product page: timeline section uses a sticky floating visual', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(PRODUCT);
     const timelineSection = page.locator('#shopify-section-body');
     const box = await timelineSection.boundingBox();
-    expect(box.height).toBeGreaterThan(900 * 1.2);
+    expect(box.height).toBeGreaterThan(0);
     const story = timelineSection.locator('[data-smooch-story]');
     await expect(story).toHaveAttribute('data-mode', 'full');
     const stickyPos = await story.locator('.smooch-timeline__visual-sticky').evaluate((el) => getComputedStyle(el).position);
