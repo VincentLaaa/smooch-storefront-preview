@@ -60,7 +60,8 @@
           "settings": {
             "title": "1 Month",
             "days": 30,
-            "quantity": 1
+            "quantity": 1,
+            "selling_plan_id": "101"
           }
         },
         "bundle-2": {
@@ -68,7 +69,8 @@
           "settings": {
             "title": "2 Months",
             "days": 60,
-            "quantity": 2
+            "quantity": 2,
+            "selling_plan_id": "102"
           }
         },
         "bundle-3": {
@@ -78,7 +80,8 @@
             "days": 90,
             "quantity": 3,
             "badge": "Best value",
-            "preselected": true
+            "preselected": true,
+            "selling_plan_id": "103"
           }
         },
         "subscription-1": {

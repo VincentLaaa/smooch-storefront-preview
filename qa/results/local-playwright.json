@@ -103,12 +103,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 603,
+                  "duration": 690,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-12T01:06:07.686Z",
+                  "startTime": "2026-08-12T01:36:31.475Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -118,7 +118,7 @@
           ],
           "id": "39371fff76f09d32bbe7-36f62e2a99f5e8a767b5",
           "file": "local.spec.mjs",
-          "line": 329,
+          "line": 331,
           "column": 1
         }
       ],
@@ -145,12 +145,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 755,
+                      "duration": 737,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:38.956Z",
+                      "startTime": "2026-08-12T01:36:01.631Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -179,12 +179,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 879,
+                      "duration": 916,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:39.783Z",
+                      "startTime": "2026-08-12T01:36:02.441Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -213,12 +213,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 707,
+                      "duration": 721,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:40.668Z",
+                      "startTime": "2026-08-12T01:36:03.363Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -247,12 +247,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 888,
+                      "duration": 938,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:41.382Z",
+                      "startTime": "2026-08-12T01:36:04.091Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -281,12 +281,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 705,
+                      "duration": 738,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:42.274Z",
+                      "startTime": "2026-08-12T01:36:05.033Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -320,7 +320,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:42.983Z",
+                      "startTime": "2026-08-12T01:36:05.776Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -349,12 +349,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 740,
+                      "duration": 723,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:43.873Z",
+                      "startTime": "2026-08-12T01:36:06.667Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -383,12 +383,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 908,
+                      "duration": 942,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:44.618Z",
+                      "startTime": "2026-08-12T01:36:07.394Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -417,12 +417,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 722,
+                      "duration": 739,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:45.531Z",
+                      "startTime": "2026-08-12T01:36:08.341Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -451,12 +451,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 901,
+                      "duration": 915,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:46.258Z",
+                      "startTime": "2026-08-12T01:36:09.086Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -485,12 +485,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 743,
+                      "duration": 761,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:47.165Z",
+                      "startTime": "2026-08-12T01:36:10.005Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -519,12 +519,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 926,
+                      "duration": 960,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:47.912Z",
+                      "startTime": "2026-08-12T01:36:10.770Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -553,12 +553,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 792,
+                      "duration": 809,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:48.843Z",
+                      "startTime": "2026-08-12T01:36:11.735Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -587,12 +587,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 985,
+                      "duration": 984,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:49.639Z",
+                      "startTime": "2026-08-12T01:36:12.549Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -621,12 +621,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 795,
+                      "duration": 815,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:50.630Z",
+                      "startTime": "2026-08-12T01:36:13.537Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -655,12 +655,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 989,
+                      "duration": 987,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:51.429Z",
+                      "startTime": "2026-08-12T01:36:14.357Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -689,12 +689,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 795,
+                      "duration": 827,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:52.422Z",
+                      "startTime": "2026-08-12T01:36:15.349Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -723,12 +723,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1040,
+                      "duration": 1039,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:53.221Z",
+                      "startTime": "2026-08-12T01:36:16.180Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -757,12 +757,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2623,
+                      "duration": 2562,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:54.266Z",
+                      "startTime": "2026-08-12T01:36:17.223Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -799,12 +799,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 750,
+                      "duration": 816,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:56.895Z",
+                      "startTime": "2026-08-12T01:36:19.790Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -833,12 +833,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 755,
+                      "duration": 723,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:57.651Z",
+                      "startTime": "2026-08-12T01:36:20.613Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -867,12 +867,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1603,
+                      "duration": 2047,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:05:58.412Z",
+                      "startTime": "2026-08-12T01:36:21.342Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -901,12 +901,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2294,
+                      "duration": 2198,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:00.020Z",
+                      "startTime": "2026-08-12T01:36:23.395Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -935,12 +935,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 523,
+                      "duration": 526,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:02.319Z",
+                      "startTime": "2026-08-12T01:36:25.599Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -969,12 +969,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1265,
+                      "duration": 1347,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:02.848Z",
+                      "startTime": "2026-08-12T01:36:26.130Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1003,12 +1003,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3034,
+                      "duration": 3480,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:04.119Z",
+                      "startTime": "2026-08-12T01:36:27.483Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1018,7 +1018,7 @@
               ],
               "id": "39371fff76f09d32bbe7-7d8219ed0cfa0083e112",
               "file": "local.spec.mjs",
-              "line": 286,
+              "line": 288,
               "column": 3
             },
             {
@@ -1037,12 +1037,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 521,
+                      "duration": 501,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:07.158Z",
+                      "startTime": "2026-08-12T01:36:30.969Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1052,7 +1052,7 @@
               ],
               "id": "39371fff76f09d32bbe7-258672eb1a2c58615062",
               "file": "local.spec.mjs",
-              "line": 313,
+              "line": 315,
               "column": 3
             }
           ]
@@ -1060,7 +1060,7 @@
         {
           "title": "Accessibility spot checks",
           "file": "local.spec.mjs",
-          "line": 344,
+          "line": 346,
           "column": 6,
           "specs": [
             {
@@ -1079,12 +1079,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 791,
+                      "duration": 768,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:08.294Z",
+                      "startTime": "2026-08-12T01:36:32.173Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1094,7 +1094,7 @@
               ],
               "id": "39371fff76f09d32bbe7-4e6d7a00ca0396a28ec9",
               "file": "local.spec.mjs",
-              "line": 345,
+              "line": 347,
               "column": 3
             },
             {
@@ -1113,12 +1113,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 955,
+                      "duration": 949,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:09.089Z",
+                      "startTime": "2026-08-12T01:36:32.945Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1128,7 +1128,7 @@
               ],
               "id": "39371fff76f09d32bbe7-8efd1416de34e5479995",
               "file": "local.spec.mjs",
-              "line": 375,
+              "line": 377,
               "column": 3
             }
           ]
@@ -1136,7 +1136,7 @@
         {
           "title": "Performance signals",
           "file": "local.spec.mjs",
-          "line": 387,
+          "line": 389,
           "column": 6,
           "specs": [
             {
@@ -1155,12 +1155,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 260,
+                      "duration": 238,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:10.049Z",
+                      "startTime": "2026-08-12T01:36:33.899Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1170,7 +1170,7 @@
               ],
               "id": "39371fff76f09d32bbe7-37fb25ca597c3aee89db",
               "file": "local.spec.mjs",
-              "line": 388,
+              "line": 390,
               "column": 3
             },
             {
@@ -1193,12 +1193,12 @@
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "[perf] product mobile (local): LCP≈272ms CLS=0.0001\n"
+                          "text": "[perf] product mobile (local): LCP≈300ms CLS=0.0001\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:10.314Z",
+                      "startTime": "2026-08-12T01:36:34.142Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1208,7 +1208,7 @@
               ],
               "id": "39371fff76f09d32bbe7-0f598c9032213c89fd03",
               "file": "local.spec.mjs",
-              "line": 405,
+              "line": 407,
               "column": 3
             }
           ]
@@ -1216,7 +1216,7 @@
         {
           "title": "PDP refresh: guided purchase flow",
           "file": "local.spec.mjs",
-          "line": 422,
+          "line": 424,
           "column": 6,
           "specs": [
             {
@@ -1235,12 +1235,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 816,
+                      "duration": 783,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:14.743Z",
+                      "startTime": "2026-08-12T01:36:38.570Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1250,7 +1250,7 @@
               ],
               "id": "39371fff76f09d32bbe7-5c77cfa74a063f642e82",
               "file": "local.spec.mjs",
-              "line": 429,
+              "line": 431,
               "column": 3
             },
             {
@@ -1269,12 +1269,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 613,
+                      "duration": 616,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:15.565Z",
+                      "startTime": "2026-08-12T01:36:39.358Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1284,7 +1284,7 @@
               ],
               "id": "39371fff76f09d32bbe7-9835af49e94220e4fabb",
               "file": "local.spec.mjs",
-              "line": 455,
+              "line": 458,
               "column": 3
             },
             {
@@ -1303,12 +1303,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 864,
+                      "duration": 878,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:16.184Z",
+                      "startTime": "2026-08-12T01:36:39.980Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1318,7 +1318,7 @@
               ],
               "id": "39371fff76f09d32bbe7-888a4a5d0ef35fdc0bd6",
               "file": "local.spec.mjs",
-              "line": 477,
+              "line": 480,
               "column": 3
             },
             {
@@ -1337,12 +1337,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1036,
+                      "duration": 1003,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:17.054Z",
+                      "startTime": "2026-08-12T01:36:40.864Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1352,469 +1352,11 @@
               ],
               "id": "39371fff76f09d32bbe7-c81e0d5f2e851396f082",
               "file": "local.spec.mjs",
-              "line": 514,
+              "line": 517,
               "column": 3
             },
             {
               "title": "media info cards render in the gallery column",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 553,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:18.095Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-556a99df4266e3d62a72",
-              "file": "local.spec.mjs",
-              "line": 525,
-              "column": 3
-            },
-            {
-              "title": "sticky gallery never slides over the media cards while scrolling",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 1306,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:18.654Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-6e54bc1ea9134e3b7138",
-              "file": "local.spec.mjs",
-              "line": 532,
-              "column": 3
-            },
-            {
-              "title": "collage gallery: every photo visible at once, no slider chrome",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 619,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:19.966Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-238f0fde9bcef1b12e3c",
-              "file": "local.spec.mjs",
-              "line": 548,
-              "column": 3
-            },
-            {
-              "title": "no subscription UI on a product without selling plans",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 682,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:20.590Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-f4e077501ea4a359b39b",
-              "file": "local.spec.mjs",
-              "line": 563,
-              "column": 3
-            },
-            {
-              "title": "product name, prominent sales-activity badge, real-inventory \"selling fast\" badge, CTA trust line",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 537,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:21.277Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-bb00db595099ac038cbd",
-              "file": "local.spec.mjs",
-              "line": 572,
-              "column": 3
-            },
-            {
-              "title": "Create-style buybox: one-time row, discount badge, trust grid, footer row — single source of truth",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 825,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:21.819Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-b0787480393a378cdae0",
-              "file": "local.spec.mjs",
-              "line": 598,
-              "column": 3
-            },
-            {
-              "title": "\"Most popular\" ribbon only shows for the preselected (3-month) size",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 549,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:22.649Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-4c8e15b0479fe7f3a913",
-              "file": "local.spec.mjs",
-              "line": 633,
-              "column": 3
-            },
-            {
-              "title": "Add to Cart hover: turns black and reveals a trailing arrow",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 961,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:23.203Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-9db950449d240dad6d27",
-              "file": "local.spec.mjs",
-              "line": 649,
-              "column": 3
-            }
-          ]
-        },
-        {
-          "title": "Scroll story: full (product page) vs compact (homepage)",
-          "file": "local.spec.mjs",
-          "line": 678,
-          "column": 6,
-          "specs": [
-            {
-              "title": "homepage uses compact mode and stays roughly one section tall",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 303,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:24.169Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-735afe13c54aa7098c8b",
-              "file": "local.spec.mjs",
-              "line": 679,
-              "column": 3
-            },
-            {
-              "title": "product page: timeline section uses a tall sticky floating visual",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 481,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:24.476Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-b2e522d313f81c11e0f5",
-              "file": "local.spec.mjs",
-              "line": 699,
-              "column": 3
-            },
-            {
-              "title": "product page: timeline steps drive the floating visual's active-stage state",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 3547,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:24.962Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-e8905f8dafe70fdd9ad5",
-              "file": "local.spec.mjs",
-              "line": 713,
-              "column": 3
-            },
-            {
-              "title": "compact mode does not attach the scroll-reaction listener",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 667,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:28.513Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-855649bcd777b3c68820",
-              "file": "local.spec.mjs",
-              "line": 751,
-              "column": 3
-            },
-            {
-              "title": "both modes respect prefers-reduced-motion",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 45000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 714,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-08-12T01:06:29.184Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "39371fff76f09d32bbe7-e4a6cd0c554a11c6d691",
-              "file": "local.spec.mjs",
-              "line": 763,
-              "column": 3
-            }
-          ]
-        },
-        {
-          "title": "Reviews: curated carousel + full reviews (product page only)",
-          "file": "local.spec.mjs",
-          "line": 780,
-          "column": 6,
-          "specs": [
-            {
-              "title": "carousel: honesty labeling, mixed card widths, next-card peek",
               "ok": true,
               "tags": [],
               "tests": [
@@ -1834,7 +1376,465 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:29.902Z",
+                      "startTime": "2026-08-12T01:36:41.872Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-556a99df4266e3d62a72",
+              "file": "local.spec.mjs",
+              "line": 528,
+              "column": 3
+            },
+            {
+              "title": "sticky gallery never slides over the media cards while scrolling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1305,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:42.448Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-6e54bc1ea9134e3b7138",
+              "file": "local.spec.mjs",
+              "line": 535,
+              "column": 3
+            },
+            {
+              "title": "collage gallery: every photo visible at once, no slider chrome",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 570,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:43.758Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-238f0fde9bcef1b12e3c",
+              "file": "local.spec.mjs",
+              "line": 551,
+              "column": 3
+            },
+            {
+              "title": "no subscription UI on a product without selling plans",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 683,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:44.333Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-f4e077501ea4a359b39b",
+              "file": "local.spec.mjs",
+              "line": 566,
+              "column": 3
+            },
+            {
+              "title": "product name, prominent sales-activity badge, real-inventory \"selling fast\" badge, CTA trust line",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 622,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:45.020Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-bb00db595099ac038cbd",
+              "file": "local.spec.mjs",
+              "line": 575,
+              "column": 3
+            },
+            {
+              "title": "Create-style buybox: one-time row, discount badge, trust grid, footer row — single source of truth",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 789,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:45.648Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-b0787480393a378cdae0",
+              "file": "local.spec.mjs",
+              "line": 601,
+              "column": 3
+            },
+            {
+              "title": "\"Most popular\" ribbon only shows for the preselected (3-month) size",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 511,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:46.441Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-4c8e15b0479fe7f3a913",
+              "file": "local.spec.mjs",
+              "line": 637,
+              "column": 3
+            },
+            {
+              "title": "Add to Cart hover: turns black and reveals a trailing arrow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 917,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:46.958Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-9db950449d240dad6d27",
+              "file": "local.spec.mjs",
+              "line": 653,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Scroll story: full (product page) vs compact (homepage)",
+          "file": "local.spec.mjs",
+          "line": 682,
+          "column": 6,
+          "specs": [
+            {
+              "title": "homepage uses compact mode and stays roughly one section tall",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 286,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:47.881Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-735afe13c54aa7098c8b",
+              "file": "local.spec.mjs",
+              "line": 683,
+              "column": 3
+            },
+            {
+              "title": "product page: timeline section uses a tall sticky floating visual",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 483,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:48.172Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-b2e522d313f81c11e0f5",
+              "file": "local.spec.mjs",
+              "line": 703,
+              "column": 3
+            },
+            {
+              "title": "product page: timeline steps drive the floating visual's active-stage state",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3491,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:48.659Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-e8905f8dafe70fdd9ad5",
+              "file": "local.spec.mjs",
+              "line": 717,
+              "column": 3
+            },
+            {
+              "title": "compact mode does not attach the scroll-reaction listener",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 650,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:52.157Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-855649bcd777b3c68820",
+              "file": "local.spec.mjs",
+              "line": 755,
+              "column": 3
+            },
+            {
+              "title": "both modes respect prefers-reduced-motion",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 678,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:52.812Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "39371fff76f09d32bbe7-e4a6cd0c554a11c6d691",
+              "file": "local.spec.mjs",
+              "line": 767,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Reviews: curated carousel + full reviews (product page only)",
+          "file": "local.spec.mjs",
+          "line": 784,
+          "column": 6,
+          "specs": [
+            {
+              "title": "carousel: honesty labeling, mixed card widths, next-card peek",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 528,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-12T01:36:53.494Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1844,7 +1844,7 @@
               ],
               "id": "39371fff76f09d32bbe7-9789762628e5c658503e",
               "file": "local.spec.mjs",
-              "line": 781,
+              "line": 785,
               "column": 3
             },
             {
@@ -1863,12 +1863,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2659,
+                      "duration": 2671,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:30.476Z",
+                      "startTime": "2026-08-12T01:36:54.026Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1878,7 +1878,7 @@
               ],
               "id": "39371fff76f09d32bbe7-73cb27e6d349642eca54",
               "file": "local.spec.mjs",
-              "line": 812,
+              "line": 816,
               "column": 3
             },
             {
@@ -1897,12 +1897,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 485,
+                      "duration": 483,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:33.139Z",
+                      "startTime": "2026-08-12T01:36:56.701Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1912,7 +1912,7 @@
               ],
               "id": "39371fff76f09d32bbe7-230b2ae5b12b81a77f80",
               "file": "local.spec.mjs",
-              "line": 830,
+              "line": 834,
               "column": 3
             },
             {
@@ -1931,12 +1931,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 760,
+                      "duration": 759,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:33.629Z",
+                      "startTime": "2026-08-12T01:36:57.190Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1946,7 +1946,7 @@
               ],
               "id": "39371fff76f09d32bbe7-886318c27a72002f6d72",
               "file": "local.spec.mjs",
-              "line": 852,
+              "line": 856,
               "column": 3
             },
             {
@@ -1965,12 +1965,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1246,
+                      "duration": 1227,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-12T01:06:34.394Z",
+                      "startTime": "2026-08-12T01:36:57.955Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1980,7 +1980,7 @@
               ],
               "id": "39371fff76f09d32bbe7-65ba2c5a23946e9a47bb",
               "file": "local.spec.mjs",
-              "line": 872,
+              "line": 876,
               "column": 3
             }
           ]
@@ -1990,8 +1990,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-08-12T01:05:38.441Z",
-    "duration": 57399.947,
+    "startTime": "2026-08-12T01:36:01.202Z",
+    "duration": 58198.226,
     "expected": 54,
     "skipped": 0,
     "unexpected": 0,

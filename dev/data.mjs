@@ -152,12 +152,17 @@ const FIXTURES = {
       { src: '/assets/smooch-demo-info-card.jpg', alt: 'Smooch bottles with 60 gummies per bottle and mood, desire, and connection support highlights', width: 1600, height: 1600 },
       { src: '/assets/smooch-demo-back-in-stock.jpg', alt: 'Two Smooch bottles with gummies and a back-in-stock badge', width: 1600, height: 1600 },
     ],
+    comment_pricing: 'Real store pricing (2026-08-11): 1 tub / every 1 month = $29.95; '
+      + '2 tubs / every 2 months = $56.96; 3 tubs / every 3 months = $80.95 (fixture uses $80.94 — '
+      + '$80.95 ÷ 3 tubs is not a whole number of cents, see selling_plan_id docs on the bundle block); '
+      + 'one-time single tub = $39.95.',
     sellingPlans: [
-      { id: 101, name: 'Every 30 days', discountPct: 10 },
-      { id: 102, name: 'Every 60 days', discountPct: 10 },
+      { id: 101, name: 'Every 1 Month', price: 2995 },
+      { id: 102, name: 'Every 2 Months', price: 2848 },
+      { id: 103, name: 'Every 3 Months', price: 2698 },
     ],
     variants: [
-      { id: 111, options: ['1 Pack'], price: 3000, compare_at_price: 4000, sku: 'QA-1', available: true, inventory_quantity: 25 },
+      { id: 111, options: ['1 Pack'], price: 3995, compare_at_price: null, sku: 'QA-1', available: true, inventory_quantity: 25 },
       { id: 112, options: ['2 Packs'], price: 5600, compare_at_price: 8000, sku: 'QA-2', available: true, inventory_quantity: 25 },
       { id: 113, options: ['3 Packs'], price: 7500, compare_at_price: null, sku: 'QA-3', available: false, inventory_quantity: 0 },
     ],
@@ -220,15 +225,12 @@ export function productDrop(handle, { selectedVariantId = null, optionValueIds =
     unit_price: null,
     unit_price_measurement: null,
     'matched?': true,
-    selling_plan_allocations: fx.sellingPlans.map((p) => {
-      const discounted = Math.round(v.price * (1 - p.discountPct / 100));
-      return {
-        selling_plan: { id: p.id, name: p.name },
-        price: discounted,
-        compare_at_price: v.price,
-        per_delivery_price: discounted,
-      };
-    }),
+    selling_plan_allocations: fx.sellingPlans.map((p) => ({
+      selling_plan: { id: p.id, name: p.name },
+      price: p.price,
+      compare_at_price: v.price,
+      per_delivery_price: p.price,
+    })),
     url: `${url}?variant=${v.id}`,
     toJSON() {
       return {

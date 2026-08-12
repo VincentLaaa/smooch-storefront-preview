@@ -19,7 +19,7 @@
   assign save = 0
   if compare > price
     assign save_amount = compare | minus: price | times: 100
-    assign save = save_amount | divided_by: compare
+    assign save = save_amount | divided_by: compare | round
   endif
 -%}
 

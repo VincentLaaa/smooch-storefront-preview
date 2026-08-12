@@ -83,32 +83,12 @@
   endif
 
   comment
-    Subscription-first default (Create-style): when plans exist and the
-    subscription block opts in (default), the first plan starts selected and
-    one-time becomes the secondary choice. Initial prices below follow suit.
-  endcomment
-  assign subscription_block = section.blocks | where: 'type', 'subscription' | first
-  assign default_is_subscribe = false
-  assign default_plan = nil
-  if has_plans and subscription_block
-    assign default_purchase_pref = subscription_block.settings.default_purchase | default: 'subscribe'
-    if default_purchase_pref == 'subscribe'
-      assign default_is_subscribe = true
-      assign default_plan = product.selling_plan_groups[0].selling_plans[0]
-    endif
-  endif
-
-  assign default_unit_price = current_variant.price
-  if default_is_subscribe and default_plan
-    for alloc in current_variant.selling_plan_allocations
-      if alloc.selling_plan.id == default_plan.id
-        assign default_unit_price = alloc.price
-      endif
-    endfor
-  endif
-
-  comment
     Default bundle: first block marked preselected, else the first bundle block.
+    Resolved before plan lookup below — each bundle carries its own real
+    selling plan (different tiers ship at different real-world discounts and
+    intervals, e.g. "1 tub / every 1 month" vs "3 tubs / every 3 months" — a
+    single uniform percentage-off plan can't represent that), so which plan
+    is "the" plan depends on which bundle is selected.
   endcomment
   assign default_bundle_index = 0
   assign default_bundle_qty = 1
@@ -124,6 +104,49 @@
     unless first_bundle.settings.preselected
       assign default_bundle_qty = first_bundle.settings.quantity | at_least: 1
     endunless
+  endif
+
+  comment
+    Subscription-first default (Create-style): when plans exist and the
+    subscription block opts in (default), the selected bundle's own plan
+    starts selected and one-time becomes the secondary choice.
+  endcomment
+  assign subscription_block = section.blocks | where: 'type', 'subscription' | first
+  assign default_is_subscribe = false
+  assign default_plan = nil
+  if has_plans and subscription_block
+    assign default_purchase_pref = subscription_block.settings.default_purchase | default: 'subscribe'
+    if default_purchase_pref == 'subscribe'
+      assign default_is_subscribe = true
+      assign default_bundle_plan_id = bundle_blocks[default_bundle_index].settings.selling_plan_id | append: ''
+      for group in product.selling_plan_groups
+        for plan in group.selling_plans
+          assign plan_id_str = plan.id | append: ''
+          if plan_id_str == default_bundle_plan_id
+            assign default_plan = plan
+            break
+          endif
+        endfor
+        if default_plan
+          break
+        endif
+      endfor
+      comment
+        Fall back to the first real plan if no bundle-specific match is configured.
+      endcomment
+      if default_plan == nil
+        assign default_plan = product.selling_plan_groups[0].selling_plans[0]
+      endif
+    endif
+  endif
+
+  assign default_unit_price = current_variant.price
+  if default_is_subscribe and default_plan
+    for alloc in current_variant.selling_plan_allocations
+      if alloc.selling_plan.id == default_plan.id
+        assign default_unit_price = alloc.price
+      endif
+    endfor
   endif
 -%}
 
@@ -384,7 +407,7 @@
                           assign initial_onetime_total = current_variant.price | times: default_bundle_qty
                           assign onetime_compare_total = current_variant.compare_at_price | default: 0 | times: default_bundle_qty
                           assign onetime_per_day = 0
-                          assign panel_plan = product.selling_plan_groups[0].selling_plans[0]
+                          assign panel_plan = default_plan
                           assign panel_unit = current_variant.price
                           for alloc in current_variant.selling_plan_allocations
                             if alloc.selling_plan.id == panel_plan.id
@@ -396,7 +419,7 @@
                           assign panel_pct = 0
                           if panel_save > 0
                             assign panel_pct_amt = panel_save | times: 100
-                            assign panel_pct = panel_pct_amt | divided_by: initial_onetime_total
+                            assign panel_pct = panel_pct_amt | divided_by: initial_onetime_total | round
                           endif
                           assign panel_bundle = bundle_blocks[default_bundle_index]
                           assign panel_days = panel_bundle.settings.days | default: 0
@@ -658,7 +681,8 @@
                             "days": {{ bundle_block.settings.days | default: 0 }},
                             "label": {{ bundle_block.settings.title | json }},
                             "variantValue": {{ bundle_block.settings.variant_value | strip | json }},
-                            "preselected": {{ bundle_block.settings.preselected | json }}
+                            "preselected": {{ bundle_block.settings.preselected | json }},
+                            "sellingPlanId": {{ bundle_block.settings.selling_plan_id | append: '' | json }}
                           }{% unless forloop.last %},{% endunless %}
                         {%- endfor -%}
                         {%- if bundle_blocks.size == 0 -%}
@@ -693,7 +717,7 @@
                                     if bcompare > btotal
                                       assign bsave_amt = bcompare | minus: btotal
                                       assign bsave_pct = bsave_amt | times: 100
-                                      assign bsave = bsave_pct | divided_by: bcompare
+                                      assign bsave = bsave_pct | divided_by: bcompare | round
                                     endif
                                     assign bper_day = 0
                                     if bdays > 0
@@ -738,7 +762,7 @@
                                         if pcompare > ptotal
                                           assign psave_amt = pcompare | minus: ptotal
                                           assign psave_pct = psave_amt | times: 100
-                                          assign psave = psave_pct | divided_by: pcompare
+                                          assign psave = psave_pct | divided_by: pcompare | round
                                         endif
                                         assign pper_day = 0
                                         if bdays > 0
@@ -762,7 +786,7 @@
                                     {%- if pcompare > ptotal -%}
                                       {%- assign psave_amt = pcompare | minus: ptotal -%}
                                       {%- assign psave_pct = psave_amt | times: 100 -%}
-                                      {%- assign psave = psave_pct | divided_by: pcompare -%}
+                                      {%- assign psave = psave_pct | divided_by: pcompare | round -%}
                                     {%- endif -%}
                                     {
                                       "t": {{ ptotal | money | json }},
@@ -813,7 +837,7 @@
           if sticky_compare_total > sticky_total
             assign sticky_save_amt = sticky_compare_total | minus: sticky_total
             assign sticky_save_pct_amt = sticky_save_amt | times: 100
-            assign sticky_save_pct = sticky_save_pct_amt | divided_by: sticky_compare_total
+            assign sticky_save_pct = sticky_save_pct_amt | divided_by: sticky_compare_total | round
           endif
 
           assign sticky_per_day = 0
@@ -1328,6 +1352,12 @@
           "id": "variant_value",
           "label": "Variant option value (advanced)",
           "info": "If your bundles are modeled as a product option (e.g. a “Pack” option with values 1-Pack / 2-Pack / 3-Pack), enter the option value here and selecting this bundle switches to that variant. Leave empty to sell the selected variant × the quantity above."
+        },
+        {
+          "type": "text",
+          "id": "selling_plan_id",
+          "label": "Selling plan ID (for subscribing)",
+          "info": "The numeric ID of the real Shopify selling plan this size subscribes to (each size can have its own real discount/interval — e.g. 1 tub every month vs. 3 tubs every 3 months aren't the same percentage off). Find it in the selling plan group's admin data. Leave empty to fall back to the product's first selling plan."
         },
         {
           "type": "text",

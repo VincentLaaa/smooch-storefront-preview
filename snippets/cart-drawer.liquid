@@ -629,7 +629,7 @@
             <p class="totals__total-value smooch-num">
               {%- if smooch_cart_saved > 0 -%}
                 {%- assign smooch_pct_amt = smooch_cart_saved | times: 100 -%}
-                {%- assign smooch_pct = smooch_pct_amt | divided_by: cart.original_total_price -%}
+                {%- assign smooch_pct = smooch_pct_amt | divided_by: cart.original_total_price | round -%}
                 {%- if smooch_pct > 0 -%}
                   <span class="smooch-badge smooch-badge--berry smooch-cart-summary__pct">{{ smooch_pct }}% OFF</span>
                 {%- endif -%}
