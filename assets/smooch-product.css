@@ -486,17 +486,32 @@
   --smooch-promo-orange-rgb: 237, 137, 54;
   --smooch-promo-peach-rgb: 252, 224, 178;
   position: relative;
-  padding: 2rem 1.8rem 1.6rem;
+  padding: 2rem 1.8rem 1.8rem;
   border: 0.15rem solid var(--smooch-berry);
   border-radius: var(--smooch-radius-card);
   background-color: rgba(var(--smooch-blush-rgb), 0.22);
   box-shadow: 0 0.6rem 1.8rem rgba(var(--smooch-ink-rgb), 0.08);
-  transition: opacity var(--duration-short, 100ms) ease, border-color var(--duration-short, 100ms) ease;
+  transition: border-color var(--duration-short, 100ms) ease;
 }
 
 .smooch-subpanel--inactive {
-  opacity: 0.62;
   border-color: var(--smooch-border-soft);
+}
+
+/* Only the pricing/plan details dim when one-time is selected — the Add to
+   Cart button below stays at full strength, since it's the same real submit
+   control either way (opacity on an ancestor can't be undone by a
+   descendant, so the dim target has to stop above the button). */
+.smooch-subpanel__content {
+  transition: opacity var(--duration-short, 100ms) ease;
+}
+
+.smooch-subpanel--inactive .smooch-subpanel__content {
+  opacity: 0.62;
+}
+
+.smooch-subpanel__buy {
+  margin-top: 1.8rem;
 }
 
 .smooch-subpanel__ribbon {
