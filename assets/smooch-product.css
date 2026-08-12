@@ -137,13 +137,14 @@
 
 .smooch-bundle {
   display: block;
+  position: relative;
   cursor: pointer;
 }
 
 .smooch-bundle__card {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: 1fr;
   align-items: center;
   gap: 0.8rem 1.2rem;
   padding: 1.6rem 1.6rem 1.6rem 5.2rem;
@@ -193,7 +194,7 @@
 }
 
 .smooch-bundle__card:has(.smooch-bundle__thumb) {
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr);
 }
 
 .smooch-bundle__thumb {
@@ -223,43 +224,15 @@
   line-height: 1.3;
 }
 
-.smooch-bundle__subtitle {
+.smooch-bundle__count {
   font-size: 1.3rem;
   color: rgba(var(--smooch-ink-rgb), 0.65);
 }
 
-.smooch-bundle__pricing {
-  display: grid;
-  justify-items: end;
-  align-content: center;
-  gap: 0.2rem;
-  text-align: right;
-}
-
-.smooch-bundle__price-row {
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-items: baseline;
-  gap: 0.4rem 0.7rem;
-  min-width: 0;
-}
-
-.smooch-bundle__price {
-  font-family: var(--smooch-font-numeric, var(--font-body-family));
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-
-.smooch-bundle__save-amount {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: rgb(196, 42, 80);
-}
-
 .smooch-bundle__unit {
-  font-size: 1.2rem;
-  color: rgba(var(--smooch-ink-rgb), 0.65);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--smooch-ink);
 }
 
 .smooch-bundle--soldout .smooch-bundle__card {
@@ -301,15 +274,6 @@
 
   .smooch-bundle__body {
     align-items: center;
-  }
-
-  .smooch-bundle__pricing {
-    justify-items: center;
-    text-align: center;
-  }
-
-  .smooch-bundle__price-row {
-    justify-content: center;
   }
 }
 
@@ -396,6 +360,7 @@
 
 .smooch-plan {
   display: block;
+  position: relative;
   cursor: pointer;
 }
 
@@ -502,6 +467,7 @@
    descendant, so the dim target has to stop above the button). */
 .smooch-subpanel__content {
   display: block;
+  position: relative;
   cursor: pointer;
   border-radius: var(--smooch-radius-card);
   transition: opacity var(--duration-short, 100ms) ease;

@@ -293,20 +293,11 @@ if (!customElements.get('smooch-offer')) {
             }
           }
 
+          // Cards only ever show month / count / per-day — the full price
+          // breakdown (compare, current, savings) lives in the subscription
+          // card below, so only the per-day figure needs live sync here.
           const prices = priceFor(entry, index);
           if (prices) {
-            this.setText(card, '[data-bundle-price]', prices.t);
-            this.setCompare(card.querySelector('[data-bundle-compare]'), prices.c);
-            this.setText(card, '[data-bundle-unit]', prices.u);
-            const saveAmount = card.querySelector('[data-bundle-save-amount]');
-            if (saveAmount) {
-              if (prices.sa) {
-                saveAmount.textContent = `Save ${prices.sa}`;
-                saveAmount.hidden = false;
-              } else {
-                saveAmount.hidden = true;
-              }
-            }
             const perDay = card.querySelector('[data-bundle-per-day]');
             if (perDay) {
               if (prices.pd) {
@@ -317,8 +308,6 @@ if (!customElements.get('smooch-offer')) {
               }
             }
           }
-          const unitLine = card.querySelector('[data-bundle-unit-line]');
-          if (unitLine) unitLine.hidden = (bundle.quantity || 1) <= 1;
           const soldout = card.querySelector('[data-bundle-soldout]');
           if (soldout) soldout.hidden = !unavailable;
           card.classList.toggle('smooch-bundle--soldout', unavailable);
