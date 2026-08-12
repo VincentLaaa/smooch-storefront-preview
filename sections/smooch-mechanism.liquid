@@ -16,24 +16,7 @@
 
 {%- liquid
   assign brand_name = settings.smooch_brand_name | default: shop.name
-
   assign pillar_blocks = section.blocks | where: 'type', 'pillar'
-  assign pillar_count = pillar_blocks.size
-
-  comment
-    Desktop diagram positions, assigned by pillar count:
-    left / right flank the product, belowa (+ belowb) sit under it.
-  endcomment
-  case pillar_count
-    when 1
-      assign position_list = 'belowa' | split: ','
-    when 2
-      assign position_list = 'left,right' | split: ','
-    when 3
-      assign position_list = 'left,right,belowa' | split: ','
-    else
-      assign position_list = 'left,right,belowa,belowb' | split: ','
-  endcase
 
   assign image_alt = section.settings.product_image_alt
   if image_alt == blank
@@ -69,113 +52,71 @@
       </div>
     {%- endif -%}
 
-    <div class="smooch-mechanism__diagram smooch-mechanism__diagram--count-{{ pillar_count }}">
-      <div class="smooch-mechanism__product">
-        <div class="smooch-mechanism__disc">
+    <div class="smooch-benefits">
+      <div class="smooch-benefits__visual">
+        <div class="smooch-benefits__frame">
           {%- if section.settings.product_image != blank -%}
             {{
               section.settings.product_image
-              | image_url: width: 960
+              | image_url: width: 700
               | image_tag:
                 loading: 'lazy',
-                widths: '240, 320, 480, 640, 960',
-                sizes: '(min-width: 990px) 310px, 240px',
-                class: 'smooch-mechanism__product-img',
+                widths: '280, 420, 560, 700',
+                sizes: '(min-width: 990px) 34vw, 60vw',
+                class: 'smooch-benefits__visual-img',
                 alt: image_alt
             }}
           {%- else -%}
+            {%- comment -%}
+              Bundled real product photo used until a merchant picks one —
+              see the paragraph note in this section's schema.
+            {%- endcomment -%}
             <img
               src="{{ 'smooch-demo-bottle-open.png' | asset_url }}"
               width="1086"
               height="1448"
               loading="lazy"
-              class="smooch-mechanism__product-img"
-              alt="{{ brand_name | escape }} gummies bottle"
+              class="smooch-benefits__visual-img"
+              alt="{{ image_alt | escape }}"
             >
           {%- endif -%}
         </div>
         {%- if section.settings.product_caption != blank -%}
-          <p class="smooch-caption smooch-mechanism__product-caption">
+          <p class="smooch-caption smooch-benefits__caption">
             {{- section.settings.product_caption | replace: '[brand]', brand_name | escape -}}
           </p>
         {%- endif -%}
       </div>
 
-      {%- if pillar_count > 0 -%}
-        {%- comment -%} Mobile-only connector: product down to the left rail. {%- endcomment -%}
-        <svg
-          class="smooch-mechanism__lead"
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <path d="M100 0 C 100 60, 0 42, 0 100" vector-effect="non-scaling-stroke"/>
-        </svg>
+      {%- if pillar_blocks.size > 0 -%}
+        <ul class="smooch-benefits__list" role="list">
+          {%- for block in pillar_blocks -%}
+            <li class="smooch-benefits__card" {{ block.shopify_attributes }}>
+              <span class="smooch-benefits__icon">
+                {%- render 'smooch-icon', icon: block.settings.icon, class: 'smooch-icon--lg' -%}
+              </span>
+              {%- if block.settings.title != blank -%}
+                <p class="smooch-benefits__label">
+                  {{- block.settings.title | replace: '[brand]', brand_name | escape -}}
+                </p>
+              {%- endif -%}
+              <div class="smooch-benefits__body">
+                {%- if block.settings.text != blank -%}
+                  <p class="smooch-benefits__text">
+                    {{- block.settings.text | replace: '[brand]', brand_name | escape -}}
+                  </p>
+                {%- endif -%}
+                {%- if block.settings.ingredient != blank -%}
+                  <p class="smooch-benefits__callout">
+                    {{- block.settings.ingredient | escape -}}
+                  </p>
+                {%- endif -%}
+                <span class="smooch-benefits__dot" aria-hidden="true"></span>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
       {%- endif -%}
-
-      {%- for block in pillar_blocks -%}
-        {%- liquid
-          assign pos = position_list[forloop.index0]
-          assign connector = pos
-          if pos == 'belowa'
-            if pillar_count == 4
-              assign connector = 'up-a'
-            else
-              assign connector = 'up'
-            endif
-          elsif pos == 'belowb'
-            assign connector = 'up-b'
-          endif
-        -%}
-        <div
-          class="smooch-mechanism__pillar smooch-mechanism__pillar--{{ pos }}"
-          {{ block.shopify_attributes }}
-        >
-          {%- comment -%} Desktop-only connector line toward the product. {%- endcomment -%}
-          {%- case connector -%}
-            {%- when 'left' -%}
-              <svg class="smooch-mechanism__connector smooch-mechanism__connector--left" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                <path d="M0 30 C 33 10, 67 10, 100 30" vector-effect="non-scaling-stroke"/>
-              </svg>
-            {%- when 'right' -%}
-              <svg class="smooch-mechanism__connector smooch-mechanism__connector--right" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                <path d="M0 30 C 33 10, 67 10, 100 30" vector-effect="non-scaling-stroke"/>
-              </svg>
-            {%- when 'up' -%}
-              <svg class="smooch-mechanism__connector smooch-mechanism__connector--up" viewBox="0 0 10 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                <path d="M5 0 L5 100" vector-effect="non-scaling-stroke"/>
-              </svg>
-            {%- when 'up-a' -%}
-              <svg class="smooch-mechanism__connector smooch-mechanism__connector--up-a" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                <path d="M100 0 C 100 45, 0 55, 0 100" vector-effect="non-scaling-stroke"/>
-              </svg>
-            {%- when 'up-b' -%}
-              <svg class="smooch-mechanism__connector smooch-mechanism__connector--up-b" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                <path d="M0 0 C 0 45, 100 55, 100 100" vector-effect="non-scaling-stroke"/>
-              </svg>
-          {%- endcase -%}
-
-          <span class="smooch-mechanism__pillar-icon">
-            {% render 'smooch-icon', icon: block.settings.icon, class: 'smooch-icon--lg' %}
-          </span>
-          {%- if block.settings.title != blank -%}
-            <h3 class="smooch-h3 smooch-mechanism__pillar-title">
-              {{- block.settings.title | replace: '[brand]', brand_name | escape -}}
-            </h3>
-          {%- endif -%}
-          {%- if block.settings.text != blank -%}
-            <p class="smooch-mechanism__pillar-text">
-              {{- block.settings.text | replace: '[brand]', brand_name | escape -}}
-            </p>
-          {%- endif -%}
-          {%- if block.settings.ingredient != blank -%}
-            <p class="smooch-mechanism__callout">
-              {{- block.settings.ingredient | escape -}}
-            </p>
-          {%- endif -%}
-        </div>
-      {%- endfor -%}
     </div>
 
     {%- if section.settings.footnote != blank -%}
@@ -197,7 +138,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "An editorial how-it-works diagram: your product at the center with the kinds of support it is formulated to provide radiating around it."
+      "content": "A simple benefits row: one card per pillar (icon, black label, short description), with your product photo alongside. Keep each card to one clear benefit — this is meant to be scanned in a few seconds, not read like a diagram."
     },
     {
       "type": "color_scheme",
@@ -247,7 +188,7 @@
       "type": "image_picker",
       "id": "product_image",
       "label": "Product image",
-      "info": "A product render on a transparent or plain background works best. Shown inside a soft blush circle."
+      "info": "Shown beside the benefit cards. Leave blank to hide it and let the cards run full width."
     },
     {
       "type": "text",
@@ -300,7 +241,7 @@
   "blocks": [
     {
       "type": "pillar",
-      "name": "Pillar",
+      "name": "Benefit card",
       "limit": 4,
       "settings": [
         {

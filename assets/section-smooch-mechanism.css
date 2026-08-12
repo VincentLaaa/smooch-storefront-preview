@@ -1,334 +1,149 @@
-/* Smooch mechanism — the product at the center, its support pillars radiating.
-   Mobile-first: product on top, pillars descend along a continuous left rail.
-   990+: editorial diagram — pillars flank/underpin the product, joined by thin
-   curved connectors (1px berry at 40%). 1rem = 10px (Dawn base). */
+/* Smooch mechanism — simple benefits row: icon + black label + short text
+   per card, product photo alongside. Mobile-first: product, then cards
+   stacked. 990+: cards run in a row beside the product photo.
+   1rem = 10px (Dawn base). */
 
-.smooch-mechanism__diagram {
-  --mech-gap-x: clamp(4.8rem, 7vw, 9.6rem);
-  --mech-gap-y: clamp(4.4rem, 5vw, 6.4rem);
-  --mech-line: rgba(var(--smooch-berry-rgb), 0.4);
-  position: relative;
-  max-width: 60rem;
+.smooch-benefits {
+  display: grid;
+  gap: 3.2rem;
+}
+
+/* ---------- Product visual ---------- */
+
+.smooch-benefits__visual {
+  max-width: 32rem;
   margin-inline: auto;
 }
 
-/* ---------- Product centerpiece ---------- */
-
-.smooch-mechanism__product {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.4rem;
-  width: fit-content;
-  margin-inline: auto;
-}
-
-.smooch-mechanism__disc {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(19rem, 56vw, 24rem);
-  aspect-ratio: 1;
-  padding: 2.4rem;
-  border: 0.1rem solid var(--smooch-border-soft);
-  border-radius: 50%;
+.smooch-benefits__frame {
+  overflow: hidden;
+  border-radius: var(--smooch-radius-card);
   background-color: var(--smooch-blush);
 }
 
-/* Thin orbit ring — the connectors visually land on it. */
-.smooch-mechanism__disc::before {
-  content: "";
-  position: absolute;
-  inset: -1.8rem;
-  border: 0.1rem solid rgba(var(--smooch-berry-rgb), 0.3);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-/* Small berry node at the top of the orbit ring. */
-.smooch-mechanism__disc::after {
-  content: "";
-  position: absolute;
-  top: -2.15rem;
-  left: 50%;
-  width: 0.7rem;
-  height: 0.7rem;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background-color: var(--smooch-berry);
-  opacity: 0.5;
-}
-
-.smooch-mechanism__product-img {
+.smooch-benefits__visual-img {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: auto;
 }
 
-.smooch-mechanism__product-img--placeholder {
-  color: rgba(var(--color-foreground), 0.55);
-  fill: currentColor;
-}
-
-.smooch-mechanism__product-caption {
+.smooch-benefits__caption {
+  margin: 1rem 0 0;
   text-align: center;
 }
 
-/* ---------- Connector lines (shared stroke) ---------- */
+/* ---------- Benefit cards ---------- */
 
-.smooch-mechanism__lead path,
-.smooch-mechanism__connector path {
-  fill: none;
-  stroke: var(--mech-line);
-  stroke-width: 1;
-}
-
-/* Mobile-only: curve from under the product down-left onto the rail. */
-.smooch-mechanism__lead {
-  display: block;
-  width: calc(50% - 0.55rem);
-  height: 4.6rem;
-  margin: 0.6rem 0 0.8rem 0.55rem;
-}
-
-/* Desktop-only connectors, hidden until the grid composition kicks in. */
-.smooch-mechanism__connector {
-  display: none;
-}
-
-/* ---------- Pillars (mobile rail composition) ---------- */
-
-.smooch-mechanism__pillar {
-  position: relative;
+.smooch-benefits__list {
+  display: grid;
+  gap: 2.4rem;
+  grid-template-columns: 1fr;
+  list-style: none;
+  margin: 0;
+  padding: 0;
   max-width: 52rem;
-  padding-left: 3.4rem;
+  margin-inline: auto;
 }
 
-.smooch-mechanism__pillar + .smooch-mechanism__pillar {
-  margin-top: 3.2rem;
+.smooch-benefits__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-/* Rail node beside each pillar's icon. */
-.smooch-mechanism__pillar::before {
-  content: "";
-  position: absolute;
-  top: 1.6rem;
-  left: 0;
-  width: 1.1rem;
-  height: 1.1rem;
-  border: 0.1rem solid rgba(var(--smooch-berry-rgb), 0.55);
-  border-radius: 50%;
-}
-
-/* Rail segment running down to the next pillar's node. */
-.smooch-mechanism__pillar:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  top: 3rem;
-  bottom: -4.6rem;
-  left: 0.55rem;
-  width: 0.1rem;
-  background-color: var(--mech-line);
-}
-
-.smooch-mechanism__pillar-icon {
+.smooch-benefits__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 4.4rem;
-  height: 4.4rem;
-  border: 0.1rem solid rgba(var(--smooch-berry-rgb), 0.35);
-  border-radius: 50%;
+  margin-bottom: 1.2rem;
   color: var(--smooch-berry);
 }
 
-.smooch-mechanism__pillar-title {
-  margin: 1.2rem 0 0;
+.smooch-benefits__icon .smooch-icon {
+  --icon-size: 2.8rem;
 }
 
-.smooch-mechanism__pillar-text {
+.smooch-benefits__label {
+  width: 100%;
+  margin: 0;
+  padding: 1rem 1.6rem;
+  border-radius: var(--smooch-radius-card) var(--smooch-radius-card) 0 0;
+  background-color: var(--smooch-ink);
+  color: var(--smooch-cream);
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.smooch-benefits__body {
+  width: 100%;
+  flex: 1;
+  padding: 1.8rem 1.6rem 1.4rem;
+  border: 0.1rem solid var(--smooch-border-soft);
+  border-top: none;
+  border-radius: 0 0 var(--smooch-radius-card) var(--smooch-radius-card);
+  background-color: var(--smooch-surface);
+}
+
+.smooch-benefits__text {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.78);
+}
+
+.smooch-benefits__callout {
   margin: 0.8rem 0 0;
-  font-size: 1.5rem;
-  line-height: 1.55;
-  color: rgba(var(--color-foreground), 0.75);
-}
-
-.smooch-mechanism__callout {
-  margin: 1.2rem 0 0;
   font-size: 1.2rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--smooch-berry);
+}
+
+/* Small full-stop mark under each card's text — a quiet decorative nod to
+   the reference layout, not a functional control. */
+.smooch-benefits__dot {
+  display: block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin: 1.2rem auto 0;
+  border-radius: 50%;
+  background-color: var(--smooch-ink);
 }
 
 /* ---------- Footnote ---------- */
 
 .smooch-mechanism__footnote {
-  margin: clamp(3.6rem, 5vw, 5.6rem) 0 0;
+  margin: clamp(3.2rem, 5vw, 4.8rem) 0 0;
   max-width: 62ch;
 }
 
-/* ---------- Tablet breathing room ---------- */
+/* ---------- Tablet: cards run two-up ---------- */
 
-@media screen and (min-width: 750px) {
-  .smooch-mechanism__pillar + .smooch-mechanism__pillar {
-    margin-top: 4rem;
-  }
-
-  .smooch-mechanism__pillar:not(:last-child)::after {
-    bottom: -5.4rem;
+@media screen and (min-width: 600px) {
+  .smooch-benefits__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: none;
   }
 }
 
-/* ---------- Desktop diagram ---------- */
+/* ---------- Desktop: product beside a full row of cards ---------- */
 
 @media screen and (min-width: 990px) {
-  .smooch-mechanism__diagram {
-    display: grid;
+  .smooch-benefits {
+    grid-template-columns: minmax(24rem, 30%) minmax(0, 1fr);
     align-items: center;
-    max-width: 112rem;
-    column-gap: var(--mech-gap-x);
-    row-gap: var(--mech-gap-y);
+    column-gap: clamp(4rem, 6vw, 7.2rem);
   }
 
-  .smooch-mechanism__diagram--count-1 {
-    grid-template-areas:
-      "product"
-      "belowa";
-    justify-items: center;
+  .smooch-benefits__visual {
+    max-width: none;
   }
 
-  .smooch-mechanism__diagram--count-2,
-  .smooch-mechanism__diagram--count-3 {
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  }
-
-  .smooch-mechanism__diagram--count-2 {
-    grid-template-areas: "left product right";
-  }
-
-  .smooch-mechanism__diagram--count-3 {
-    grid-template-areas:
-      "left product right"
-      "belowa belowa belowa";
-  }
-
-  .smooch-mechanism__diagram--count-4 {
-    grid-template-columns: minmax(0, 1fr) auto auto minmax(0, 1fr);
-    grid-template-areas:
-      "left product product right"
-      "belowa belowa belowb belowb";
-  }
-
-  .smooch-mechanism__product {
-    grid-area: product;
-    justify-self: center;
-    margin-inline: 0;
-  }
-
-  .smooch-mechanism__disc {
-    width: clamp(26rem, 24vw, 31rem);
-    padding: 3.2rem;
-  }
-
-  .smooch-mechanism__lead {
-    display: none;
-  }
-
-  /* Rail becomes connectors: kill the mobile pseudo-elements. */
-  .smooch-mechanism__pillar {
-    max-width: 30rem;
-    padding-left: 0;
-  }
-
-  .smooch-mechanism__pillar::before,
-  .smooch-mechanism__pillar::after {
-    content: none;
-  }
-
-  .smooch-mechanism__pillar + .smooch-mechanism__pillar {
-    margin-top: 0;
-  }
-
-  .smooch-mechanism__pillar--left {
-    grid-area: left;
-    justify-self: end;
-    text-align: right;
-  }
-
-  .smooch-mechanism__pillar--right {
-    grid-area: right;
-    justify-self: start;
-  }
-
-  .smooch-mechanism__pillar--belowa {
-    grid-area: belowa;
-    justify-self: center;
-    text-align: center;
-  }
-
-  .smooch-mechanism__pillar--belowb {
-    grid-area: belowb;
-    justify-self: center;
-    text-align: center;
-  }
-
-  /* With four pillars the pair hugs the center line under the product. */
-  .smooch-mechanism__diagram--count-4 .smooch-mechanism__pillar--belowa {
-    justify-self: end;
-  }
-
-  .smooch-mechanism__diagram--count-4 .smooch-mechanism__pillar--belowb {
-    justify-self: start;
-  }
-
-  .smooch-mechanism__connector {
-    display: block;
-    position: absolute;
-    pointer-events: none;
-  }
-
-  /* Flanking pillars: gentle arc across the column gap at mid-height. */
-  .smooch-mechanism__connector--left {
-    top: 50%;
-    left: 100%;
-    width: var(--mech-gap-x);
-    height: 6rem;
-    margin-top: -3rem;
-  }
-
-  .smooch-mechanism__connector--right {
-    top: 50%;
-    right: 100%;
-    width: var(--mech-gap-x);
-    height: 6rem;
-    margin-top: -3rem;
-  }
-
-  /* Single below pillar: straight stem up the row gap. */
-  .smooch-mechanism__connector--up {
-    bottom: 100%;
-    left: 50%;
-    width: 1rem;
-    height: var(--mech-gap-y);
-    margin-left: -0.5rem;
-  }
-
-  /* Paired below pillars: curves from each pillar's top toward the
-     product's bottom center (pillar center -> area edge + half gap). */
-  .smooch-mechanism__connector--up-a {
-    bottom: 100%;
-    left: 50%;
-    width: calc(50% + (var(--mech-gap-x) / 2));
-    height: var(--mech-gap-y);
-  }
-
-  .smooch-mechanism__connector--up-b {
-    bottom: 100%;
-    right: 50%;
-    width: calc(50% + (var(--mech-gap-x) / 2));
-    height: var(--mech-gap-y);
+  .smooch-benefits__list {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    max-width: none;
   }
 }
