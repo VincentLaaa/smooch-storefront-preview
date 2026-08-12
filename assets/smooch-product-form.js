@@ -409,6 +409,10 @@ if (!customElements.get('smooch-offer')) {
         const bundleMeta = this.data.bundles[bundleIndex] || { quantity: 1, days: 0, label: '' };
         const planLabelEl = this.querySelector('[data-sub-plan-label]');
         if (planLabelEl && bundleMeta.label) planLabelEl.textContent = bundleMeta.label;
+        // "Most popular" only makes sense for the size it's actually badging —
+        // re-hide/show it as the shopper switches supply size.
+        const ribbon = this.querySelector('[data-sub-ribbon]');
+        if (ribbon) ribbon.hidden = !bundleMeta.preselected;
         const supplyEl = this.querySelector('[data-summary-supply]');
         const bundleQty = bundleMeta.quantity || 1;
         const bottleText = `${bundleQty} bottle${bundleQty === 1 ? '' : 's'}`;
