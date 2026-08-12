@@ -125,7 +125,57 @@
             {%- endfor -%}
           </div>
         {%- endif -%}
+
+        {%- if section.settings.show_attributes -%}
+          <div class="smooch-rf__attributes">
+            <div class="smooch-rf__attribute">
+              <p class="smooch-rf__attribute-label">Taste</p>
+              <span class="smooch-rf__attribute-track">
+                <span class="smooch-rf__attribute-dot" style="left: {{ section.settings.taste_score }}%;"></span>
+              </span>
+              <div class="smooch-rf__attribute-ends">
+                <span>{{ section.settings.taste_label_low | escape }}</span>
+                <span>{{ section.settings.taste_label_high | escape }}</span>
+              </div>
+            </div>
+            <div class="smooch-rf__attribute">
+              <p class="smooch-rf__attribute-label">Texture</p>
+              <span class="smooch-rf__attribute-track">
+                <span class="smooch-rf__attribute-dot" style="left: {{ section.settings.texture_score }}%;"></span>
+              </span>
+              <div class="smooch-rf__attribute-ends">
+                <span>{{ section.settings.texture_label_low | escape }}</span>
+                <span>{{ section.settings.texture_label_high | escape }}</span>
+              </div>
+            </div>
+            <div class="smooch-rf__attribute">
+              <p class="smooch-rf__attribute-label">Results</p>
+              <span class="smooch-rf__attribute-track">
+                <span class="smooch-rf__attribute-dot" style="left: {{ section.settings.results_score }}%;"></span>
+              </span>
+              <div class="smooch-rf__attribute-ends">
+                <span>{{ section.settings.results_label_low | escape }}</span>
+                <span>{{ section.settings.results_label_high | escape }}</span>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
       </div>
+
+      {%- if section.settings.show_summary and section.settings.summary_text != blank -%}
+        <div class="smooch-rf__ai">
+          <p class="smooch-rf__ai-heading">
+            What customers say
+            <span class="smooch-rf__ai-badge">
+              {%- render 'smooch-icon', icon: 'sparkle' -%}
+              Auto-generated
+            </span>
+          </p>
+          <p class="smooch-rf__ai-text">
+            {{- section.settings.summary_text | replace: '[brand]', brand_name | escape -}}
+          </p>
+        </div>
+      {%- endif -%}
 
       <div class="smooch-rf__toolbar">
         <p class="smooch-rf__count">{{ review_count }} Review{% if review_count != 1 %}s{% endif %}</p>
@@ -200,7 +250,7 @@
   "disabled_on": {
     "groups": ["header", "footer"]
   },
-  "max_blocks": 24,
+  "max_blocks": 50,
   "settings": [
     {
       "type": "paragraph",
@@ -250,6 +300,107 @@
       "id": "show_sorting",
       "label": "Show sort control",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Attribute ratings"
+    },
+    {
+      "type": "paragraph",
+      "content": "Reviewer-rated attribute sliders (taste, texture, results), styled like a review app's breakdown. Position each slider yourself — this isn't computed from the review blocks below."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_attributes",
+      "label": "Show attribute ratings",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "taste_score",
+      "label": "Taste",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 92
+    },
+    {
+      "type": "text",
+      "id": "taste_label_low",
+      "label": "Taste — low-end label",
+      "default": "Not a fan"
+    },
+    {
+      "type": "text",
+      "id": "taste_label_high",
+      "label": "Taste — high-end label",
+      "default": "Delicious"
+    },
+    {
+      "type": "range",
+      "id": "texture_score",
+      "label": "Texture",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 88
+    },
+    {
+      "type": "text",
+      "id": "texture_label_low",
+      "label": "Texture — low-end label",
+      "default": "Not a fan"
+    },
+    {
+      "type": "text",
+      "id": "texture_label_high",
+      "label": "Texture — high-end label",
+      "default": "Delicious"
+    },
+    {
+      "type": "range",
+      "id": "results_score",
+      "label": "Results",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 85,
+      "info": "\"Efficacy\" felt too clinical for the brand voice — Results reads the same way to a shopper without it."
+    },
+    {
+      "type": "text",
+      "id": "results_label_low",
+      "label": "Results — low-end label",
+      "default": "No change"
+    },
+    {
+      "type": "text",
+      "id": "results_label_high",
+      "label": "Results — high-end label",
+      "default": "Amazing"
+    },
+    {
+      "type": "header",
+      "content": "Auto-generated summary"
+    },
+    {
+      "type": "paragraph",
+      "content": "A short \"what customers say\" synthesis, the way a review app's AI summary reads. This section doesn't have a live summarization integration, so write it yourself from the real themes in your reviews — never invent a theme reviews don't actually support."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_summary",
+      "label": "Show summary",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "summary_text",
+      "label": "Summary text",
+      "default": "Reviewers consistently mention how easily [brand] fits into a daily routine, with many saying they feel more present, connected, and like themselves again after a few consistent weeks. The taste and simple one-a-day format come up often as reasons it's easy to stick with."
     },
     {
       "type": "number",

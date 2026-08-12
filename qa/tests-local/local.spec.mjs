@@ -847,11 +847,12 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     const full = page.locator('#smooch-reviews');
     await expect(full).toBeVisible();
 
-    // 12 demo reviews, all 5-star -> distribution should be 100% / 0% / 0% / 0% / 0%.
+    // 40 demo reviews: 36 five-star, 2 four-star, 1 three-star, 0 two-star,
+    // 1 one-star -> 90% / 5% / 2.5% / 0% / 2.5%.
     const fills = full.locator('.smooch-rf__dist-fill');
     await expect(fills).toHaveCount(5);
     const widths = await fills.evaluateAll((els) => els.map((el) => el.style.width));
-    expect(widths).toEqual(['100%', '0%', '0%', '0%', '0%']);
+    expect(widths).toEqual(['90%', '5%', '2.5%', '0%', '2.5%']);
 
     // No fake dates; a "Demo review" label stands in instead.
     expect(await full.locator('.smooch-rf__row-demo').count()).toBeGreaterThan(0);
@@ -875,7 +876,15 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     const moreBtn = full.locator('[data-smooch-show-more]');
     await expect(moreBtn).toBeVisible();
     await moreBtn.click();
+    // Batches by 6 (40 reviews total now) — one click reveals the next
+    // batch, not everything at once; the button stays visible until the
+    // last batch.
     expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(12);
+    await expect(moreBtn).toBeVisible();
+    for (let i = 0; i < 5; i++) {
+      await moreBtn.click();
+    }
+    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(40);
     await expect(moreBtn).toBeHidden();
 
     await page.selectOption('[data-smooch-sort]', 'highest');
