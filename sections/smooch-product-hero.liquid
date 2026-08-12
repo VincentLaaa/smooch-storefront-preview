@@ -413,7 +413,25 @@
                           <legend class="visually-hidden">{{ block.settings.heading | default: 'Choose how to buy' }}</legend>
                           <div class="smooch-subpanel{% unless default_is_subscribe %} smooch-subpanel--inactive{% endunless %}" data-sub-panel>
                             <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry">{{ block.settings.badge | default: 'Most popular' }}</span>
-                            <div class="smooch-subpanel__content">
+                            <label class="smooch-subpanel__content">
+                              {%- comment -%}
+                                One fixed cadence only — no frequency picker.
+                                The subscription always runs on default_plan
+                                (the first real Shopify selling plan). This
+                                whole content area is the clickable control
+                                that re-selects "subscribe" after one-time
+                                has been chosen — there's no separate pill.
+                              {%- endcomment -%}
+                              {%- if default_plan -%}
+                                <input
+                                  type="radio"
+                                  name="smooch-plan-{{ section.id }}"
+                                  value="{{ default_plan.id }}"
+                                  {% if default_is_subscribe %}checked{% endif %}
+                                  data-smooch-plan-radio
+                                  class="visually-hidden"
+                                >
+                              {%- endif -%}
                               <div class="smooch-subpanel__row">
                                 <div class="smooch-subpanel__headline">
                                   <span class="smooch-subpanel__title">{{ block.settings.subscribe_label | default: 'Autoship &' }}</span>
@@ -444,30 +462,7 @@
                                   {%- if panel_save > 0 %}You’re saving {{ panel_save | money }}{% endif -%}
                                 </p>
                               </div>
-                              <div class="smooch-subpanel__freq" role="radiogroup" aria-label="Delivery frequency">
-                                {%- for group in product.selling_plan_groups -%}
-                                  {%- for plan in group.selling_plans -%}
-                                    {%- liquid
-                                      assign plan_checked = false
-                                      if default_is_subscribe and plan.id == default_plan.id
-                                        assign plan_checked = true
-                                      endif
-                                    -%}
-                                    <label class="smooch-freq">
-                                      <input
-                                        type="radio"
-                                        name="smooch-plan-{{ section.id }}"
-                                        value="{{ plan.id }}"
-                                        {% if plan_checked %}checked{% endif %}
-                                        data-smooch-plan-radio
-                                        class="smooch-freq__input visually-hidden"
-                                      >
-                                      <span class="smooch-freq__pill">{{ plan.name }}</span>
-                                    </label>
-                                  {%- endfor -%}
-                                {%- endfor -%}
-                              </div>
-                            </div>
+                            </label>
 
                             <div class="smooch-buybox__buy smooch-subpanel__buy">
                               {%- render 'buy-buttons',

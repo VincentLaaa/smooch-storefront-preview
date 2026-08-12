@@ -483,8 +483,6 @@
 /* ---------- Featured subscription panel (Create-style) ---------- */
 
 .smooch-subpanel {
-  --smooch-promo-orange-rgb: 237, 137, 54;
-  --smooch-promo-peach-rgb: 252, 224, 178;
   position: relative;
   padding: 2rem 1.8rem 1.8rem;
   border: 0.15rem solid var(--smooch-berry);
@@ -503,11 +501,19 @@
    control either way (opacity on an ancestor can't be undone by a
    descendant, so the dim target has to stop above the button). */
 .smooch-subpanel__content {
+  display: block;
+  cursor: pointer;
+  border-radius: var(--smooch-radius-card);
   transition: opacity var(--duration-short, 100ms) ease;
 }
 
 .smooch-subpanel--inactive .smooch-subpanel__content {
   opacity: 0.62;
+}
+
+.smooch-subpanel__content:has([data-smooch-plan-radio]:focus-visible) {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.3rem;
 }
 
 .smooch-subpanel__buy {
@@ -553,7 +559,7 @@
   align-items: center;
   padding: 0.4rem 1rem;
   border-radius: 2rem;
-  background-color: rgb(var(--smooch-promo-orange-rgb));
+  background-color: var(--smooch-berry);
   color: rgb(255, 255, 255);
   font-size: 1.2rem;
   font-weight: 700;
@@ -581,7 +587,7 @@
 }
 
 .smooch-subpanel__promo-pill .smooch-icon {
-  color: rgb(var(--smooch-promo-orange-rgb));
+  color: var(--smooch-berry);
 }
 
 .smooch-subpanel__promo-pill[hidden] {
@@ -626,41 +632,6 @@
 
 .smooch-subpanel__saving[hidden] {
   display: none !important;
-}
-
-.smooch-subpanel__freq {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  margin-top: 1.2rem;
-}
-
-.smooch-freq {
-  cursor: pointer;
-}
-
-.smooch-freq__pill {
-  display: inline-flex;
-  align-items: center;
-  min-height: 3.6rem;
-  padding: 0.6rem 1.4rem;
-  border: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.3);
-  border-radius: 2rem;
-  background-color: rgba(var(--smooch-surface-rgb), 0.9);
-  font-size: 1.3rem;
-  font-weight: 600;
-  transition: border-color var(--duration-short, 100ms) ease, background-color var(--duration-short, 100ms) ease;
-}
-
-.smooch-freq__input:checked + .smooch-freq__pill {
-  border-color: var(--smooch-berry);
-  box-shadow: 0 0 0 0.1rem var(--smooch-berry);
-  background-color: rgb(255, 255, 255);
-}
-
-.smooch-freq__input:focus-visible + .smooch-freq__pill {
-  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
-  outline-offset: 0.2rem;
 }
 
 .smooch-subpanel__perks {
@@ -738,7 +709,7 @@
   margin: 1.2rem auto 0;
   padding: 0.6rem 1.4rem;
   border-radius: 2rem;
-  background-color: rgba(237, 137, 54, 0.16);
+  background-color: rgba(var(--smooch-berry-rgb), 0.16);
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--smooch-ink);
@@ -1018,16 +989,15 @@
   letter-spacing: 0.04em;
   position: relative;
   overflow: hidden;
-  background-color: rgb(237, 137, 54);
-  border-color: rgb(237, 137, 54);
+  background-color: var(--smooch-berry);
+  border-color: var(--smooch-berry);
   color: rgb(255, 255, 255);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
 }
 
 .smooch-buybox__buy .product-form__submit:hover,
 .smooch-buybox__buy .product-form__submit:focus-visible {
-  background-color: rgb(224, 122, 40);
-  border-color: rgb(224, 122, 40);
+  filter: brightness(0.9);
 }
 
 .smooch-buybox__buy .product-form__submit::after {

@@ -238,12 +238,14 @@ test.describe('Purchase matrix (offline harness)', () => {
     expect(cart.items[0].final_line_price).toBe(16800);
   });
 
-  test('D. subscription-first selector: default plan, posting, one-time opt-out', async ({ page }) => {
+  test('D. subscription-first selector: fixed cadence (no frequency picker), posting, one-time opt-out', async ({ page }) => {
     const hero = page.locator('product-info').first();
     const planRadios = hero.locator('[data-smooch-plan-radio]');
-    expect(await planRadios.count()).toBe(3); // 2 fixture frequencies + one-time (last)
+    // Exactly one fixed subscription cadence + one-time — no frequency choice.
+    expect(await planRadios.count()).toBe(2);
+    await expect(hero.locator('.smooch-freq')).toHaveCount(0);
 
-    // Subscription-first default: first plan preselected, input live.
+    // Subscription-first default: the fixed plan preselected, input live.
     const planInput = hero.locator('[data-smooch-selling-plan]');
     await expect(planInput).toBeEnabled();
     expect(await planInput.inputValue()).toBe('101');
@@ -254,14 +256,10 @@ test.describe('Purchase matrix (offline harness)', () => {
     await expect(hero.locator('[data-sub-pct-pill]')).toContainText('SAVE 10%');
     await shot(page, 'product-subscription-desktop-1440');
 
-    // frequency change (second plan radio)
-    await planRadios.nth(1).check({ force: true });
-    expect(await planInput.inputValue()).toBe('102');
-
     await hero.locator('button[id^="ProductSubmitButton-"]').first().click();
     await expect(page.locator('cart-drawer.active')).toBeVisible();
     const cart = await cartState(page);
-    expect(cart.items[0].selling_plan_allocation?.selling_plan?.id).toBe(102);
+    expect(cart.items[0].selling_plan_allocation?.selling_plan?.id).toBe(101);
 
     // Close the drawer first — it overlays the panel, so radio clicks would
     // land on the overlay. Then one-time opt-out disables the input.
@@ -273,6 +271,12 @@ test.describe('Purchase matrix (offline harness)', () => {
     });
     await hero.locator('[data-smooch-plan-radio][value=""]').check({ force: true });
     await expect(planInput).toBeDisabled();
+
+    // Clicking the subscription card re-selects it — the card itself is the
+    // only "subscribe" control now that there's no separate frequency pill.
+    await hero.locator('.smooch-subpanel__content').click({ force: true });
+    await expect(planInput).toBeEnabled();
+    expect(await planInput.inputValue()).toBe('101');
   });
 
   test('E. sold-out variant: ATC disabled, bundle cards flagged, price dims', async ({ page }) => {
@@ -508,8 +512,9 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(hero.locator('[data-summary-plan]')).toBeHidden();
     await expect(hero.locator('[data-smooch-price]').first()).toHaveText('$90.00');
 
-    // Tapping a frequency pill re-subscribes.
-    await hero.locator('[data-smooch-plan-radio][value="101"]').check({ force: true });
+    // Tapping the subscription card itself re-subscribes — there's no
+    // separate frequency picker; the whole card is the clickable control.
+    await hero.locator('.smooch-subpanel__content').click({ force: true });
     await expect(panel).not.toHaveClass(/smooch-subpanel--inactive/);
     await expect(hero.locator('[data-smooch-price]').first()).toHaveText('$81.00');
   });

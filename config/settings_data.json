@@ -2,6 +2,7 @@
   "current": "Smooch",
   "presets": {
     "Smooch": {
+      "smooch_show_payment_icons": false,
       "logo_width": 110,
       "color_schemes": {
         "scheme-1": {
