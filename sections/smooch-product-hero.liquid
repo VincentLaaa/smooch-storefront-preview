@@ -642,7 +642,7 @@
 
                     {%- when 'collapsible_tab' -%}
                       <div class="smooch-accordion smooch-buybox__accordion" {{ block.shopify_attributes }}>
-                        <details id="Details-{{ block.id }}-{{ section.id }}">
+                        <details id="Details-{{ block.id }}-{{ section.id }}" {% if block.settings.open_by_default %}open{% endif %}>
                           <summary aria-controls="Accordion-{{ block.id }}-{{ section.id }}">
                             <span class="smooch-accordion__label">
                               {%- if block.settings.icon != 'none' -%}
@@ -1715,6 +1715,13 @@
           "type": "page",
           "id": "page",
           "label": "Content from page"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Open by default",
+          "info": "Show this row already expanded when the page loads.",
+          "default": false
         }
       ]
     },

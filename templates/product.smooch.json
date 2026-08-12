@@ -138,7 +138,8 @@
           "settings": {
             "heading": "Is this right for me?",
             "icon": "info",
-            "content": "<p>[brand] is a daily-support gummy for women who want a simple ritual around mood, desire, and connection. It is not an on-demand product, and it isn't for anyone pregnant, breastfeeding, or on medication without talking to a qualified healthcare professional first.</p>"
+            "content": "<p>[brand] is a daily-support gummy for women who want a simple ritual around mood, desire, and connection. It is not an on-demand product, and it isn't for anyone pregnant, breastfeeding, or on medication without talking to a qualified healthcare professional first.</p>",
+            "open_by_default": true
           }
         },
         "collapsible_tab-2": {
