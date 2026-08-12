@@ -192,6 +192,12 @@ test.describe('Purchase matrix (offline harness)', () => {
     const bundles = hero.locator('[data-smooch-bundle-radio]');
     expect(await bundles.count()).toBe(3);
     await selectOneTime(hero, page);
+    // selectOneTime scrolls down to the one-time row; scroll back so the
+    // size cards aren't left sitting right under the sticky header, where
+    // scrollIntoViewIfNeeded() considers them "in view" but they're actually
+    // covered by it.
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(200);
 
     // Cards render largest-first: 3 → 2 → 1 bottles.
     const priceEl = hero.locator('[data-smooch-price]').first();
@@ -212,30 +218,19 @@ test.describe('Purchase matrix (offline harness)', () => {
     expect(cart.items[0].final_line_price).toBe(3000);
   });
 
-  test('C. variant picker drives Dawn pipeline: price, form id, cart variant', async ({ page }) => {
+  test('C. no Pack/variant picker — "Select Your Size" bundles are the only size control', async ({ page }) => {
     const hero = page.locator('product-info').first();
+    // The raw "1 Pack / 2 Packs / 3 Packs" Dawn variant picker is intentionally
+    // removed from this template — bundles alone drive size/quantity.
+    expect(await hero.locator('.product-form__input, .smooch-buybox__variants').count()).toBe(0);
+    expect(await page.locator('text=/^1 Pack$/').count()).toBe(0);
+
     const idInput = hero.locator('form[id^="product-form-"] input[name="id"]').first();
-    const before = await idInput.inputValue();
-    expect(before).toBe('111');
+    expect(await idInput.inputValue()).toBe('111');
 
-    await selectOneTime(hero, page);
-
-    // Switch Pack option to "2 Packs" → variant 112. Click the LABEL like a
-    // real user: Dawn's radios are 1×1 visually-hidden inputs, and Dawn swaps
-    // the variant-selects DOM after the change event.
-    await hero.locator('label[for="hero-1-1"]').click();
-    await expect(idInput).toHaveValue('112', { timeout: 10_000 });
-
-    // Offer price = selected bundle qty (preset preselects 3 bottles) × variant 112.
-    const priceEl = hero.locator('[data-smooch-price]').first();
-    await expect(priceEl).toHaveText('$168.00');
-
-    await hero.locator('button[id^="ProductSubmitButton-"]').first().click();
-    await expect(page.locator('cart-drawer.active')).toBeVisible();
-    const cart = await cartState(page);
-    expect(String(cart.items[0].variant_id)).toBe('112');
-    expect(cart.item_count).toBe(3);
-    expect(cart.items[0].final_line_price).toBe(16800);
+    // Switching size (bundle) never changes the underlying variant — only qty.
+    await hero.locator('[data-smooch-bundle-radio]').last().check({ force: true });
+    expect(await idInput.inputValue()).toBe('111');
   });
 
   test('D. subscription-first selector: fixed cadence (no frequency picker), posting, one-time opt-out', async ({ page }) => {
@@ -279,20 +274,14 @@ test.describe('Purchase matrix (offline harness)', () => {
     expect(await planInput.inputValue()).toBe('101');
   });
 
-  test('E. sold-out variant: ATC disabled, bundle cards flagged, price dims', async ({ page }) => {
-    const hero = page.locator('product-info').first();
-    // "3 Packs" via its label → variant 113 (sold out)
-    await hero.locator('label[for="hero-1-2"]').click();
-    const idInput = hero.locator('form[id^="product-form-"] input[name="id"]').first();
-    await expect(idInput).toHaveValue('113', { timeout: 10_000 });
-
-    const atc = hero.locator('button[id^="ProductSubmitButton-"]').first();
-    await expect(atc).toBeDisabled();
-    await expect(atc.locator('span').first()).toContainText(/sold out/i);
-    await expect(hero.locator('[data-bundle-soldout]').first()).toBeVisible();
-    await expect(page.locator('.smooch-offer--disabled').first()).toBeVisible();
-    await shot(page, 'product-soldout-desktop-1440');
-  });
+  // Retired: this exercised switching to a sold-out variant via the Pack
+  // picker, which is now intentionally removed (bundles are quantity
+  // multipliers of a single fixed variant, not a variant switcher). Dawn's
+  // own disabled/sold-out button swap requires the real picker's fetch-based
+  // section re-render — there's no way to reach that state from the shipped
+  // UI anymore, and simulating it by hand (setting the hidden id input and
+  // dispatching 'change') doesn't trigger that swap, so faking a pass here
+  // would test something that can no longer happen for a real shopper.
 
   test('F. mobile sticky ATC: appears, syncs price, proxies form, hides with drawer', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -437,32 +426,30 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await clearCart(page);
   });
 
-  test('numbered steps, supply-card economics, per-bottle + exact savings', async ({ page }) => {
+  test('numbered step, simplified supply cards: month / count / per-day only', async ({ page }) => {
     const hero = page.locator('product-info').first();
     // Single numbered step: supply. (The subscription panel is unnumbered.)
     expect(await hero.locator('.smooch-step__num').count()).toBe(1);
     await expect(hero.locator('.smooch-step__num').first()).toHaveText('1');
 
     // Create-style month cards, 3 → 2 → 1 (best value first, auto-selected).
+    // Deliberately minimal: no price, compare-at, or savings on the card —
+    // that full breakdown lives in the subscription card below.
     const cards = hero.locator('.smooch-bundle');
     await expect(cards.nth(2).locator('.smooch-bundle__title')).toHaveText('1 Month');
-    await expect(cards.nth(2).locator('.smooch-bundle__subtitle')).toHaveText('1 bottle · 30-day supply');
-    await expect(cards.nth(0).locator('.smooch-bundle__subtitle')).toHaveText('3 bottles · 90-day supply');
+    await expect(cards.nth(2).locator('.smooch-bundle__count')).toHaveText('30 Count');
+    await expect(cards.nth(0).locator('.smooch-bundle__count')).toHaveText('90 Count');
     expect(await cards.nth(0).locator('.smooch-bundle__input').isChecked()).toBe(true);
+    expect(await hero.locator('[data-bundle-price]').count()).toBe(0);
+    expect(await hero.locator('[data-bundle-save-amount]').count()).toBe(0);
 
-    // Subscription-first default: cards reflect plan pricing (save vs one-time).
-    await expect(cards.nth(0).locator('[data-bundle-price]')).toHaveText('$81.00');
-    await expect(cards.nth(0).locator('[data-bundle-save-amount]')).toHaveText('Save $9.00');
+    // Subscription-first default: per-day reflects the real plan discount.
+    await expect(cards.nth(0).locator('[data-bundle-per-day]')).toHaveText('$0.90');
 
-    // One-time: cards switch to base pricing with compare-at savings.
+    // One-time: per-day switches to the real base (undiscounted) rate.
     await selectOneTime(hero, page);
-    await expect(cards.nth(0).locator('[data-bundle-price]')).toHaveText('$90.00');
-    await expect(cards.nth(0).locator('[data-bundle-save-amount]')).toHaveText('Save $30.00');
-    await expect(cards.nth(2).locator('[data-bundle-save-amount]')).toHaveText('Save $10.00');
-    await expect(cards.nth(0).locator('[data-bundle-unit-line]')).toContainText('$30.00 per bottle');
     await expect(cards.nth(0).locator('[data-bundle-per-day]')).toHaveText('$1.00');
-    // qty-1 card hides the per-bottle line
-    await expect(cards.nth(2).locator('[data-bundle-unit-line]')).toBeHidden();
+    await expect(cards.nth(2).locator('[data-bundle-per-day]')).toHaveText('$1.00');
   });
 
   test('subscription panel and one-time row track the selected supply', async ({ page }) => {
@@ -519,18 +506,10 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(hero.locator('[data-smooch-price]').first()).toHaveText('$81.00');
   });
 
-  test('variant switch while subscribed keeps plan pricing coherent', async ({ page }) => {
-    const hero = page.locator('product-info').first();
-    // Subscribed by default (plan 101). Switch Pack → 2 Packs (variant 112).
-    await hero.locator('label[for="hero-1-1"]').click();
-    const idInput = hero.locator('form[id^="product-form-"] input[name="id"]').first();
-    await expect(idInput).toHaveValue('112', { timeout: 10_000 });
-    // bundle qty 3 × v112 plan price ($50.40) = $151.20
-    await expect(hero.locator('[data-smooch-price]').first()).toHaveText('$151.20');
-    const planInput = hero.locator('[data-smooch-selling-plan]');
-    await expect(planInput).toBeEnabled();
-    expect(await planInput.inputValue()).toBe('101');
-  });
+  // Retired: this exercised switching Pack variants while subscribed. The
+  // Pack picker is intentionally removed (see test C) — bundles are quantity
+  // multipliers of one fixed variant now, so there's no longer a variant
+  // switch for the plan to stay coherent across.
 
   test('sticky bar mirrors the selection summary (subscription-first default)', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });

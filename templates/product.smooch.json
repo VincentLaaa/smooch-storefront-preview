@@ -51,15 +51,9 @@
             "text": "An easy daily gummy ritual"
           }
         },
-        "variant_picker-1": {
-          "type": "variant_picker",
-          "settings": {}
-        },
         "bundles-1": {
           "type": "bundles",
-          "settings": {
-            "show_per_day": true
-          }
+          "settings": {}
         },
         "bundle-1": {
           "type": "bundle",
@@ -177,7 +171,6 @@
         "benefit-1",
         "benefit-2",
         "benefit-3",
-        "variant_picker-1",
         "bundles-1",
         "bundle-3",
         "bundle-2",
