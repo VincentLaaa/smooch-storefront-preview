@@ -157,6 +157,22 @@ if (!customElements.get('smooch-offer')) {
           const target = this.resolveVariantForValue(value);
           if (target && String(target.id) !== this.currentVariantId) this.selectVariant(target);
         }
+
+        // Each bundle carries its own real selling plan (different sizes can
+        // have different real discounts/intervals, e.g. 1 tub/month vs. 3
+        // tubs/3 months aren't the same percentage off) — swap the single
+        // subscribe radio's value to match so posting "subscribe" always
+        // submits the plan that actually applies to the selected size.
+        const bundleIndex = parseInt(radio.value, 10) || 0;
+        const bundleMeta = this.data.bundles && this.data.bundles[bundleIndex];
+        const subscribeRadio = this.querySelector('[data-smooch-plan-radio]:not([value=""])');
+        if (bundleMeta && bundleMeta.sellingPlanId && subscribeRadio) {
+          subscribeRadio.value = bundleMeta.sellingPlanId;
+          // Setting .value doesn't fire 'change', so the hidden selling-plan
+          // form input (what's actually submitted to the cart) would stay
+          // stale at the old bundle's plan id unless synced here explicitly.
+          if (subscribeRadio.checked) this.applyPlan();
+        }
       }
 
       applyPlan() {
@@ -296,7 +312,14 @@ if (!customElements.get('smooch-offer')) {
           // Cards only ever show month / count / per-day — the full price
           // breakdown (compare, current, savings) lives in the subscription
           // card below, so only the per-day figure needs live sync here.
-          const prices = priceFor(entry, index);
+          // Each bundle carries its OWN real selling plan (different sizes
+          // aren't the same discount/interval), so when subscribed, this
+          // card's per-day must use ITS OWN plan id, not whichever plan
+          // happens to be globally selected right now.
+          const cardPlanId = planId ? bundle.sellingPlanId || planId : '';
+          const prices = cardPlanId && entry.plans && entry.plans[cardPlanId]
+            ? entry.plans[cardPlanId][index]
+            : priceFor(entry, index);
           if (prices) {
             const perDay = card.querySelector('[data-bundle-per-day]');
             if (perDay) {
@@ -361,7 +384,13 @@ if (!customElements.get('smooch-offer')) {
         // dims when one-time is chosen.
         const panel = this.querySelector('[data-sub-panel]');
         if (panel) {
-          const panelPlanId = planId || String((this.data.plans[0] || {}).id || '');
+          // Each bundle carries its own real selling plan — prefer the
+          // currently selected plan, else the CURRENT bundle's own plan
+          // (not just "the first plan in the array", which may not even
+          // apply to this bundle), else the first plan as a last resort.
+          const currentBundleMeta = this.data.bundles[bundleIndex] || {};
+          const panelPlanId =
+            planId || String(currentBundleMeta.sellingPlanId || (this.data.plans[0] || {}).id || '');
           const planEntry = variant.plans && variant.plans[panelPlanId] ? variant.plans[panelPlanId][bundleIndex] : null;
           const oneTimeEntry = variant.base ? variant.base[bundleIndex] : null;
           panel.classList.toggle('smooch-subpanel--inactive', !planId);
