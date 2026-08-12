@@ -61,6 +61,12 @@
   assign gift_blocks = section.blocks | where: 'type', 'gift'
   assign rating_blocks = section.blocks | where: 'type', 'rating'
   assign rating_block = rating_blocks.first
+  assign title_blocks = section.blocks | where: 'type', 'title'
+  assign title_block = title_blocks.first
+  assign display_title = product.title
+  if title_block.settings.custom_title != blank
+    assign display_title = title_block.settings.custom_title | replace: '[brand]', brand_name
+  endif
   assign subscription_blocks = section.blocks | where: 'type', 'subscription'
   assign subscription_block = subscription_blocks.first
   assign buy_buttons_blocks = section.blocks | where: 'type', 'buy_buttons'
@@ -870,12 +876,7 @@
                 </div>
               {%- endif -%}
               <span class="smooch-sticky-atc__title" data-sticky-summary>
-                {%- if has_bundles -%}
-                  {{- sticky_bundle.settings.title | default: product.title -}}
-                  {%- if default_is_subscribe %} · Subscribe{% else %} · One-time{% endif -%}
-                {%- else -%}
-                  {{- product.title | escape -}}
-                {%- endif -%}
+                {{- display_title | escape -}}
               </span>
             </div>
 
@@ -896,7 +897,7 @@
               {%- endif -%}
             </span>
 
-            <button type="button" class="smooch-btn smooch-btn--brand smooch-sticky-atc__button" data-sticky-submit>
+            <button type="button" class="smooch-btn smooch-btn--berry smooch-sticky-atc__button" data-sticky-submit>
               <span data-sticky-label>{% if section.settings.sticky_atc_cta_text != blank %}{{ section.settings.sticky_atc_cta_text | escape }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}</span>
               {%- render 'loading-spinner' -%}
             </button>

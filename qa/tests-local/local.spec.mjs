@@ -514,15 +514,22 @@ test.describe('PDP refresh: guided purchase flow', () => {
   // multipliers of one fixed variant now, so there's no longer a variant
   // switch for the plan to stay coherent across.
 
-  test('sticky bar mirrors the selection summary (subscription-first default)', async ({ page }) => {
+  test('sticky bar shows the product name (not a bundle/plan label) and mirrors price', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(PRODUCT);
     await page.waitForTimeout(300);
     await page.evaluate(() => window.scrollTo(0, 3000));
     const sticky = page.locator('smooch-sticky-atc').first();
     await expect(sticky).toBeVisible({ timeout: 10_000 });
-    await expect(sticky.locator('[data-sticky-summary]')).toHaveText('3 Months · Subscribe');
+    // Real product name (the same custom title the H1 uses), not a
+    // "3 Months · Subscribe" bundle/plan label that used to live here.
+    await expect(sticky.locator('[data-sticky-summary]')).toHaveText("Smooch Women's Libido & Mood Gummies");
     await expect(sticky.locator('[data-sticky-price]')).toHaveText('$80.94');
+    // Switching bundle/plan must never change the displayed product name.
+    const hero = page.locator('product-info').first();
+    await hero.locator('[data-smooch-bundle-radio]').last().check({ force: true });
+    await page.waitForTimeout(300);
+    await expect(sticky.locator('[data-sticky-summary]')).toHaveText("Smooch Women's Libido & Mood Gummies");
   });
 
   test('media info cards render in the gallery column', async ({ page }) => {
