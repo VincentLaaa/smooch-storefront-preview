@@ -650,6 +650,49 @@ test.describe('PDP refresh: guided purchase flow', () => {
     // Small footer info row with an optional "Learn more" link.
     await expect(hero.locator('.smooch-reassurance__footer-row')).toContainText('HSA/FSA eligible');
   });
+
+  test('"Most popular" ribbon only shows for the preselected (3-month) size', async ({ page }) => {
+    const hero = page.locator('product-info').first();
+    const ribbon = hero.locator('[data-sub-ribbon]');
+
+    // Default selection is the 3-month bundle (preselected: true) — visible.
+    await expect(ribbon).toBeVisible();
+
+    // Switch to 1 Month (last card, not preselected) — ribbon hides.
+    await hero.locator('[data-smooch-bundle-radio]').last().check({ force: true });
+    await expect(ribbon).toBeHidden();
+
+    // Switch back to 3 Months (first card) — ribbon returns.
+    await hero.locator('[data-smooch-bundle-radio]').first().check({ force: true });
+    await expect(ribbon).toBeVisible();
+  });
+
+  test('Add to Cart hover: turns black and reveals a trailing arrow', async ({ page }) => {
+    const btn = page.locator('.smooch-buybox__buy .product-form__submit');
+    await btn.scrollIntoViewIfNeeded();
+
+    const restBg = await btn.evaluate((el) => getComputedStyle(el).backgroundColor);
+    const restArrowWidth = await btn.evaluate((el) => getComputedStyle(el, '::before').width);
+    expect(restArrowWidth).toBe('0px');
+
+    await btn.hover();
+    await page.waitForTimeout(300);
+    const hoverBg = await btn.evaluate((el) => getComputedStyle(el).backgroundColor);
+    const hoverArrowWidth = await btn.evaluate((el) => getComputedStyle(el, '::before').width);
+    const hoverArrowOpacity = await btn.evaluate((el) => getComputedStyle(el, '::before').opacity);
+
+    expect(hoverBg).not.toBe(restBg);
+    expect(hoverBg).toBe('rgb(17, 17, 17)');
+    expect(hoverArrowWidth).not.toBe('0px');
+    expect(hoverArrowOpacity).toBe('1');
+
+    // Flex `order: 1` puts the arrow after the label visually, even though
+    // it's a ::before pseudo-element (Dawn's own ::after is already used for
+    // every .button's border/glow ring, so the arrow can't live there).
+    const arrowOrder = await btn.evaluate((el) => getComputedStyle(el, '::before').order);
+    const spanOrder = await btn.evaluate((el) => getComputedStyle(el.querySelector('span')).order);
+    expect(Number(arrowOrder)).toBeGreaterThan(Number(spanOrder) || 0);
+  });
 });
 
 // ---------------------------------------------------------------- scroll story

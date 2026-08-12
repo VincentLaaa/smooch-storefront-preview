@@ -984,42 +984,62 @@
 /* ---------- Buy buttons polish (Dawn form inside our panel) ---------- */
 
 .smooch-buybox__buy .product-form__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
   min-height: 5.4rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   position: relative;
-  overflow: hidden;
   background-color: var(--smooch-berry);
   border-color: var(--smooch-berry);
   color: rgb(255, 255, 255);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.smooch-buybox__buy .product-form__submit:hover,
-.smooch-buybox__buy .product-form__submit:focus-visible {
-  filter: brightness(0.9);
-}
-
-.smooch-buybox__buy .product-form__submit::after {
+/* The arrow icon uses ::before (not ::after) because Dawn's own base.css
+   already claims ::after on every .button for its border/glow ring effect
+   (position: absolute; inset: var(--buttons-border-width)) — reusing it here
+   would fight that rule for position/inset. `order: 1` puts this ::before
+   after the real "Add to cart" span in visual (flex) order regardless of its
+   DOM position, and `position: static` explicitly opts back out of Dawn's
+   ring positioning since ::before isn't targeted by it anyway. */
+.smooch-buybox__buy .product-form__submit::before {
   content: '';
-  position: absolute;
-  inset: 0 auto 0 -60%;
-  width: 40%;
-  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-  transform: skewX(-20deg);
-  transition: transform 0.65s ease;
-  pointer-events: none;
+  position: static;
+  order: 1;
+  display: inline-block;
+  width: 0;
+  height: 1.6rem;
+  margin-left: 0;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h16M14 6l6 6-6 6'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h16M14 6l6 6-6 6'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  opacity: 0;
+  overflow: hidden;
+  transition: width 0.25s ease, margin-left 0.25s ease, opacity 0.2s ease;
 }
 
 .smooch-buybox__buy .product-form__submit:hover,
 .smooch-buybox__buy .product-form__submit:focus-visible {
+  background-color: rgb(17, 17, 17);
+  border-color: rgb(17, 17, 17);
   transform: translateY(-0.2rem);
   box-shadow: 0 1rem 2.2rem rgba(var(--smooch-ink-rgb, 0, 0, 0), 0.18);
 }
 
-.smooch-buybox__buy .product-form__submit:hover::after,
-.smooch-buybox__buy .product-form__submit:focus-visible::after {
-  transform: translateX(500%) skewX(-20deg);
+.smooch-buybox__buy .product-form__submit:hover::before,
+.smooch-buybox__buy .product-form__submit:focus-visible::before {
+  width: 1.6rem;
+  margin-left: 0.8rem;
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1027,8 +1047,8 @@
     transition: none;
   }
 
-  .smooch-buybox__buy .product-form__submit::after {
-    display: none;
+  .smooch-buybox__buy .product-form__submit::before {
+    transition: none;
   }
 }
 

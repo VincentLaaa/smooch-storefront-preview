@@ -412,7 +412,7 @@
                         <fieldset class="smooch-plans" {{ block.shopify_attributes }}>
                           <legend class="visually-hidden">{{ block.settings.heading | default: 'Choose how to buy' }}</legend>
                           <div class="smooch-subpanel{% unless default_is_subscribe %} smooch-subpanel--inactive{% endunless %}" data-sub-panel>
-                            <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry">{{ block.settings.badge | default: 'Most popular' }}</span>
+                            <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry" data-sub-ribbon {% unless panel_bundle.settings.preselected %}hidden{% endunless %}>{{ block.settings.badge | default: 'Most popular' }}</span>
                             <label class="smooch-subpanel__content">
                               {%- comment -%}
                                 One fixed cadence only — no frequency picker.
@@ -660,7 +660,8 @@
                             "quantity": {{ bqty }},
                             "days": {{ bundle_block.settings.days | default: 0 }},
                             "label": {{ bundle_block.settings.title | json }},
-                            "variantValue": {{ bundle_block.settings.variant_value | strip | json }}
+                            "variantValue": {{ bundle_block.settings.variant_value | strip | json }},
+                            "preselected": {{ bundle_block.settings.preselected | json }}
                           }{% unless forloop.last %},{% endunless %}
                         {%- endfor -%}
                         {%- if bundle_blocks.size == 0 -%}
