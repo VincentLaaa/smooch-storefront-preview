@@ -797,10 +797,13 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     await page.goto(PRODUCT);
     const carousel = page.locator('[data-smooch-carousel]');
     await expect(carousel).toBeVisible();
-    // Honesty: sample badge + "Sample Reviewer" wording, not "Verified".
-    await expect(carousel.locator('.smooch-rc__sample-badge')).toHaveText(/sample/i);
-    expect(await carousel.locator('.smooch-rc__card-status', { hasText: 'Sample Reviewer' }).count()).toBeGreaterThan(0);
-    expect(await carousel.locator('.smooch-rc__card-status', { hasText: 'Verified' }).count()).toBe(0);
+    // Honesty toggle flipped live: no sample badge, every card reads "Verified Buyer",
+    // and every card shows an avatar (photo or initial monogram).
+    await expect(carousel.locator('.smooch-rc__sample-badge')).toHaveCount(0);
+    expect(await carousel.locator('.smooch-rc__card-status', { hasText: 'Sample' }).count()).toBe(0);
+    const cardCountForStatus = await carousel.locator('.smooch-rc__card').count();
+    expect(await carousel.locator('.smooch-rc__card-status', { hasText: 'Verified Buyer' }).count()).toBe(cardCountForStatus);
+    expect(await carousel.locator('.smooch-rc__avatar').count()).toBe(cardCountForStatus);
 
     // Mixed card types/widths present.
     const longW = await carousel.locator('.smooch-rc__card--long').first().boundingBox();

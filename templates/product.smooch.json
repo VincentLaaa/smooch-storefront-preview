@@ -617,7 +617,9 @@
       ],
       "settings": {
         "rating_value": "5.0",
-        "review_count_display": "12"
+        "review_count_display": "12",
+        "review_count_label": "Reviews",
+        "is_sample_content": false
       }
     },
     "reviews_full": {

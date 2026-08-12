@@ -98,10 +98,13 @@
                 {%- endif -%}
                 <p class="smooch-rc__card-text">{{ block.settings.text }}</p>
                 <footer class="smooch-rc__card-footer">
-                  <p class="smooch-rc__card-author">
-                    {{ block.settings.author }}
-                    <span class="smooch-rc__card-status">{{ block.settings.reviewer_label | default: reviewer_fallback }}</span>
-                  </p>
+                  <div class="smooch-rc__byline">
+                    {%- render 'smooch-review-avatar', avatar: block.settings.avatar, author: block.settings.author -%}
+                    <p class="smooch-rc__card-author">
+                      {{ block.settings.author }}
+                      <span class="smooch-rc__card-status">{{ block.settings.reviewer_label | default: reviewer_fallback }}</span>
+                    </p>
+                  </div>
                   {%- if block.settings.product != blank -%}
                     <p class="smooch-rc__card-product">
                       Review for: {{ block.settings.product.title }}
@@ -130,10 +133,13 @@
                 {%- endif -%}
                 <p class="smooch-rc__card-text">{{ block.settings.text }}</p>
                 <footer class="smooch-rc__card-footer">
-                  <p class="smooch-rc__card-author">
-                    {{ block.settings.author }}
-                    <span class="smooch-rc__card-status">{{ block.settings.reviewer_label | default: reviewer_fallback }}</span>
-                  </p>
+                  <div class="smooch-rc__byline">
+                    {%- render 'smooch-review-avatar', avatar: block.settings.avatar, author: block.settings.author -%}
+                    <p class="smooch-rc__card-author">
+                      {{ block.settings.author }}
+                      <span class="smooch-rc__card-status">{{ block.settings.reviewer_label | default: reviewer_fallback }}</span>
+                    </p>
+                  </div>
                 </footer>
               </article>
 
@@ -157,10 +163,13 @@
                     <p class="smooch-rc__quote">{{ block.settings.title }}</p>
                   {%- endif -%}
                   <p class="smooch-rc__card-text">{{ block.settings.text }}</p>
-                  <p class="smooch-rc__card-author">
-                    {{ block.settings.author }}
-                    <span class="smooch-rc__card-status">{{ block.settings.reviewer_label | default: reviewer_fallback }}</span>
-                  </p>
+                  <div class="smooch-rc__byline">
+                    {%- render 'smooch-review-avatar', avatar: block.settings.avatar, author: block.settings.author -%}
+                    <p class="smooch-rc__card-author">
+                      {{ block.settings.author }}
+                      <span class="smooch-rc__card-status">{{ block.settings.reviewer_label | default: reviewer_fallback }}</span>
+                    </p>
+                  </div>
                 </div>
               </article>
           {%- endcase -%}
@@ -284,6 +293,7 @@
       "type": "long",
       "name": "Long review",
       "settings": [
+        { "type": "image_picker", "id": "avatar", "label": "Reviewer photo", "info": "The real reviewer's own photo only — never a stock or invented headshot. Leave blank to show an initial instead." },
         { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
         { "type": "text", "id": "title", "label": "Title", "default": "Sample review title" },
         { "type": "textarea", "id": "text", "label": "Review text", "default": "Sample review text — replace with a real customer's words before launch." },
@@ -296,6 +306,7 @@
       "type": "short",
       "name": "Short quote",
       "settings": [
+        { "type": "image_picker", "id": "avatar", "label": "Reviewer photo", "info": "The real reviewer's own photo only — never a stock or invented headshot. Leave blank to show an initial instead." },
         { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
         { "type": "text", "id": "title", "label": "Quote", "default": "\"Sample quote goes here.\"" },
         { "type": "textarea", "id": "text", "label": "Supporting line", "default": "Sample supporting sentence." },
@@ -308,6 +319,7 @@
       "name": "Visual review",
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image", "info": "Real product/gummy/lifestyle art only — never a stock or invented customer photo. Falls back to a branded placeholder if left blank." },
+        { "type": "image_picker", "id": "avatar", "label": "Reviewer photo", "info": "The real reviewer's own photo only — never a stock or invented headshot. Leave blank to show an initial instead." },
         { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
         { "type": "text", "id": "title", "label": "Quote", "default": "\"Sample quote goes here.\"" },
         { "type": "textarea", "id": "text", "label": "Supporting line", "default": "Sample supporting sentence." },
