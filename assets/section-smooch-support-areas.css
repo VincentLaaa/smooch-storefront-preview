@@ -1,0 +1,118 @@
+/* Smooch support areas — PDP-only editorial split section.
+   Split image + copy on desktop, straight stack on mobile. 1rem = 10px. */
+
+.smooch-support__inner {
+  display: grid;
+  gap: 3.6rem;
+}
+
+.smooch-support__head > * + * {
+  margin-top: 1.4rem;
+}
+
+.smooch-support__lead {
+  max-width: 48ch;
+}
+
+/* ---------- Visual ---------- */
+
+.smooch-support__frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--smooch-radius-media);
+  border: 0.1rem solid var(--smooch-border-soft);
+  background-color: rgb(var(--smooch-surface-rgb));
+}
+
+.smooch-support__visual-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Benefit list ---------- */
+
+.smooch-support__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2.8rem 2rem;
+}
+
+.smooch-support__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.4rem;
+}
+
+.smooch-support__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background-color: rgba(var(--smooch-berry-rgb), 0.08);
+  color: var(--smooch-berry);
+}
+
+.smooch-support__item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-top: 0.3rem;
+}
+
+.smooch-support__item-title {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: 600;
+  font-size: 1.9rem;
+  line-height: 1.25;
+  color: rgb(var(--color-foreground));
+}
+
+.smooch-support__item-text {
+  font-family: var(--smooch-font-serif);
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+/* ---------- Disclaimer ---------- */
+
+.smooch-support__disclaimer {
+  margin-top: 3.2rem;
+  max-width: 76rem;
+}
+
+/* ---------- Desktop split layout ---------- */
+
+@media screen and (min-width: 990px) {
+  .smooch-support__inner {
+    grid-template-columns: minmax(0, 42%) 1fr;
+    grid-template-areas:
+      'visual head'
+      'visual list';
+    column-gap: 6.4rem;
+    row-gap: 3.2rem;
+    align-items: start;
+  }
+
+  .smooch-support__visual {
+    grid-area: visual;
+    position: sticky;
+    top: 4rem;
+  }
+
+  .smooch-support__head {
+    grid-area: head;
+  }
+
+  .smooch-support__list {
+    grid-area: list;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -313,43 +313,52 @@
       }
     },
     "benefits": {
-      "type": "smooch-mechanism",
+      "type": "smooch-support-areas",
       "blocks": {
-        "pillar-1": {
-          "type": "pillar",
+        "benefit-1": {
+          "type": "benefit",
           "settings": {
-            "icon": "sparkle",
-            "title": "Mood",
-            "text": "Support for a calmer, more settled everyday baseline."
+            "icon": "glow",
+            "title": "Feel more at ease.",
+            "text": "Support a calmer, lighter, more open version of you.*"
           }
         },
-        "pillar-2": {
-          "type": "pillar",
+        "benefit-2": {
+          "type": "benefit",
           "settings": {
-            "icon": "heart",
-            "title": "Desire",
-            "text": "Daily support for desire and openness — gently, over time."
+            "icon": "ember",
+            "title": "Reconnect with your spark.",
+            "text": "Support healthy desire and a more natural sense of wanting.*"
           }
         },
-        "pillar-3": {
-          "type": "pillar",
+        "benefit-3": {
+          "type": "benefit",
           "settings": {
-            "icon": "drop",
-            "title": "Connection",
-            "text": "Support for feeling more present and connected, starting with yourself."
+            "icon": "ripple",
+            "title": "Support the feel-good side of intimacy.",
+            "text": "Support arousal, sensitivity, and satisfaction.*"
+          }
+        },
+        "benefit-4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "entwine",
+            "title": "Feel more present together.",
+            "text": "When you feel better in yourself, connection can come more naturally.*"
           }
         }
       },
       "block_order": [
-        "pillar-1",
-        "pillar-2",
-        "pillar-3"
+        "benefit-1",
+        "benefit-2",
+        "benefit-3",
+        "benefit-4"
       ],
       "settings": {
-        "eyebrow": "The [brand] three",
-        "heading": "Made to support more than one part of you",
-        "lead": "",
-        "footnote": ""
+        "eyebrow": "What [brand] supports",
+        "heading": "More than one part of you.",
+        "lead": "[brand] is designed to support the emotional and physical parts of intimacy that can feel easier to lose — and harder to talk about.*",
+        "disclaimer": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
       }
     },
     "formula": {
@@ -1026,8 +1035,8 @@
     "hero",
     "benefit_strip",
     "body",
-    "benefits",
     "review_carousel",
+    "benefits",
     "formula",
     "faq",
     "reviews_full"
