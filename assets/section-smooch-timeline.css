@@ -10,7 +10,8 @@
   grid-template-areas:
     'head'
     'visual'
-    'content';
+    'content'
+    'footer';
   gap: 3.2rem;
 }
 
@@ -27,14 +28,23 @@
   overflow: visible;
 }
 
+/* Desktop: heading beside the timeline (not stacked above it), echoing the
+   reference layout — text on the left, the product visual and the week
+   rail sitting side by side on the right, all vertically centered as one
+   composition instead of three separately-aligned blocks. */
 @media screen and (min-width: 990px) {
   .smooch-timeline__layout {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(24rem, 30%) minmax(20rem, 30rem) minmax(0, 1fr);
     grid-template-areas:
-      'head head'
-      'visual content';
-    column-gap: 6rem;
-    row-gap: 1.6rem;
+      'head visual content'
+      'footer footer footer';
+    /* Stretch (not center): visual-col's sticky child needs a containing
+       block as tall as content-col to stick within while the visitor
+       scrolls through the steps. Only the (short) heading block itself
+       centers within that height — see .smooch-timeline__head below. */
+    align-items: stretch;
+    column-gap: clamp(3.2rem, 4vw, 5.6rem);
+    row-gap: 0;
   }
 }
 
@@ -62,9 +72,35 @@
   max-width: 72rem;
 }
 
+@media screen and (min-width: 990px) {
+  .smooch-timeline__head {
+    max-width: 36rem;
+    align-self: start;
+  }
+}
+
 .smooch-timeline__visual-col {
   grid-area: visual;
   position: relative;
+}
+
+/* Soft blurred pastel glow behind the product visual — a purely decorative,
+   CSS-only accent (no new image asset) for a softer, more feminine backdrop
+   than a flat color fill alone. Desktop only: at mobile widths the blob's
+   bleed risks horizontal overflow for little visual gain at that size. */
+@media screen and (min-width: 990px) {
+  .smooch-timeline__visual-col::before {
+    content: '';
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    width: 120%;
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(var(--smooch-pink-rgb), 0.4) 0%, transparent 70%);
+    filter: blur(6rem);
+    pointer-events: none;
+  }
 }
 
 .smooch-timeline__visual-sticky {
@@ -76,6 +112,17 @@
   height: 40vh;
   min-height: 32rem;
   max-height: 50rem;
+  --smooch-story-product-size: 70%;
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-timeline__scene {
+    height: auto;
+    aspect-ratio: 3 / 4;
+    min-height: 28rem;
+    max-height: 44rem;
+    --smooch-story-product-size: 78%;
+  }
 }
 
 @media screen and (max-width: 989px) {
@@ -92,6 +139,13 @@
 
 .smooch-timeline__content-col {
   grid-area: content;
+  min-width: 0;
+}
+
+/* Full-width strip under the whole composition (heading + visual + steps),
+   not confined to the (narrower) content column. */
+.smooch-timeline__footer {
+  grid-area: footer;
   min-width: 0;
 }
 
@@ -230,6 +284,34 @@
 }
 
 @media screen and (min-width: 990px) {
+  .smooch-timeline__badge--dot {
+    margin-top: 1.5rem;
+  }
+
+  .smooch-timeline__body {
+    padding-top: 0.5rem;
+    padding-bottom: clamp(4.4rem, 5vw, 6.4rem);
+  }
+
+  .smooch-timeline__step:last-child .smooch-timeline__body {
+    padding-bottom: 0.4rem;
+  }
+
+  /* Disclaimer aligns with the reading column, under the rail's end. */
+  .smooch-timeline__disclaimer {
+    margin-top: clamp(4rem, 5vw, 6.4rem);
+  }
+}
+
+/* The wide "period" numeral column needs real room beside it (period +
+   marker + a readable body measure). With the visual now sharing the row
+   with a heading column (see .smooch-timeline__layout above), content-col
+   only has that much space to spare from ~1280px up — below that (990–1279,
+   where the head/visual/content grid is already active) it stays on the
+   mobile-style compact rail layout. Without this split, the numeral column
+   was collapsing the body column to zero width and silently overflowing
+   the page at in-between widths like 1024px. */
+@media screen and (min-width: 1280px) {
   .smooch-timeline__step {
     grid-template-columns: minmax(14rem, 24rem) 4.4rem minmax(0, 1fr);
     grid-template-areas: 'period marker body';
@@ -247,24 +329,6 @@
     letter-spacing: -0.01em;
     text-transform: none;
     color: rgb(var(--color-foreground));
-  }
-
-  .smooch-timeline__badge--dot {
-    margin-top: 1.5rem;
-  }
-
-  .smooch-timeline__body {
-    padding-top: 0.5rem;
-    padding-bottom: clamp(4.4rem, 5vw, 6.4rem);
-  }
-
-  .smooch-timeline__step:last-child .smooch-timeline__body {
-    padding-bottom: 0.4rem;
-  }
-
-  /* Disclaimer aligns with the reading column, under the rail's end. */
-  .smooch-timeline__disclaimer {
-    margin-top: clamp(4rem, 5vw, 6.4rem);
   }
 }
 
