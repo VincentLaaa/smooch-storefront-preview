@@ -1,30 +1,25 @@
-/* Smooch brand fonts (bundled), per Smooch_BrandGuide.pdf:
-   - Headings / labels / buttons: Proxima Nova Bold (title case headings,
-     all-caps labels + buttons)
+/* Smooch brand fonts:
+   - Headings: Fraunces — a warm, soft-curved serif that reads feminine and
+     elevated without being stuffy, and pairs well with the playful "smooch"
+     wordmark. Served natively through Shopify's own licensed font library
+     via the type_header_font theme setting (config/settings_data.json) —
+     Dawn's own pipeline (layout/theme.liquid) loads and self-hosts it, so
+     nothing is bundled here and there's no license to manage.
    - Body paragraphs & editorial copy: Loretta (serif, "Grad" role)
-   - Supporting UI text (prices, inputs, nav, captions): Euclid Flex
+   - Supporting UI text (prices, inputs, nav, captions, labels + buttons):
+     Euclid Flex
 
-   ⚠ LICENSE: smooch-font-proxima-bold.otf is a Fontspring DEMO file — not
-   licensed for production. Replace with a licensed Proxima Nova (ideally
-   Regular + Semibold + Bold weights) before launch. Tracked as a launch
-   blocker in docs/SMOOCH-LAUNCH-READINESS.md.
+   This file used to also bundle Proxima Nova for headings/labels — that
+   was a Fontspring DEMO file (watermarked glyphs, restricted via
+   unicode-range) never licensed for production, tracked as a launch
+   blocker in docs/SMOOCH-LAUNCH-READINESS.md. Replaced with Fraunces
+   instead of buying a Proxima Nova license: resolves the blocker and reads
+   better on-brand, at no cost. --font-heading-* is intentionally NOT
+   overridden below anymore — Dawn's own settings-driven values (now
+   Fraunces) pass through.
 
    Loaded by snippets/smooch-theme-tokens.liquid when the
    "Use Smooch brand fonts" theme setting is enabled (default on). */
-
-@font-face {
-  font-family: 'Proxima Nova';
-  src: url('smooch-font-proxima-bold.otf') format('opentype');
-  font-weight: 600 800;
-  font-style: normal;
-  font-display: swap;
-  /* The DEMO file replaces several glyphs (' ’ & $ % # @ - and the digit 4 …)
-     with "DEMO" watermarks. Restrict it to letters, verified-safe digits, and
-     safe punctuation; everything else falls back to Helvetica/Arial. Remove
-     this unicode-range once a licensed Proxima Nova replaces the demo file. */
-  unicode-range: U+0020-0021, U+002C, U+002E, U+0030-0033, U+0035-003B, U+003F,
-    U+0041-005A, U+0061-007A, U+2013-2014;
-}
 
 @font-face {
   font-family: 'Loretta';
@@ -51,11 +46,17 @@
 }
 
 /* Override Dawn's font pipeline (source order: this sheet loads after the
-   inline :root block in theme.liquid, so these win). */
+   inline :root block in theme.liquid, so these win) — heading family/style
+   are deliberately absent here now: Dawn's own type_header_font-driven
+   values (Fraunces) pass through unmodified. Weight is still bumped: every
+   headline across the site was designed against a bold sans, and Fraunces'
+   default picker weight is a lighter regular — 600 keeps the same visual
+   presence. Fraunces ships as a variable font, so a real 600 should be
+   available rather than a synthesized faux-bold, but that's worth a visual
+   spot-check in the real Shopify theme editor (this offline dev harness
+   can't render actual Shopify-hosted webfonts to verify). */
 :root {
-  --font-heading-family: 'Proxima Nova', 'Helvetica Neue', Arial, sans-serif;
-  --font-heading-style: normal;
-  --font-heading-weight: 700;
+  --font-heading-weight: 600;
 
   --font-body-family: 'Euclid Flex', 'Helvetica Neue', Arial, sans-serif;
   --font-body-style: normal;
@@ -64,8 +65,6 @@
 
   /* Brand-specific roles consumed by Smooch components */
   --smooch-font-serif: 'Loretta', Georgia, 'Times New Roman', serif;
-  --smooch-font-label: 'Proxima Nova', 'Helvetica Neue', Arial, sans-serif;
-  /* Prices and other numeral-heavy UI render in Euclid for flawless digits
-     (the DEMO Proxima can't be trusted with every glyph). */
+  --smooch-font-label: 'Euclid Flex', 'Helvetica Neue', Arial, sans-serif;
   --smooch-font-numeric: 'Euclid Flex', 'Helvetica Neue', Arial, sans-serif;
 }
