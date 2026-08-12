@@ -481,7 +481,6 @@ if (!customElements.get('smooch-offer')) {
               perDayText: mainPrices && mainPrices.pd ? mainPrices.pd : '',
               saveText: mainPrices && planId && mainPrices.s > 0 ? `Subscribe & Save ${mainPrices.s}%` : '',
               isSubscribe: !!planId,
-              summaryText: `${bundleMeta.label || supplyText} · ${planId ? 'Subscribe' : 'One-time'}`,
             },
           })
         );
@@ -547,8 +546,6 @@ if (!customElements.get('smooch-sticky-atc')) {
         this.boundOnOffer = (event) => {
           if (!event.detail || event.detail.sectionId !== this.sectionId) return;
           if (this.priceEl && event.detail.priceText) this.priceEl.textContent = event.detail.priceText;
-          const summaryEl = this.querySelector('[data-sticky-summary]');
-          if (summaryEl && event.detail.summaryText) summaryEl.textContent = event.detail.summaryText;
           if (this.compareEl) {
             if (event.detail.compareText) {
               this.compareEl.textContent = event.detail.compareText;

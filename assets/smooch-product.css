@@ -1018,6 +1018,57 @@
   }
 }
 
+/* Sticky bar CTA: the same pink → black + sliding-arrow hover as the
+   buybox's own Add to Cart button (see above) — one consistent purchase
+   animation across the page, not a second, different-looking button. */
+.smooch-sticky-atc__button {
+  gap: 0;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.smooch-sticky-atc__button::before {
+  content: '';
+  position: static;
+  order: 1;
+  display: inline-block;
+  width: 0;
+  height: 1.6rem;
+  margin-left: 0;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h16M14 6l6 6-6 6'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h16M14 6l6 6-6 6'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  opacity: 0;
+  overflow: hidden;
+  transition: width 0.25s ease, margin-left 0.25s ease, opacity 0.2s ease;
+}
+
+.smooch-sticky-atc__button:hover,
+.smooch-sticky-atc__button:focus-visible {
+  background-color: rgb(17, 17, 17);
+  border-color: rgb(17, 17, 17);
+  opacity: 1;
+}
+
+.smooch-sticky-atc__button:hover::before,
+.smooch-sticky-atc__button:focus-visible::before {
+  width: 1.6rem;
+  margin-left: 0.8rem;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smooch-sticky-atc__button,
+  .smooch-sticky-atc__button::before {
+    transition: none;
+  }
+}
+
 .smooch-buybox__buy-trust {
   display: flex;
   align-items: center;
@@ -1155,9 +1206,15 @@ body.smooch-sticky-atc-visible {
 .smooch-sticky-atc__save {
   grid-area: save;
   justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.9rem;
+  border-radius: 2rem;
+  background-color: var(--smooch-berry);
+  color: rgb(255, 255, 255);
   font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--smooch-berry);
+  font-weight: 700;
+  letter-spacing: 0.02em;
   white-space: nowrap;
 }
 
