@@ -46,10 +46,17 @@
   <link rel="icon" type="image/svg+xml" href="{{ 'smooch-favicon.svg' | asset_url }}">
 {%- endif -%}
 
-{%- if settings.smooch_use_brand_fonts -%}
-  {{ 'smooch-fonts.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
 {{ 'smooch-base.css' | asset_url | stylesheet_tag }}
 {{ 'smooch-layout.css' | asset_url | stylesheet_tag }}
 {{ 'smooch-components.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  Loads last so its overrides (Fraunces heading pass-through, Loretta,
+  Euclid Flex) actually win — smooch-base.css sets its OWN fallback
+  defaults for these same custom properties (e.g. --smooch-font-label),
+  and a :root rule loaded earlier loses a same-specificity tie to one
+  loaded later regardless of which file "sounds like" the override.
+{%- endcomment -%}
+{%- if settings.smooch_use_brand_fonts -%}
+  {{ 'smooch-fonts.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 <script src="{{ 'smooch.js' | asset_url }}" defer="defer"></script>

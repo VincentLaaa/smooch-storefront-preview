@@ -49,7 +49,7 @@ const settingsData = readJson('config/settings_data.json');
 function fontDrop(family, weight = 400, style = 'normal') {
   return {
     family, weight, style,
-    fallback_families: /playfair|serif/i.test(family) ? 'serif' : 'sans-serif',
+    fallback_families: /playfair|fraunces|serif/i.test(family) ? 'serif' : 'sans-serif',
     'system?': false,
     system: false,
     toString() { return family; },
@@ -84,7 +84,7 @@ export function resolveGlobalSettings() {
   for (const [k, v] of Object.entries(out)) {
     if (typeof v === 'string' && /^#[0-9a-fA-F]{3,8}$/.test(v) && k !== 'color_schemes') out[k] = colorDrop(v);
   }
-  out.type_header_font = fontDrop('Playfair Display', 500);
+  out.type_header_font = fontDrop('Fraunces', 400);
   out.type_body_font = fontDrop('Assistant', 400);
   out.logo = null;
   out.favicon = null;
