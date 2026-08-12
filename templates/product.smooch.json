@@ -138,7 +138,7 @@
           "settings": {
             "heading": "Is this right for me?",
             "icon": "info",
-            "content": "<p>[brand] is a daily-support gummy for women who want a simple ritual around mood, desire, and connection. It is not an on-demand product, and it isn't for anyone pregnant, breastfeeding, or on medication without talking to a qualified healthcare professional first.</p>",
+            "content": "<p>[brand] is a daily-support gummy for women who want a simple ritual around mood, desire, and connection. It is not an on-demand product, and it isn't for anyone pregnant, breastfeeding, or on medication without talking to a qualified healthcare professional first.</p><p><strong>If you check any of these boxes, this is for you:</strong></p><ul class=\"smooch-checklist\"><li>You have a low sex drive</li><li>You want more sexual satisfaction</li><li>Stress is affecting your sex life</li><li>Want to feel more like yourself</li></ul>",
             "open_by_default": true
           }
         },

@@ -169,6 +169,35 @@
   color: var(--smooch-berry);
 }
 
+/* ---------- Checklist (empty checkbox squares, e.g. "is this right for me") ---------- */
+
+.smooch-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.smooch-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.smooch-checklist li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-top: 0.1rem;
+  border: 0.15rem solid var(--smooch-berry);
+  border-radius: 0.4rem;
+  background-color: rgba(var(--smooch-berry-rgb), 0.08);
+}
+
 /* ---------- Icon sizing ---------- */
 
 .smooch-icon {
