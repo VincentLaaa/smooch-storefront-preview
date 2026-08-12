@@ -27,6 +27,22 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* The reused scroll-story scene (halo glow, sticky offset) reads these
+     custom properties; the dedicated smooch-scroll-story section sets them
+     from its own color pickers, but this section has none, so they're
+     unset here without an explicit default — leaving the halo invisible. */
+  #shopify-section-{{ section.id }} {
+    --smooch-story-text: var(--smooch-ink);
+    --smooch-story-accent: var(--smooch-plum);
+    --smooch-story-sticky-top: 12rem;
+  }
+
+  @media screen and (min-width: 990px) {
+    #shopify-section-{{ section.id }} {
+      --smooch-story-sticky-top: 16vh;
+    }
+  }
 {%- endstyle -%}
 
 {%- liquid
@@ -173,26 +189,35 @@
             {%- endfor -%}
           </ol>
         {%- endif -%}
-
-        {%- if fact_blocks.size > 0 -%}
-          <div class="smooch-timeline__facts">
-            {%- for fact in fact_blocks -%}
-              {%- if fact.settings.title != blank -%}
-                <div class="smooch-timeline__fact" {{ fact.shopify_attributes }}>
-                  <h3 class="smooch-timeline__fact-title">{{ fact.settings.title | replace: '[brand]', brand_name | escape }}</h3>
-                  <p class="smooch-timeline__fact-text">{{ fact.settings.text | replace: '[brand]', brand_name | escape }}</p>
-                </div>
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
-
-        {%- if section.settings.disclaimer != blank -%}
-          <p class="smooch-fine-print smooch-timeline__disclaimer">
-            {{- section.settings.disclaimer | replace: '[brand]', brand_name | escape -}}
-          </p>
-        {%- endif -%}
       </div>
+
+      {%- if fact_blocks.size > 0 or section.settings.disclaimer != blank -%}
+        {%- comment -%}
+          Full-width footer row spanning every column, not trapped inside the
+          (narrower) content column — reads as one strip under the whole
+          composition, matching the reference layout.
+        {%- endcomment -%}
+        <div class="smooch-timeline__footer">
+          {%- if fact_blocks.size > 0 -%}
+            <div class="smooch-timeline__facts">
+              {%- for fact in fact_blocks -%}
+                {%- if fact.settings.title != blank -%}
+                  <div class="smooch-timeline__fact" {{ fact.shopify_attributes }}>
+                    <h3 class="smooch-timeline__fact-title">{{ fact.settings.title | replace: '[brand]', brand_name | escape }}</h3>
+                    <p class="smooch-timeline__fact-text">{{ fact.settings.text | replace: '[brand]', brand_name | escape }}</p>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.disclaimer != blank -%}
+            <p class="smooch-fine-print smooch-timeline__disclaimer">
+              {{- section.settings.disclaimer | replace: '[brand]', brand_name | escape -}}
+            </p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </div>
@@ -214,7 +239,7 @@
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
+      "default": "scheme-6"
     },
     {
       "type": "header",

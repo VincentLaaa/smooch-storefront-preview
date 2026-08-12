@@ -59,6 +59,17 @@
             "secondary_button_label": "#C42A50",
             "shadow": "#231A1E"
           }
+        },
+        "scheme-6": {
+          "settings": {
+            "background": "#F1E4F5",
+            "background_gradient": "linear-gradient(160deg, #FBEFF1 0%, #F1E1F0 45%, #E1CDEE 100%)",
+            "text": "#231A1E",
+            "button": "#231A1E",
+            "button_label": "#FFF7F4",
+            "secondary_button_label": "#8246AF",
+            "shadow": "#231A1E"
+          }
         }
       },
       "type_header_font": "playfair_display_n5",
