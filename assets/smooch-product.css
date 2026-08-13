@@ -95,7 +95,7 @@
 .smooch-bundles {
   border: 0;
   padding: 0;
-  margin: 0;
+  margin: 1rem 0 0;
   min-width: 0;
 }
 
@@ -255,13 +255,13 @@
   .smooch-bundle__card {
     grid-template-columns: 1fr;
     gap: 0.5rem;
-    padding: 3.2rem 1.3rem 1.4rem;
+    padding: 4.6rem 1.3rem 1.4rem;
     text-align: center;
   }
 
   .smooch-bundle__check {
     left: 50%;
-    top: 1.1rem;
+    top: 2.4rem;
     transform: translateX(-50%);
     width: 1.9rem;
     height: 1.9rem;
