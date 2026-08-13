@@ -1,15 +1,24 @@
 {% comment %}
   Renders a reviewer avatar: the merchant's uploaded photo if present,
-  otherwise a monogram (first initial) — never a stock/invented headshot,
-  so a reviewer never appears to have a photo that isn't really theirs.
+  else a bundled AI-generated placeholder photo for reviewers this theme
+  ships as fixture content (matched by name — see FALLBACK_PHOTOS below),
+  else a monogram (first initial). The bundled photos are stand-ins for
+  demo/preview purposes only — swap in real reviewer photos before launch.
 
   Accepts:
   - avatar: {Object} image (optional)
-  - author: {String} reviewer name, for alt text / initial (required)
+  - author: {String} reviewer name, for alt text / initial / fallback match (required)
 
   Usage:
   {% render 'smooch-review-avatar', avatar: block.settings.avatar, author: block.settings.author %}
 {% endcomment %}
+{%- liquid
+  assign fallback_src = ''
+  case author
+    when 'Maya T.'
+      assign fallback_src = 'smooch-reviewer-maya.jpg'
+  endcase
+-%}
 <span class="smooch-rc__avatar">
   {%- if avatar != blank -%}
     {{
@@ -17,6 +26,15 @@
       | image_url: width: 96
       | image_tag: loading: 'lazy', widths: '48, 96', sizes: '4.4rem', class: 'smooch-rc__avatar-img', alt: author
     }}
+  {%- elsif fallback_src != blank -%}
+    <img
+      src="{{ fallback_src | asset_url }}"
+      width="400"
+      height="400"
+      loading="lazy"
+      class="smooch-rc__avatar-img"
+      alt="{{ author | escape }}"
+    >
   {%- else -%}
     <span class="smooch-rc__avatar-mono" aria-hidden="true">{{ author | slice: 0, 1 }}</span>
   {%- endif -%}
