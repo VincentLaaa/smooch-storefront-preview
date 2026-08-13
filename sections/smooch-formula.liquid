@@ -76,6 +76,23 @@
               assign display_name = block.settings.name | replace: '[brand]', brand_name | default: 'Ingredient'
               assign index_label = forloop.index | prepend: '00' | slice: -2, 2
               assign macro_alt = block.settings.image.alt | default: display_name | escape
+
+              comment
+                Bundled real ingredient macro photos used until a merchant
+                uploads their own — matched by ingredient name, same pattern
+                as the other sections' bundled product-photo fallbacks.
+              endcomment
+              assign fallback_photo = ''
+              case block.settings.name
+                when 'Black Maca'
+                  assign fallback_photo = 'smooch-ingredient-maca.jpg'
+                when 'KSM-66 Ashwagandha'
+                  assign fallback_photo = 'smooch-ingredient-ashwagandha.jpg'
+                when 'Damiana'
+                  assign fallback_photo = 'smooch-ingredient-damiana.jpg'
+                when 'Cinnamon Bark'
+                  assign fallback_photo = 'smooch-ingredient-cinnamon.jpg'
+              endcase
             -%}
             <li class="smooch-formula__item" {{ block.shopify_attributes }}>
               <div class="smooch-formula__meta">
@@ -100,7 +117,7 @@
               </div>
 
               <div class="smooch-formula__body">
-                <div class="smooch-media smooch-media--square smooch-formula__media{% if block.settings.image == blank %} smooch-formula__media--empty{% endif %}">
+                <div class="smooch-media smooch-media--square smooch-formula__media{% if block.settings.image == blank and fallback_photo == blank %} smooch-formula__media--empty{% endif %}">
                   {%- if block.settings.image != blank -%}
                     {{
                       block.settings.image
@@ -111,6 +128,15 @@
                         sizes: '(min-width: 990px) 128px, 104px',
                         alt: macro_alt
                     }}
+                  {%- elsif fallback_photo != blank -%}
+                    <img
+                      src="{{ fallback_photo | asset_url }}"
+                      width="900"
+                      height="900"
+                      loading="lazy"
+                      class="smooch-formula__media-fallback"
+                      alt="{{ macro_alt }}"
+                    >
                   {%- else -%}
                     {% render 'smooch-icon', icon: 'leaf', class: 'smooch-icon--xl' %}
                   {%- endif -%}
