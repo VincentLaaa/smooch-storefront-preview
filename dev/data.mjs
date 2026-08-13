@@ -139,7 +139,7 @@ function buildOptionValues(product, optionName, names, selectedName, position) {
 /** Fixture product definitions. Prices in cents. */
 const FIXTURES = {
   'smooch-daily-gummies-qa': {
-    title: "Women's Libido & Mood Gummies — Dev Fixture",
+    title: "Women's Libido & Mood Gummies",
     vendor: 'Smooch',
     type: "Women's Wellness Gummy",
     description: '<p><strong>Offline development fixture</strong> — all data on this page is mock data rendered locally.</p>',
@@ -168,7 +168,7 @@ const FIXTURES = {
     ],
   },
   'smooch-daily-gummies-qa-single': {
-    title: "Women's Libido & Mood — Single Dev Fixture",
+    title: "Women's Libido & Mood — Single",
     vendor: 'Smooch',
     type: "Women's Wellness Gummy",
     description: '<p><strong>Offline development fixture</strong> — single-variant, no compare-at, no plans.</p>',
