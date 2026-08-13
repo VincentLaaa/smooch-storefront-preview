@@ -84,8 +84,8 @@ export function resolveGlobalSettings() {
   for (const [k, v] of Object.entries(out)) {
     if (typeof v === 'string' && /^#[0-9a-fA-F]{3,8}$/.test(v) && k !== 'color_schemes') out[k] = colorDrop(v);
   }
-  out.type_header_font = fontDrop('Fraunces', 400);
-  out.type_body_font = fontDrop('Assistant', 400);
+  out.type_header_font = fontDrop('Avenir Next', 400);
+  out.type_body_font = fontDrop('Avenir Next', 400);
   out.logo = null;
   out.favicon = null;
   return out;

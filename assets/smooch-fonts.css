@@ -1,22 +1,15 @@
-/* Smooch brand fonts:
-   - Headings: Fraunces — a warm, soft-curved serif that reads feminine and
-     elevated without being stuffy, and pairs well with the playful "smooch"
-     wordmark. Served natively through Shopify's own licensed font library
-     via the type_header_font theme setting (config/settings_data.json) —
-     Dawn's own pipeline (layout/theme.liquid) loads and self-hosts it, so
-     nothing is bundled here and there's no license to manage.
-   - Body paragraphs & editorial copy: Loretta (serif, "Grad" role)
-   - Supporting UI text (prices, inputs, nav, captions, labels + buttons):
-     Euclid Flex
+/* Smooch brand fonts — EXPERIMENT (2026-08-13): whole-site Avenir Next trial.
+   Headings, body, labels, and numerics all now pass through to Dawn's
+   native type_header_font / type_body_font values (both set to Avenir
+   Next in config/settings_data.json), served natively through Shopify's
+   own licensed font library — no files bundled here, no license to manage.
 
-   This file used to also bundle Proxima Nova for headings/labels — that
-   was a Fontspring DEMO file (watermarked glyphs, restricted via
-   unicode-range) never licensed for production, tracked as a launch
-   blocker in docs/SMOOCH-LAUNCH-READINESS.md. Replaced with Fraunces
-   instead of buying a Proxima Nova license: resolves the blocker and reads
-   better on-brand, at no cost. --font-heading-* is intentionally NOT
-   overridden below anymore — Dawn's own settings-driven values (now
-   Fraunces) pass through.
+   This intentionally REPLACES the previous brand pairing (Fraunces
+   headings / Loretta editorial serif body / Euclid Flex labels) for this
+   trial. The Loretta/Euclid @font-face declarations below stay defined
+   but unused by the :root block, so reverting this experiment is a
+   one-file change: restore the :root block's previous values (see git
+   history on this file) to bring the old pairing back.
 
    Loaded by snippets/smooch-theme-tokens.liquid when the
    "Use Smooch brand fonts" theme setting is enabled (default on). */
@@ -45,26 +38,15 @@
   font-display: swap;
 }
 
-/* Override Dawn's font pipeline (source order: this sheet loads after the
-   inline :root block in theme.liquid, so these win) — heading family/style
-   are deliberately absent here now: Dawn's own type_header_font-driven
-   values (Fraunces) pass through unmodified. Weight is still bumped: every
-   headline across the site was designed against a bold sans, and Fraunces'
-   default picker weight is a lighter regular — 600 keeps the same visual
-   presence. Fraunces ships as a variable font, so a real 600 should be
-   available rather than a synthesized faux-bold, but that's worth a visual
-   spot-check in the real Shopify theme editor (this offline dev harness
-   can't render actual Shopify-hosted webfonts to verify). */
+/* Nothing overridden below on purpose: Dawn's own type_header_font /
+   type_body_font-driven values (both Avenir Next) pass through unmodified
+   for headings and body/UI text. The three Smooch-specific roles
+   (editorial serif body, label/eyebrow text, numeric price display) are
+   repointed from their old dedicated families to the same native
+   pass-throughs, so every text role on the site — not just headings and
+   paragraphs — renders in Avenir Next for this trial. */
 :root {
-  --font-heading-weight: 600;
-
-  --font-body-family: 'Euclid Flex', 'Helvetica Neue', Arial, sans-serif;
-  --font-body-style: normal;
-  --font-body-weight: 400;
-  --font-body-weight-bold: 700;
-
-  /* Brand-specific roles consumed by Smooch components */
-  --smooch-font-serif: 'Loretta', Georgia, 'Times New Roman', serif;
-  --smooch-font-label: 'Euclid Flex', 'Helvetica Neue', Arial, sans-serif;
-  --smooch-font-numeric: 'Euclid Flex', 'Helvetica Neue', Arial, sans-serif;
+  --smooch-font-serif: var(--font-body-family);
+  --smooch-font-label: var(--font-body-family);
+  --smooch-font-numeric: var(--font-body-family);
 }
