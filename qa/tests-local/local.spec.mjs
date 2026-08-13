@@ -532,16 +532,21 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(sticky.locator('[data-sticky-summary]')).toHaveText("Smooch Women's Libido & Mood Gummies");
   });
 
-  test('media info cards render in the gallery column', async ({ page }) => {
+  test('gallery column has no media info cards (all removed from this PDP)', async ({ page }) => {
     const cards = page.locator('product-info').first().locator('.smooch-media-card');
-    await expect(cards).toHaveCount(1);
-    await expect(cards.nth(0).locator('.smooch-media-card__heading')).toHaveText('Mood · Desire · Connection');
-    await page.locator('.smooch-media-cards').first().screenshot({ path: 'qa/screenshots/pdp-refresh/after-media-cards-desktop-1440.png' });
+    await expect(cards).toHaveCount(0);
+    // The whole wrapper is gated on having at least one card, so it shouldn't render either.
+    expect(await page.locator('.smooch-media-cards').count()).toBe(0);
   });
 
   test('sticky gallery never slides over the media cards while scrolling', async ({ page }) => {
     // The sticky unit must be the whole media column (gallery + card rail);
     // sticking only Dawn's inner media-gallery lets it ride down over the cards.
+    // Regression guard only applies when the gallery card rail is present —
+    // this PDP currently ships with none (all media_card blocks removed).
+    if (await page.locator('.smooch-media-cards').count() === 0) {
+      test.skip(true, 'no media cards on this PDP instance to guard against overlap');
+    }
     await page.setViewportSize({ width: 1440, height: 900 });
     for (const y of [0, 400, 800, 1200, 1600, 2200]) {
       await page.evaluate((v) => window.scrollTo(0, v), y);

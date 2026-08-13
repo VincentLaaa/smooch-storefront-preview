@@ -106,15 +106,6 @@
             "footer_text": "HSA/FSA eligible · Save an average of 30% with a subscription"
           }
         },
-        "media_card-1": {
-          "type": "media_card",
-          "settings": {
-            "kicker": "The system",
-            "heading": "Mood · Desire · Connection",
-            "text": "<p>One gummy, formulated to support all three — softly, daily.</p>",
-            "palette": "blush"
-          }
-        },
         "collapsible_tab-1": {
           "type": "collapsible_tab",
           "settings": {
@@ -165,7 +156,6 @@
         "price-1",
         "buy_buttons-1",
         "reassurance-1",
-        "media_card-1",
         "collapsible_tab-1",
         "collapsible_tab-2",
         "collapsible_tab-3",
