@@ -92,7 +92,7 @@
             {%- endfor -%}
           </span>
           <p class="smooch-rf__summary-caption">
-            Based on {{ review_count }} sample review{% if review_count != 1 %}s{% endif %}
+            Based on {{ review_count }} {% if is_sample %}sample {% endif %}review{% if review_count != 1 %}s{% endif %}
           </p>
         </div>
 

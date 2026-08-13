@@ -1029,7 +1029,8 @@
         "r40"
       ],
       "settings": {
-        "rating_value": "4.8"
+        "rating_value": "4.8",
+        "is_sample_content": false
       }
     }
   },

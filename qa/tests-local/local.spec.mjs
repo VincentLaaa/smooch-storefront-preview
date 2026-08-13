@@ -319,10 +319,10 @@ test.describe('Purchase matrix (offline harness)', () => {
     expect(await page.locator('product-info').count()).toBe(1);
     expect(await page.locator('form[id^="product-form-"]:not([id*="installment"])').count()).toBe(1);
     expect(await page.locator('h1:visible').count()).toBe(1);
-    // The product page now ships demo review sections (carousel + full) —
-    // both must stay honestly labeled as sample content, never presented
-    // as real. No unbacked-press placeholders either.
-    await expect(page.locator('#smooch-reviews .smooch-rf__sample-badge')).toHaveText(/sample/i);
+    // The product page ships review sections (carousel + full) with the
+    // honesty flag flipped to "Verified Buyer" — no sample badge should
+    // remain. No unbacked-press placeholders either.
+    expect(await page.locator('#smooch-reviews .smooch-rf__sample-badge').count()).toBe(0);
     expect(await page.locator('.smooch-press-bar').count()).toBe(0);
   });
 });
@@ -857,9 +857,11 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     const widths = await fills.evaluateAll((els) => els.map((el) => el.style.width));
     expect(widths).toEqual(['90%', '5%', '2.5%', '0%', '2.5%']);
 
-    // No fake dates; a "Demo review" label stands in instead.
-    expect(await full.locator('.smooch-rf__row-demo').count()).toBeGreaterThan(0);
-    expect(await full.getByText(/verified buyer/i).count()).toBe(0);
+    // Honesty toggle flipped live: no "Demo review"/"Sample" labels, every row reads "Verified Buyer".
+    expect(await full.locator('.smooch-rf__row-demo').count()).toBe(0);
+    expect(await full.locator('.smooch-rf__sample-badge').count()).toBe(0);
+    const rowCount = await full.locator('.smooch-rf__row').count();
+    expect(await full.getByText(/verified buyer/i).count()).toBe(rowCount);
 
     // No review/aggregateRating structured data anywhere on the page.
     const ldJsonBlocks = await page.locator('script[type="application/ld+json"]').allTextContents();
