@@ -38,14 +38,17 @@
   font-display: swap;
 }
 
-/* Nothing overridden below on purpose: Dawn's own type_header_font /
-   type_body_font-driven values (both Avenir Next) pass through unmodified
-   for headings and body/UI text. The three Smooch-specific roles
-   (editorial serif body, label/eyebrow text, numeric price display) are
-   repointed from their old dedicated families to the same native
-   pass-throughs, so every text role on the site — not just headings and
-   paragraphs — renders in Avenir Next for this trial. */
+/* Dawn's own type_header_font / type_body_font-driven values (both Avenir
+   Next) pass through unmodified for family/style — only weight is bumped
+   for headings/titles (bold reads better than regular at title sizes;
+   body/UI text stays at the font's native regular weight). The three
+   Smooch-specific roles (editorial serif body, label/eyebrow text,
+   numeric price display) are repointed from their old dedicated families
+   to the same native pass-throughs, so every text role on the site — not
+   just headings and paragraphs — renders in Avenir Next for this trial. */
 :root {
+  --font-heading-weight: 700;
+
   --smooch-font-serif: var(--font-body-family);
   --smooch-font-label: var(--font-body-family);
   --smooch-font-numeric: var(--font-body-family);
