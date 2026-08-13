@@ -534,7 +534,7 @@ test.describe('PDP refresh: guided purchase flow', () => {
 
   test('media info cards render in the gallery column', async ({ page }) => {
     const cards = page.locator('product-info').first().locator('.smooch-media-card');
-    await expect(cards).toHaveCount(3);
+    await expect(cards).toHaveCount(1);
     await expect(cards.nth(0).locator('.smooch-media-card__heading')).toHaveText('Mood · Desire · Connection');
     await page.locator('.smooch-media-cards').first().screenshot({ path: 'qa/screenshots/pdp-refresh/after-media-cards-desktop-1440.png' });
   });

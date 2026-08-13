@@ -115,24 +115,6 @@
             "palette": "blush"
           }
         },
-        "media_card-2": {
-          "type": "media_card",
-          "settings": {
-            "kicker": "Inside",
-            "heading": "Four working ingredients",
-            "text": "<p>KSM-66 Ashwagandha, Black Maca, Damiana, and Cinnamon Bark.</p>",
-            "palette": "cream"
-          }
-        },
-        "media_card-3": {
-          "type": "media_card",
-          "settings": {
-            "kicker": "The ritual",
-            "heading": "One gummy, once a day",
-            "text": "<p>With or without food — consistency matters more than timing.</p>",
-            "palette": "lilac"
-          }
-        },
         "collapsible_tab-1": {
           "type": "collapsible_tab",
           "settings": {
@@ -184,8 +166,6 @@
         "buy_buttons-1",
         "reassurance-1",
         "media_card-1",
-        "media_card-2",
-        "media_card-3",
         "collapsible_tab-1",
         "collapsible_tab-2",
         "collapsible_tab-3",
@@ -215,20 +195,12 @@
           "settings": {
             "icon": "shield"
           }
-        },
-        "item-3": {
-          "type": "item",
-          "settings": {
-            "icon": "refresh",
-            "text": "Subscription optional"
-          }
         }
       },
       "block_order": [
         "item-1",
         "item-2",
-        "guarantee-1",
-        "item-3"
+        "guarantee-1"
       ],
       "settings": {}
     },
