@@ -13,6 +13,7 @@
 <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'smooch-product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'smooch-product-gallery.js' | asset_url }}" defer="defer"></script>
 
 {% if section.settings.image_zoom == 'hover' %}
   <script id="EnableZoomOnHover-{{ section.id }}" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
@@ -52,6 +53,18 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  {%- if section.settings.use_media_background %}
+    {%- comment -%}
+      Gallery hero canvas: when the merchant's imagery has a baked-in
+      background color, matching it here makes the image -> page transition
+      invisible (Neutonic treatment). Off by default so transparent-cutout
+      imagery floats directly on the section background.
+    {%- endcomment %}
+    #MainProduct-{{ section.id }} {
+      --smooch-media-bg: {{ section.settings.media_background }};
+    }
+  {%- endif %}
 {%- endstyle -%}
 
 {%- liquid
@@ -172,14 +185,40 @@
     <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
       <div class="page-width">
         <div class="product product--{{ section.settings.media_size }} product--left product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %} smooch-product__layout">
-          <div class="grid__item product__media-wrapper smooch-product__gallery{% if section.settings.enable_sticky_info %} smooch-product__gallery--sticky{% endif %}">
+          <div
+            class="grid__item product__media-wrapper smooch-product__gallery{% if section.settings.enable_sticky_info %} smooch-product__gallery--sticky{% endif %}"
+            data-smooch-gallery
+          >
             {%- liquid
               assign lazy_gallery = false
               if section.settings.eager_first_image == false
                 assign lazy_gallery = true
               endif
             -%}
-            {% render 'product-media-gallery', variant_images: variant_images, lazy_load_all: lazy_gallery %}
+            <div class="smooch-gallery__canvas">
+              {% render 'product-media-gallery', variant_images: variant_images, lazy_load_all: lazy_gallery %}
+              {%- if section.settings.show_gallery_arrows and product.media.size > 1 -%}
+                <button
+                  type="button"
+                  class="smooch-gallery__arrow smooch-gallery__arrow--prev"
+                  data-gallery-prev
+                  aria-label="{{ 'general.slider.previous_slide' | t }}"
+                >
+                  {% render 'smooch-icon', icon: 'arrow-left', class: 'smooch-icon--sm' %}
+                </button>
+                <button
+                  type="button"
+                  class="smooch-gallery__arrow smooch-gallery__arrow--next"
+                  data-gallery-next
+                  aria-label="{{ 'general.slider.next_slide' | t }}"
+                >
+                  {% render 'smooch-icon', icon: 'arrow-right', class: 'smooch-icon--sm' %}
+                </button>
+              {%- endif -%}
+            </div>
+            {%- if section.settings.show_gallery_dots and product.media.size > 1 -%}
+              <div class="smooch-gallery__dots" data-gallery-dots aria-label="Gallery pagination"></div>
+            {%- endif -%}
 
             {%- comment -%}
               Branded informational media cards (Lemme-style): merchant-authored
@@ -1004,6 +1043,36 @@
     {
       "type": "header",
       "content": "Media gallery"
+    },
+    {
+      "type": "paragraph",
+      "content": "The gallery is a full-width swipe/drag carousel: the first image reads as a hero composition sitting directly on the page, with no box around it."
+    },
+    {
+      "type": "checkbox",
+      "id": "use_media_background",
+      "label": "Use a custom canvas background",
+      "default": false,
+      "info": "Off: the media area is transparent and the section background shows through (best for cutout/transparent imagery). On: the canvas uses the color below — match it to the background baked into your photos so the image blends seamlessly into the page."
+    },
+    {
+      "type": "color",
+      "id": "media_background",
+      "label": "Canvas background color",
+      "default": "#FAF1EE"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gallery_arrows",
+      "label": "Show gallery arrows",
+      "default": true,
+      "info": "Subtle previous/next controls that appear on hover (desktop only — mobile navigates by swiping)."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gallery_dots",
+      "label": "Show gallery dots",
+      "default": true
     },
     {
       "type": "select",

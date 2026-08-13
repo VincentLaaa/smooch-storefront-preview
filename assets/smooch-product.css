@@ -1362,38 +1362,214 @@ body.smooch-sticky-atc-visible {
   }
 }
 
-/* ---------- Collage gallery ---------- */
+/* ---------- Hero media carousel (Neutonic-style) ---------- */
 
-/* In the columns (collage) layouts, mixed aspect ratios leave ragged rows.
-   Uniform square tiles keep every photo visible in a tight grid; images
-   stay contain-fit so nothing is cropped. The inline --ratio Dawn stamps on
-   each container loses to !important here. */
-.smooch-product .product--columns .product-media-container,
-.smooch-product .product--mobile-columns .product-media-container {
-  --ratio: 1 !important;
-  --preview-ratio: 1 !important;
+/* One continuous canvas: no card/box chrome anywhere in the media column.
+   Slides sit directly on the canvas background (--smooch-media-bg, default
+   transparent, so the section background shows through and the first image
+   reads as part of the page, not as an image in a white rectangle). The
+   canvas color is a theme-editor setting emitted as this custom property —
+   set it to the background color baked into your imagery and the image ->
+   page transition disappears. */
+.smooch-gallery__canvas {
+  position: relative;
+  border-radius: var(--smooch-radius-media);
+  background: var(--smooch-media-bg, transparent);
+  overflow: hidden;
 }
 
-/* Mobile: Dawn keeps a 2-across slider when there are 3+ photos. Replace it
-   with a real two-column grid so every photo is visible without swiping. */
-@media screen and (max-width: 749.98px) {
-  .smooch-product .product--mobile-columns .product__media-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    overflow: visible;
-    scroll-snap-type: none;
-    margin-bottom: 1.6rem;
-  }
+/* The media list is a full-width snap carousel at every viewport: native
+   horizontal scroll (touch swipe + trackpad for free), one slide per view.
+   smooch-product-gallery.js adds mouse drag, dots, and arrow affordances. */
+/* Dawn's slider-mobile-gutter wrapper bleeds -1.5rem into the page gutters
+   on mobile for its own peek effect — inside the hero canvas the track must
+   match the canvas exactly or snap points drift off the slide edges. */
+.smooch-gallery__canvas slider-component {
+  margin: 0 !important;
+  width: 100%;
+}
 
-  .smooch-product .product--mobile-columns .product__media-item {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-  }
+.smooch-product .product__media-list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
 
-  .smooch-product .product--mobile-columns .slider-buttons {
+.smooch-product .product__media-list::-webkit-scrollbar {
+  display: none;
+}
+
+.smooch-product .product__media-list.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  user-select: none;
+}
+
+/* Dawn's product--columns layout caps items at ~50% width via :not() chains
+   with higher specificity — the hero carousel needs exactly one full-width
+   slide per view regardless of which Dawn layout modifier is active. */
+.smooch-product .product__media-item {
+  flex: 0 0 100%;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+/* Kill Dawn's boxed-tile treatment (global-media-settings): transparent
+   background, no border/shadow/radius — the slide is just the product image
+   floating on the shared canvas. Square ratio keeps every slide the same
+   height regardless of source aspect (images stay contain-fit, uncropped);
+   the inline --ratio Dawn stamps on each container loses to !important. */
+.smooch-product .product-media-container {
+  --ratio: 1 !important;
+  --preview-ratio: 1 !important;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+  max-height: none;
+}
+
+/* Dawn's own slider chrome (caret buttons + "1 / 4" counter) is replaced by
+   the overlay arrows + dots below. */
+.smooch-product .product__media-wrapper .slider-buttons {
+  display: none;
+}
+
+/* Dawn's floating magnifier badge is more gallery chrome — the whole image
+   is already the zoom opener, so the hint icon only breaks the clean canvas. */
+.smooch-product .product__media-icon {
+  display: none;
+}
+
+/* ----- Overlay arrows: subtle, secondary, desktop-hover affordance ----- */
+
+.smooch-gallery__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.4rem;
+  min-height: 4.4rem;
+  border: 0.1rem solid var(--smooch-border-soft, rgba(0, 0, 0, 0.12));
+  border-radius: 50%;
+  background-color: rgba(var(--smooch-surface-rgb), 0.85);
+  color: var(--smooch-ink);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease, background-color 200ms ease;
+}
+
+.smooch-gallery__arrow--prev {
+  left: 1.2rem;
+}
+
+.smooch-gallery__arrow--next {
+  right: 1.2rem;
+}
+
+/* Arrows only appear once the JS controller is live, and only while the
+   canvas is hovered or holds keyboard focus — the image itself is the
+   primary navigation surface. */
+.smooch-gallery--ready .smooch-gallery__canvas:hover .smooch-gallery__arrow,
+.smooch-gallery--ready .smooch-gallery__canvas:focus-within .smooch-gallery__arrow {
+  opacity: 1;
+  visibility: visible;
+}
+
+.smooch-gallery__arrow:hover {
+  background-color: rgb(var(--smooch-surface-rgb));
+}
+
+.smooch-gallery__arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Touch devices navigate by swiping — no overlay arrows. */
+@media (hover: none) {
+  .smooch-gallery__arrow {
     display: none;
+  }
+}
+
+/* ----- Pagination dots ----- */
+
+.smooch-gallery__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  min-height: 2.4rem;
+}
+
+.smooch-gallery--single .smooch-gallery__dots {
+  display: none;
+}
+
+/* Comfortable 2.4rem hit area around a small visual dot. */
+.smooch-gallery__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.smooch-gallery__dot::before {
+  content: '';
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 1rem;
+  background-color: rgba(var(--smooch-ink-rgb), 0.2);
+  transition: background-color 200ms ease, width 200ms ease;
+}
+
+.smooch-gallery__dot:hover::before {
+  background-color: rgba(var(--smooch-ink-rgb), 0.45);
+}
+
+.smooch-gallery__dot.is-active::before {
+  width: 2rem;
+  background-color: var(--smooch-berry);
+}
+
+/* Mobile: the canvas runs edge-to-edge (Neutonic mobile treatment) so the
+   hero composition owns the full width; radius drops with the gutters. */
+@media screen and (max-width: 749.98px) {
+  .smooch-gallery__canvas {
+    margin-inline: -1.5rem;
+    border-radius: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smooch-product .product__media-list {
+    scroll-behavior: auto;
   }
 }
 

@@ -560,19 +560,111 @@ test.describe('PDP refresh: guided purchase flow', () => {
     }
   });
 
-  test('collage gallery: every photo visible at once, no slider chrome', async ({ page }) => {
-    for (const vw of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
-      await page.setViewportSize(vw);
-      const items = page.locator('.product__media-item');
-      await expect(items).toHaveCount(4);
-      for (let i = 0; i < 4; i += 1) {
-        const box = await items.nth(i).boundingBox();
-        expect(box?.width ?? 0, `media item ${i} collapsed at ${vw.width}px`).toBeGreaterThan(50);
-      }
-      // No thumbnail strip and no visible mobile slider counter in the collage.
-      await expect(page.locator('.thumbnail-list__item')).toHaveCount(0);
-      await expect(page.locator('media-gallery .slider-buttons')).toBeHidden();
+  test('hero gallery: Neutonic-style boxless carousel — one slide per view, drag, dots, arrows', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    const root = page.locator('[data-smooch-gallery]');
+    await expect(root).toHaveClass(/smooch-gallery--ready/);
+    const track = page.locator('.smooch-product .product__media-list');
+
+    // One full-width slide per view; every product media reachable in the track.
+    const geo = await track.evaluate((t) => ({
+      clientW: t.clientWidth,
+      scrollW: t.scrollWidth,
+      slides: t.querySelectorAll('.product__media-item').length,
+      firstW: Math.round(t.querySelector('.product__media-item').getBoundingClientRect().width),
+      snap: getComputedStyle(t).scrollSnapType,
+    }));
+    expect(geo.slides).toBe(4);
+    expect(Math.abs(geo.firstW - geo.clientW)).toBeLessThanOrEqual(1);
+    expect(geo.scrollW).toBeGreaterThan(geo.clientW * 3.5);
+    expect(geo.snap).toContain('x');
+
+    // Integrated hero: no box around the media (transparent container, no
+    // border), Dawn's slider chrome and magnifier badge hidden, no thumbnails.
+    const chrome = await page.evaluate(() => {
+      const c = document.querySelector('.smooch-product .product-media-container');
+      const cs = getComputedStyle(c);
+      const btns = document.querySelector('.smooch-product .product__media-wrapper .slider-buttons');
+      const icon = document.querySelector('.smooch-product .product__media-icon');
+      return {
+        bg: cs.backgroundColor,
+        border: cs.borderWidth,
+        dawnButtons: btns ? getComputedStyle(btns).display : 'none',
+        magnifier: icon ? getComputedStyle(icon).display : 'none',
+      };
+    });
+    expect(chrome.bg).toBe('rgba(0, 0, 0, 0)');
+    expect(chrome.border).toBe('0px');
+    expect(chrome.dawnButtons).toBe('none');
+    expect(chrome.magnifier).toBe('none');
+    await expect(page.locator('.thumbnail-list__item')).toHaveCount(0);
+
+    // Mouse drag directly on the image advances to slide 2 — and the drag
+    // must not fire the zoom modal click it lands on.
+    const box = await track.boundingBox();
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await page.mouse.down();
+    for (let i = 1; i <= 10; i += 1) {
+      await page.mouse.move(box.x + box.width / 2 - i * 40, box.y + box.height / 2, { steps: 2 });
     }
+    await page.mouse.up();
+    await page.waitForTimeout(900);
+    expect(Math.round(await track.evaluate((t) => t.scrollLeft))).toBe(Math.round(geo.clientW));
+    expect(await page.locator('product-modal[open]').count()).toBe(0);
+
+    // Dots: one per media, active dot tracks position, clicking navigates.
+    const dots = page.locator('.smooch-gallery__dot');
+    await expect(dots).toHaveCount(4);
+    await expect(dots.nth(1)).toHaveClass(/is-active/);
+    await dots.nth(3).click();
+    await page.waitForTimeout(900);
+    expect(Math.round(await track.evaluate((t) => t.scrollLeft))).toBe(Math.round(geo.clientW * 3));
+
+    // Arrows: hover-revealed overlay controls; next disables at the end.
+    await page.hover('.smooch-gallery__canvas');
+    await expect(page.locator('[data-gallery-next]')).toBeDisabled();
+    await page.click('[data-gallery-prev]');
+    await page.waitForTimeout(900);
+    expect(Math.round(await track.evaluate((t) => t.scrollLeft))).toBe(Math.round(geo.clientW * 2));
+  });
+
+  test('hero gallery mobile: full-bleed canvas, native swipe track with exact snap geometry, dots', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(PRODUCT);
+    const geo = await page.evaluate(() => {
+      const canvas = document.querySelector('.smooch-gallery__canvas');
+      const track = document.querySelector('.smooch-product .product__media-list');
+      const cs = getComputedStyle(track);
+      const r = canvas.getBoundingClientRect();
+      return {
+        canvasX: Math.round(r.x),
+        canvasW: Math.round(r.width),
+        vw: window.innerWidth,
+        trackW: track.clientWidth,
+        offsets: Array.from(track.querySelectorAll('.product__media-item')).map((s) => s.offsetLeft),
+        touchAction: cs.touchAction,
+        overflowX: cs.overflowX,
+        snap: cs.scrollSnapType,
+        noPageOverflow: document.scrollingElement.scrollWidth <= window.innerWidth + 1,
+      };
+    });
+    // Edge-to-edge hero canvas (Neutonic mobile treatment), no page overflow.
+    expect(geo.canvasX).toBe(0);
+    expect(geo.canvasW).toBe(geo.vw);
+    expect(geo.noPageOverflow).toBe(true);
+    // Slides align exactly to viewport-width snap points, and nothing in the
+    // hit chain blocks horizontal touch panning (headless can't synthesize a
+    // real fling, so assert the native-swipe preconditions + snap physics).
+    expect(geo.offsets).toEqual([0, geo.trackW, geo.trackW * 2, geo.trackW * 3]);
+    expect(geo.touchAction).toBe('auto');
+    expect(geo.overflowX).toBe('auto');
+    expect(geo.snap).toContain('mandatory');
+    // A partial scroll re-snaps to the nearest slide and syncs the dots.
+    const track = page.locator('.smooch-product .product__media-list');
+    await track.evaluate((t) => t.scrollBy({ left: Math.round(t.clientWidth * 0.6), behavior: 'auto' }));
+    await page.waitForTimeout(900);
+    expect(Math.round(await track.evaluate((t) => t.scrollLeft))).toBe(geo.trackW);
+    await expect(page.locator('.smooch-gallery__dot').nth(1)).toHaveClass(/is-active/);
   });
 
   test('no subscription UI on a product without selling plans', async ({ page }) => {
