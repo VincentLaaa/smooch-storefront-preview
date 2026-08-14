@@ -1,0 +1,132 @@
+/* Smooch stats — "Backed by user data" gradient card: bold + italic-serif
+   two-line headline, stacked oversized stats with dividers, product visual
+   melting into the card's right side. 1rem = 10px. */
+
+.smooch-stats__card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2.8rem;
+  padding: clamp(2.8rem, 5vw, 5.6rem);
+  color: rgb(255, 255, 255);
+}
+
+.smooch-stats__content {
+  position: relative;
+  z-index: 1;
+  max-width: 44rem;
+}
+
+/* ---------- Headline: bold line + italic serif accent line ---------- */
+
+.smooch-stats__heading {
+  margin: 0 0 1.2rem;
+  line-height: 1.05;
+}
+
+.smooch-stats__heading-bold {
+  display: block;
+  font-family: var(--font-heading-family);
+  font-weight: 800;
+  font-size: clamp(3.2rem, 2.6rem + 2vw, 4.6rem);
+  letter-spacing: -0.01em;
+  color: rgb(255, 255, 255);
+}
+
+.smooch-stats__heading-accent {
+  display: block;
+  font-family: var(--smooch-font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(3rem, 2.4rem + 2vw, 4.4rem);
+  color: var(--smooch-pink);
+}
+
+.smooch-stats__subline {
+  margin: 0 0 2.8rem;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ---------- Stacked stats with dividers ---------- */
+
+.smooch-stats__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.smooch-stats__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1.8rem 0;
+}
+
+.smooch-stats__stat + .smooch-stats__stat {
+  border-top: 0.1rem solid rgba(255, 255, 255, 0.25);
+}
+
+.smooch-stats__value {
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  font-size: clamp(4.2rem, 3.4rem + 2.6vw, 6.4rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.smooch-stats__label {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ---------- Visual: melts into the card's right side ---------- */
+
+.smooch-stats__visual {
+  position: relative;
+  margin: 2rem -1.2rem -1.2rem;
+}
+
+.smooch-stats__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2rem;
+}
+
+.smooch-stats__footnote {
+  margin: 1.6rem 0 0;
+  text-align: center;
+}
+
+/* ---------- Desktop split ---------- */
+
+@media screen and (min-width: 750px) {
+  .smooch-stats__card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: center;
+    column-gap: 2rem;
+    min-height: 52rem;
+  }
+
+  .smooch-stats__visual {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 52%;
+    margin: 0;
+    /* Fade the image's left edge into the gradient so it reads as one canvas. */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 32%);
+    mask-image: linear-gradient(90deg, transparent 0%, black 32%);
+  }
+
+  .smooch-stats__img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
