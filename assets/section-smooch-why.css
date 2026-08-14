@@ -2,11 +2,25 @@
    slider (icon, title, short paragraph, "Slide N of X" counter, arrows).
    1rem = 10px. */
 
+/* Contain the track's scrollable overflow at the band level (same fix as
+   the comparison table) so it can never become page-level overflow. */
+.smooch-why {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
 .smooch-why__layout {
   display: grid;
+  /* minmax(0, ...) — a grid column's default min-content sizing would let
+     the 6-slide track blow the page out sideways on mobile. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 2.4rem;
   max-width: 100rem;
   margin-inline: auto;
+}
+
+.smooch-why__content {
+  min-width: 0;
 }
 
 .smooch-why__visual {
