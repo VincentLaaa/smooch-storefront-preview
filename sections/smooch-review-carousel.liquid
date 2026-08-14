@@ -153,9 +153,33 @@
                       | image_tag: loading: 'lazy', widths: '240, 360, 480', sizes: '30vw', alt: block.settings.author
                     }}
                   {%- else -%}
-                    <span class="smooch-rc__visual-placeholder">
-                      <span class="smooch-rc__visual-word">{{ brand_name | downcase }}</span>
-                    </span>
+                    {%- liquid
+                      comment
+                        Bundled brand-shot fallbacks (real product placed in
+                        lifestyle scenes) matched by reviewer, used until a
+                        merchant uploads real art.
+                      endcomment
+                      assign visual_fallback = ''
+                      case block.settings.author
+                        when 'Chloe D.'
+                          assign visual_fallback = 'smooch-rc-visual-1.jpg'
+                        when 'Camille B.'
+                          assign visual_fallback = 'smooch-rc-visual-2.jpg'
+                      endcase
+                    -%}
+                    {%- if visual_fallback != blank -%}
+                      <img
+                        src="{{ visual_fallback | asset_url }}"
+                        width="800"
+                        height="598"
+                        loading="lazy"
+                        alt=""
+                      >
+                    {%- else -%}
+                      <span class="smooch-rc__visual-placeholder">
+                        <span class="smooch-rc__visual-word">{{ brand_name | downcase }}</span>
+                      </span>
+                    {%- endif -%}
                   {%- endif -%}
                 </div>
                 <div class="smooch-rc__visual-body">

@@ -77,6 +77,20 @@
                         alt: alt_text
                     }}
                   {%- endif -%}
+                {%- elsif forloop.index <= 5 -%}
+                  {%- comment -%}
+                    Bundled brand-shot fallbacks (product placed in real-life
+                    scenes) used until the merchant uploads their own UGC —
+                    same fallback pattern as the formula/science sections.
+                  {%- endcomment -%}
+                  <img
+                    src="{{ 'smooch-ugc-' | append: forloop.index | append: '.jpg' | asset_url }}"
+                    width="800"
+                    height="994"
+                    loading="lazy"
+                    class="smooch-ugc-gallery__img"
+                    alt="{{ alt_text | default: caption | escape }}"
+                  >
                 {%- else -%}
                   <div class="smooch-ugc-gallery__placeholder" aria-hidden="true">
                     {{ 'image' | placeholder_svg_tag: 'smooch-ugc-gallery__placeholder-svg' }}

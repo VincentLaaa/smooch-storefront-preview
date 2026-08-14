@@ -34,7 +34,7 @@
         "eyebrow": "A daily gummy for women",
         "headline": "Brain too loud. Spark too quiet.",
         "value_prop": "[brand] supports mood, desire, and connection — one small gummy a day, for the seasons that leave nothing over.",
-        "proof_line": "★ 4.8 · 1,692 reviews",
+        "proof_line": "★ 4.8 · 1,692 reviews · 30-day guarantee",
         "primary_label": "Meet [brand]"
       }
     },
@@ -174,41 +174,6 @@
       "settings": {
         "padding_top": 96,
         "lead": "[brand] lives where your other small rituals do — next to the coffee, on the nightstand, in the hour that's yours."
-      }
-    },
-    "guarantee": {
-      "type": "smooch-guarantee",
-      "blocks": {
-        "point-1": {
-          "type": "point",
-          "settings": {
-            "text": "Full refund, full window"
-          }
-        },
-        "point-2": {
-          "type": "point",
-          "settings": {
-            "text": "No interrogation, no guilt"
-          }
-        },
-        "point-3": {
-          "type": "point",
-          "settings": {
-            "text": "Real humans, quick answers"
-          }
-        }
-      },
-      "block_order": [
-        "point-1",
-        "point-2",
-        "point-3"
-      ],
-      "settings": {
-        "eyebrow": "Our guarantee",
-        "heading": "Take 30 days to decide.",
-        "text": "Honest change is gradual, so give [brand] a real run — and if it doesn't earn its place in your routine, we'll refund it, plainly.",
-        "cta_label": "Start my ritual",
-        "cta_link": "/products/smooch-daily-gummies-qa"
       }
     },
     "final_cta": {
@@ -377,6 +342,90 @@
         "closing_link_label": "Read the full FAQ",
         "closing_link": "/pages/faq"
       }
+    },
+    "stack_up": {
+      "type": "smooch-comparison",
+      "blocks": {
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "label": "Four named ingredients, zero blends",
+            "brand_state": "yes",
+            "alt_a_state": "no",
+            "alt_a_text": "",
+            "alt_b_state": "text",
+            "alt_b_text": "Sometimes"
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "label": "KSM-66 Ashwagandha, the most-studied form",
+            "brand_state": "yes",
+            "alt_a_state": "text",
+            "alt_a_text": "Rarely",
+            "alt_b_state": "text",
+            "alt_b_text": "Varies"
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "label": "Built for desire, mood & connection together",
+            "brand_state": "yes",
+            "alt_a_state": "no",
+            "alt_b_state": "no"
+          }
+        },
+        "row-4": {
+          "type": "row",
+          "settings": {
+            "label": "One-a-day gummy you'll actually keep up",
+            "brand_state": "yes",
+            "alt_a_state": "yes",
+            "alt_b_state": "no"
+          }
+        },
+        "row-5": {
+          "type": "row",
+          "settings": {
+            "label": "Tastes like a treat, not a task",
+            "brand_state": "yes",
+            "alt_a_state": "text",
+            "alt_a_text": "Varies",
+            "alt_b_state": "no"
+          }
+        },
+        "row-6": {
+          "type": "row",
+          "settings": {
+            "label": "30-day money-back guarantee",
+            "brand_state": "yes",
+            "alt_a_state": "text",
+            "alt_a_text": "Varies",
+            "alt_b_state": "text",
+            "alt_b_text": "Varies"
+          }
+        }
+      },
+      "block_order": [
+        "row-1",
+        "row-2",
+        "row-3",
+        "row-4",
+        "row-5",
+        "row-6"
+      ],
+      "settings": {
+        "eyebrow": "Why [brand]",
+        "heading": "How we stack up",
+        "lead": "",
+        "column_a_label": "Other gummies",
+        "show_column_b": true,
+        "column_b_label": "Traditional capsules",
+        "footnote": "Comparisons reflect typical products in each category, not any specific brand.",
+        "color_scheme": "scheme-3"
+      }
     }
   },
   "order": [
@@ -386,7 +435,7 @@
     "problem",
     "mechanism",
     "offer",
-    "guarantee",
+    "stack_up",
     "lifestyle",
     "home_faq",
     "final_cta"

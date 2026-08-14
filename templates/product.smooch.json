@@ -299,7 +299,7 @@
           "type": "area",
           "settings": {
             "label": "Connection & Presence",
-            "fallback_visual": "hands",
+            "fallback_visual": "anim-hands",
             "biology_text": "<p>Presence is physical. When your mind is elsewhere — replaying the day, watching yourself, waiting for your body to catch up — closeness can feel mechanical instead of natural. Feeling connected to someone else starts with feeling at ease in your own body first.</p>",
             "helps_text": "<p>[brand] is built as one small daily ritual, not an in-the-moment fix: the full four-ingredient blend, finished with warming <strong>Cinnamon Bark</strong>, taken consistently over weeks. Quiet, steady support for feeling more like yourself — and more present when it matters.*</p>"
           }

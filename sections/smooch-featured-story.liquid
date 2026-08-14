@@ -87,7 +87,18 @@
                 alt: image_alt
             }}
           {%- else -%}
-            {{ 'image' | placeholder_svg_tag: 'smooch-featured-story__placeholder-svg placeholder' }}
+            {%- comment -%}
+              Bundled portrait fallback until the merchant uploads a real
+              customer photo — same pattern as the other bundled visuals.
+            {%- endcomment -%}
+            <img
+              src="{{ 'smooch-story-portrait.jpg' | asset_url }}"
+              width="900"
+              height="1222"
+              loading="lazy"
+              class="smooch-featured-story__img"
+              alt="{{ image_alt | default: section.settings.attribution | escape }}"
+            >
           {%- endif -%}
         </div>
       </div>

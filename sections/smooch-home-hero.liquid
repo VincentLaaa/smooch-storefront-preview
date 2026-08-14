@@ -58,6 +58,16 @@
           </p>
         {%- endif -%}
 
+        {%- comment -%}
+          Proof renders BEFORE the ask — rating prominence belongs above the
+          CTA so trust lands before the button does.
+        {%- endcomment -%}
+        {%- if section.settings.proof_line != blank -%}
+          <p class="smooch-caption smooch-home-hero__proof">
+            {{- section.settings.proof_line | replace: '[brand]', brand_name | escape -}}
+          </p>
+        {%- endif -%}
+
         {%- if section.settings.primary_label != blank or show_secondary -%}
           <div class="smooch-home-hero__ctas">
             {%- if section.settings.primary_label != blank -%}
@@ -82,12 +92,6 @@
               </a>
             {%- endif -%}
           </div>
-        {%- endif -%}
-
-        {%- if section.settings.proof_line != blank -%}
-          <p class="smooch-caption smooch-home-hero__proof">
-            {{- section.settings.proof_line | replace: '[brand]', brand_name | escape -}}
-          </p>
         {%- endif -%}
       </div>
 
