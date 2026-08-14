@@ -46,6 +46,9 @@
 /* ---------- One-slide track ---------- */
 
 .smooch-why__track {
+  /* Positioned so slides' offsetLeft is measured from the track itself —
+     without this the scroll targets are page-relative and clamp early. */
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;

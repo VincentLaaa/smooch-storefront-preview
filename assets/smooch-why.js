@@ -36,24 +36,27 @@
     };
 
     const sync = () => {
-      const index = currentIndex();
-      if (currentEl) currentEl.textContent = String(index + 1);
-      if (prevBtn) prevBtn.disabled = index <= 0;
-      if (nextBtn) nextBtn.disabled = index >= slides().length - 1;
+      if (currentEl) currentEl.textContent = String(currentIndex() + 1);
     };
 
-    if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex() - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex() + 1));
+    // Arrows loop: past the last slide wraps to the first and vice versa.
+    const step = (dir) => {
+      const count = slides().length;
+      goTo((currentIndex() + dir + count) % count);
+    };
+
+    if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => step(1));
     track.addEventListener('scroll', () => window.requestAnimationFrame(sync), { passive: true });
     window.addEventListener('resize', sync);
 
     track.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowRight') {
         event.preventDefault();
-        goTo(currentIndex() + 1);
+        step(1);
       } else if (event.key === 'ArrowLeft') {
         event.preventDefault();
-        goTo(currentIndex() - 1);
+        step(-1);
       }
     });
 
