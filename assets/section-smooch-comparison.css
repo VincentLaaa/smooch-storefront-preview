@@ -52,7 +52,13 @@
   scrollbar-color: rgba(var(--smooch-ink-rgb), 0.3) transparent;
   background-color: rgb(var(--smooch-surface-rgb));
   border-radius: var(--smooch-radius-card);
-  padding: 0.8rem 1.6rem 1.2rem;
+  padding: 3rem 1.6rem 3.2rem;
+}
+
+@media screen and (max-width: 749px) {
+  .smooch-comparison__table .smooch-comparison__cell--feature {
+    border-inline-end: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.12);
+  }
 }
 
 .smooch-comparison__scroll:focus-visible {
@@ -64,7 +70,7 @@
 
 .smooch-comparison__table {
   width: 100%;
-  border-collapse: separate; /* keeps borders attached to sticky cells */
+  border-collapse: separate; /* keeps borders attached to sticky cells + allows lane radii */
   border-spacing: 0;
   /* Ink palette, not the scheme foreground — the table lives on the white card. */
   color: var(--smooch-ink);
@@ -75,12 +81,11 @@
   padding: 1.4rem 1.6rem;
   text-align: center;
   vertical-align: middle;
-  border-bottom: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.12);
+  border-bottom: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.14);
 }
 
 .smooch-comparison__table thead th {
-  border-top: 0.3rem solid transparent; /* aligns every header with the berry rule */
-  border-bottom-color: rgba(var(--smooch-ink-rgb), 0.35);
+  border-bottom-color: rgba(var(--smooch-ink-rgb), 0.55);
   vertical-align: bottom;
 }
 
@@ -92,7 +97,6 @@
   z-index: 2;
   min-width: 13.5rem;
   background-color: rgb(var(--smooch-surface-rgb));
-  border-inline-end: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.12);
   text-align: start;
   font-size: 1.4rem;
   font-weight: 600;
@@ -103,24 +107,76 @@
   z-index: 3;
 }
 
-/* Brand column — the highlighted lane */
+/* Brand column — a raised solid lane in the brand watermelon, capped with
+   rounded corners that extend past the first and last rules (the row rules
+   stop at the lane instead of crossing it). */
 
 .smooch-comparison__table .smooch-comparison__cell--brand {
   min-width: 12rem;
-  background-color: rgba(var(--smooch-berry-rgb), 0.15);
+  background-color: rgb(var(--smooch-berry-rgb));
+  color: rgb(255, 255, 255);
+  border-bottom: 0;
 }
 
+/* The lane's rounded caps are drawn OUTSIDE the first/last cells so the
+   lane visually extends past the table without stretching those rows
+   (taller cells would knock the neighboring cells out of alignment). */
 .smooch-comparison__table thead .smooch-comparison__head-brand {
-  border-top-color: var(--smooch-berry);
+  position: relative;
+  vertical-align: middle;
+}
+
+.smooch-comparison__table thead .smooch-comparison__head-brand::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 100%;
+  height: 1.8rem;
+  background-color: rgb(var(--smooch-berry-rgb));
+  border-radius: 1.6rem 1.6rem 0 0;
+}
+
+.smooch-comparison__table tbody tr:last-child .smooch-comparison__cell--brand {
+  position: relative;
+}
+
+.smooch-comparison__table tbody tr:last-child .smooch-comparison__cell--brand::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 1.8rem;
+  background-color: rgb(var(--smooch-berry-rgb));
+  border-radius: 0 0 1.6rem 1.6rem;
+}
+
+/* No closing rule after the last row — the lane runs past it (as in the
+   reference) and the card edge ends the table. */
+.smooch-comparison__table tbody tr:last-child th,
+.smooch-comparison__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.smooch-comparison__brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
   font-family: var(--font-heading-family);
   font-style: var(--font-heading-style);
   font-weight: var(--font-heading-weight);
-  font-size: clamp(1.8rem, 1.6rem + 0.6vw, 2.4rem);
-  line-height: 1.1;
+  font-size: clamp(1.9rem, 1.7rem + 0.6vw, 2.4rem);
+  line-height: 1;
   letter-spacing: -0.005em;
 }
 
-/* Alternative columns — quiet, uppercase category labels */
+.smooch-comparison__brand-lockup .smooch-icon svg {
+  fill: currentColor; /* solid heart beside the wordmark */
+  stroke: none;
+}
+
+/* Alternative columns — quiet title-case category labels */
 
 .smooch-comparison__table .smooch-comparison__cell--alt {
   min-width: 11.5rem;
@@ -128,11 +184,10 @@
 
 .smooch-comparison__table thead .smooch-comparison__head-alt {
   font-family: var(--font-body-family);
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(var(--smooch-ink-rgb), 0.6);
+  line-height: 1.3;
+  color: rgba(var(--smooch-ink-rgb), 0.85);
 }
 
 /* ---------- Cell states ---------- */
@@ -147,21 +202,38 @@
   vertical-align: middle;
 }
 
+/* Brand lane: the brand mark itself, white on watermelon */
+.smooch-comparison__state--mark {
+  color: rgb(255, 255, 255);
+}
+
+.smooch-comparison__state--mark .smooch-icon {
+  --icon-size: 2rem;
+}
+
+.smooch-comparison__state--mark .smooch-icon svg {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* Alternatives: filled ink circle + white check for yes */
 .smooch-comparison__state--yes {
-  background-color: var(--smooch-blush);
-  color: var(--smooch-berry);
+  background-color: rgb(var(--smooch-ink-rgb));
+  color: rgb(var(--smooch-surface-rgb));
 }
 
 .smooch-comparison__state--yes .smooch-icon {
-  --icon-size: 1.6rem;
+  --icon-size: 1.5rem;
 }
 
+/* Alternatives: outlined circle + small cross for no */
 .smooch-comparison__state--no {
-  color: rgba(var(--smooch-ink-rgb), 0.4);
+  border: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.45);
+  color: rgba(var(--smooch-ink-rgb), 0.55);
 }
 
 .smooch-comparison__state--no .smooch-icon {
-  --icon-size: 1.8rem;
+  --icon-size: 1.3rem;
 }
 
 .smooch-comparison__note {
@@ -196,6 +268,8 @@
   .smooch-comparison__table .smooch-comparison__cell--brand {
     min-width: 16rem;
   }
+
+
 
   .smooch-comparison__table .smooch-comparison__cell--alt {
     min-width: 14rem;
