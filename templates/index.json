@@ -466,14 +466,14 @@
           "type": "stat",
           "settings": {
             "value": "82%",
-            "label": "Felt noticeably wetter and more sensitive"
+            "label": "Say they feel more like themselves again"
           }
         },
         "stat-3": {
           "type": "stat",
           "settings": {
             "value": "3x",
-            "label": "More intimate nights per week"
+            "label": "More nights that end closer, not just tired"
           }
         }
       },
@@ -483,9 +483,9 @@
         "stat-3"
       ],
       "settings": {
-        "heading_line1": "Backed By",
-        "heading_line2": "Actual User Data",
-        "subline": "See how our product is clinically proven to help you."
+        "heading_line1": "What Women",
+        "heading_line2": "Actually Notice",
+        "subline": "Real answers from women who made [brand] a daily ritual."
       }
     }
   },
