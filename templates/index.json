@@ -38,53 +38,6 @@
         "primary_label": "Meet [brand]"
       }
     },
-    "lifestyle": {
-      "type": "smooch-ugc-gallery",
-      "blocks": {
-        "image-1": {
-          "type": "image",
-          "settings": {
-            "caption": "Next to the coffee, where I won't forget."
-          }
-        },
-        "image-2": {
-          "type": "image",
-          "settings": {
-            "caption": "Nightstand real estate is earned.",
-            "handle": "@sample.handle"
-          }
-        },
-        "image-3": {
-          "type": "image",
-          "settings": {
-            "caption": "The one hour that is mine."
-          }
-        },
-        "image-4": {
-          "type": "image",
-          "settings": {
-            "caption": "Book, blanket, gummy. In that order."
-          }
-        },
-        "image-5": {
-          "type": "image",
-          "settings": {
-            "caption": "Packed first. Small ritual, small suitcase."
-          }
-        }
-      },
-      "block_order": [
-        "image-1",
-        "image-2",
-        "image-3",
-        "image-4",
-        "image-5"
-      ],
-      "settings": {
-        "padding_top": 96,
-        "lead": "[brand] lives where your other small rituals do — next to the coffee, on the nightstand, in the hour that's yours."
-      }
-    },
     "final_cta": {
       "type": "smooch-final-cta",
       "settings": {
@@ -500,6 +453,56 @@
       "settings": {
         "heading": "Why women choose [brand]"
       }
+    },
+    "team": {
+      "type": "smooch-team",
+      "blocks": {
+        "member-1": {
+          "type": "member",
+          "settings": {
+            "name": "Maya Chen",
+            "role": "Founder & CEO",
+            "bio": "Started [brand] when her own spark went quiet — and built the thing she couldn't find."
+          }
+        },
+        "member-2": {
+          "type": "member",
+          "settings": {
+            "name": "Anika Rao",
+            "role": "Head of Formulation",
+            "bio": "Four ingredients, each earning its place. She reads the research so you don't have to."
+          }
+        },
+        "member-3": {
+          "type": "member",
+          "settings": {
+            "name": "Jasmine Cole",
+            "role": "Community & Care",
+            "bio": "Reads every message that comes in — and answers most of them herself."
+          }
+        },
+        "member-4": {
+          "type": "member",
+          "settings": {
+            "name": "Diane Keller",
+            "role": "Brand & Operations",
+            "bio": "Keeps the ritual simple, the shipping fast, and the guarantee honest."
+          }
+        }
+      },
+      "block_order": [
+        "member-1",
+        "member-2",
+        "member-3",
+        "member-4"
+      ],
+      "settings": {
+        "eyebrow": "Meet our team",
+        "heading": "The people behind the ritual.",
+        "lead": "We're a small team who built the thing we couldn't find — and we take it ourselves.",
+        "note": "Sample team shown for layout — real introductions coming soon.",
+        "padding_top": 96
+      }
     }
   },
   "order": [
@@ -509,7 +512,7 @@
     "stats",
     "why",
     "stack_up",
-    "lifestyle",
+    "team",
     "home_faq",
     "final_cta"
   ]

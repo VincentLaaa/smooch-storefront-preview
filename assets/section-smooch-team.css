@@ -1,0 +1,98 @@
+/* Smooch team — meet-the-team grid: portrait, name, role, one-line bio.
+   1rem = 10px (Dawn base). Mobile-first; breakpoints 750 / 990. */
+
+.smooch-team__head {
+  max-width: 64rem;
+  margin-inline: auto;
+  margin-bottom: clamp(3.2rem, 5vw, 5.6rem);
+}
+
+.smooch-team__heading {
+  margin: 0;
+}
+
+.smooch-team__lead {
+  margin: 1.6rem auto 0;
+  max-width: 52ch;
+}
+
+/* ---------- Grid ---------- */
+
+/* Two-up even on phones so the section stays a short scroll. */
+.smooch-team__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.8rem 1.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 110rem;
+  margin-inline: auto;
+}
+
+@media screen and (min-width: 750px) {
+  .smooch-team__grid {
+    gap: 3.2rem 2.4rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-team__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Card ---------- */
+
+.smooch-team__card {
+  text-align: center;
+}
+
+.smooch-team__media {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--smooch-radius-media);
+  background-color: rgba(var(--smooch-blush-rgb), 0.5);
+  margin-bottom: 1.6rem;
+}
+
+.smooch-team__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.smooch-team__name {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(1.7rem, 1.5rem + 0.6vw, 2rem);
+  line-height: 1.2;
+}
+
+.smooch-team__role {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--smooch-berry);
+}
+
+.smooch-team__bio {
+  margin: 1rem auto 0;
+  max-width: 30ch;
+  font-family: var(--smooch-font-serif);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+/* ---------- Note ---------- */
+
+.smooch-team__note {
+  margin: clamp(3.2rem, 5vw, 4.8rem) auto 0;
+}
