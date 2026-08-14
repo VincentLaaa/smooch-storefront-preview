@@ -460,7 +460,7 @@
         "member-1": {
           "type": "member",
           "settings": {
-            "name": "Maya Chen",
+            "name": "Claire Bennett",
             "role": "Founder & CEO",
             "bio": "Started [brand] when her own spark went quiet — and built the thing she couldn't find."
           }
@@ -468,7 +468,7 @@
         "member-2": {
           "type": "member",
           "settings": {
-            "name": "Anika Rao",
+            "name": "Emma Hartley",
             "role": "Head of Formulation",
             "bio": "Four ingredients, each earning its place. She reads the research so you don't have to."
           }
@@ -476,7 +476,7 @@
         "member-3": {
           "type": "member",
           "settings": {
-            "name": "Jasmine Cole",
+            "name": "Molly Pierce",
             "role": "Community & Care",
             "bio": "Reads every message that comes in — and answers most of them herself."
           }
@@ -484,7 +484,7 @@
         "member-4": {
           "type": "member",
           "settings": {
-            "name": "Diane Keller",
+            "name": "Kate Sullivan",
             "role": "Brand & Operations",
             "bio": "Keeps the ritual simple, the shipping fast, and the guarantee honest."
           }
