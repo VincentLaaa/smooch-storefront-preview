@@ -89,11 +89,11 @@
       "type": "smooch-final-cta",
       "settings": {
         "color_scheme": "scheme-3",
-        "headline": "More like yourself, a little at a time.",
-        "subline": "One gummy a day — and 30 days to change your mind.",
-        "benefit_text": "3-month supply · $80.94 · 90¢ a day — ships free, pause or cancel anytime.",
-        "show_price": false,
-        "cta_label": "Start my ritual"
+        "headline": "Your spark is ready. Are you?",
+        "subline": "You deserve to feel like yourself again — a quieter mind, softer evenings, a little more want in your week. Whether you're finding your way back to desire, turning down the day's noise, or simply making room for connection, [brand] is here to help you get there.",
+        "cta_label": "Start your ritual today",
+        "chip_shipping": "Free shipping on subscriptions",
+        "chip_trust": "Trusted by 100k+ women"
       }
     },
     "press": {
