@@ -1113,10 +1113,13 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     expect(errors).toEqual([]);
   });
 
-  test('reviews sections respect prefers-reduced-motion and stay off the homepage', async ({ page, browser }) => {
+  test('reviews sections respect prefers-reduced-motion; carousel on homepage, full reviews PDP-only', async ({ page, browser }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
-    expect(await page.locator('[data-smooch-carousel]').count()).toBe(0);
+    // The landing redesign put the review carousel on the homepage (social
+    // proof in the first 25%); the dense full-reviews section stays PDP-only.
+    expect(await page.locator('[data-smooch-carousel]').count()).toBe(1);
+    await expect(page.locator('[data-smooch-carousel]')).toContainText('Why our customers love us.');
     expect(await page.locator('#smooch-reviews').count()).toBe(0);
 
     const ctx = await browser.newContext({ reducedMotion: 'reduce', viewport: { width: 1440, height: 900 } });
