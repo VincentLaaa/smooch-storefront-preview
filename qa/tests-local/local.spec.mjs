@@ -964,6 +964,58 @@ test.describe('Landing page structure + timeline scroll story (product page)', (
 });
 
 // ---------------------------------------------------------------- reviews
+test.describe('Home hero: mobile fold sells, desktop unchanged', () => {
+  test('375px fold: named CTA + trust row above the fold, benefit cards under the image', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto('/');
+
+    // A real, named, full-width CTA fully inside the first screen.
+    const cta = page.locator('.smooch-home-hero__cta').first();
+    await expect(page.locator('.smooch-home-hero__cta-label--mobile')).toBeVisible();
+    await expect(page.locator('.smooch-home-hero__cta-label--mobile')).toHaveText("Shop Women's Libido & Mood");
+    await expect(page.locator('.smooch-home-hero__cta-label--desktop')).toBeHidden();
+    const ctaBox = await cta.boundingBox();
+    expect(ctaBox.y + ctaBox.height).toBeLessThan(667);
+    expect(ctaBox.width).toBeGreaterThan(300);
+
+    // Transactional trust row closes the fold right under the button.
+    const foldTrust = page.locator('.smooch-home-hero__fold-trust');
+    await expect(foldTrust).toBeVisible();
+    await expect(foldTrust).toContainText('Secure checkout');
+    const trustBox = await foldTrust.boundingBox();
+    expect(trustBox.y + trustBox.height).toBeLessThan(667);
+
+    // Proof line sits above the CTA (trust before the ask).
+    const proofBox = await page.getByText('1,692 reviews').first().boundingBox();
+    expect(proofBox.y).toBeLessThan(ctaBox.y);
+
+    // The three trust points render as 3-up benefit cards below the image.
+    const trust = page.locator('.smooch-home-hero__trust');
+    const cols = await trust.evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(' ').length);
+    expect(cols).toBe(3);
+    const visualBox = await page.locator('.smooch-home-hero__visual').boundingBox();
+    const cardsBox = await trust.boundingBox();
+    expect(cardsBox.y).toBeGreaterThan(visualBox.y);
+  });
+
+  test('desktop keeps its original hero: label, no fold row, bottom trust bar', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+
+    await expect(page.locator('.smooch-home-hero__cta-label--desktop')).toBeVisible();
+    await expect(page.locator('.smooch-home-hero__cta-label--desktop')).toHaveText('Meet Smooch');
+    await expect(page.locator('.smooch-home-hero__cta-label--mobile')).toBeHidden();
+
+    await expect(page.locator('.smooch-home-hero__fold-trust')).toBeHidden();
+
+    // The bottom trust row still lays out as the original flex bar.
+    const display = await page
+      .locator('.smooch-home-hero__trust')
+      .evaluate((el) => getComputedStyle(el).display);
+    expect(display).toBe('flex');
+  });
+});
+
 test.describe('Reviews: curated carousel + full reviews (product page only)', () => {
   test('carousel: honesty labeling, mixed card widths, next-card peek', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });

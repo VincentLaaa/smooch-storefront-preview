@@ -36,6 +36,11 @@
   if section.settings.secondary_label != blank and section.settings.secondary_link != blank
     assign show_secondary = true
   endif
+
+  assign has_fold_trust = false
+  if section.settings.fold_trust_1 != blank or section.settings.fold_trust_2 != blank or section.settings.fold_trust_3 != blank
+    assign has_fold_trust = true
+  endif
 -%}
 
 <div class="smooch-band smooch-band--clip color-{{ section.settings.color_scheme }} gradient">
@@ -79,7 +84,20 @@
                   role="link" aria-disabled="true"
                 {% endif %}
               >
-                {{- section.settings.primary_label | replace: '[brand]', brand_name | escape -}}
+                {%- if section.settings.primary_label_mobile != blank -%}
+                  {%- comment -%}
+                    Phones get a named destination ("Shop <product>") while
+                    desktop keeps its label - only one span is ever shown.
+                  {%- endcomment -%}
+                  <span class="smooch-home-hero__cta-label--desktop">
+                    {{- section.settings.primary_label | replace: '[brand]', brand_name | escape -}}
+                  </span>
+                  <span class="smooch-home-hero__cta-label--mobile">
+                    {{- section.settings.primary_label_mobile | replace: '[brand]', brand_name | escape -}}
+                  </span>
+                {%- else -%}
+                  {{- section.settings.primary_label | replace: '[brand]', brand_name | escape -}}
+                {%- endif -%}
               </a>
             {%- endif -%}
 
@@ -92,6 +110,34 @@
               </a>
             {%- endif -%}
           </div>
+        {%- endif -%}
+
+        {%- if has_fold_trust -%}
+          {%- comment -%}
+            Mobile-only row that closes the first screen with transactional
+            trust (shipping / checkout / returns) - hidden from 750px up so
+            the desktop composition stays untouched.
+          {%- endcomment -%}
+          <ul class="smooch-home-hero__fold-trust" role="list">
+            {%- if section.settings.fold_trust_1 != blank -%}
+              <li class="smooch-home-hero__fold-trust-item">
+                {% render 'smooch-icon', icon: 'truck', class: 'smooch-icon--sm' %}
+                <span>{{ section.settings.fold_trust_1 | replace: '[brand]', brand_name | escape }}</span>
+              </li>
+            {%- endif -%}
+            {%- if section.settings.fold_trust_2 != blank -%}
+              <li class="smooch-home-hero__fold-trust-item">
+                {% render 'smooch-icon', icon: 'lock', class: 'smooch-icon--sm' %}
+                <span>{{ section.settings.fold_trust_2 | replace: '[brand]', brand_name | escape }}</span>
+              </li>
+            {%- endif -%}
+            {%- if section.settings.fold_trust_3 != blank -%}
+              <li class="smooch-home-hero__fold-trust-item">
+                {% render 'smooch-icon', icon: 'refresh', class: 'smooch-icon--sm' %}
+                <span>{{ section.settings.fold_trust_3 | replace: '[brand]', brand_name | escape }}</span>
+              </li>
+            {%- endif -%}
+          </ul>
         {%- endif -%}
       </div>
 
@@ -225,6 +271,38 @@
       "id": "primary_link",
       "label": "Primary button link",
       "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "primary_label_mobile",
+      "label": "Primary button label on phones",
+      "info": "Optional named destination shown under 750px (e.g. Shop Pear Potion). Desktop keeps the label above."
+    },
+    {
+      "type": "header",
+      "content": "Mobile fold trust row"
+    },
+    {
+      "type": "paragraph",
+      "content": "A slim row under the button, shown only on phones, that closes the first screen with transactional trust. Leave all three blank to hide it."
+    },
+    {
+      "type": "text",
+      "id": "fold_trust_1",
+      "label": "Item 1 (truck icon)",
+      "default": "Free shipping on 2+ months"
+    },
+    {
+      "type": "text",
+      "id": "fold_trust_2",
+      "label": "Item 2 (lock icon)",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "text",
+      "id": "fold_trust_3",
+      "label": "Item 3 (refresh icon)",
+      "default": "30-day returns"
     },
     {
       "type": "text",
