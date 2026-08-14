@@ -38,87 +38,6 @@
         "primary_label": "Meet [brand]"
       }
     },
-    "problem": {
-      "type": "smooch-problem-solution",
-      "blocks": {
-        "moment-1": {
-          "type": "moment",
-          "settings": {
-            "line": "Done being needed by nine",
-            "text": "The day takes everything. By the time the house is finally quiet, there's nothing left over — not even for what you miss."
-          }
-        },
-        "moment-2": {
-          "type": "moment",
-          "settings": {
-            "line": "More roommates than lovers lately",
-            "text": "Less desire never meant less love. But the distance is real, it's sad, and it's no one's fault."
-          }
-        },
-        "moment-3": {
-          "type": "moment",
-          "settings": {
-            "line": "You want to want again",
-            "text": "The wanting got quiet, and you miss it. That's not brokenness — it's a season, and it's far more common than anyone says out loud."
-          }
-        }
-      },
-      "block_order": [
-        "moment-1",
-        "moment-2",
-        "moment-3"
-      ],
-      "settings": {
-        "eyebrow": "Sound familiar?",
-        "headline": "Some seasons leave no room for wanting.",
-        "reassurance_text": "It was never a character flaw. And you have more company than you know.",
-        "cta_label": "See how it works",
-        "cta_link": "/products/smooch-daily-gummies-qa"
-      }
-    },
-    "mechanism": {
-      "type": "smooch-mechanism",
-      "blocks": {
-        "pillar-1": {
-          "type": "pillar",
-          "settings": {
-            "icon": "moon",
-            "title": "Calm for loud-brain days",
-            "text": "An adaptogenic root that supports stress resilience — a steadier baseline for the days your brain won't clock out.*",
-            "ingredient": "KSM-66 Ashwagandha"
-          }
-        },
-        "pillar-2": {
-          "type": "pillar",
-          "settings": {
-            "icon": "sparkle",
-            "title": "Support for the spark",
-            "text": "Two botanicals with centuries of traditional use, paired to support desire and energy — daily and gently, with no pressure attached.*",
-            "ingredient": "Black Maca + Damiana"
-          }
-        },
-        "pillar-3": {
-          "type": "pillar",
-          "settings": {
-            "icon": "heart",
-            "title": "Ease toward connection",
-            "text": "A warming botanical that rounds out the ritual — support for feeling present, which is where connection starts.*",
-            "ingredient": "Cinnamon Bark"
-          }
-        }
-      },
-      "block_order": [
-        "pillar-1",
-        "pillar-2",
-        "pillar-3"
-      ],
-      "settings": {
-        "eyebrow": "How it works",
-        "heading": "One gummy. Three kinds of support.",
-        "lead": "Four named botanicals, one small gummy, and a plain reason for each — no proprietary blends, nothing to decode.",
-        "footnote": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
-      }
-    },
     "lifestyle": {
       "type": "smooch-ugc-gallery",
       "blocks": {
@@ -532,14 +451,49 @@
         "is_sample_content": false,
         "show_product_link": false
       }
+    },
+    "stats": {
+      "type": "smooch-stats",
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "100k+",
+            "label": "Happy customers worldwide."
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "82%",
+            "label": "Felt noticeably wetter and more sensitive"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "3x",
+            "label": "More intimate nights per week"
+          }
+        }
+      },
+      "block_order": [
+        "stat-1",
+        "stat-2",
+        "stat-3"
+      ],
+      "settings": {
+        "heading_line1": "Backed By",
+        "heading_line2": "Actual User Data",
+        "subline": "See how our product is clinically proven to help you."
+      }
     }
   },
   "order": [
     "hero",
     "press",
     "reviews",
-    "problem",
-    "mechanism",
+    "stats",
     "offer",
     "stack_up",
     "lifestyle",
