@@ -31,6 +31,8 @@
 
 <div class="smooch-band smooch-final-cta color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width section-{{ section.id }}-padding">
+    <div class="smooch-final-cta__layout">
+      <div class="smooch-final-cta__content">
     <header class="smooch-final-cta__head smooch-center">
       <h2 class="smooch-display smooch-final-cta__headline">
         {{- section.settings.headline | replace: '[brand]', brand_name -}}
@@ -71,6 +73,36 @@
         </li>
       {%- endif -%}
     </ul>
+      </div>
+
+      <div class="smooch-final-cta__figure">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 1000
+            | image_tag:
+              loading: 'lazy',
+              widths: '500, 750, 1000',
+              sizes: '(min-width: 990px) 44vw, 90vw',
+              class: 'smooch-final-cta__img',
+              alt: section.settings.image.alt | default: brand_name
+          }}
+        {%- else -%}
+          {%- comment -%}
+            Bundled lifestyle photo shown until the merchant uploads their
+            own — same fallback pattern as the other bundled visuals.
+          {%- endcomment -%}
+          <img
+            src="{{ 'smooch-final-cta-lifestyle.jpg' | asset_url }}"
+            width="900"
+            height="1125"
+            loading="lazy"
+            class="smooch-final-cta__img"
+            alt="Taking a {{ brand_name | escape }} gummy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
 
     {%- if settings.smooch_supplement_disclaimer != blank -%}
       <div class="smooch-final-cta__fine-print smooch-fine-print">
@@ -116,6 +148,16 @@
       "label": "Supporting paragraph",
       "default": "One gummy a day. A little more you.",
       "info": "Use [brand] to insert your brand name."
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Lifestyle image",
+      "info": "Shown beside the closing message. Leave blank for the bundled photo."
     },
     {
       "type": "header",
