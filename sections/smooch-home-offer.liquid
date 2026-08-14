@@ -1,0 +1,233 @@
+{{ 'section-smooch-home-offer.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.7 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.7 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+  assign plan_blocks = section.blocks | where: 'type', 'plan'
+
+  assign fallback_url = section.settings.default_link
+  if fallback_url == blank and section.settings.product != blank
+    assign fallback_url = section.settings.product.url
+  endif
+  if fallback_url == blank
+    assign fallback_url = routes.all_products_collection_url
+  endif
+-%}
+
+<div class="smooch-band smooch-home-offer color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="smooch-section-head smooch-section-head--center">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="smooch-eyebrow smooch-eyebrow--accent">
+          {{- section.settings.eyebrow | replace: '[brand]', brand_name | escape -}}
+        </p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="smooch-h2">
+          {{- section.settings.heading | replace: '[brand]', brand_name | escape -}}
+        </h2>
+      {%- endif -%}
+      {%- if section.settings.lead != blank -%}
+        <p class="smooch-lead">
+          {{- section.settings.lead | replace: '[brand]', brand_name | escape -}}
+        </p>
+      {%- endif -%}
+    </div>
+
+    {%- if plan_blocks.size > 0 -%}
+      <ul class="smooch-home-offer__grid" role="list">
+        {%- for block in plan_blocks -%}
+          <li
+            class="smooch-home-offer__card{% if block.settings.highlight %} smooch-home-offer__card--highlight{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.badge != blank -%}
+              <span class="smooch-home-offer__badge smooch-badge smooch-badge--berry">{{ block.settings.badge | escape }}</span>
+            {%- endif -%}
+            <p class="smooch-home-offer__title">{{ block.settings.title | escape }}</p>
+            {%- if block.settings.meta != blank -%}
+              <p class="smooch-home-offer__meta">{{ block.settings.meta | escape }}</p>
+            {%- endif -%}
+            <p class="smooch-home-offer__price-row">
+              {%- if block.settings.compare_at != blank -%}
+                <span class="smooch-strike smooch-num">{{ block.settings.compare_at | escape }}</span>
+              {%- endif -%}
+              <span class="smooch-home-offer__price smooch-num">{{ block.settings.price | escape }}</span>
+            </p>
+            {%- if block.settings.per_day != blank -%}
+              <p class="smooch-home-offer__perday smooch-num">{{ block.settings.per_day | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.note != blank -%}
+              <p class="smooch-home-offer__note">{{ block.settings.note | escape }}</p>
+            {%- endif -%}
+            <a
+              class="smooch-btn {% if block.settings.highlight %}smooch-btn--berry{% else %}smooch-btn--ghost{% endif %} smooch-btn--full smooch-home-offer__cta"
+              href="{{ block.settings.link | default: fallback_url }}"
+            >
+              {{- block.settings.cta_label | default: section.settings.cta_label | escape -}}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if section.settings.reassurance != blank -%}
+      <p class="smooch-home-offer__reassurance">
+        {%- render 'smooch-icon', icon: 'shield', class: 'smooch-icon--sm' -%}
+        {{ section.settings.reassurance | replace: '[brand]', brand_name | escape }}
+      </p>
+    {%- endif -%}
+    {%- if section.settings.footer_note != blank -%}
+      <p class="smooch-fine-print smooch-home-offer__footer-note">
+        {{- section.settings.footer_note | replace: '[brand]', brand_name | escape -}}
+      </p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch home offer",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Landing-page offer block: three supply tiers with cost-per-day framing and one highlighted tier. Cards link to the product page — pricing here is display copy, so keep it in sync with the real selling plans."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-5"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The ritual, sized to you"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose your supply",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Lead",
+      "default": "Real support takes consistency — most start with three months."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Default button label",
+      "default": "Shop [brand]"
+    },
+    {
+      "type": "url",
+      "id": "default_link",
+      "label": "Default button link",
+      "info": "Leave blank to link to the product below."
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Fallback link target when no explicit links are set."
+    },
+    {
+      "type": "text",
+      "id": "reassurance",
+      "label": "Reassurance line",
+      "default": "30-day money-back guarantee · Ships free · Pause, edit, or cancel anytime"
+    },
+    {
+      "type": "text",
+      "id": "footer_note",
+      "label": "Footer note",
+      "default": "Rather not subscribe? A single one-time bottle is $39.95.",
+      "info": "Small line under the reassurance row — good for the one-time purchase option."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "plan",
+      "name": "Plan card",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "3-Month Ritual" },
+        { "type": "text", "id": "meta", "label": "Meta line", "default": "90 gummies · one a day" },
+        { "type": "text", "id": "price", "label": "Price", "default": "$80.94" },
+        { "type": "text", "id": "compare_at", "label": "Compare-at price" },
+        { "type": "text", "id": "per_day", "label": "Per-day line", "default": "$0.90 / day" },
+        { "type": "text", "id": "note", "label": "Note line", "info": "Optional small line under the per-day price." },
+        { "type": "text", "id": "badge", "label": "Badge", "info": "E.g. \"Most popular\". Leave blank for none." },
+        { "type": "checkbox", "id": "highlight", "label": "Highlight this card", "default": false },
+        { "type": "url", "id": "link", "label": "Button link" },
+        { "type": "text", "id": "cta_label", "label": "Button label", "info": "Leave blank to use the section default." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch home offer",
+      "blocks": [
+        { "type": "plan", "settings": { "title": "1-Month Ritual", "meta": "30 gummies · one a day", "price": "$29.95", "per_day": "$1.00 / day" } },
+        { "type": "plan", "settings": { "title": "3-Month Ritual", "meta": "90 gummies · one a day", "price": "$80.94", "compare_at": "$119.85", "per_day": "$0.90 / day", "badge": "Most popular", "highlight": true } },
+        { "type": "plan", "settings": { "title": "2-Month Ritual", "meta": "60 gummies · one a day", "price": "$56.96", "per_day": "$0.95 / day" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

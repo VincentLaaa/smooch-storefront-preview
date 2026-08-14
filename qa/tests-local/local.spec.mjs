@@ -857,20 +857,35 @@ test.describe('PDP refresh: guided purchase flow', () => {
 });
 
 // ---------------------------------------------------------------- scroll story
-test.describe('Scroll story: full (product page) vs compact (homepage)', () => {
-  test('homepage uses compact mode and stays roughly one section tall', async ({ page }) => {
+test.describe('Landing page structure + timeline scroll story (product page)', () => {
+  test('landing: recognition hero with proof above the fold, 3-tier offer, no scroll story', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
-    const story = page.locator('[data-smooch-story]');
-    await expect(story).toHaveAttribute('data-mode', 'compact');
-    const box = await story.boundingBox();
-    // Compact target is ~70-110vh; give it headroom but this must stay well
-    // under a multi-screen scroll story (which lands around 300vh).
-    expect(box.height).toBeLessThan(900 * 1.6);
-    // No long-form progress rail or sticky visual column in compact mode.
-    expect(await story.locator('.smooch-story__rail').count()).toBe(0);
-    const stickyPos = await story.locator('.smooch-story__visual-sticky').evaluate((el) => getComputedStyle(el).position);
-    expect(stickyPos).toBe('static');
+
+    // Hero passes the 3-second test: recognition headline + social proof
+    // rendered above the fold (principle: proof in the first 25%).
+    await expect(page.locator('.smooch-home-hero, [class*="home-hero"]').first()).toContainText('Brain too loud');
+    const proof = page.getByText('1,692 reviews').first();
+    const proofBox = await proof.boundingBox();
+    expect(proofBox.y).toBeLessThan(900);
+
+    // The 3-bundle offer: three cards, exactly one highlighted (pre-selected
+    // framing), cost-per-day lines present, guarantee reassurance inline.
+    const cards = page.locator('.smooch-home-offer__card');
+    await expect(cards).toHaveCount(3);
+    await expect(page.locator('.smooch-home-offer__card--highlight')).toHaveCount(1);
+    await expect(page.locator('.smooch-home-offer__card--highlight')).toContainText('90¢ a day');
+    await expect(page.locator('.smooch-home-offer__reassurance')).toContainText('30-day money-back guarantee');
+
+    // The homepage scroll story was cut in the landing redesign (it repeated
+    // the mechanism pillars) — neither compact story nor its JS hooks remain.
+    expect(await page.locator('[data-smooch-story]').count()).toBe(0);
+    expect(await page.locator('[data-smooch-product-scroll]').count()).toBe(0);
+
+    // FAQ objection-handling present; no horizontal overflow.
+    await expect(page.locator('text=The fine print, out loud.')).toBeVisible();
+    const fits = await page.evaluate(() => document.scrollingElement.scrollWidth <= window.innerWidth + 1);
+    expect(fits).toBe(true);
   });
 
   // The full-mode floating visual now lives inside the product page's
@@ -933,30 +948,12 @@ test.describe('Scroll story: full (product page) vs compact (homepage)', () => {
     expect(sceneBox.y).toBeLessThan(900);
   });
 
-  test('compact mode does not attach the scroll-reaction listener', async ({ page }) => {
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto('/?scroll_story_preview=1');
-    const productScroll = page.locator('[data-smooch-product-scroll]').first();
-    // Scroll the whole page substantially — in full mode this drives
-    // --smooch-story-scroll-rot/x/scale; in compact it must never be set.
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await page.waitForTimeout(400);
-    const rot = await productScroll.evaluate((el) => el.style.getPropertyValue('--smooch-story-scroll-rot'));
-    expect(rot).toBe('');
-  });
-
-  test('both modes respect prefers-reduced-motion', async ({ browser }) => {
+  test('timeline scroll story respects prefers-reduced-motion', async ({ browser }) => {
     const ctx = await browser.newContext({ reducedMotion: 'reduce', viewport: { width: 1440, height: 900 } });
     const page = await ctx.newPage();
-
-    await page.goto('/?scroll_story_preview=1');
-    const homeAnim = await page.locator('[data-floating]').first().evaluate((el) => getComputedStyle(el).animationName);
-    expect(homeAnim).toBe('none');
-
     await page.goto(PRODUCT + '?scroll_story_preview=1');
     const productAnim = await page.locator('[data-floating]').first().evaluate((el) => getComputedStyle(el).animationName);
     expect(productAnim).toBe('none');
-
     await ctx.close();
   });
 });

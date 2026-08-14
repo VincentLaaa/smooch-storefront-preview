@@ -1,0 +1,114 @@
+/* Smooch home offer — landing-page 3-tier offer block in the PDP's design
+   family: white surface cards, one highlighted tier, per-day framing.
+   1rem = 10px. */
+
+.smooch-home-offer__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.6rem;
+  max-width: 96rem;
+  margin-inline: auto;
+}
+
+.smooch-home-offer__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.6rem;
+  padding: 3.2rem 2.4rem 2.4rem;
+  border: 0.1rem solid var(--smooch-border-soft);
+  border-radius: var(--smooch-radius-card);
+  background-color: rgb(var(--smooch-surface-rgb));
+}
+
+.smooch-home-offer__card--highlight {
+  border-color: var(--smooch-berry);
+  box-shadow: 0 0 0 0.1rem var(--smooch-berry);
+  background-color: rgba(var(--smooch-blush-rgb), 0.25);
+}
+
+.smooch-home-offer__badge {
+  position: absolute;
+  top: -1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.smooch-home-offer__title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.smooch-home-offer__meta {
+  margin: 0;
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.smooch-home-offer__price-row {
+  margin: 0.6rem 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+}
+
+.smooch-home-offer__price {
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.smooch-home-offer__perday {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--smooch-berry);
+}
+
+.smooch-home-offer__note {
+  margin: 0;
+  font-size: 1.2rem;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.smooch-home-offer__cta {
+  margin-top: 1.6rem;
+}
+
+.smooch-home-offer__reassurance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 2.4rem 0 0;
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.smooch-home-offer__reassurance .smooch-icon {
+  color: var(--smooch-berry);
+  flex-shrink: 0;
+}
+
+.smooch-home-offer__footer-note {
+  margin: 0.8rem 0 0;
+  text-align: center;
+}
+
+/* Desktop: three across, highlighted card slightly raised. */
+@media screen and (min-width: 750px) {
+  .smooch-home-offer__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .smooch-home-offer__card--highlight {
+    transform: translateY(-0.8rem);
+    padding-bottom: 3.2rem;
+  }
+}

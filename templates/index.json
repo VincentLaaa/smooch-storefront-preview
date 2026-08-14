@@ -7,21 +7,21 @@
           "type": "trust",
           "settings": {
             "icon": "clock",
-            "text": "One gummy a day"
+            "text": "One gummy, once a day"
           }
         },
         "trust-2": {
           "type": "trust",
           "settings": {
             "icon": "leaf",
-            "text": "Thoughtful ingredients"
+            "text": "Four ingredients, all named"
           }
         },
         "trust-3": {
           "type": "trust",
           "settings": {
-            "icon": "refresh",
-            "text": "Easy to stay consistent with"
+            "icon": "heart",
+            "text": "No pressure attached"
           }
         }
       },
@@ -30,57 +30,12 @@
         "trust-2",
         "trust-3"
       ],
-      "settings": {}
-    },
-    "benefit_strip": {
-      "type": "smooch-benefit-strip",
-      "blocks": {
-        "item-1": {
-          "type": "item",
-          "settings": {
-            "icon": "sparkle",
-            "text": "Formulated to support desire"
-          }
-        },
-        "item-2": {
-          "type": "item",
-          "settings": {
-            "icon": "clock",
-            "text": "One gummy a day"
-          }
-        },
-        "item-3": {
-          "type": "item",
-          "settings": {
-            "icon": "leaf",
-            "text": "Thoughtful ingredients"
-          }
-        },
-        "guarantee-1": {
-          "type": "guarantee",
-          "settings": {
-            "icon": "shield"
-          }
-        }
-      },
-      "block_order": [
-        "item-1",
-        "item-2",
-        "item-3",
-        "guarantee-1"
-      ],
-      "settings": {}
-    },
-    "featured_product": {
-      "type": "smooch-final-cta",
       "settings": {
-        "color_scheme": "scheme-5",
-        "headline": "Meet the one-a-day ritual.",
-        "subline": "Desire, mood, confidence, and connection — supported softly, daily.",
-        "benefit_text": "Formulated to support desire, mood, and connection — one soft gummy a day. Experiences vary.",
-        "cta_label": "Shop [brand]",
-        "padding_top": 76,
-        "padding_bottom": 76
+        "eyebrow": "A daily gummy for women",
+        "headline": "Brain too loud. Spark too quiet.",
+        "value_prop": "[brand] supports mood, desire, and connection — one small gummy a day, for the seasons that leave nothing over.",
+        "proof_line": "★ 4.8 · 1,692 reviews",
+        "primary_label": "Meet [brand]"
       }
     },
     "problem": {
@@ -89,22 +44,22 @@
         "moment-1": {
           "type": "moment",
           "settings": {
-            "line": "Feeling disconnected from desire",
-            "text": "It's not gone — it's quiet. Quiet often has more to do with your season of life than with you."
+            "line": "Done being needed by nine",
+            "text": "The day takes everything. By the time the house is finally quiet, there's nothing left over — not even for what you miss."
           }
         },
         "moment-2": {
           "type": "moment",
           "settings": {
-            "line": "Mood and stress keep getting the last word",
-            "text": "When a day takes everything you have, there isn't much left over for wanting."
+            "line": "More roommates than lovers lately",
+            "text": "Less desire never meant less love. But the distance is real, it's sad, and it's no one's fault."
           }
         },
         "moment-3": {
           "type": "moment",
           "settings": {
-            "line": "Intimacy starts to feel like another task",
-            "text": "Somewhere between the calendar and the to-do list, closeness stopped feeling like yours."
+            "line": "You want to want again",
+            "text": "The wanting got quiet, and you miss it. That's not brokenness — it's a season, and it's far more common than anyone says out loud."
           }
         }
       },
@@ -113,7 +68,13 @@
         "moment-2",
         "moment-3"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Sound familiar?",
+        "headline": "Some seasons leave no room for wanting.",
+        "reassurance_text": "It was never a character flaw. And you have more company than you know.",
+        "cta_label": "See how it works",
+        "cta_link": "/products/smooch-daily-gummies-qa"
+      }
     },
     "mechanism": {
       "type": "smooch-mechanism",
@@ -121,25 +82,28 @@
         "pillar-1": {
           "type": "pillar",
           "settings": {
-            "icon": "sparkle",
-            "title": "Calm the noise",
-            "text": "Formulated to support a more settled everyday mindset."
+            "icon": "moon",
+            "title": "Calm for loud-brain days",
+            "text": "An adaptogenic root that supports stress resilience — a steadier baseline for the days your brain won't clock out.*",
+            "ingredient": "KSM-66 Ashwagandha"
           }
         },
         "pillar-2": {
           "type": "pillar",
           "settings": {
-            "icon": "heart",
-            "title": "Support your spark",
-            "text": "Support for desire, energy, and openness — gently, over time."
+            "icon": "sparkle",
+            "title": "Support for the spark",
+            "text": "Two botanicals with centuries of traditional use, paired to support desire and energy — daily and gently, with no pressure attached.*",
+            "ingredient": "Black Maca + Damiana"
           }
         },
         "pillar-3": {
           "type": "pillar",
           "settings": {
-            "icon": "moon",
-            "title": "Make connection feel easier",
-            "text": "Support for feeling present, open, and connected."
+            "icon": "heart",
+            "title": "Ease toward connection",
+            "text": "A warming botanical that rounds out the ritual — support for feeling present, which is where connection starts.*",
+            "ingredient": "Cinnamon Bark"
           }
         }
       },
@@ -148,51 +112,22 @@
         "pillar-2",
         "pillar-3"
       ],
-      "settings": {}
-    },
-    "scroll_story": {
-      "type": "smooch-scroll-story",
-      "blocks": {
-        "stage-1": {
-          "type": "stage",
-          "settings": {
-            "number": "01",
-            "heading": "Mood",
-            "body": "<p>Daily support for feeling more balanced and like yourself.</p>",
-            "icon": "moon"
-          }
-        },
-        "stage-2": {
-          "type": "stage",
-          "settings": {
-            "number": "02",
-            "heading": "Desire",
-            "body": "<p>Designed to support your natural spark.</p>",
-            "icon": "heart"
-          }
-        },
-        "stage-3": {
-          "type": "stage",
-          "settings": {
-            "number": "03",
-            "heading": "Connection",
-            "body": "<p>A simple ritual centered around feeling more connected.</p>",
-            "icon": "drop"
-          }
-        }
-      },
-      "block_order": ["stage-1", "stage-2", "stage-3"],
       "settings": {
-        "display_mode": "compact",
-        "eyebrow": "Your daily [brand]",
-        "heading": "A little ritual designed to support your spark.",
-        "product_alt": "[brand] Women's Libido + Mood Gummies bottle",
-        "cta_label": "Discover [brand]"
+        "eyebrow": "How it works",
+        "heading": "One gummy. Three kinds of support.",
+        "lead": "Four named botanicals, one small gummy, and a plain reason for each — no proprietary blends, nothing to decode.",
+        "footnote": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
       }
     },
     "featured_story": {
       "type": "smooch-featured-story",
-      "settings": {}
+      "settings": {
+        "eyebrow": "In her words",
+        "quote": "I didn't realize how disconnected I'd been feeling. Intimacy had slowly moved to the bottom of my list — I wanted something that felt easy. [brand] has become one of those little daily things I genuinely look forward to.",
+        "attribution": "Rachel M.",
+        "verified_label": "Verified buyer",
+        "show_sample_label": false
+      }
     },
     "lifestyle": {
       "type": "smooch-ugc-gallery",
@@ -200,32 +135,32 @@
         "image-1": {
           "type": "image",
           "settings": {
-            "caption": "Morning ritual"
+            "caption": "Next to the coffee, where I won't forget."
           }
         },
         "image-2": {
           "type": "image",
           "settings": {
-            "caption": "The nightstand edit",
+            "caption": "Nightstand real estate is earned.",
             "handle": "@sample.handle"
           }
         },
         "image-3": {
           "type": "image",
           "settings": {
-            "caption": "Sunday reset"
+            "caption": "The one hour that is mine."
           }
         },
         "image-4": {
           "type": "image",
           "settings": {
-            "caption": "Tucked into the travel bag"
+            "caption": "Book, blanket, gummy. In that order."
           }
         },
         "image-5": {
           "type": "image",
           "settings": {
-            "caption": "Golden hour wind-down"
+            "caption": "Packed first. Small ritual, small suitcase."
           }
         }
       },
@@ -237,7 +172,8 @@
         "image-5"
       ],
       "settings": {
-        "padding_top": 96
+        "padding_top": 96,
+        "lead": "[brand] lives where your other small rituals do — next to the coffee, on the nightstand, in the hour that's yours."
       }
     },
     "guarantee": {
@@ -246,7 +182,7 @@
         "point-1": {
           "type": "point",
           "settings": {
-            "text": "Full refund window"
+            "text": "Full refund, full window"
           }
         },
         "point-2": {
@@ -258,7 +194,7 @@
         "point-3": {
           "type": "point",
           "settings": {
-            "text": "Simple, human support"
+            "text": "Real humans, quick answers"
           }
         }
       },
@@ -267,16 +203,23 @@
         "point-2",
         "point-3"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Our guarantee",
+        "heading": "Take 30 days to decide.",
+        "text": "Honest change is gradual, so give [brand] a real run — and if it doesn't earn its place in your routine, we'll refund it, plainly.",
+        "cta_label": "Start my ritual",
+        "cta_link": "/products/smooch-daily-gummies-qa"
+      }
     },
     "final_cta": {
       "type": "smooch-final-cta",
       "settings": {
         "color_scheme": "scheme-3",
-        "headline": "Come back to the version of you that feels connected.",
-        "subline": "One gummy a day. A little more you.",
-        "benefit_text": "Formulated to support desire, mood, and connection — one soft gummy a day. Experiences vary.",
-        "cta_label": "Meet [brand]"
+        "headline": "More like yourself, a little at a time.",
+        "subline": "One gummy a day — and 30 days to change your mind.",
+        "benefit_text": "3-month supply · $80.94 · 90¢ a day — ships free, pause or cancel anytime.",
+        "show_price": false,
+        "cta_label": "Start my ritual"
       }
     },
     "press": {
@@ -321,19 +264,131 @@
         "heading": "As featured in",
         "color_scheme": "scheme-5"
       }
+    },
+    "offer": {
+      "type": "smooch-home-offer",
+      "blocks": {
+        "plan-1": {
+          "type": "plan",
+          "settings": {
+            "title": "1 Month",
+            "meta": "30 gummies · 30 days",
+            "price": "$29.95",
+            "per_day": "$1 a day",
+            "note": "Autoship · cancel anytime"
+          }
+        },
+        "plan-2": {
+          "type": "plan",
+          "settings": {
+            "title": "3 Months",
+            "meta": "90 gummies · 90 days",
+            "price": "$80.94",
+            "compare_at": "$119.85",
+            "per_day": "90¢ a day",
+            "note": "You're saving $38.91",
+            "badge": "Most popular · Save 32%",
+            "highlight": true
+          }
+        },
+        "plan-3": {
+          "type": "plan",
+          "settings": {
+            "title": "2 Months",
+            "meta": "60 gummies · 60 days",
+            "price": "$56.96",
+            "per_day": "95¢ a day",
+            "note": "Autoship · cancel anytime"
+          }
+        }
+      },
+      "block_order": [
+        "plan-1",
+        "plan-2",
+        "plan-3"
+      ],
+      "settings": {
+        "eyebrow": "Choose your supply",
+        "heading": "A dollar a day — or less.",
+        "lead": "Pick a pace. Every plan ships free, renews at the price you chose, and can be paused or cancelled anytime — no hoops.",
+        "cta_label": "Start my ritual",
+        "reassurance": "30-day money-back guarantee · Ships free · Pause, edit, or cancel anytime",
+        "footer_note": "Rather not subscribe? A single one-time bottle is $39.95."
+      }
+    },
+    "home_faq": {
+      "type": "smooch-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "What's actually in it?",
+            "answer": "<p>Four named ingredients: KSM-66 Ashwagandha, Black Maca, Damiana, and Cinnamon Bark. The full label is on the bottle and the product page — no proprietary blends, nothing to decode.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Who is it for?",
+            "answer": "<p>Women in a season where mood, stress, or desire feel quieter than usual — and who want daily support, not a diagnosis. It's yours alone: private, pressure-free, no partner required.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "How long until I notice something?",
+            "answer": "<p>Gradually, if at all — we won't invent a timeline. Change like this tends to be quiet and cumulative, often noticed only when you look back. The 30-day window exists so you can judge honestly.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "What are the subscription terms, really?",
+            "answer": "<p>Autoship renews at the price you chose, ships free, and takes a couple of clicks to pause, edit, or cancel — no phone call, no chat maze. Prefer a one-off? A single bottle is $39.95.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "Will this feel like one more obligation?",
+            "answer": "<p>It is built to be the opposite. One private gummy a day, tied to a moment you already keep — support for you, never a demand on you. No one is watching, and nothing is owed.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "Can I take it with medication, or while pregnant or nursing?",
+            "answer": "<p>That's a clinician's call, and we mean that. All four ingredients are named on the label — bring it to your next appointment and ask.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "eyebrow": "Before you buy",
+        "heading": "The fine print, out loud.",
+        "closing_text": "Still curious?",
+        "closing_link_label": "Read the full FAQ",
+        "closing_link": "/pages/faq"
+      }
     }
   },
   "order": [
     "hero",
     "press",
-    "benefit_strip",
-    "featured_product",
+    "featured_story",
     "problem",
     "mechanism",
-    "scroll_story",
-    "featured_story",
-    "lifestyle",
+    "offer",
     "guarantee",
+    "lifestyle",
+    "home_faq",
     "final_cta"
   ]
 }
