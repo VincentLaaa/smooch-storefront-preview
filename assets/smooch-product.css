@@ -5,17 +5,23 @@
 
 /* ---------- Buy panel ---------- */
 
+/* The buybox is the one "card" at the top of the PDP (Neutonic pattern):
+   the media side blends into the page background while everything from the
+   rating line down to the last accordion sits in a rounded surface panel. */
 .smooch-buybox {
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
-  padding-top: 1.2rem;
+  padding: 2rem 1.6rem 2.4rem;
+  background-color: rgb(var(--smooch-surface-rgb));
+  border-radius: var(--smooch-radius-card);
 }
 
 @media screen and (min-width: 990px) {
   .smooch-buybox {
-    padding-top: 0;
-    max-width: 56rem;
+    padding: 3.2rem;
+    /* 56rem of content + 2 x 3.2rem panel padding */
+    max-width: 62.4rem;
   }
 }
 
@@ -25,6 +31,10 @@
 
 .smooch-buybox__title {
   margin: 0;
+  /* Inside the surface panel the full smooch-h2 scale (4.4rem cap) forces an
+     awkward three-line wrap — the card proportion wants a step smaller
+     (Neutonic titles sit ~3.2-3.6rem). */
+  font-size: clamp(2.6rem, 2rem + 1.3vw, 3.4rem);
 }
 
 .smooch-buybox__promise {
@@ -1444,6 +1454,17 @@ body.smooch-sticky-atc-visible {
   box-shadow: none;
   border-radius: 0;
   max-height: none;
+  /* Breathing room so the product never kisses the canvas edges. */
+  padding: clamp(1.6rem, 2.2vw, 3.2rem);
+}
+
+/* Dawn's base .media > img is object-fit: cover, and its "contain" setting
+   normally works by shrinking the container to the image's own aspect ratio
+   — which the forced square canvas bypasses, so portrait imagery was getting
+   center-cropped (the top of the bottle cap). True contain-fit shows every
+   image whole; the square canvas absorbs the difference as whitespace. */
+.smooch-product .product-media-container .media img {
+  object-fit: contain;
 }
 
 /* Dawn's own slider chrome (caret buttons + "1 / 4" counter) is replaced by
