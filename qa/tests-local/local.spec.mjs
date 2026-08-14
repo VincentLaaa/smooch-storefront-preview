@@ -1021,12 +1021,12 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     const full = page.locator('#smooch-reviews');
     await expect(full).toBeVisible();
 
-    // 40 demo reviews: 36 five-star, 2 four-star, 1 three-star, 0 two-star,
-    // 1 one-star -> 90% / 5% / 2.5% / 0% / 2.5%.
+    // 50 demo reviews (Shopify's max_blocks cap): 45 five-star, 3 four-star,
+    // 1 three-star, 0 two-star, 1 one-star -> 90% / 6% / 2% / 0% / 2%.
     const fills = full.locator('.smooch-rf__dist-fill');
     await expect(fills).toHaveCount(5);
     const widths = await fills.evaluateAll((els) => els.map((el) => el.style.width));
-    expect(widths).toEqual(['90%', '5%', '2.5%', '0%', '2.5%']);
+    expect(widths).toEqual(['90%', '6%', '2%', '0%', '2%']);
 
     // Honesty toggle flipped live: no "Demo review"/"Sample" labels, every row reads "Verified Buyer".
     expect(await full.locator('.smooch-rf__row-demo').count()).toBe(0);
@@ -1052,19 +1052,67 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     const moreBtn = full.locator('[data-smooch-show-more]');
     await expect(moreBtn).toBeVisible();
     await moreBtn.click();
-    // Batches by 6 (40 reviews total now) — one click reveals the next
-    // batch, not everything at once; the button stays visible until the
-    // last batch.
+    // Batches by 6 — one click reveals the next batch, not everything at
+    // once; the button stays visible until the last batch.
     expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(12);
     await expect(moreBtn).toBeVisible();
-    for (let i = 0; i < 5; i++) {
+    const total = await full.locator('.smooch-rf__row').count();
+    for (let i = 0; i < 20 && (await moreBtn.isVisible()); i++) {
       await moreBtn.click();
     }
-    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(40);
+    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(total);
     await expect(moreBtn).toBeHidden();
 
     await page.selectOption('[data-smooch-sort]', 'highest');
     await page.waitForTimeout(200);
+    expect(errors).toEqual([]);
+  });
+
+  test('full reviews: keyword search filters rows, chips one-tap search, clear restores batching', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    const errors = [];
+    page.on('pageerror', (e) => errors.push(String(e)));
+    await page.goto(PRODUCT);
+    const full = page.locator('#smooch-reviews');
+    await full.scrollIntoViewIfNeeded();
+
+    const input = full.locator('[data-smooch-review-search]');
+    await expect(input).toBeVisible();
+
+    // Typing a concern shows every matching review (batching suspended) with
+    // a live result count, and every visible row actually mentions it.
+    await input.fill('stress');
+    await page.waitForTimeout(400);
+    const visible = full.locator('.smooch-rf__row:not([hidden])');
+    const matchCount = await visible.count();
+    expect(matchCount).toBeGreaterThan(2);
+    const texts = await visible.allTextContents();
+    texts.forEach((t) => expect(t.toLowerCase()).toContain('stress'));
+    await expect(full.locator('[data-smooch-search-status]')).toContainText(`${matchCount} review`);
+    await expect(full.locator('[data-smooch-show-more]')).toBeHidden();
+
+    // Nonsense query -> friendly empty state, zero rows.
+    await input.fill('zzzqqq');
+    await page.waitForTimeout(400);
+    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(0);
+    await expect(full.locator('[data-smooch-search-empty]')).toBeVisible();
+
+    // Clear restores the batched default view.
+    await full.locator('[data-smooch-search-clear]').click();
+    await page.waitForTimeout(400);
+    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(6);
+    await expect(full.locator('[data-smooch-show-more]')).toBeVisible();
+
+    // Chips run a one-tap search and mark themselves active.
+    const chip = full.locator('[data-smooch-search-chip]', { hasText: 'Energy' }).first();
+    await chip.click();
+    await page.waitForTimeout(400);
+    await expect(chip).toHaveClass(/is-active/);
+    const chipVisible = await full.locator('.smooch-rf__row:not([hidden])').count();
+    expect(chipVisible).toBeGreaterThan(0);
+    const chipTexts = await full.locator('.smooch-rf__row:not([hidden])').allTextContents();
+    chipTexts.forEach((t) => expect(t.toLowerCase()).toContain('energy'));
+
     expect(errors).toEqual([]);
   });
 

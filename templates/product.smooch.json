@@ -625,15 +625,6 @@
             "author": "Jenna P."
           }
         },
-        "r6": {
-          "type": "review",
-          "settings": {
-            "rating": 5,
-            "title": "Finally, women's wellness that doesn't feel clinical.",
-            "text": "The branding got me. The routine kept me.",
-            "author": "Sofia L."
-          }
-        },
         "r7": {
           "type": "review",
           "settings": {
@@ -650,15 +641,6 @@
             "title": "Way easier than another capsule.",
             "text": "I already take enough pills. Gummies were an immediate yes.",
             "author": "Natalie S."
-          }
-        },
-        "r9": {
-          "type": "review",
-          "settings": {
-            "rating": 5,
-            "title": "She's staying on the nightstand.",
-            "text": "Pretty packaging, easy habit, and something that's actually for us.",
-            "author": "Camille B."
           }
         },
         "r10": {
@@ -939,6 +921,114 @@
             "text": "Took it daily for two months and didn't notice a change. Packaging and taste are nice, but I can't justify reordering based on my own experience. Results clearly vary person to person.",
             "author": "Katherine B."
           }
+        },
+        "r41": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "For the stressed, overwhelmed version of me.",
+            "text": "My brain was too loud to feel anything else — work stress, the mental load, all of it. A few weeks of taking Smooch daily and my evenings feel less like a shutdown. I'm less snappy, more open, and closeness stopped feeling like one more task on the list.",
+            "author": "Dana W."
+          }
+        },
+        "r42": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "My sex drive had gone quiet.",
+            "text": "It wasn't a crisis — more like my libido got quieter every year and I wanted to want it again. This has been the gentlest way to feel that part of me waking back up. Give it a few consistent weeks.",
+            "author": "Priya K."
+          }
+        },
+        "r43": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Energy left at the end of the day.",
+            "text": "I used to be completely exhausted by bedtime — nothing left in the tank. No single dramatic change, but lately there's more of me left in the evening, for myself and for us. Tired-all-the-time me needed this.",
+            "author": "Monica R."
+          }
+        },
+        "r44": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "My husband noticed before I did.",
+            "text": "I bought this for me, not for my marriage, but honestly the relationship is where I see it most. Less distance, more playfulness, and my partner and I feel more like us again.",
+            "author": "Sara J."
+          }
+        },
+        "r45": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Date night stopped feeling like pressure.",
+            "text": "I used to brace for date night instead of looking forward to it — being in the mood on a schedule is a lot. A couple months in, that pressure has faded and the fun snuck back in.",
+            "author": "Elise M."
+          }
+        },
+        "r46": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "I'm not stuck in my head anymore.",
+            "text": "My problem was never attraction — I'd just get in my head and watch myself instead of being present. This plus actually putting my phone down has helped me stay in the moment.",
+            "author": "Tash B."
+          }
+        },
+        "r47": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "For every touched-out mom.",
+            "text": "Being needed all day left zero room to be desired — touched out by 8pm, every day. With the kids finally sleeping and a few weeks of this ritual, I have space to want closeness again instead of dreading one more demand.",
+            "author": "Kelly F."
+          }
+        },
+        "r48": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "The spark is coming back.",
+            "text": "I missed feeling playful and flirty — that spark felt like a language I'd stopped speaking. It's been gradual, but I feel it coming back, and so does he.",
+            "author": "Renee D."
+          }
+        },
+        "r49": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "For anyone who wants to want it.",
+            "text": "My desire never shows up first — it arrives after closeness starts, once there's no pressure. Learning that was normal changed everything, and Smooch is now part of how I take care of that side of myself. No miracle moment, just steadier and easier.",
+            "author": "Amber L."
+          }
+        },
+        "r50": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "More confident in my own skin.",
+            "text": "Confidence was my blocker — I'd feel exposed and self-conscious instead of comfortable being seen. Feeling calmer and more like myself has quietly fixed a lot of that for me.",
+            "author": "Jess T."
+          }
+        },
+        "r51": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "In my 40s and feeling like me again.",
+            "text": "Everything shifted in my 40s — energy, mood, how I felt in my body — and I stopped feeling like myself. This is the first thing in my routine I actually look forward to. Gradual, but real.",
+            "author": "Diane P."
+          }
+        },
+        "r52": {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "title": "Great for stress and mood, still waiting on the rest.",
+            "text": "One month in: my stress feels more manageable and my mood is noticeably steadier. The desire side is slower to show up for me, so one star off for now — but I'm sticking with it.",
+            "author": "Hannah G."
+          }
         }
       },
       "block_order": [
@@ -947,10 +1037,8 @@
         "r3",
         "r4",
         "r5",
-        "r6",
         "r7",
         "r8",
-        "r9",
         "r10",
         "r11",
         "r12",
@@ -981,7 +1069,19 @@
         "r37",
         "r38",
         "r39",
-        "r40"
+        "r40",
+        "r41",
+        "r42",
+        "r43",
+        "r44",
+        "r45",
+        "r46",
+        "r47",
+        "r48",
+        "r49",
+        "r50",
+        "r51",
+        "r52"
       ],
       "settings": {
         "rating_value": "4.8",

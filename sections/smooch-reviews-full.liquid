@@ -113,7 +113,7 @@
               {%- endcase -%}
               {%- assign star_pct = 0 -%}
               {%- if review_count > 0 -%}
-                {%- assign star_pct = star_count | times: 100 | divided_by: review_count -%}
+                {%- assign star_pct = star_count | times: 100.0 | divided_by: review_count | round: 1 -%}
               {%- endif -%}
               <div class="smooch-rf__dist-row">
                 <span class="smooch-rf__dist-label">{{ star_n }}</span>
@@ -179,6 +179,23 @@
 
       <div class="smooch-rf__toolbar">
         <p class="smooch-rf__count">{{ review_count }} Review{% if review_count != 1 %}s{% endif %}</p>
+        {%- if section.settings.show_search -%}
+          <div class="smooch-rf__search" role="search">
+            <label class="visually-hidden" for="RfSearch-{{ section.id }}">Search reviews</label>
+            {% render 'smooch-icon', icon: 'search', class: 'smooch-icon--sm smooch-rf__search-icon' %}
+            <input
+              type="search"
+              id="RfSearch-{{ section.id }}"
+              class="smooch-rf__search-input"
+              data-smooch-review-search
+              placeholder="{{ section.settings.search_placeholder | default: 'Search reviews' | escape }}"
+              autocomplete="off"
+            >
+            <button type="button" class="smooch-rf__search-clear" data-smooch-search-clear hidden aria-label="Clear search">
+              {% render 'smooch-icon', icon: 'close', class: 'smooch-icon--sm' %}
+            </button>
+          </div>
+        {%- endif -%}
         {%- if section.settings.show_sorting -%}
           <label class="smooch-rf__sort">
             <span class="visually-hidden">Sort reviews</span>
@@ -191,6 +208,26 @@
           </label>
         {%- endif -%}
       </div>
+
+      {%- if section.settings.show_search and section.settings.search_chips != blank -%}
+        <div class="smooch-rf__chips" aria-label="Popular searches">
+          <span class="smooch-rf__chips-label">Popular:</span>
+          {%- assign chip_list = section.settings.search_chips | split: ',' -%}
+          {%- for chip in chip_list -%}
+            {%- assign chip_text = chip | strip -%}
+            {%- if chip_text != blank -%}
+              <button type="button" class="smooch-rf__chip" data-smooch-search-chip>{{ chip_text | escape }}</button>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_search -%}
+        <p class="smooch-rf__search-status" data-smooch-search-status aria-live="polite" hidden></p>
+        <p class="smooch-rf__search-empty" data-smooch-search-empty hidden>
+          No reviews mention that yet — try one of the popular searches above.
+        </p>
+      {%- endif -%}
 
       <ul class="smooch-rf__list" data-smooch-review-list role="list" data-initial="{{ initial_visible }}" data-batch="{{ batch_size }}">
         {%- for block in reviews -%}
@@ -300,6 +337,30 @@
       "id": "show_sorting",
       "label": "Show sort control",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Review search"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show review search",
+      "default": true,
+      "info": "Lets shoppers search reviews for their specific concern (e.g. \"stress\") and see only the reviews that mention it."
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search placeholder",
+      "default": "Search reviews (e.g. stress, energy, spark)"
+    },
+    {
+      "type": "text",
+      "id": "search_chips",
+      "label": "Quick search chips",
+      "default": "Stress, Energy, Sex drive, Mood, Partner, Taste",
+      "info": "Comma-separated one-tap searches shown under the toolbar. Leave blank to hide."
     },
     {
       "type": "header",
