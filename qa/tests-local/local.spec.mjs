@@ -532,6 +532,28 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(sticky.locator('[data-sticky-summary]')).toHaveText("Smooch Women's Libido & Mood Gummies");
   });
 
+  test('science section: tabbed Biology / How This Helps panels with accessible tab semantics', async ({ page }) => {
+    const sci = page.locator('[data-smooch-science]');
+    await expect(sci).toHaveCount(1);
+    const tabs = sci.locator('[role="tab"]');
+    await expect(tabs).toHaveCount(3);
+    // Exactly one visible panel; first tab's content shows initially.
+    expect(await sci.locator('.smooch-science__panel:not([hidden])').count()).toBe(1);
+    await expect(sci.locator('.smooch-science__panel:not([hidden])')).toContainText('KSM-66 Ashwagandha');
+    // Clicking a tab swaps the panel and syncs aria-selected.
+    await tabs.nth(1).click();
+    expect(await sci.locator('.smooch-science__panel:not([hidden])').count()).toBe(1);
+    await expect(sci.locator('.smooch-science__panel:not([hidden])')).toContainText('Black Maca');
+    await expect(tabs.nth(1)).toHaveAttribute('aria-selected', 'true');
+    await expect(tabs.nth(0)).toHaveAttribute('aria-selected', 'false');
+    // Roving keyboard focus.
+    await tabs.nth(1).focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(tabs.nth(2)).toHaveAttribute('aria-selected', 'true');
+    // Claims pair with the FDA disclaimer.
+    await expect(sci.locator('.smooch-science__disclaimer')).toContainText('Food and Drug Administration');
+  });
+
   test('gallery column has no media info cards (all removed from this PDP)', async ({ page }) => {
     const cards = page.locator('product-info').first().locator('.smooch-media-card');
     await expect(cards).toHaveCount(0);

@@ -1,0 +1,136 @@
+/* Smooch science — O Positiv-style tabbed "The Science Behind" section:
+   centered head, pill tabs, then a panel of visual + two stacked cards
+   ("The Biology" / "How This Helps"). 1rem = 10px. */
+
+.smooch-science__head {
+  margin-bottom: clamp(2.4rem, 4vw, 3.6rem);
+}
+
+/* ---------- Tabs ---------- */
+
+.smooch-science__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: clamp(2.4rem, 4vw, 3.6rem);
+}
+
+.smooch-science__tab {
+  padding: 1rem 2rem;
+  border: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.25);
+  border-radius: 3rem;
+  background: none;
+  color: rgb(var(--color-foreground));
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.smooch-science__tab:hover {
+  border-color: var(--smooch-berry);
+}
+
+.smooch-science__tab.is-active {
+  background-color: var(--smooch-berry);
+  border-color: var(--smooch-berry);
+  color: rgb(255, 255, 255);
+}
+
+/* ---------- Panel ---------- */
+
+.smooch-science__panel {
+  display: grid;
+  gap: 1.6rem;
+  max-width: 96rem;
+  margin-inline: auto;
+}
+
+.smooch-science__panel[hidden] {
+  display: none;
+}
+
+.smooch-science__visual {
+  border-radius: var(--smooch-radius-media);
+  overflow: hidden;
+  background-color: rgba(var(--smooch-blush-rgb), 0.4);
+}
+
+.smooch-science__visual:empty {
+  display: none;
+}
+
+.smooch-science__visual-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.smooch-science__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.smooch-science__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  gap: 1.4rem;
+  padding: clamp(2rem, 3vw, 3.2rem);
+  border-radius: var(--smooch-radius-card);
+  background-color: rgba(var(--smooch-blush-rgb), 0.28);
+  text-align: center;
+}
+
+.smooch-science__chip {
+  display: inline-block;
+  padding: 0.6rem 1.6rem;
+  border: 0.1rem solid var(--smooch-berry);
+  border-radius: 3rem;
+  color: var(--smooch-berry);
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.smooch-science__text {
+  font-family: var(--smooch-font-serif);
+  font-size: 1.6rem;
+  line-height: 1.65;
+  color: rgba(var(--color-foreground), 0.85);
+  max-width: 52ch;
+}
+
+.smooch-science__text > * {
+  margin: 0;
+}
+
+.smooch-science__text > * + * {
+  margin-top: 1rem;
+}
+
+.smooch-science__disclaimer {
+  margin-top: clamp(2.4rem, 4vw, 3.6rem);
+  text-align: center;
+}
+
+/* ---------- Desktop split ---------- */
+
+@media screen and (min-width: 990px) {
+  .smooch-science__panel {
+    grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .smooch-science__cards {
+    justify-content: center;
+  }
+}

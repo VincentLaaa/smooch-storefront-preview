@@ -1,0 +1,309 @@
+{{ 'section-smooch-science.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'smooch-science.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.7 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.7 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+  assign area_blocks = section.blocks | where: 'type', 'area'
+-%}
+
+<div class="smooch-band smooch-science color-{{ section.settings.color_scheme }} gradient" data-smooch-science>
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="smooch-section-head smooch-section-head--center smooch-science__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="smooch-eyebrow smooch-eyebrow--accent">
+          {{- section.settings.eyebrow | replace: '[brand]', brand_name | escape -}}
+        </p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="smooch-h2">
+          {{- section.settings.heading | replace: '[brand]', brand_name | escape -}}
+        </h2>
+      {%- endif -%}
+    </div>
+
+    {%- if area_blocks.size > 0 -%}
+      <div class="smooch-science__tabs" role="tablist" aria-label="Science topics">
+        {%- for block in area_blocks -%}
+          <button
+            type="button"
+            class="smooch-science__tab{% if forloop.first %} is-active{% endif %}"
+            role="tab"
+            id="ScienceTab-{{ block.id }}"
+            aria-controls="SciencePanel-{{ block.id }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            {% unless forloop.first %}
+              tabindex="-1"
+            {% endunless %}
+            {{ block.shopify_attributes }}
+          >
+            {{- block.settings.label | escape -}}
+          </button>
+        {%- endfor -%}
+      </div>
+
+      {%- for block in area_blocks -%}
+        {%- liquid
+          comment
+            Bundled real photos used until a merchant picks a visual — same
+            fallback pattern as the formula section's ingredient macros.
+          endcomment
+          assign fallback_src = ''
+          assign fallback_w = 900
+          assign fallback_h = 900
+          case block.settings.fallback_visual
+            when 'ashwagandha'
+              assign fallback_src = 'smooch-ingredient-ashwagandha.jpg'
+            when 'maca'
+              assign fallback_src = 'smooch-ingredient-maca.jpg'
+            when 'damiana'
+              assign fallback_src = 'smooch-ingredient-damiana.jpg'
+            when 'cinnamon'
+              assign fallback_src = 'smooch-ingredient-cinnamon.jpg'
+            when 'bottle'
+              assign fallback_src = 'smooch-demo-bottle-open.png'
+              assign fallback_w = 1086
+              assign fallback_h = 1448
+          endcase
+        -%}
+        <div
+          class="smooch-science__panel"
+          role="tabpanel"
+          id="SciencePanel-{{ block.id }}"
+          aria-labelledby="ScienceTab-{{ block.id }}"
+          {% unless forloop.first %}
+            hidden
+          {% endunless %}
+        >
+          <div class="smooch-science__visual">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 900
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '450, 700, 900',
+                  sizes: '(min-width: 990px) 40vw, 90vw',
+                  class: 'smooch-science__visual-img',
+                  alt: block.settings.image.alt | default: block.settings.label
+              }}
+            {%- elsif fallback_src != blank -%}
+              <img
+                src="{{ fallback_src | asset_url }}"
+                width="{{ fallback_w }}"
+                height="{{ fallback_h }}"
+                loading="lazy"
+                class="smooch-science__visual-img"
+                alt="{{ block.settings.label | escape }}"
+              >
+            {%- endif -%}
+          </div>
+          <div class="smooch-science__cards">
+            {%- if block.settings.biology_text != blank -%}
+              <div class="smooch-science__card">
+                <span class="smooch-science__chip">{{ block.settings.biology_label | default: 'The Biology' | escape }}</span>
+                <div class="smooch-science__text">
+                  {{ block.settings.biology_text | replace: '[brand]', brand_name }}
+                </div>
+              </div>
+            {%- endif -%}
+            {%- if block.settings.helps_text != blank -%}
+              <div class="smooch-science__card">
+                <span class="smooch-science__chip">{{ block.settings.helps_label | default: 'How This Helps' | escape }}</span>
+                <div class="smooch-science__text">
+                  {{ block.settings.helps_text | replace: '[brand]', brand_name }}
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- if section.settings.disclaimer != blank -%}
+      <p class="smooch-fine-print smooch-science__disclaimer">
+        {{- section.settings.disclaimer | escape -}}
+      </p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch science",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Tabbed \"science\" section: each tab pairs a plain-language explanation of the biology with how the formula supports it. Keep claims support-style — describe the biology as education, never as a diagnosis or a promised outcome."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-5"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The science"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Science Behind [brand] Desire & Mood",
+      "info": "Use [brand] to insert the brand name."
+    },
+    {
+      "type": "header",
+      "content": "Disclaimer"
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer",
+      "label": "Disclaimer",
+      "default": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "area",
+      "name": "Science tab",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tab label",
+          "default": "Stress & Mood"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Visual",
+          "info": "Shown beside the cards. Leave blank to use a bundled fallback photo (below)."
+        },
+        {
+          "type": "select",
+          "id": "fallback_visual",
+          "label": "Fallback visual",
+          "options": [
+            { "value": "ashwagandha", "label": "Ashwagandha root" },
+            { "value": "maca", "label": "Black Maca root" },
+            { "value": "damiana", "label": "Damiana leaf" },
+            { "value": "cinnamon", "label": "Cinnamon bark" },
+            { "value": "bottle", "label": "Product bottle" },
+            { "value": "none", "label": "None" }
+          ],
+          "default": "bottle"
+        },
+        {
+          "type": "text",
+          "id": "biology_label",
+          "label": "First card label",
+          "default": "The Biology"
+        },
+        {
+          "type": "richtext",
+          "id": "biology_text",
+          "label": "First card text",
+          "info": "Plain-language education about the biology or lived experience — no diagnoses, no outcome promises."
+        },
+        {
+          "type": "text",
+          "id": "helps_label",
+          "label": "Second card label",
+          "default": "How This Helps"
+        },
+        {
+          "type": "richtext",
+          "id": "helps_text",
+          "label": "Second card text",
+          "info": "Which ingredients support this area, in support-style language. End claim sentences with * to pair with the disclaimer."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch science",
+      "blocks": [
+        {
+          "type": "area",
+          "settings": {
+            "label": "Stress & Mood",
+            "fallback_visual": "ashwagandha",
+            "biology_text": "<p>Desire runs on bandwidth. When your brain reads the day as one long to-do list, your nervous system stays on duty — and everything quieter gets muted. It isn't a lack of love, and nothing is broken: a mind that never clocks out simply has no room left for wanting anything.</p>",
+            "helps_text": "<p><strong>KSM-66 Ashwagandha</strong> — an adaptogenic root with a long history in Ayurvedic practice — is included to support stress resilience and a calmer everyday baseline. With daily consistency, [brand] supports the settled, present feeling that gives the rest of you room to show up.*</p>"
+          }
+        },
+        {
+          "type": "area",
+          "settings": {
+            "label": "Desire & Energy",
+            "fallback_visual": "maca",
+            "biology_text": "<p>For many women, desire is responsive rather than spontaneous — it rarely shows up first. It tends to arrive after closeness begins, when there's no pressure attached. That's a normal desire style, not a flaw. But it needs somewhere to build: energy left at the end of the day, and a mind at ease enough to notice what it wants.</p>",
+            "helps_text": "<p><strong>Black Maca</strong>, a Peruvian root traditionally used to support desire and energy, is paired with <strong>Damiana</strong>, a botanical leaf with centuries of traditional use around relaxation and openness. Together they are [brand]'s daily support for the part of you that wants to want.*</p>"
+          }
+        },
+        {
+          "type": "area",
+          "settings": {
+            "label": "Connection & Presence",
+            "fallback_visual": "bottle",
+            "biology_text": "<p>Presence is physical. When your mind is elsewhere — replaying the day, watching yourself, waiting for your body to catch up — closeness can feel mechanical instead of natural. Feeling connected to someone else starts with feeling at ease in your own body first.</p>",
+            "helps_text": "<p>[brand] is built as one small daily ritual, not an in-the-moment fix: the full four-ingredient blend, finished with warming <strong>Cinnamon Bark</strong>, taken consistently over weeks. Quiet, steady support for feeling more like yourself — and more present when it matters.*</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
