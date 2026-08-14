@@ -30,26 +30,29 @@
 
     if (!track) return;
 
-    /* ------------------------------------------------------------ arrows */
-    const updateArrows = () => {
-      if (!prevBtn && !nextBtn) return;
-      const max = track.scrollWidth - track.clientWidth - 1;
-      if (prevBtn) prevBtn.disabled = track.scrollLeft <= 0;
-      if (nextBtn) nextBtn.disabled = track.scrollLeft >= max;
-    };
-
+    /* ---------------------------------------------- arrows (looping) */
     const scrollByCard = (dir) => {
+      const behavior = prefersReducedMotion ? 'auto' : 'smooth';
+      const max = track.scrollWidth - track.clientWidth;
+      // At either end the arrows wrap around instead of dead-ending. The
+      // snap gutters settle a few px off the exact edge, so "at the end"
+      // is tolerant (48px is well under any card width).
+      const EDGE = 48;
+      if (dir > 0 && track.scrollLeft >= max - EDGE) {
+        track.scrollTo({ left: 0, behavior });
+        return;
+      }
+      if (dir < 0 && track.scrollLeft <= EDGE) {
+        track.scrollTo({ left: track.scrollWidth, behavior });
+        return;
+      }
       const card = track.querySelector('.smooch-rc__card');
       const step = card ? card.getBoundingClientRect().width + 24 : track.clientWidth * 0.8;
-      track.scrollBy({ left: dir * step, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      track.scrollBy({ left: dir * step, behavior });
     };
 
     if (prevBtn) prevBtn.addEventListener('click', () => scrollByCard(-1));
     if (nextBtn) nextBtn.addEventListener('click', () => scrollByCard(1));
-
-    track.addEventListener('scroll', () => window.requestAnimationFrame(updateArrows), { passive: true });
-    window.addEventListener('resize', updateArrows);
-    updateArrows();
 
     /* -------------------------------------------------- desktop drag-scroll */
     let isDown = false;

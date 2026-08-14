@@ -999,22 +999,31 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     expect(fullyVisible).toBe(false);
   });
 
-  test('carousel: arrows scroll the track and correctly disable at each end', async ({ page }) => {
+  test('carousel: arrows scroll the track and loop around at each end', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(PRODUCT);
     const track = page.locator('[data-smooch-track]');
     await track.scrollIntoViewIfNeeded();
 
-    expect(await page.evaluate(() => document.querySelector('[data-smooch-prev]').disabled)).toBe(true);
+    // Mid-track: next advances by roughly one card.
+    await page.evaluate(() => document.querySelector('[data-smooch-next]').click());
+    await page.waitForTimeout(700);
+    expect(await track.evaluate((el) => el.scrollLeft)).toBeGreaterThan(200);
 
-    for (let i = 0; i < 10; i++) {
-      await page.evaluate(() => document.querySelector('[data-smooch-next]').click());
-      await page.waitForTimeout(200);
-    }
-    const info = await track.evaluate((el) => ({ scrollLeft: el.scrollLeft, max: el.scrollWidth - el.clientWidth }));
-    expect(info.scrollLeft).toBeGreaterThan(0);
-    expect(Math.abs(info.scrollLeft - info.max)).toBeLessThan(2);
-    expect(await page.evaluate(() => document.querySelector('[data-smooch-next]').disabled)).toBe(true);
+    // At the far end: next wraps back to the start.
+    await track.evaluate((el) => el.scrollTo({ left: el.scrollWidth, behavior: 'auto' }));
+    await page.waitForTimeout(300);
+    await page.evaluate(() => document.querySelector('[data-smooch-next]').click());
+    await page.waitForTimeout(900);
+    expect(await track.evaluate((el) => el.scrollLeft)).toBeLessThan(60);
+
+    // At the start: prev wraps to the end.
+    await track.evaluate((el) => el.scrollTo({ left: 0, behavior: 'auto' }));
+    await page.waitForTimeout(300);
+    await page.evaluate(() => document.querySelector('[data-smooch-prev]').click());
+    await page.waitForTimeout(900);
+    const wrapped = await track.evaluate((el) => ({ scrollLeft: el.scrollLeft, max: el.scrollWidth - el.clientWidth }));
+    expect(Math.abs(wrapped.scrollLeft - wrapped.max)).toBeLessThan(60);
   });
 
   test('full reviews: id="smooch-reviews" anchor, distribution math, honesty labels', async ({ page }) => {
