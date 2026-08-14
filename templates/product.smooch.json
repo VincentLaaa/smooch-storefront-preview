@@ -281,7 +281,7 @@
           "type": "area",
           "settings": {
             "label": "Stress & Mood",
-            "fallback_visual": "ashwagandha",
+            "fallback_visual": "anim-mind",
             "biology_text": "<p>Desire runs on bandwidth. When your brain reads the day as one long to-do list, your nervous system stays on duty — and everything quieter gets muted. It isn't a lack of love, and nothing is broken: a mind that never clocks out simply has no room left for wanting anything.</p>",
             "helps_text": "<p><strong>KSM-66 Ashwagandha</strong> — an adaptogenic root with a long history in Ayurvedic practice — is included to support stress resilience and a calmer everyday baseline. With daily consistency, [brand] supports the settled, present feeling that gives the rest of you room to show up.*</p>"
           }
@@ -290,7 +290,7 @@
           "type": "area",
           "settings": {
             "label": "Desire & Energy",
-            "fallback_visual": "maca",
+            "fallback_visual": "anim-heart",
             "biology_text": "<p>For many women, desire is responsive rather than spontaneous — it rarely shows up first. It tends to arrive after closeness begins, when there's no pressure attached. That's a normal desire style, not a flaw. But it needs somewhere to build: energy left at the end of the day, and a mind at ease enough to notice what it wants.</p>",
             "helps_text": "<p><strong>Black Maca</strong>, a Peruvian root traditionally used to support desire and energy, is paired with <strong>Damiana</strong>, a botanical leaf with centuries of traditional use around relaxation and openness. Together they are [brand]'s daily support for the part of you that wants to want.*</p>"
           }
@@ -299,7 +299,7 @@
           "type": "area",
           "settings": {
             "label": "Connection & Presence",
-            "fallback_visual": "bottle",
+            "fallback_visual": "hands",
             "biology_text": "<p>Presence is physical. When your mind is elsewhere — replaying the day, watching yourself, waiting for your body to catch up — closeness can feel mechanical instead of natural. Feeling connected to someone else starts with feeling at ease in your own body first.</p>",
             "helps_text": "<p>[brand] is built as one small daily ritual, not an in-the-moment fix: the full four-ingredient blend, finished with warming <strong>Cinnamon Bark</strong>, taken consistently over weeks. Quiet, steady support for feeling more like yourself — and more present when it matters.*</p>"
           }

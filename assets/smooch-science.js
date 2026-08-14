@@ -3,7 +3,24 @@
  * tab, aria-selected and hidden stay in sync. No motion, no dependencies.
  */
 (() => {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   document.querySelectorAll('[data-smooch-science]').forEach((section) => {
+    // Looping illustration animations: hold on the poster frame under
+    // reduced motion, and only play the visible tab's video.
+    const syncVideos = () => {
+      section.querySelectorAll('video[data-science-anim]').forEach((video) => {
+        const hidden = video.closest('[role="tabpanel"]')?.hidden;
+        if (prefersReducedMotion || hidden) {
+          video.pause();
+          if (prefersReducedMotion) video.removeAttribute('autoplay');
+        } else {
+          video.play().catch(() => {});
+        }
+      });
+    };
+    syncVideos();
+
     const tabs = Array.from(section.querySelectorAll('[role="tab"]'));
     if (tabs.length < 2) return;
 
@@ -16,6 +33,7 @@
         const panel = section.querySelector(`#${other.getAttribute('aria-controls')}`);
         if (panel) panel.hidden = !active;
       });
+      syncVideos();
       if (focus) tab.focus();
     };
 
