@@ -40,7 +40,9 @@
 .smooch-home-hero__proof {
   margin: 2rem 0 0;
   max-width: 46ch;
-  color: rgba(var(--color-foreground), 0.75);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(var(--color-foreground), 0.9);
 }
 
 /* On the saturated berry default scheme, translucent foreground drops under
