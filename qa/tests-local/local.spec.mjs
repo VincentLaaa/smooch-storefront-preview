@@ -869,13 +869,18 @@ test.describe('Landing page structure + timeline scroll story (product page)', (
     const proofBox = await proof.boundingBox();
     expect(proofBox.y).toBeLessThan(900);
 
-    // The 3-bundle offer: three cards, exactly one highlighted (pre-selected
-    // framing), cost-per-day lines present, guarantee reassurance inline.
-    const cards = page.locator('.smooch-home-offer__card');
-    await expect(cards).toHaveCount(3);
-    await expect(page.locator('.smooch-home-offer__card--highlight')).toHaveCount(1);
-    await expect(page.locator('.smooch-home-offer__card--highlight')).toContainText('90¢ a day');
-    await expect(page.locator('.smooch-home-offer__reassurance')).toContainText('30-day money-back guarantee');
+    // The "why women choose" slider: one slide visible at a time with a live
+    // counter and working arrows; the guarantee slide carries the 30-day
+    // risk reversal.
+    const why = page.locator('[data-smooch-why]');
+    await expect(why).toHaveCount(1);
+    await expect(why.locator('.smooch-why__slide')).toHaveCount(6);
+    await expect(why.locator('[data-why-current]')).toHaveText('1');
+    await expect(why.locator('.smooch-why__slide').first()).toContainText('30-day money-back guarantee');
+    await why.locator('[data-why-next]').click();
+    await page.waitForTimeout(700);
+    await expect(why.locator('[data-why-current]')).toHaveText('2');
+    await expect(why.locator('[data-why-prev]')).toBeEnabled();
 
     // The homepage scroll story was cut in the landing redesign (it repeated
     // the mechanism pillars) — neither compact story nor its JS hooks remain.

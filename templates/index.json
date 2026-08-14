@@ -139,57 +139,6 @@
         "color_scheme": "scheme-5"
       }
     },
-    "offer": {
-      "type": "smooch-home-offer",
-      "blocks": {
-        "plan-1": {
-          "type": "plan",
-          "settings": {
-            "title": "1 Month",
-            "meta": "30 gummies · 30 days",
-            "price": "$29.95",
-            "per_day": "$1 a day",
-            "note": "Autoship · cancel anytime"
-          }
-        },
-        "plan-2": {
-          "type": "plan",
-          "settings": {
-            "title": "3 Months",
-            "meta": "90 gummies · 90 days",
-            "price": "$80.94",
-            "compare_at": "$119.85",
-            "per_day": "90¢ a day",
-            "note": "You're saving $38.91",
-            "badge": "Most popular · Save 32%",
-            "highlight": true
-          }
-        },
-        "plan-3": {
-          "type": "plan",
-          "settings": {
-            "title": "2 Months",
-            "meta": "60 gummies · 60 days",
-            "price": "$56.96",
-            "per_day": "95¢ a day",
-            "note": "Autoship · cancel anytime"
-          }
-        }
-      },
-      "block_order": [
-        "plan-1",
-        "plan-2",
-        "plan-3"
-      ],
-      "settings": {
-        "eyebrow": "Choose your supply",
-        "heading": "A dollar a day — or less.",
-        "lead": "Pick a pace. Every plan ships free, renews at the price you chose, and can be paused or cancelled anytime — no hoops.",
-        "cta_label": "Start my ritual",
-        "reassurance": "30-day money-back guarantee · Ships free · Pause, edit, or cancel anytime",
-        "footer_note": "Rather not subscribe? A single one-time bottle is $39.95."
-      }
-    },
     "home_faq": {
       "type": "smooch-faq",
       "blocks": {
@@ -487,6 +436,70 @@
         "heading_line2": "Actually Notice",
         "subline": "Real answers from women who made [brand] a daily ritual."
       }
+    },
+    "why": {
+      "type": "smooch-why",
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "icon": "shield",
+            "title": "Risk-Free Guarantee",
+            "text": "Try [brand] risk-free with our 30-day money-back guarantee. If you don't love the way you feel, we'll make it right. No questions asked."
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "icon": "star",
+            "title": "Real Answers From Real Women",
+            "text": "82% of women say they feel more like themselves again. 3x more nights that end closer, not just tired. These aren't just claims — they're what women tell us after making [brand] a daily ritual."
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "icon": "leaf",
+            "title": "Four Ingredients, Nothing Hidden",
+            "text": "Every ingredient is named on the label: KSM-66 Ashwagandha — the most-studied form — plus Black Maca, Damiana, and Cinnamon Bark. No proprietary blends, no guesswork, nothing to decode."
+          }
+        },
+        "slide-4": {
+          "type": "slide",
+          "settings": {
+            "icon": "heart",
+            "title": "Tastes Like a Treat, Works Like a Ritual",
+            "text": "Unlike capsules that sit unused in the cabinet, one soft watermelon gummy makes daily support something you actually look forward to. A treat, not a task."
+          }
+        },
+        "slide-5": {
+          "type": "slide",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Made for Women, By People Who Get It",
+            "text": "We built [brand] because generic supplements were never made for this season of life. Every choice is designed around women's mood, desire, and connection — softly, daily."
+          }
+        },
+        "slide-6": {
+          "type": "slide",
+          "settings": {
+            "icon": "user",
+            "title": "Trusted by 100k+ Women",
+            "text": "You're not alone in this. Join the women who stopped waiting for the spark to come back on its own — and made a small daily ritual of it instead."
+          }
+        }
+      },
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3",
+        "slide-4",
+        "slide-5",
+        "slide-6"
+      ],
+      "settings": {
+        "heading": "Why women choose [brand]"
+      }
     }
   },
   "order": [
@@ -494,7 +507,7 @@
     "press",
     "reviews",
     "stats",
-    "offer",
+    "why",
     "stack_up",
     "lifestyle",
     "home_faq",

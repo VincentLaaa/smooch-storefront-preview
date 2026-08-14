@@ -1,0 +1,144 @@
+/* Smooch why us — product-in-use photo beside a one-at-a-time value-prop
+   slider (icon, title, short paragraph, "Slide N of X" counter, arrows).
+   1rem = 10px. */
+
+.smooch-why__layout {
+  display: grid;
+  gap: 2.4rem;
+  max-width: 100rem;
+  margin-inline: auto;
+}
+
+.smooch-why__visual {
+  border-radius: var(--smooch-radius-media);
+  overflow: hidden;
+}
+
+.smooch-why__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.smooch-why__heading {
+  margin: 0 0 0.6rem;
+}
+
+.smooch-why__counter {
+  margin: 0 0 1.2rem;
+}
+
+/* ---------- One-slide track ---------- */
+
+.smooch-why__track {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  border-radius: var(--smooch-radius-card);
+}
+
+.smooch-why__track::-webkit-scrollbar {
+  display: none;
+}
+
+.smooch-why__track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.smooch-why__track:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.3rem;
+}
+
+.smooch-why__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  padding: clamp(2.4rem, 3.5vw, 3.6rem);
+  border-radius: var(--smooch-radius-card);
+  background-color: rgb(var(--smooch-surface-rgb));
+  min-height: 26rem;
+}
+
+.smooch-why__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 50%;
+  background-color: rgba(var(--smooch-berry-rgb), 0.1);
+  color: var(--smooch-berry);
+}
+
+.smooch-why__slide-title {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  font-size: clamp(2rem, 1.8rem + 0.7vw, 2.6rem);
+  line-height: 1.2;
+}
+
+.smooch-why__slide-text {
+  margin: 0;
+  font-family: var(--smooch-font-serif);
+  font-size: 1.6rem;
+  line-height: 1.65;
+  color: rgba(var(--color-foreground), 0.85);
+  max-width: 52ch;
+}
+
+/* ---------- Arrows ---------- */
+
+.smooch-why__arrows {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+}
+
+.smooch-why__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.4rem;
+  min-height: 4.4rem;
+  border: 0.1rem solid var(--smooch-border-soft, rgba(0, 0, 0, 0.15));
+  border-radius: 50%;
+  background: none;
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.smooch-why__arrow:hover {
+  background-color: rgba(var(--smooch-ink-rgb), 0.05);
+  border-color: rgba(var(--smooch-ink-rgb), 0.3);
+}
+
+.smooch-why__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ---------- Desktop split ---------- */
+
+@media screen and (min-width: 990px) {
+  .smooch-why__layout {
+    grid-template-columns: minmax(0, 44%) minmax(0, 1fr);
+    align-items: center;
+    column-gap: clamp(3.2rem, 5vw, 6.4rem);
+  }
+}
