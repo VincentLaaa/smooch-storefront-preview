@@ -189,14 +189,124 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.6rem;
-  padding: 2rem 0;
+  flex-wrap: wrap;
+  gap: 1.2rem 1.6rem;
+  padding: 2rem 0 1.2rem;
 }
 
 .smooch-rf__count {
   margin: 0;
   font-size: 1.4rem;
   font-weight: 700;
+}
+
+/* ---------- Review search ---------- */
+
+.smooch-rf__search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 26rem;
+  max-width: 40rem;
+}
+
+.smooch-rf__search-icon {
+  position: absolute;
+  left: 1.4rem;
+  color: rgba(var(--color-foreground), 0.5);
+  pointer-events: none;
+}
+
+.smooch-rf__search-input {
+  width: 100%;
+  min-height: 4.4rem;
+  padding: 0.8rem 4rem 0.8rem 4rem;
+  border: 0.1rem solid var(--smooch-border-soft);
+  border-radius: 3rem;
+  background-color: rgb(var(--smooch-surface-rgb));
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  color: rgb(var(--color-foreground));
+}
+
+.smooch-rf__search-input:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.2rem;
+}
+
+.smooch-rf__search-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.smooch-rf__search-clear {
+  position: absolute;
+  right: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: rgba(var(--color-foreground), 0.6);
+  cursor: pointer;
+}
+
+.smooch-rf__search-clear:hover {
+  color: rgb(var(--color-foreground));
+}
+
+.smooch-rf__chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1.6rem;
+}
+
+.smooch-rf__chips-label {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.smooch-rf__chip {
+  padding: 0.6rem 1.4rem;
+  border: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.2);
+  border-radius: 3rem;
+  background: none;
+  color: rgb(var(--color-foreground));
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.smooch-rf__chip:hover {
+  border-color: var(--smooch-berry);
+}
+
+.smooch-rf__chip.is-active {
+  background-color: var(--smooch-berry);
+  border-color: var(--smooch-berry);
+  color: rgb(255, 255, 255);
+}
+
+.smooch-rf__search-status {
+  margin: 0 0 1.2rem;
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.smooch-rf__search-empty {
+  margin: 0 0 1.6rem;
+  padding: 2rem;
+  border-radius: var(--smooch-radius-card);
+  background-color: rgba(var(--smooch-blush-rgb), 0.3);
+  font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 0.75);
 }
 
 .smooch-rf__sort {
