@@ -1626,7 +1626,7 @@
         "type": "text",
         "id": "smooch_email_text",
         "label": "Email capture text",
-        "default": "Wellness notes, honest education, and subscriber-only offers. No noise."
+        "default": "Honest education, the stuff nobody tells you, and subscriber-only offers. No noise."
       }
     ]
   },

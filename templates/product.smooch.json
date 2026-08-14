@@ -34,21 +34,21 @@
           "type": "benefit",
           "settings": {
             "icon": "sparkle",
-            "text": "Supports a calmer, more open mindset"
+            "text": "Supports calm on brain-too-loud days"
           }
         },
         "benefit-2": {
           "type": "benefit",
           "settings": {
             "icon": "heart",
-            "text": "Supports desire and everyday connection"
+            "text": "Supports the part of you that wants to want"
           }
         },
         "benefit-3": {
           "type": "benefit",
           "settings": {
             "icon": "moon",
-            "text": "An easy daily gummy ritual"
+            "text": "A daily ritual that's just yours"
           }
         },
         "bundles-1": {
@@ -120,7 +120,7 @@
           "settings": {
             "heading": "How to use",
             "icon": "clock",
-            "content": "<p>One gummy, once a day, with or without food. Consistency matters more than timing — see the final label for directions.</p>"
+            "content": "<p>One gummy, once a day, with or without food — tied to a moment that's yours. Consistency matters more than timing; see the final label for directions.</p>"
           }
         },
         "collapsible_tab-3": {
@@ -170,14 +170,14 @@
           "type": "item",
           "settings": {
             "icon": "moon",
-            "text": "One easy daily gummy"
+            "text": "One gummy, once a day"
           }
         },
         "item-2": {
           "type": "item",
           "settings": {
             "icon": "leaf",
-            "text": "Four-ingredient formula"
+            "text": "Four ingredients, no hiding"
           }
         },
         "guarantee-1": {
@@ -202,7 +202,7 @@
           "settings": {
             "period": "Week 1",
             "heading": "Build the ritual",
-            "text": "Your first week is about consistency — finding the moment in your day when [brand] is easiest to remember.",
+            "text": "Week one is just the habit — pair [brand] with a moment you already keep for yourself: morning coffee, the wind-down, the quiet hour.",
             "icon": "sparkle"
           }
         },
@@ -211,7 +211,7 @@
           "settings": {
             "period": "Week 2",
             "heading": "Settle into consistency",
-            "text": "Keep the daily rhythm going and pay attention to your overall baseline rather than looking for an instant switch.",
+            "text": "Keep the daily rhythm going. There's no switch to feel for — this is baseline territory, the stuff you only notice by its absence later.",
             "icon": "sparkle"
           }
         },
@@ -220,7 +220,7 @@
           "settings": {
             "period": "Week 3",
             "heading": "Notice the subtle stuff",
-            "text": "A useful point to check in with things like mood, presence, and openness. Experiences vary and changes may be subtle.",
+            "text": "A good week to check in: mood, presence, how loud your brain feels by evening. Real noticing tends to be gradual and subtle, and experiences vary.",
             "icon": "sparkle"
           }
         },
@@ -229,7 +229,7 @@
           "settings": {
             "period": "Week 4",
             "heading": "Check in with yourself",
-            "text": "After several consistent weeks, reflect on how you feel and whether [brand] earns a place in your routine.",
+            "text": "After several weeks, ask the real question: do I feel a little more like me? That's how [brand] earns its place — or doesn't.",
             "icon": "sparkle"
           }
         },
@@ -244,14 +244,14 @@
           "type": "fact",
           "settings": {
             "title": "Results",
-            "text": "There is no guaranteed timeline. Individual experiences vary, and daily wellness support may feel gradual rather than immediate."
+            "text": "There's no guaranteed timeline, and we won't invent one. Those who notice a change describe it as gradual — some don't notice much. Experiences vary."
           }
         },
         "fact-3": {
           "type": "fact",
           "settings": {
             "title": "Consistency",
-            "text": "[brand] is designed as a daily ritual, not an on-demand product. Follow the final label directions."
+            "text": "[brand] is a daily ritual, not an on-demand product — tending, not a switch. Follow the final label directions."
           }
         }
       },
@@ -266,9 +266,9 @@
       ],
       "settings": {
         "color_scheme": "scheme-6",
-        "eyebrow": "The honest expectations",
-        "heading": "What's happening in your body?",
-        "lead": "[brand] is designed for consistent daily support, not an on-demand effect. Its ingredients are formulated to support areas that can influence how present, balanced, and open you feel — including mood and desire. What you notice, and when, varies from person to person.",
+        "eyebrow": "No overnight promises",
+        "heading": "What the first month looks like",
+        "lead": "[brand] is built for consistent daily support, not an on-demand effect. Change like this tends to arrive quietly — a bit more present, a bit more open, a bit more like yourself. There's no switch to flip. What you notice, and when, varies from person to person.",
         "disclaimer": "These are rhythm milestones, not guaranteed results. Individual experiences vary.",
         "padding_top": 64,
         "padding_bottom": 64
@@ -324,7 +324,7 @@
           "settings": {
             "name": "Black Maca",
             "category": "desire",
-            "purpose": "A Peruvian root traditionally used to support desire and energy. Experiences vary.",
+            "purpose": "The want-to-want root: traditionally used to support desire and energy. Experiences vary.",
             "detail": "<p>A Peruvian root with a long history in traditional wellness practices. Final label details — form, amount, and sourcing — will appear here.</p>",
             "source_note": "Amounts shown once final label values are approved."
           }
@@ -334,7 +334,7 @@
           "settings": {
             "name": "KSM-66 Ashwagandha",
             "category": "mood",
-            "purpose": "A root extract traditionally used to support a calmer everyday baseline. Experiences vary.",
+            "purpose": "For the brain that never clocks out: traditionally used to support a calmer everyday baseline. Experiences vary.",
             "detail": "<p>An adaptogenic root with a long history in Ayurvedic practice, included in the KSM-66 extract form. Final label details will appear here.</p>",
             "source_note": "Amounts shown once final label values are approved."
           }
@@ -344,7 +344,7 @@
           "settings": {
             "name": "Damiana",
             "category": "connection",
-            "purpose": "A botanical leaf traditionally used to support relaxation and mood. Experiences vary.",
+            "purpose": "A leaf traditionally used to support relaxation and mood — room to relax into wanting. Experiences vary.",
             "detail": "<p>A botanical leaf with a long history in traditional wellness practices. Final label details will appear here.</p>",
             "source_note": "Amounts shown once final label values are approved."
           }
@@ -379,7 +379,7 @@
           "type": "question",
           "settings": {
             "question": "What is [brand]?",
-            "answer": "<p>A daily gummy formulated to support mood, desire, and feeling connected — designed as one small, consistent ritual rather than an on-demand product.</p>"
+            "answer": "<p>A daily gummy for the season when the spark feels quieter — formulated to support mood, desire, and feeling more like yourself. One small, consistent ritual, not an on-demand product.</p>"
           }
         },
         "question-2": {
@@ -399,8 +399,8 @@
         "question-4": {
           "type": "question",
           "settings": {
-            "question": "How long should I use it?",
-            "answer": "<p>Give it several consistent weeks, then check in with yourself. Daily support tends to feel gradual, and experiences vary.</p>"
+            "question": "When will I notice anything?",
+            "answer": "<p>Give it several consistent weeks, then check in. Real noticing tends to be gradual — the kind you catch almost by accident. Experiences vary.</p>"
           }
         },
         "question-5": {
@@ -421,7 +421,7 @@
           "type": "question",
           "settings": {
             "question": "How does the subscription work?",
-            "answer": "<p>Choose a delivery schedule at checkout and your order arrives automatically, with any subscription savings applied to each delivery. You stay in control and can manage or cancel at any time.</p>"
+            "answer": "<p>Choose a delivery schedule at checkout and it arrives automatically with your savings applied. Cancel, pause, or edit anytime in a couple of clicks — no phone calls, no hoops, no guilt trip.</p>"
           }
         },
         "question-8": {
