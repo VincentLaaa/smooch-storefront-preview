@@ -66,7 +66,10 @@
                 <span class="visually-hidden">{{ feature_col_label }}</span>
               </th>
               <th scope="col" class="smooch-comparison__cell--brand smooch-comparison__head-brand">
-                {{- brand_name -}}
+                <span class="smooch-comparison__brand-lockup">
+                  {%- render 'smooch-icon', icon: 'heart', class: 'smooch-icon--sm' -%}
+                  <span>{{ brand_name }}</span>
+                </span>
               </th>
               <th scope="col" class="smooch-comparison__cell--alt smooch-comparison__head-alt">
                 {{- section.settings.column_a_label -}}
@@ -99,13 +102,21 @@
                   <td class="{{ cell_class }}">
                     {%- case state -%}
                       {%- when 'yes' -%}
-                        <span class="smooch-comparison__state smooch-comparison__state--yes">
-                          {%- render 'smooch-icon', icon: 'check' -%}
-                          <span class="visually-hidden">{{ yes_label }}</span>
-                        </span>
+                        {%- if col == 'brand' -%}
+                          {%- comment -%} The brand lane repeats the brand mark instead of a plain check. {%- endcomment -%}
+                          <span class="smooch-comparison__state smooch-comparison__state--mark">
+                            {%- render 'smooch-icon', icon: 'heart' -%}
+                            <span class="visually-hidden">{{ yes_label }}</span>
+                          </span>
+                        {%- else -%}
+                          <span class="smooch-comparison__state smooch-comparison__state--yes">
+                            {%- render 'smooch-icon', icon: 'check' -%}
+                            <span class="visually-hidden">{{ yes_label }}</span>
+                          </span>
+                        {%- endif -%}
                       {%- when 'no' -%}
                         <span class="smooch-comparison__state smooch-comparison__state--no">
-                          {%- render 'smooch-icon', icon: 'minus' -%}
+                          {%- render 'smooch-icon', icon: 'close' -%}
                           <span class="visually-hidden">{{ no_label }}</span>
                         </span>
                       {%- else -%}
