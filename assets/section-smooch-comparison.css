@@ -202,13 +202,15 @@
   vertical-align: middle;
 }
 
-/* Brand lane: the brand mark itself, white on watermelon */
+/* Brand lane: the brand mark in a white circle so it reads as a "yes"
+   mark alongside the other columns' circles. */
 .smooch-comparison__state--mark {
-  color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
+  color: rgb(var(--smooch-berry-rgb));
 }
 
 .smooch-comparison__state--mark .smooch-icon {
-  --icon-size: 2rem;
+  --icon-size: 1.7rem;
 }
 
 .smooch-comparison__state--mark .smooch-icon svg {
