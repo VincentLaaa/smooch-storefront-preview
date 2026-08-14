@@ -626,6 +626,58 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await page.click('[data-gallery-prev]');
     await page.waitForTimeout(900);
     expect(Math.round(await track.evaluate((t) => t.scrollLeft))).toBe(Math.round(geo.clientW * 2));
+
+    // Scroll-linked motion: the active slide sits at full scale/opacity, its
+    // neighbors scaled down and faded; halfway between two slides both carry
+    // partial values, and the image parallax tracks the scroll position.
+    await track.evaluate((t) => t.scrollTo({ left: 0, behavior: 'auto' }));
+    await page.waitForTimeout(600);
+    const rest = await track.evaluate((t) => {
+      const c = t.querySelectorAll('.product-media-container');
+      return { first: c[0].style.transform, firstO: c[0].style.opacity, second: c[1].style.transform };
+    });
+    expect(rest.first).toBe('scale(1)');
+    expect(rest.firstO).toBe('1');
+    expect(rest.second).toBe('scale(0.88)');
+    const mid = await track.evaluate((t) => {
+      t.style.scrollSnapType = 'none';
+      t.scrollLeft = t.clientWidth / 2;
+      return new Promise((resolve) =>
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => {
+            const c = t.querySelectorAll('.product-media-container');
+            t.style.scrollSnapType = '';
+            t.scrollTo({ left: 0, behavior: 'auto' });
+            resolve({
+              firstScale: parseFloat(c[0].style.transform.replace(/[^\d.]+/g, '')),
+              firstOpacity: parseFloat(c[0].style.opacity),
+              parallax: c[0].querySelector('.media img').style.transform,
+            });
+          })
+        )
+      );
+    });
+    expect(mid.firstScale).toBeGreaterThan(0.9);
+    expect(mid.firstScale).toBeLessThan(1);
+    expect(mid.firstOpacity).toBeGreaterThan(0.6);
+    expect(mid.firstOpacity).toBeLessThan(0.9);
+    expect(mid.parallax).toContain('translateX(');
+  });
+
+  test('hero gallery motion respects prefers-reduced-motion', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(PRODUCT);
+    await expect(page.locator('[data-smooch-gallery]')).toHaveClass(/smooch-gallery--ready/);
+    const track = page.locator('.smooch-product .product__media-list');
+    await track.evaluate((t) => { t.scrollLeft = 200; });
+    await page.waitForTimeout(400);
+    const styles = await track.evaluate((t) => {
+      const c = t.querySelector('.product-media-container');
+      return { transform: c.style.transform, opacity: c.style.opacity };
+    });
+    expect(styles.transform).toBe('');
+    expect(styles.opacity).toBe('');
   });
 
   test('hero gallery mobile: full-bleed canvas, native swipe track with exact snap geometry, dots', async ({ page }) => {

@@ -56,6 +56,28 @@
       if (nextBtn) nextBtn.disabled = index >= last;
     };
 
+    // Scroll-linked motion: driven by the live scroll position (not a timed
+    // animation), so it tracks a drag 1:1. A slide leaving the viewport
+    // gently scales down and fades while the incoming one rises to full
+    // presence; the image itself lags a touch behind its slide (parallax).
+    const applyMotion = () => {
+      if (prefersReducedMotion) return;
+      const list = slides();
+      if (list.length < 2) return;
+      const center = track.scrollLeft + track.clientWidth / 2;
+      list.forEach((slide) => {
+        const container = slide.querySelector('.product-media-container');
+        if (!container) return;
+        const raw = (slide.offsetLeft + slide.offsetWidth / 2 - center) / track.clientWidth;
+        const progress = Math.max(-1, Math.min(1, raw));
+        const away = Math.abs(progress);
+        container.style.transform = `scale(${(1 - away * 0.12).toFixed(4)})`;
+        container.style.opacity = (1 - away * 0.5).toFixed(4);
+        const media = container.querySelector('.media img, .media video, .media iframe');
+        if (media) media.style.transform = `translateX(${(-progress * 10).toFixed(3)}%)`;
+      });
+    };
+
     const buildDots = () => {
       const count = slides().length;
       root.classList.toggle('smooch-gallery--single', count < 2);
@@ -76,8 +98,22 @@
     if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex() - 1));
     if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex() + 1));
 
-    track.addEventListener('scroll', () => window.requestAnimationFrame(sync), { passive: true });
-    window.addEventListener('resize', sync);
+    let frameQueued = false;
+    const onFrame = () => {
+      frameQueued = false;
+      sync();
+      applyMotion();
+    };
+    track.addEventListener(
+      'scroll',
+      () => {
+        if (frameQueued) return;
+        frameQueued = true;
+        window.requestAnimationFrame(onFrame);
+      },
+      { passive: true }
+    );
+    window.addEventListener('resize', onFrame);
 
     // Keyboard support on the scroll region itself.
     track.setAttribute('tabindex', '0');
@@ -141,9 +177,13 @@
 
     // product-info.js adds/removes/reorders slides in place on variant
     // changes — rebuild the dots whenever the list mutates.
-    new MutationObserver(buildDots).observe(track, { childList: true });
+    new MutationObserver(() => {
+      buildDots();
+      applyMotion();
+    }).observe(track, { childList: true });
 
     buildDots();
+    applyMotion();
     root.classList.add('smooch-gallery--ready');
   });
 })();
