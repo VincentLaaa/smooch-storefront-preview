@@ -349,7 +349,7 @@
         "row-1": {
           "type": "row",
           "settings": {
-            "label": "Four named ingredients, zero blends",
+            "label": "No hidden blends",
             "brand_state": "yes",
             "alt_a_state": "no",
             "alt_a_text": "",
@@ -360,7 +360,7 @@
         "row-2": {
           "type": "row",
           "settings": {
-            "label": "KSM-66 Ashwagandha, the most-studied form",
+            "label": "KSM-66 Ashwagandha",
             "brand_state": "yes",
             "alt_a_state": "text",
             "alt_a_text": "Rarely",
@@ -371,7 +371,7 @@
         "row-3": {
           "type": "row",
           "settings": {
-            "label": "Built for desire, mood & connection together",
+            "label": "Made for desire, mood & connection",
             "brand_state": "yes",
             "alt_a_state": "no",
             "alt_b_state": "no"
@@ -380,7 +380,7 @@
         "row-4": {
           "type": "row",
           "settings": {
-            "label": "One-a-day gummy you'll actually keep up",
+            "label": "One gummy a day",
             "brand_state": "yes",
             "alt_a_state": "yes",
             "alt_b_state": "no"
@@ -389,7 +389,7 @@
         "row-5": {
           "type": "row",
           "settings": {
-            "label": "Tastes like a treat, not a task",
+            "label": "Tastes like a treat",
             "brand_state": "yes",
             "alt_a_state": "text",
             "alt_a_text": "Varies",
