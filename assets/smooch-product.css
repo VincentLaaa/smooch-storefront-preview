@@ -1467,6 +1467,22 @@ body.smooch-sticky-atc-visible {
   object-fit: contain;
 }
 
+/* Scroll-linked slide motion (driven from smooch-product-gallery.js):
+   transform/opacity only, promoted to the compositor for a smooth drag.
+   The soft radius is invisible on transparent cutouts but turns imagery
+   with a baked-in background into clean rounded cards while they scale
+   through a transition (and clips the parallax inside the slide). */
+.smooch-gallery--ready .product-media-container {
+  transform-origin: center;
+  will-change: transform, opacity;
+  border-radius: var(--smooch-radius-media);
+  overflow: hidden;
+}
+
+.smooch-gallery--ready .product-media-container .media img {
+  will-change: transform;
+}
+
 /* Dawn's own slider chrome (caret buttons + "1 / 4" counter) is replaced by
    the overlay arrows + dots below. */
 .smooch-product .product__media-wrapper .slider-buttons {
