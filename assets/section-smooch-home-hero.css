@@ -133,6 +133,17 @@
   color: rgba(var(--color-foreground), 0.85);
 }
 
+/* ---------- Mobile-fold elements (hidden from 750px up) ---------- */
+
+/* Only one CTA label span is ever visible. */
+.smooch-home-hero__cta-label--mobile {
+  display: none;
+}
+
+.smooch-home-hero__fold-trust {
+  display: none;
+}
+
 /* ---------- Mobile ---------- */
 
 @media screen and (max-width: 749px) {
@@ -143,6 +154,67 @@
 
   .smooch-home-hero__ctas .smooch-btn {
     width: 100%;
+  }
+
+  .smooch-home-hero__cta-label--desktop {
+    display: none;
+  }
+
+  .smooch-home-hero__cta-label--mobile {
+    display: inline;
+  }
+
+  /* Slim transactional row closing the first screen. */
+  .smooch-home-hero__fold-trust {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem 1.6rem;
+    margin: 1.4rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .smooch-home-hero__fold-trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: rgb(var(--color-foreground));
+  }
+
+  .smooch-home-hero__fold-trust-item .smooch-icon {
+    flex-shrink: 0;
+    --icon-size: 1.4rem;
+  }
+
+  /* The trust points become three compact benefit cards under the image
+     (the copy has to do the selling where the product can't be tried). */
+  .smooch-home-hero__trust {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin-top: 2.8rem;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .smooch-home-hero__trust-item {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.7rem;
+    padding: 1.2rem 0.8rem;
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.35;
+    background-color: rgb(var(--smooch-surface-rgb));
+    color: var(--smooch-ink);
+    border-radius: 1.2rem;
+  }
+
+  .smooch-home-hero__trust-icon {
+    color: var(--smooch-berry);
   }
 }
 
