@@ -41,12 +41,18 @@
   overflow-x: clip;
 }
 
+/* The table sits on its own white surface card (the site's card language:
+   white panel on a colored band, like the PDP buybox) so text stays fully
+   readable regardless of the band's color scheme. */
 .smooch-comparison__scroll {
   max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  scrollbar-color: rgba(var(--color-foreground), 0.3) transparent;
+  scrollbar-color: rgba(var(--smooch-ink-rgb), 0.3) transparent;
+  background-color: rgb(var(--smooch-surface-rgb));
+  border-radius: var(--smooch-radius-card);
+  padding: 0.8rem 1.6rem 1.2rem;
 }
 
 .smooch-comparison__scroll:focus-visible {
@@ -60,7 +66,8 @@
   width: 100%;
   border-collapse: separate; /* keeps borders attached to sticky cells */
   border-spacing: 0;
-  color: rgb(var(--color-foreground));
+  /* Ink palette, not the scheme foreground — the table lives on the white card. */
+  color: var(--smooch-ink);
 }
 
 .smooch-comparison__table th,
@@ -68,12 +75,12 @@
   padding: 1.4rem 1.6rem;
   text-align: center;
   vertical-align: middle;
-  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.14);
+  border-bottom: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.12);
 }
 
 .smooch-comparison__table thead th {
   border-top: 0.3rem solid transparent; /* aligns every header with the berry rule */
-  border-bottom-color: rgba(var(--color-foreground), 0.4);
+  border-bottom-color: rgba(var(--smooch-ink-rgb), 0.35);
   vertical-align: bottom;
 }
 
@@ -84,8 +91,8 @@
   inset-inline-start: 0;
   z-index: 2;
   min-width: 13.5rem;
-  background-color: rgb(var(--color-background));
-  border-inline-end: 0.1rem solid rgba(var(--color-foreground), 0.14);
+  background-color: rgb(var(--smooch-surface-rgb));
+  border-inline-end: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.12);
   text-align: start;
   font-size: 1.4rem;
   font-weight: 600;
@@ -125,7 +132,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(var(--color-foreground), 0.65);
+  color: rgba(var(--smooch-ink-rgb), 0.6);
 }
 
 /* ---------- Cell states ---------- */
@@ -150,7 +157,7 @@
 }
 
 .smooch-comparison__state--no {
-  color: rgba(var(--color-foreground), 0.45);
+  color: rgba(var(--smooch-ink-rgb), 0.4);
 }
 
 .smooch-comparison__state--no .smooch-icon {
@@ -162,7 +169,7 @@
   max-width: 16ch;
   font-size: 1.3rem;
   line-height: 1.4;
-  color: rgba(var(--color-foreground), 0.7);
+  color: rgba(var(--smooch-ink-rgb), 0.65);
 }
 
 /* ---------- Footnote ---------- */
