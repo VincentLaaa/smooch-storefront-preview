@@ -28,27 +28,29 @@
         },
         "promise-1": {
           "type": "promise",
-          "settings": {}
+          "settings": {
+            "text": "Natural libido & mood support for more desire, energy, and connection."
+          }
         },
         "benefit-1": {
           "type": "benefit",
           "settings": {
-            "icon": "sparkle",
-            "text": "Supports calm on brain-too-loud days"
+            "icon": "heart",
+            "text": "Helps spark desire naturally"
           }
         },
         "benefit-2": {
           "type": "benefit",
           "settings": {
-            "icon": "heart",
-            "text": "Supports the part of you that wants to want"
+            "icon": "sparkle",
+            "text": "One tasty watermelon gummy a day"
           }
         },
         "benefit-3": {
           "type": "benefit",
           "settings": {
             "icon": "moon",
-            "text": "A daily ritual that's just yours"
+            "text": "Feel more like yourself again"
           }
         },
         "bundles-1": {
