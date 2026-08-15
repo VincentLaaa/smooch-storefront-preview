@@ -39,9 +39,20 @@
                   {%- if block.settings.logo != blank -%}
                     {{ block.settings.logo | image_url: width: 320 | image_tag: loading: 'lazy', widths: '160, 320', sizes: '16rem', class: 'smooch-press-bar__logo', alt: block.settings.name | default: block.settings.logo.alt }}
                   {%- else -%}
-                    <span class="smooch-press-bar__wordmark smooch-press-bar__wordmark--{{ block.settings.style }}">
-                      {{- block.settings.name -}}
-                    </span>
+                    {%- liquid
+                      assign outlet_key = block.settings.name | downcase | strip
+                      capture bundled_logo
+                        render 'smooch-press-logo', outlet: outlet_key
+                      endcapture
+                    -%}
+                    {%- if bundled_logo contains '<svg' -%}
+                      {{ bundled_logo }}
+                      <span class="visually-hidden">{{ block.settings.name | escape }}</span>
+                    {%- else -%}
+                      <span class="smooch-press-bar__wordmark smooch-press-bar__wordmark--{{ block.settings.style }}">
+                        {{- block.settings.name -}}
+                      </span>
+                    {%- endif -%}
                   {%- endif -%}
                 {%- endcapture -%}
                 {%- if block.settings.link != blank -%}
