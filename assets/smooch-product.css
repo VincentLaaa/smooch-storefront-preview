@@ -1820,3 +1820,38 @@ body.smooch-sticky-atc-visible {
     zoom: 0.72;
   }
 }
+
+
+/* ---------- Mobile curtain: buybox rises over the pinned gallery ---------- */
+
+/* As the visitor scrolls, the media column pins under the header while the
+   buybox travels up over it as a full-bleed rounded sheet - the image reads
+   as a backdrop the page "closes over" instead of content that scrolls away.
+   Mobile only; the desktop split composition is untouched. */
+@media screen and (max-width: 749.98px) {
+  /* Normal flow (not a grid row) so the sticky gallery has the whole
+     layout - including the tall buybox - as its travel room. */
+  .smooch-product__layout {
+    display: block;
+  }
+
+  .smooch-product__gallery {
+    position: sticky;
+    top: 0;
+    z-index: 0;
+  }
+
+  .smooch-product__panel {
+    position: relative;
+    z-index: 1;
+    /* Full-bleed sheet: out to the page gutters, up over the image. */
+    margin: -2.8rem -1.5rem 0;
+  }
+
+  .smooch-product__panel .smooch-buybox {
+    border-radius: 2.4rem 2.4rem 0 0;
+    padding-inline: 1.6rem;
+    padding-top: 2.4rem;
+    box-shadow: 0 -1.8rem 4rem rgba(var(--smooch-ink-rgb), 0.16);
+  }
+}
