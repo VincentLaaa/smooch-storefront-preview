@@ -998,6 +998,25 @@ test.describe('Home hero: mobile fold sells, desktop unchanged', () => {
     expect(cardsBox.y).toBeGreaterThan(visualBox.y);
   });
 
+  test('stack-up table: two columns fitting the viewport on phones, three on desktop', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 800 });
+    await page.goto('/');
+    const table = page.locator('.smooch-comparison__table');
+    await table.scrollIntoViewIfNeeded();
+
+    // Second alternative column is hidden on phones; the card fits with no
+    // inner or page-level horizontal scroll and the wordmark isn't clipped.
+    await expect(table.locator('thead th:nth-child(4)')).toBeHidden();
+    const scroll = page.locator('.smooch-comparison__scroll');
+    expect(await scroll.evaluate((el) => el.scrollWidth - el.clientWidth)).toBe(0);
+    expect(
+      await page.locator('.smooch-comparison__head-brand').evaluate((el) => el.scrollWidth - el.clientWidth),
+    ).toBe(0);
+
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await expect(table.locator('thead th:nth-child(4)')).toBeVisible();
+  });
+
   test('desktop keeps its original hero: label, no fold row, bottom trust bar', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');

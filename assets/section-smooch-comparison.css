@@ -55,12 +55,6 @@
   padding: 3rem 1.6rem 3.2rem;
 }
 
-@media screen and (max-width: 749px) {
-  .smooch-comparison__table .smooch-comparison__cell--feature {
-    border-inline-end: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.12);
-  }
-}
-
 .smooch-comparison__scroll:focus-visible {
   outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
   outline-offset: 0.3rem;
@@ -291,5 +285,68 @@
   .smooch-comparison__table .smooch-comparison__cell--feature {
     width: 38%;
     font-size: 1.6rem;
+  }
+}
+
+/* Phones: only two columns (like the reference) — the second alternative
+   column is desktop-only, so the whole table fits with no horizontal
+   scroll or sticky machinery. */
+@media screen and (max-width: 749px) {
+  .smooch-comparison__table th:nth-child(4),
+  .smooch-comparison__table td:nth-child(4) {
+    display: none;
+  }
+
+  .smooch-comparison__table {
+    table-layout: fixed;
+  }
+
+  .smooch-comparison__table th,
+  .smooch-comparison__table td {
+    padding: 1.2rem 0.6rem;
+  }
+
+  .smooch-comparison__table .smooch-comparison__cell--feature {
+    position: static;
+    min-width: 0;
+    width: 36%;
+    font-size: 1.3rem;
+    padding-inline-start: 0;
+  }
+
+  .smooch-comparison__table .smooch-comparison__cell--brand {
+    min-width: 0;
+    width: 37%;
+  }
+
+  .smooch-comparison__table .smooch-comparison__cell--alt {
+    min-width: 0;
+  }
+
+  .smooch-comparison__scroll {
+    padding: 2.6rem 1.4rem 2.8rem;
+  }
+
+  .smooch-comparison__brand-lockup {
+    font-size: 1.5rem;
+    gap: 0.4rem;
+  }
+
+  .smooch-comparison__brand-lockup .smooch-icon {
+    --icon-size: 1.4rem;
+  }
+
+  .smooch-comparison__table thead .smooch-comparison__head-alt {
+    font-size: 1.2rem;
+  }
+
+  .smooch-comparison__note {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .smooch-comparison__brand-lockup {
+    font-size: 1.3rem;
   }
 }
