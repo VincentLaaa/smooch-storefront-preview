@@ -149,8 +149,8 @@ const FIXTURES = {
     media: [
       { src: '/assets/smooch-demo-bottle-open.png', alt: "Smooch Women's Libido & Mood bottle with open cap and gummy", width: 1086, height: 1448 },
       { src: '/assets/smooch-demo-benefits-card.jpg', alt: 'Smooch bottle with benefit badges: women-loved favorite, no hidden blends, supports desire naturally, and a 30-day money-back banner', width: 1200, height: 1200 },
-      { src: '/assets/smooch-demo-stats-card.jpg', alt: "Feel like yourself again: 82% say they feel more like themselves with consistent daily use", width: 1200, height: 1200 },
-      { src: '/assets/smooch-demo-back-in-stock.jpg', alt: 'Two Smooch bottles with gummies and a back-in-stock badge', width: 1600, height: 1600 },
+      { src: '/assets/smooch-demo-notapill-card.jpg', alt: 'Not a pill, not a powder, not another messy drink mix: pills and drink mixes compared with the Smooch gummy', width: 1200, height: 1200 },
+      { src: '/assets/smooch-demo-notice-card.jpg', alt: 'What women notice with Smooch: better mood, calmer daily balance, more natural energy, feeling more like themselves', width: 1200, height: 1200 },
     ],
     comment_pricing: 'Real store pricing (2026-08-11): 1 tub / every 1 month = $29.95; '
       + '2 tubs / every 2 months = $56.96; 3 tubs / every 3 months = $80.95 (fixture uses $80.94 — '
