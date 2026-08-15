@@ -864,7 +864,7 @@ test.describe('Landing page structure + timeline scroll story (product page)', (
 
     // Hero passes the 3-second test: recognition headline + social proof
     // rendered above the fold (principle: proof in the first 25%).
-    await expect(page.locator('.smooch-home-hero, [class*="home-hero"]').first()).toContainText('Brain too loud');
+    await expect(page.locator('.smooch-home-hero, [class*="home-hero"]').first()).toContainText('A better spark');
     const proof = page.getByText('1,692 reviews').first();
     const proofBox = await proof.boundingBox();
     expect(proofBox.y).toBeLessThan(900);
