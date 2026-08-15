@@ -501,7 +501,8 @@
                                 <div class="smooch-subpanel__headline">
                                   <span class="smooch-subpanel__title">{{ block.settings.subscribe_label | default: 'Autoship &' }}</span>
                                   <span class="smooch-subpanel__pct-pill" data-sub-pct-pill {% if panel_pct == 0 %}hidden{% endif %}>
-                                    SAVE <span data-sub-pct>{% if panel_pct > 0 %}{{ panel_pct }}{% endif %}</span>%
+                                    {%- comment -%} &nbsp; survives flex layout's whitespace collapsing. {%- endcomment -%}
+                                    Save&nbsp;<span data-sub-pct>{% if panel_pct > 0 %}{{ panel_pct }}{% endif %}</span>%
                                   </span>
                                   {%- if block.settings.promo_pill_text != blank -%}
                                     <span class="smooch-subpanel__promo-pill" data-sub-autobadge {% if panel_pct == 0 %}hidden{% endif %}>

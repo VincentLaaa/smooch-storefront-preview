@@ -250,7 +250,7 @@ test.describe('Purchase matrix (offline harness)', () => {
     await expect(hero.locator('[data-smooch-price]').first()).toHaveText('$80.94');
     await expect(hero.locator('[data-sub-compare]')).toHaveText('$119.85');
     await expect(hero.locator('[data-sub-pct]')).toHaveText('32');
-    await expect(hero.locator('[data-sub-pct-pill]')).toContainText('SAVE 32%');
+    await expect(hero.locator('[data-sub-pct-pill]')).toContainText('Save 32%');
     await shot(page, 'product-subscription-desktop-1440');
 
     await hero.locator('button[id^="ProductSubmitButton-"]').first().click();
