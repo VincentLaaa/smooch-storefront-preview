@@ -1841,10 +1841,14 @@ body.smooch-sticky-atc-visible {
     z-index: 0;
   }
 
-  .smooch-product__panel {
+  /* Doubled-up selector outguns Dawn's .grid--1-col .grid__item width,
+     which would pin the sheet at the gutter width and leave a strip of
+     background showing on the right. */
+  .smooch-product__layout .smooch-product__panel {
     position: relative;
     z-index: 1;
-    /* Full-bleed sheet: out to the page gutters, up over the image. */
+    width: auto;
+    max-width: none;
     margin: -2.8rem -1.5rem 0;
   }
 
