@@ -237,7 +237,7 @@
         "heading": "How we stack up",
         "lead": "",
         "column_a_label": "Other gummies",
-        "show_column_b": true,
+        "show_column_b": false,
         "column_b_label": "Traditional capsules",
         "footnote": "Comparisons reflect typical products in each category, not any specific brand.",
         "color_scheme": "scheme-3"

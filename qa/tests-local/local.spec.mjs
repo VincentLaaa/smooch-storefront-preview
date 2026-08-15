@@ -1004,9 +1004,10 @@ test.describe('Home hero: mobile fold sells, desktop unchanged', () => {
     const table = page.locator('.smooch-comparison__table');
     await table.scrollIntoViewIfNeeded();
 
-    // Second alternative column is hidden on phones; the card fits with no
-    // inner or page-level horizontal scroll and the wordmark isn't clipped.
-    await expect(table.locator('thead th:nth-child(4)')).toBeHidden();
+    // One brand column vs one alternative - nothing else. The card fits
+    // with no inner or page-level horizontal scroll, wordmark unclipped.
+    await expect(table.locator('thead th')).toHaveCount(3);
+    await expect(table).not.toContainText('Traditional capsules');
     const scroll = page.locator('.smooch-comparison__scroll');
     expect(await scroll.evaluate((el) => el.scrollWidth - el.clientWidth)).toBe(0);
     expect(
@@ -1014,7 +1015,21 @@ test.describe('Home hero: mobile fold sells, desktop unchanged', () => {
     ).toBe(0);
 
     await page.setViewportSize({ width: 1440, height: 900 });
-    await expect(table.locator('thead th:nth-child(4)')).toBeVisible();
+    await expect(table.locator('thead th')).toHaveCount(3);
+  });
+
+  test('stats: numbers roll up when scrolled into view', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+
+    // Before the section is reached, the script has reset values to 0.
+    const first = page.locator('.smooch-stats__value').first();
+    await expect(first).toHaveText('0k+');
+
+    await page.locator('.smooch-stats__list').scrollIntoViewIfNeeded();
+    await expect(first).toHaveText('100k+', { timeout: 4000 });
+    await expect(page.locator('.smooch-stats__value').nth(1)).toHaveText('82%');
+    await expect(page.locator('.smooch-stats__value').nth(2)).toHaveText('3x');
   });
 
   test('desktop keeps its original hero: label, no fold row, bottom trust bar', async ({ page }) => {
