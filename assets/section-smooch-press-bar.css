@@ -98,3 +98,44 @@
     flex-shrink: 0;
   }
 }
+
+/* ---------- Bundled wordmark SVGs ---------- */
+
+/* Real press wordmarks, colored by the scheme via currentColor. Heights are
+   tuned per mark so their optical weights sit level on one line. */
+.smooch-press-bar__svg {
+  display: block;
+  width: auto;
+  opacity: 0.9;
+}
+
+.smooch-press-bar__svg--vogue {
+  height: 2.6rem;
+}
+
+.smooch-press-bar__svg--marie-claire {
+  height: 2rem;
+}
+
+.smooch-press-bar__svg--cosmopolitan {
+  height: 2rem;
+}
+
+.smooch-press-bar__svg--goop {
+  height: 2.8rem;
+}
+
+@media screen and (max-width: 749px) {
+  .smooch-press-bar__svg--vogue {
+    height: 2.2rem;
+  }
+
+  .smooch-press-bar__svg--marie-claire,
+  .smooch-press-bar__svg--cosmopolitan {
+    height: 1.7rem;
+  }
+
+  .smooch-press-bar__svg--goop {
+    height: 2.4rem;
+  }
+}
