@@ -3,10 +3,11 @@
    melting into the card's right side. 1rem = 10px. */
 
 .smooch-stats__card {
+  --stats-pad: clamp(2.8rem, 5vw, 5.6rem);
   position: relative;
   overflow: hidden;
   border-radius: 2.8rem;
-  padding: clamp(2.8rem, 5vw, 5.6rem);
+  padding: var(--stats-pad);
   color: rgb(255, 255, 255);
 }
 
@@ -85,9 +86,14 @@
 
 /* ---------- Visual: melts into the card's right side ---------- */
 
+/* Stacked (mobile): the photo bleeds to the card's own edges and its top
+   fades into the gradient, so the image background and the card read as
+   one canvas instead of a photo-in-a-box. */
 .smooch-stats__visual {
   position: relative;
-  margin: 2rem -1.2rem -1.2rem;
+  margin: 1.6rem calc(-1 * var(--stats-pad)) calc(-1 * var(--stats-pad));
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 30%);
+  mask-image: linear-gradient(180deg, transparent 0%, black 30%);
 }
 
 .smooch-stats__img {
@@ -95,7 +101,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 2rem;
 }
 
 .smooch-stats__footnote {
@@ -127,6 +132,5 @@
   .smooch-stats__img {
     width: 100%;
     height: 100%;
-    border-radius: 0;
   }
 }
