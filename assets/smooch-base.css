@@ -188,3 +188,21 @@
     animation-iteration-count: 1 !important;
   }
 }
+
+/* ---------- Big-monitor scaling ---------- */
+
+/* Everything downstream is rem-based (type, spacing, the buybox, even
+   --page-width), so raising the root size lets the whole layout grow with
+   the monitor instead of floating small inside huge margins. :root outranks
+   the theme layout's inline `html` rule at any source order. */
+@media screen and (min-width: 1920px) {
+  :root {
+    font-size: calc(var(--font-body-scale) * 68.75%); /* 1rem = 11px */
+  }
+}
+
+@media screen and (min-width: 2400px) {
+  :root {
+    font-size: calc(var(--font-body-scale) * 75%); /* 1rem = 12px */
+  }
+}
