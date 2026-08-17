@@ -1806,8 +1806,15 @@ body.smooch-sticky-atc-visible {
     padding: 1.6rem 1.8rem 1.3rem;
   }
 
+  /* Tighten the size cards for the fold, but keep clearance for the
+     absolutely-positioned check above the title (it sits at top 2.4rem
+     in the 3-up layout - 2.2rem of padding parked it on the label). */
   .smooch-bundle__card {
-    padding-top: 2.2rem;
+    padding-top: 3.9rem;
+  }
+
+  .smooch-bundle__check {
+    top: 1.4rem;
   }
 
   .smooch-buybox__buy .product-form__submit {
