@@ -6,7 +6,7 @@
         "title-1": {
           "type": "title",
           "settings": {
-            "custom_title": "[brand] Women's Libido & Mood Gummies",
+            "custom_title": "Women's Libido & Mood Gummies",
             "heading_level": "h1"
           }
         },
@@ -20,9 +20,9 @@
         "social_proof-1": {
           "type": "social_proof",
           "settings": {
-            "sold_count": "2k+",
-            "period_label": "bought in the past month",
-            "show_low_stock": true,
+            "sold_count": "2,000+",
+            "period_label": "customers purchased this month",
+            "show_low_stock": false,
             "low_stock_threshold": 30
           }
         },
@@ -63,7 +63,8 @@
             "title": "1 Month",
             "days": 30,
             "quantity": 1,
-            "selling_plan_id": "101"
+            "selling_plan_id": "101",
+            "preselected": true
           }
         },
         "bundle-2": {
@@ -82,14 +83,16 @@
             "days": 90,
             "quantity": 3,
             "badge": "Best value",
-            "preselected": true,
+            "preselected": false,
             "selling_plan_id": "103"
           }
         },
         "subscription-1": {
           "type": "subscription",
           "settings": {
-            "promo_pill_text": "LFGUMMY"
+            "promo_pill_text": "",
+            "benefits": "Free shipping · Cancel anytime · 30-day guarantee",
+            "subscribe_label": "Autoship &"
           }
         },
         "price-1": {
@@ -99,14 +102,6 @@
         "buy_buttons-1": {
           "type": "buy_buttons",
           "settings": {}
-        },
-        "reassurance-1": {
-          "type": "reassurance",
-          "settings": {
-            "trust3_icon": "briefcase",
-            "trust3_text": "Over 100K+ Happy Customers",
-            "footer_text": "HSA/FSA eligible · Save an average of 30% with a subscription"
-          }
         },
         "collapsible_tab-1": {
           "type": "collapsible_tab",
@@ -157,7 +152,6 @@
         "subscription-1",
         "price-1",
         "buy_buttons-1",
-        "reassurance-1",
         "collapsible_tab-1",
         "collapsible_tab-2",
         "collapsible_tab-3",
