@@ -1920,3 +1920,86 @@ body.smooch-sticky-atc-visible {
 .smooch-buybox .smooch-plans {
   margin-top: 1.6rem;
 }
+
+/* ---------- Floating-card elevation pass ---------- */
+
+/* The buybox reads as a designed object sitting on the canvas: layered
+   diffuse shadow, hairline edge, restrained radius. Scoped to 750px+ so the
+   mobile curtain sheet keeps its own upward-shadow treatment. */
+@media screen and (min-width: 750px) {
+  .smooch-buybox {
+    border-radius: 2rem;
+    border: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.06);
+    box-shadow:
+      0 0.1rem 0.2rem rgba(var(--smooch-ink-rgb), 0.03),
+      0 1.2rem 2.8rem -0.8rem rgba(var(--smooch-ink-rgb), 0.08),
+      0 3.6rem 7.2rem -2.4rem rgba(var(--smooch-ink-rgb), 0.12);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .smooch-buybox {
+    padding: 2.8rem 2.8rem 3rem;
+    max-width: 60rem;
+  }
+}
+
+/* ---------- Calmer internal hierarchy ---------- */
+
+/* One accent per group: neutral hairlines everywhere except the active
+   selection and the recommended panel, and even those stay light-handed. */
+
+.smooch-buybox .smooch-bundle__card {
+  border-radius: 1.2rem;
+  border-color: rgba(var(--smooch-ink-rgb), 0.1);
+  transition: border-color var(--duration-short, 100ms) ease,
+    background-color var(--duration-short, 100ms) ease,
+    box-shadow var(--duration-short, 100ms) ease;
+}
+
+.smooch-buybox .smooch-bundle__input:checked + .smooch-bundle__card {
+  border-color: var(--smooch-berry);
+  box-shadow: none;
+  background-color: rgba(var(--smooch-blush-rgb), 0.22);
+}
+
+.smooch-buybox .smooch-bundle__check {
+  border-color: rgba(var(--smooch-ink-rgb), 0.22);
+}
+
+.smooch-buybox .smooch-subpanel {
+  border-radius: 1.6rem;
+  border-color: rgba(var(--smooch-berry-rgb), 0.4);
+  background-color: rgba(var(--smooch-blush-rgb), 0.12);
+}
+
+.smooch-buybox .smooch-subpanel--inactive {
+  border-color: rgba(var(--smooch-ink-rgb), 0.12);
+  background-color: transparent;
+}
+
+/* Trust strip: soft blush discs instead of heavy black dots, so the
+   bottom of the card stays in the same soft-luxury register. */
+.smooch-buybox .smooch-trust-grid {
+  border-top-color: rgba(var(--smooch-ink-rgb), 0.08);
+}
+
+.smooch-buybox .smooch-trust-grid .smooch-icon {
+  background-color: rgba(var(--smooch-blush-rgb), 0.55);
+  color: #a3234a;
+}
+
+.smooch-buybox .smooch-trust-grid span {
+  font-weight: 500;
+  color: rgba(var(--smooch-ink-rgb), 0.75);
+}
+
+/* Hairline separators, not borders, between the quieter rows. */
+.smooch-buybox .smooch-reassurance__footer-row {
+  border-color: rgba(var(--smooch-ink-rgb), 0.08);
+}
+
+/* CTA radius matches the card language. */
+.smooch-buybox .smooch-buybox__buy .product-form__submit {
+  border-radius: 1.2rem;
+}
