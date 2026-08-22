@@ -493,8 +493,8 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(hero.locator('[data-summary-supply]')).toHaveText('1 bottle · 30-day supply');
     await expect(hero.locator('[data-summary-plan]')).toContainText('Subscription');
     await expect(hero.locator('[data-smooch-price]').first()).toHaveText('$29.95');
-    // Promo pill retired in the refinement pass — no badge stack in the panel.
-    await expect(hero.locator('[data-sub-autobadge]')).toHaveCount(0);
+    // Auto-applied badge shows while the discount is live.
+    await expect(hero.locator('[data-sub-autobadge]')).toBeVisible();
     // Summary is a single quiet line: no strike/save/per-bottle repeats.
     await expect(hero.locator('[data-summary-save]')).toHaveCount(0);
     await expect(hero.locator('[data-smooch-compare]')).toHaveCount(0);
@@ -771,11 +771,13 @@ test.describe('PDP refresh: guided purchase flow', () => {
     // "Selling fast" urgency badge is retired.
     await expect(hero.locator('.smooch-stock-badge')).toHaveCount(0);
 
-    // One clean reassurance line under the Add to Cart button — not an
-    // icon row.
+    // Create-style micro-trust row directly under the Add to Cart button,
+    // sourced from the subscription block's real benefits setting.
     const perks = hero.locator('.smooch-buybox__buy-perks li');
-    await expect(perks).toHaveCount(1);
-    await expect(perks.first()).toHaveText('Free shipping · Cancel anytime · 30-day guarantee');
+    await expect(perks).toHaveCount(3);
+    await expect(perks.nth(0)).toHaveText('Every order ships FREE');
+    await expect(perks.nth(1)).toHaveText('VIP discounts & perks');
+    await expect(perks.nth(2)).toHaveText('Pause, edit, or cancel anytime');
   });
 
   test('Create-style buybox: one-time row, discount badge, trust grid, footer row — single source of truth', async ({ page }) => {
@@ -785,11 +787,8 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(hero.locator('.smooch-bundles__legend')).toContainText('Select Your Size');
     expect(await hero.locator('text=Select Your Flavor').count()).toBe(0);
 
-    // Discount badge shown by default (subscription-first) and driven by the
-    // same planId the offer engine already uses — no separate state.
-    const discountBadge = hero.locator('[data-discount-badge]');
-    await expect(discountBadge).toBeVisible();
-    await expect(discountBadge).toContainText('Discount Auto-Applied');
+    // "Discount Auto-Applied" badge is switched off per owner direction.
+    await expect(hero.locator('[data-discount-badge]')).toHaveCount(0);
 
     // One-time row: real total (qty × the flat $39.95 tub, no multi-buy
     // discount outside a subscription) + real per-day. No compare-at here —
@@ -799,25 +798,34 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(onetimeRow.locator('[data-onetime-price]')).toHaveText('$39.95');
     await expect(onetimeRow.locator('[data-onetime-perday]')).toHaveText('$1.33');
 
-    // Selecting one-time is the single source of truth: discount badge hides,
-    // the (still real, bundle-driven) compare price stays on the one-time row.
+    // Selecting one-time is the single source of truth: the plan input
+    // disables while the one-time row keeps its real pricing.
     await selectOneTime(hero, page);
-    await expect(discountBadge).toBeHidden();
     await expect(hero.locator('[data-smooch-selling-plan]')).toBeDisabled();
 
-    // Bottom icon/trust strip retired in the refinement pass — the single
-    // reassurance line under the CTA carries that job now.
-    await expect(hero.locator('.smooch-trust-grid')).toHaveCount(0);
-    await expect(hero.locator('.smooch-reassurance__footer-row')).toHaveCount(0);
+    // 3-column trust grid: real icon + short stacked title per item.
+    const trustItems = hero.locator('.smooch-trust-grid li');
+    await expect(trustItems).toHaveCount(3);
+    await expect(trustItems.nth(0)).toContainText('30-Day Money Back Guarantee');
+
+    // Small footer info row with an optional "Learn more" link.
+    await expect(hero.locator('.smooch-reassurance__footer-row')).toContainText('HSA/FSA eligible');
   });
 
-  test('"Most popular" ribbon is retired — no floating badge on any size', async ({ page }) => {
+  test('"Most popular" ribbon only shows for the preselected (1-month) size', async ({ page }) => {
     const hero = page.locator('product-info').first();
-    // The refinement pass removed the ribbon entirely; it must not return
-    // for any supply selection.
-    await expect(hero.locator('[data-sub-ribbon]')).toHaveCount(0);
+    const ribbon = hero.locator('[data-sub-ribbon]');
+
+    // Default selection is the 1-month bundle (preselected: true) — visible.
+    await expect(ribbon).toBeVisible();
+
+    // Switch to 3 Months (first card, not preselected) — ribbon hides.
     await hero.locator('[data-smooch-bundle-radio]').first().check({ force: true });
-    await expect(hero.locator('[data-sub-ribbon]')).toHaveCount(0);
+    await expect(ribbon).toBeHidden();
+
+    // Switch back to 1 Month (last card) — ribbon returns.
+    await hero.locator('[data-smooch-bundle-radio]').last().check({ force: true });
+    await expect(ribbon).toBeVisible();
   });
 
   test('Add to Cart hover: turns black and reveals a trailing arrow', async ({ page }) => {
