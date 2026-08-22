@@ -2003,15 +2003,3 @@ body.smooch-sticky-atc-visible {
 .smooch-buybox .smooch-buybox__buy .product-form__submit {
   border-radius: 1.2rem;
 }
-
-/* ---------- Editorial hero slide ---------- */
-
-/* Slide 1 is a full photographic scene (not a transparent packshot): on
-   phones it fills its media box as a rounded photo card instead of
-   letterboxing. The square infographic slides keep their contain fit. */
-@media screen and (max-width: 749.98px) {
-  .smooch-product .product__media-list .product__media-item:first-child .product__media img {
-    object-fit: cover;
-    border-radius: 1.6rem;
-  }
-}
