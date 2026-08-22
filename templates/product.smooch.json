@@ -64,7 +64,8 @@
             "days": 30,
             "quantity": 1,
             "selling_plan_id": "101",
-            "preselected": true
+            "preselected": true,
+            "show_thumbnail": true
           }
         },
         "bundle-2": {
@@ -73,7 +74,8 @@
             "title": "2 Months",
             "days": 60,
             "quantity": 2,
-            "selling_plan_id": "102"
+            "selling_plan_id": "102",
+            "show_thumbnail": true
           }
         },
         "bundle-3": {
@@ -85,7 +87,8 @@
             "badge": "Best value",
             "preselected": false,
             "selling_plan_id": "103",
-            "most_popular": true
+            "most_popular": true,
+            "show_thumbnail": true
           }
         },
         "subscription-1": {

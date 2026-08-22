@@ -60,10 +60,25 @@
     <span class="smooch-bundle__check" aria-hidden="true">
       {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
     </span>
-    {%- if block.settings.show_thumbnail and product.featured_media -%}
-      <span class="smooch-bundle__thumb">
-        {{ product.featured_media.preview_image | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60, 120', sizes: '5.6rem', alt: '' }}
-      </span>
+    {%- if block.settings.show_thumbnail -%}
+      {%- if qty >= 1 and qty <= 3 -%}
+        {%- comment -%}
+          Bundled quantity art: the pack size shown as that many bottles
+          (one consistent render composited 1x/2x/3x).
+        {%- endcomment -%}
+        <span class="smooch-bundle__thumb smooch-bundle__thumb--art">
+          <img
+            src="{{ 'smooch-bundle-qty-' | append: qty | append: '.png' | asset_url }}"
+            alt=""
+            loading="lazy"
+            height="300"
+          >
+        </span>
+      {%- elsif product.featured_media -%}
+        <span class="smooch-bundle__thumb">
+          {{ product.featured_media.preview_image | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60, 120', sizes: '5.6rem', alt: '' }}
+        </span>
+      {%- endif -%}
     {%- endif -%}
     <span class="smooch-bundle__body">
       <span class="smooch-bundle__title">{{ block.settings.title }}</span>
