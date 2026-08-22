@@ -84,7 +84,8 @@
             "quantity": 3,
             "badge": "Best value",
             "preselected": false,
-            "selling_plan_id": "103"
+            "selling_plan_id": "103",
+            "most_popular": true
           }
         },
         "subscription-1": {

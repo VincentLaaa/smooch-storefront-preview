@@ -430,7 +430,7 @@ if (!customElements.get('smooch-offer')) {
         // "Most popular" only makes sense for the size it's actually badging —
         // re-hide/show it as the shopper switches supply size.
         const ribbon = this.querySelector('[data-sub-ribbon]');
-        if (ribbon) ribbon.hidden = !bundleMeta.preselected;
+        if (ribbon) ribbon.hidden = !bundleMeta.mostPopular;
         const supplyEl = this.querySelector('[data-summary-supply]');
         const bundleQty = bundleMeta.quantity || 1;
         const bottleText = `${bundleQty} bottle${bundleQty === 1 ? '' : 's'}`;

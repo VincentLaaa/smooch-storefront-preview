@@ -476,7 +476,7 @@
                         <fieldset class="smooch-plans" {{ block.shopify_attributes }}>
                           <legend class="visually-hidden">{{ block.settings.heading | default: 'Choose how to buy' }}</legend>
                           <div class="smooch-subpanel{% unless default_is_subscribe %} smooch-subpanel--inactive{% endunless %}" data-sub-panel>
-                            <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry" data-sub-ribbon {% unless panel_bundle.settings.preselected %}hidden{% endunless %}>{{ block.settings.badge | default: 'Most popular' }}</span>
+                            <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry" data-sub-ribbon {% unless panel_bundle.settings.most_popular %}hidden{% endunless %}>{{ block.settings.badge | default: 'Most popular' }}</span>
                             <label class="smooch-subpanel__content">
                               {%- comment -%}
                                 One fixed cadence only — no frequency picker.
@@ -727,6 +727,7 @@
                             "label": {{ bundle_block.settings.title | json }},
                             "variantValue": {{ bundle_block.settings.variant_value | strip | json }},
                             "preselected": {{ bundle_block.settings.preselected | json }},
+                            "mostPopular": {{ bundle_block.settings.most_popular | json }},
                             "sellingPlanId": {{ bundle_block.settings.selling_plan_id | append: '' | json }}
                           }{% unless forloop.last %},{% endunless %}
                         {%- endfor -%}
@@ -1441,6 +1442,13 @@
           "label": "Preselected",
           "default": false,
           "info": "If none is marked preselected, the first bundle is selected by default."
+        },
+        {
+          "type": "checkbox",
+          "id": "most_popular",
+          "label": "Show \"Most popular\" ribbon for this size",
+          "default": false,
+          "info": "The subscription panel's ribbon appears while this size is selected — independent of which size starts preselected."
         },
         {
           "type": "checkbox",
