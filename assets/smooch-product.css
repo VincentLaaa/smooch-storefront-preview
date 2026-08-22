@@ -46,7 +46,7 @@
 }
 
 .smooch-buybox__accordion + .smooch-buybox__accordion {
-  margin-top: -1.8rem; /* collapse gap between adjacent accordion rows */
+  margin-top: -1.4rem; /* collapse the buybox gap between adjacent rows */
 }
 
 .smooch-buybox__accordion + .smooch-buybox__accordion .smooch-accordion {
@@ -2039,4 +2039,80 @@ body.smooch-sticky-atc-visible {
     height: 5.6rem;
     margin-inline: auto;
   }
+}
+
+/* ---------- Buybox accordion polish ---------- */
+
+/* Copy + typography pass: stronger row titles, softer dividers, a small
+   quiet chevron, and scannable body copy with selective bolding. Scoped to
+   the buybox so the FAQ/formula accordions keep their own treatment. */
+
+.smooch-buybox__accordion .smooch-accordion summary {
+  padding: 2.2rem 0.2rem;
+  font-size: 1.6rem;
+  font-weight: 650;
+}
+
+.smooch-buybox__accordion .smooch-accordion,
+.smooch-buybox__accordion .smooch-accordion details {
+  border-color: rgba(var(--smooch-ink-rgb), 0.09);
+}
+
+/* Small minimal chevron, dimmed until the row opens. */
+.smooch-buybox__accordion .smooch-icon--chevron {
+  --icon-size: 1.5rem;
+  color: rgba(var(--smooch-ink-rgb), 0.45);
+}
+
+.smooch-buybox__accordion details[open] > summary .smooch-icon--chevron {
+  transform: rotate(180deg);
+  color: rgba(var(--smooch-ink-rgb), 0.7);
+}
+
+/* Leading label icons stay small and quiet. */
+.smooch-buybox__accordion .smooch-accordion__label .smooch-icon {
+  --icon-size: 1.7rem;
+  color: rgba(var(--smooch-ink-rgb), 0.6);
+}
+
+.smooch-buybox__accordion .smooch-accordion__content {
+  padding-bottom: 2.4rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: rgba(var(--smooch-ink-rgb), 0.82);
+}
+
+.smooch-buybox__accordion .smooch-accordion__content > * + * {
+  margin-top: 1.1rem;
+}
+
+.smooch-buybox__accordion .smooch-accordion__content strong {
+  font-weight: 650;
+  color: var(--smooch-ink);
+}
+
+.smooch-buybox__accordion .smooch-fine-print {
+  color: rgba(var(--smooch-ink-rgb), 0.55);
+}
+
+/* Heart bullets: small Smooch-pink marks, aligned to the first line. */
+.smooch-checklist--hearts {
+  gap: 1.1rem;
+}
+
+.smooch-checklist--hearts li {
+  line-height: 1.5;
+}
+
+.smooch-checklist--hearts li::before {
+  content: '\2665';
+  border: 0;
+  background: none;
+  width: 1.8rem;
+  height: auto;
+  margin-top: 0;
+  color: var(--smooch-berry);
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.5;
 }

@@ -109,9 +109,9 @@
         "collapsible_tab-1": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Is this right for me?",
+            "heading": "Is Smooch right for you?",
             "icon": "info",
-            "content": "<p><strong>If you check any of these boxes, this is for you:</strong></p><ul class=\"smooch-checklist\"><li>You have a low sex drive</li><li>You want more sexual satisfaction</li><li>Stress is affecting your sex life</li><li>Want to feel more like yourself</li></ul>",
+            "content": "<p><strong>If any of these sound familiar, Smooch may be for you:</strong></p><ul class=\"smooch-checklist smooch-checklist--hearts\"><li><span>Your <strong>desire feels lower</strong> than it used to</span></li><li><span>Stress makes it harder to feel <strong>present and connected</strong></span></li><li><span>You want intimacy to feel <strong>easier and more enjoyable</strong></span></li><li><span>You miss feeling <strong>more like yourself</strong></span></li></ul>",
             "open_by_default": true
           }
         },
@@ -120,15 +120,15 @@
           "settings": {
             "heading": "How to use",
             "icon": "clock",
-            "content": "<p>One gummy, once a day, with or without food — tied to a moment that's yours. Consistency matters more than timing; see the final label for directions.</p>"
+            "content": "<p><strong>Take one gummy once a day</strong>, with or without food.</p><p>Choose a time you’ll actually remember — morning, evening, whenever works for you. <strong>Consistency matters more than timing.</strong></p><p class=\"smooch-fine-print\">Follow the final product label for complete directions.</p>"
           }
         },
         "collapsible_tab-3": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Ingredients",
+            "heading": "What’s inside",
             "icon": "leaf",
-            "content": "<p>KSM-66 Ashwagandha, Black Maca, Damiana, and Cinnamon Bark. Full label details appear here once final amounts are approved.</p>"
+            "content": "<p>Made with <strong>KSM-66® Ashwagandha, Black Maca, Damiana, and Cinnamon Bark.</strong></p><p>Full Supplement Facts and exact amounts will appear here once the final formula is approved.</p>"
           }
         },
         "collapsible_tab-4": {
@@ -136,7 +136,7 @@
           "settings": {
             "heading": "Shipping & returns",
             "icon": "truck",
-            "content": "<p>Add your shipping timelines and return policy details here.</p>"
+            "content": "<p><strong>Orders ship within 1 business day</strong>, and shipping is free on 2+ month supplies.</p><p>Not for you? Every order is covered by our <strong>30-day money-back guarantee</strong> — reach out and we’ll make it right.</p>"
           }
         },
         "reassurance-1": {

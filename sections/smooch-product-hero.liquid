@@ -689,7 +689,7 @@
                               {%- endif -%}
                               {{ block.settings.heading | default: block.settings.page.title }}
                             </span>
-                            {% render 'smooch-icon', icon: 'plus', class: 'smooch-icon--toggle' %}
+                            {% render 'smooch-icon', icon: 'caret', class: 'smooch-icon--toggle smooch-icon--chevron' %}
                           </summary>
                           <div class="smooch-accordion__content" id="Accordion-{{ block.id }}-{{ section.id }}">
                             {{ block.settings.content }}
@@ -1950,9 +1950,9 @@
         {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Is this right for me?",
+            "heading": "Is Smooch right for you?",
             "icon": "info",
-            "content": "<p><strong>If you check any of these boxes, this is for you:</strong></p><ul class=\"smooch-checklist\"><li>You have a low sex drive</li><li>You want more sexual satisfaction</li><li>Stress is affecting your sex life</li><li>Want to feel more like yourself</li></ul>",
+            "content": "<p><strong>If any of these sound familiar, Smooch may be for you:</strong></p><ul class=\"smooch-checklist smooch-checklist--hearts\"><li><span>Your <strong>desire feels lower</strong> than it used to</span></li><li><span>Stress makes it harder to feel <strong>present and connected</strong></span></li><li><span>You want intimacy to feel <strong>easier and more enjoyable</strong></span></li><li><span>You miss feeling <strong>more like yourself</strong></span></li></ul>",
             "open_by_default": true
           }
         },
