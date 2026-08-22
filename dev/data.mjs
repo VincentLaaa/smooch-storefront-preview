@@ -147,7 +147,7 @@ const FIXTURES = {
       { name: 'Pack', values: ['1 Pack', '2 Packs', '3 Packs'] },
     ],
     media: [
-      { src: '/assets/smooch-demo-hero-editorial.jpg', alt: "Smooch Women's Libido & Mood bottle among blush sculptural forms on a deep berry backdrop", width: 1200, height: 1600 },
+      { src: '/assets/smooch-demo-hero-editorial.png', alt: "Smooch Women's Libido & Mood bottle floating with watermelon gummies against the page background", width: 1024, height: 1024 },
       { src: '/assets/smooch-demo-benefits-card.jpg', alt: 'Smooch bottle with benefit badges: women-loved favorite, no hidden blends, supports desire naturally, and a 30-day money-back banner', width: 1200, height: 1200 },
       { src: '/assets/smooch-demo-notapill-card.jpg', alt: 'Not a pill, not a powder, not another messy drink mix: pills and drink mixes compared with the Smooch gummy', width: 1200, height: 1200 },
       { src: '/assets/smooch-demo-notice-card.jpg', alt: 'What women notice with Smooch: better mood, calmer daily balance, more natural energy, feeling more like themselves', width: 1200, height: 1200 },
