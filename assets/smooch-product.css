@@ -2017,7 +2017,7 @@ body.smooch-sticky-atc-visible {
 
 .smooch-bundle__thumb--art img {
   display: block;
-  height: 4.6rem;
+  height: 4.2rem;
   width: auto;
 }
 
@@ -2036,7 +2036,7 @@ body.smooch-sticky-atc-visible {
   }
 
   .smooch-bundle__thumb--art img {
-    height: 5.6rem;
+    height: 5rem;
     margin-inline: auto;
   }
 }
