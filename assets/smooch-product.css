@@ -2003,3 +2003,40 @@ body.smooch-sticky-atc-visible {
 .smooch-buybox .smooch-buybox__buy .product-form__submit {
   border-radius: 1.2rem;
 }
+
+/* ---------- Quantity art in the size cards ---------- */
+
+/* Bottle-count thumbs are sized by height (their width grows with the
+   pack size) and sit unboxed on the card surface. */
+.smooch-bundle__thumb--art {
+  width: auto;
+  border-radius: 0;
+  overflow: visible;
+  align-self: center;
+}
+
+.smooch-bundle__thumb--art img {
+  display: block;
+  height: 4.6rem;
+  width: auto;
+}
+
+@media screen and (min-width: 1200px) {
+  /* 3-up centered cards: the art sits centered between the check and the
+     title instead of forming a side column. */
+  .smooch-bundle__card:has(.smooch-bundle__thumb--art) {
+    grid-template-columns: 1fr;
+  }
+
+  .smooch-bundle__thumb--art {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: center;
+    margin-top: 0.2rem;
+  }
+
+  .smooch-bundle__thumb--art img {
+    height: 5.6rem;
+    margin-inline: auto;
+  }
+}
