@@ -53,7 +53,7 @@
                     <span class="smooch-faq__num smooch-num" aria-hidden="true">{{ q_display }}</span>
                     <span>{{ question }}</span>
                   </span>
-                  {% render 'smooch-icon', icon: 'plus', class: 'smooch-icon--toggle' %}
+                  {% render 'smooch-icon', icon: 'caret', class: 'smooch-icon--toggle smooch-icon--chevron' %}
                 </summary>
                 <div class="smooch-accordion__content" id="Accordion-{{ block.id }}-{{ section.id }}">
                   {{ block.settings.answer | replace: '[brand]', brand_name }}
