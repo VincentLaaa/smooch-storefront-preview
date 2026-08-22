@@ -79,3 +79,40 @@ smooch-details-group.smooch-faq__list {
 .smooch-faq__closing-text {
   margin: 0;
 }
+
+/* ---------- Accordion polish (matches the PDP buybox treatment) ---------- */
+
+.smooch-faq__list .smooch-accordion__label,
+.smooch-faq__list summary {
+  font-weight: 650;
+}
+
+.smooch-faq__list summary {
+  padding-top: 2.2rem;
+  padding-bottom: 2.2rem;
+}
+
+.smooch-faq__list,
+.smooch-faq__list details {
+  border-color: rgba(var(--smooch-ink-rgb), 0.09);
+}
+
+.smooch-faq__list .smooch-icon--chevron {
+  --icon-size: 1.5rem;
+  color: rgba(var(--color-foreground), 0.45);
+}
+
+.smooch-faq__list details[open] > summary .smooch-icon--chevron {
+  transform: rotate(180deg);
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.smooch-faq__list .smooch-accordion__content {
+  padding-bottom: 2.4rem;
+  line-height: 1.6;
+}
+
+.smooch-faq__list .smooch-accordion__content strong {
+  font-weight: 650;
+  color: rgb(var(--color-foreground));
+}
