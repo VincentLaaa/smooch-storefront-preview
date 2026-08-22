@@ -1867,13 +1867,12 @@ body.smooch-sticky-atc-visible {
   }
 }
 
-/* ---------- Buybox refinement pass ---------- */
+/* ---------- Buybox top-section refinement ---------- */
 
-/* Reduction over decoration: quieter badges, neutral borders, restrained
-   radii, one accent per group. Pink is reserved for the active state, the
-   savings, and the CTA. */
+/* Kept from the refinement pass: warm polished stars, a quiet proof line,
+   and a calmer title block. The panel badges/perks/trust strip are back to
+   their original treatment below/above this point. */
 
-/* Review row: warm polished stars, compact counts. */
 .smooch-buybox .smooch-stars {
   color: #e9960e;
 }
@@ -1883,7 +1882,6 @@ body.smooch-sticky-atc-visible {
   font-size: 1.4rem;
 }
 
-/* Social proof: an understated inline line, not a pill. */
 .smooch-buybox .smooch-buybox__proof-row {
   margin-top: -0.6rem;
 }
@@ -1899,7 +1897,6 @@ body.smooch-sticky-atc-visible {
   color: rgba(var(--smooch-ink-rgb), 0.6);
 }
 
-/* Title: prominent, not oversized; tighter rhythm into the description. */
 .smooch-buybox .smooch-buybox__title {
   font-size: clamp(2.4rem, 2.1rem + 0.8vw, 3rem);
   line-height: 1.15;
@@ -1915,87 +1912,11 @@ body.smooch-sticky-atc-visible {
   color: rgba(var(--smooch-berry-rgb), 0.75);
 }
 
-/* Size cards: neutral until chosen; one subtle selected state. */
-.smooch-buybox .smooch-bundle__card {
-  border-radius: 1.2rem;
-  border-color: rgba(var(--smooch-ink-rgb), 0.14);
+/* Tighter vertical rhythm - less dead space between buybox groups. */
+.smooch-buybox {
+  gap: 1.4rem;
 }
 
-.smooch-buybox .smooch-bundle__input:checked + .smooch-bundle__card {
-  border-color: var(--smooch-berry);
-  box-shadow: none;
-  background-color: rgba(var(--smooch-blush-rgb), 0.22);
-}
-
-.smooch-buybox .smooch-bundle__check {
-  border-color: rgba(var(--smooch-ink-rgb), 0.25);
-}
-
-.smooch-buybox .smooch-bundle__badge {
-  padding: 0.3rem 0.9rem;
-  background-color: var(--smooch-blush);
-  color: #a3234a;
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  box-shadow: none;
-}
-
-/* Subscription panel: one calm recommended surface, no stacked badges. */
-.smooch-buybox .smooch-subpanel {
-  border-radius: 1.4rem;
-  border: 0.1rem solid rgba(var(--smooch-berry-rgb), 0.55);
-  box-shadow: none;
-  background-color: rgba(var(--smooch-blush-rgb), 0.14);
-}
-
-.smooch-buybox .smooch-subpanel--inactive {
-  border-color: rgba(var(--smooch-ink-rgb), 0.14);
-  background-color: transparent;
-}
-
-/* Savings reads as typography, not a filled pill. */
-.smooch-buybox .smooch-subpanel__pct-pill {
-  padding: 0;
-  background: none;
-  border: 0;
-  color: var(--smooch-berry);
-  font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-/* Single reassurance line under the button - not an icon row. */
-.smooch-buybox .smooch-subpanel__perks {
-  justify-content: center;
-  gap: 0.6rem;
-  margin-top: 1.2rem;
-}
-
-.smooch-buybox .smooch-subpanel__perks li {
-  justify-content: center;
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: rgba(var(--smooch-ink-rgb), 0.62);
-}
-
-.smooch-buybox .smooch-subpanel__perks .smooch-icon {
-  display: none;
-}
-
-/* One-time row + auto-discount note: quiet text, no pill chrome. */
-.smooch-buybox [data-discount-badge] {
-  padding: 0;
-  background: none;
-  border: 0;
-  font-size: 1.25rem;
-  color: rgba(var(--smooch-ink-rgb), 0.62);
-}
-
-.smooch-buybox [data-discount-badge] .smooch-icon {
-  color: var(--smooch-berry);
-}
-
-/* The CTA is the loudest element in the box. */
-.smooch-buybox .smooch-subpanel__buy {
-  margin-top: 1.4rem;
+.smooch-buybox .smooch-plans {
+  margin-top: 0.4rem;
 }
