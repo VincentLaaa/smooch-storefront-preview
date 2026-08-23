@@ -102,7 +102,10 @@
                     {%- render 'smooch-review-avatar', avatar: block.settings.avatar, author: block.settings.author -%}
                     <p class="smooch-rc__card-author">
                       {{ block.settings.author }}
-                      <span class="smooch-rc__card-status">{{ block.settings.reviewer_label | default: reviewer_fallback }}</span>
+                      <span class="smooch-rc__card-status">
+                        {%- assign resolved_label = block.settings.reviewer_label | default: reviewer_fallback -%}
+                        {%- render 'smooch-verified-label', label: resolved_label -%}
+                      </span>
                     </p>
                   </div>
                   {%- if block.settings.product != blank -%}
@@ -137,7 +140,10 @@
                     {%- render 'smooch-review-avatar', avatar: block.settings.avatar, author: block.settings.author -%}
                     <p class="smooch-rc__card-author">
                       {{ block.settings.author }}
-                      <span class="smooch-rc__card-status">{{ block.settings.reviewer_label | default: reviewer_fallback }}</span>
+                      <span class="smooch-rc__card-status">
+                        {%- assign resolved_label = block.settings.reviewer_label | default: reviewer_fallback -%}
+                        {%- render 'smooch-verified-label', label: resolved_label -%}
+                      </span>
                     </p>
                   </div>
                 </footer>
@@ -191,7 +197,10 @@
                     {%- render 'smooch-review-avatar', avatar: block.settings.avatar, author: block.settings.author -%}
                     <p class="smooch-rc__card-author">
                       {{ block.settings.author }}
-                      <span class="smooch-rc__card-status">{{ block.settings.reviewer_label | default: reviewer_fallback }}</span>
+                      <span class="smooch-rc__card-status">
+                        {%- assign resolved_label = block.settings.reviewer_label | default: reviewer_fallback -%}
+                        {%- render 'smooch-verified-label', label: resolved_label -%}
+                      </span>
                     </p>
                   </div>
                 </div>

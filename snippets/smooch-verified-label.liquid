@@ -1,0 +1,20 @@
+{% comment %}
+  Renders a reviewer status label. When the resolved label is the standard
+  "Verified Buyer", it carries a hover/focus tooltip crediting the review
+  verification provider. Custom labels ("Sample Reviewer", overrides) render
+  as plain text.
+
+  Accepts:
+  - label: {String} resolved reviewer label (already defaulted by caller)
+
+  Usage:
+  {% render 'smooch-verified-label', label: resolved_label %}
+{%- endcomment -%}
+{%- if label == 'Verified Buyer' -%}
+  <span class="smooch-verified" tabindex="0">
+    {{- label -}}
+    <span class="smooch-verified__tip" role="tooltip">Purchase verified by Junip</span>
+  </span>
+{%- else -%}
+  {{- label -}}
+{%- endif -%}

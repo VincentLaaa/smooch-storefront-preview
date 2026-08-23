@@ -262,7 +262,8 @@
               </span>
               <p class="smooch-rf__row-author">{{ block.settings.author }}</p>
               <p class="smooch-rf__row-status">
-                {{ block.settings.reviewer_label | default: reviewer_fallback }}
+                {%- assign resolved_label = block.settings.reviewer_label | default: reviewer_fallback -%}
+                {%- render 'smooch-verified-label', label: resolved_label -%}
                 {%- if is_sample -%}
                   <span class="smooch-rf__row-demo">· Demo review</span>
                 {%- endif -%}
