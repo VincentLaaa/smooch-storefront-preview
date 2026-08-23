@@ -92,7 +92,11 @@
             {%- endfor -%}
           </span>
           <p class="smooch-rf__summary-caption">
-            Based on {{ review_count }} {% if is_sample %}sample {% endif %}review{% if review_count != 1 %}s{% endif %}
+            {%- if section.settings.count_caption != blank -%}
+              {{ section.settings.count_caption | escape }}
+            {%- else -%}
+              Based on {{ review_count }} {% if is_sample %}sample {% endif %}review{% if review_count != 1 %}s{% endif %}
+            {%- endif -%}
           </p>
         </div>
 
@@ -115,14 +119,21 @@
               {%- if review_count > 0 -%}
                 {%- assign star_pct = star_count | times: 100.0 | divided_by: review_count | round: 1 -%}
               {%- endif -%}
-              <div class="smooch-rf__dist-row">
+              <button
+                type="button"
+                class="smooch-rf__dist-row"
+                data-rf-star="{{ star_n }}"
+                aria-pressed="false"
+                aria-label="Filter to {{ star_n }}-star reviews"
+              >
                 <span class="smooch-rf__dist-label">{{ star_n }}</span>
                 <span class="smooch-rf__dist-rail">
                   <span class="smooch-rf__dist-fill" style="width: {{ star_pct }}%;"></span>
                 </span>
                 <span class="smooch-rf__dist-count">{{ star_count }}</span>
-              </div>
+              </button>
             {%- endfor -%}
+            <p class="smooch-rf__dist-hint">Select a row to filter by rating</p>
           </div>
         {%- endif -%}
 
@@ -325,6 +336,12 @@
     {
       "type": "header",
       "content": "Layout"
+    },
+    {
+      "type": "text",
+      "id": "count_caption",
+      "label": "Rating count caption",
+      "info": "Overrides the \"Based on N reviews\" line (e.g. to reference your full review corpus). Leave blank to count the blocks below."
     },
     {
       "type": "checkbox",

@@ -411,3 +411,44 @@
 .smooch-rf__more[hidden] {
   display: none;
 }
+
+/* ---------- Rating filter (clickable histogram rows) ---------- */
+
+button.smooch-rf__dist-row {
+  appearance: none;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  margin-inline: -0.5rem;
+  border-radius: 0.6rem;
+  transition: background-color 120ms ease;
+}
+
+button.smooch-rf__dist-row:hover {
+  background-color: rgba(var(--smooch-ink-rgb), 0.05);
+}
+
+button.smooch-rf__dist-row:focus-visible {
+  outline: 0.2rem solid rgba(var(--smooch-ink-rgb), 0.5);
+  outline-offset: 0.1rem;
+}
+
+.smooch-rf__dist-row.is-active {
+  background-color: rgba(var(--smooch-berry-rgb), 0.1);
+}
+
+.smooch-rf__dist-row.is-active .smooch-rf__dist-label,
+.smooch-rf__dist-row.is-active .smooch-rf__dist-count {
+  font-weight: 700;
+}
+
+.smooch-rf__dist-hint {
+  margin: 0.6rem 0 0;
+  font-size: 1.15rem;
+  color: rgba(var(--smooch-ink-rgb), 0.5);
+}

@@ -951,82 +951,82 @@
         "r43": {
           "type": "review",
           "settings": {
-            "rating": 5,
-            "title": "Energy left at the end of the day.",
-            "text": "I used to be completely exhausted by bedtime — nothing left in the tank. No single dramatic change, but lately there's more of me left in the evening, for myself and for us. Tired-all-the-time me needed this.",
-            "author": "Monica R."
+            "rating": 1,
+            "title": "Arrived a day late!",
+            "text": "It was supposed to be delivered Tuesday but instead arrived Wednesday!",
+            "author": "Pam D."
           }
         },
         "r44": {
           "type": "review",
           "settings": {
-            "rating": 5,
-            "title": "My husband noticed before I did.",
-            "text": "I bought this for me, not for my marriage, but honestly the relationship is where I see it most. Less distance, more playfulness, and my partner and I feel more like us again.",
-            "author": "Sara J."
+            "rating": 3,
+            "title": "Subtle so far.",
+            "text": "I like the taste and ingredients, but the results have been pretty subtle so far. I’ll probably give it another month.",
+            "author": "Priya N."
           }
         },
         "r45": {
           "type": "review",
           "settings": {
-            "rating": 5,
-            "title": "Date night stopped feeling like pressure.",
-            "text": "I used to brace for date night instead of looking forward to it — being in the mood on a schedule is a lot. A couple months in, that pressure has faded and the fun snuck back in.",
-            "author": "Elise M."
+            "rating": 2,
+            "title": "Watch which option you pick.",
+            "text": "I accidentally signed up for the subscription instead of the one-time purchase.",
+            "author": "Carol H."
           }
         },
         "r46": {
           "type": "review",
           "settings": {
-            "rating": 5,
-            "title": "I'm not stuck in my head anymore.",
-            "text": "My problem was never attraction — I'd just get in my head and watch myself instead of being present. This plus actually putting my phone down has helped me stay in the moment.",
-            "author": "Tash B."
+            "rating": 3,
+            "title": "Halfway through the bottle.",
+            "text": "They taste really good, but I’m halfway through the bottle and haven’t noticed a huge change yet.",
+            "author": "Kara B."
           }
         },
         "r47": {
           "type": "review",
           "settings": {
-            "rating": 5,
-            "title": "For every touched-out mom.",
-            "text": "Being needed all day left zero room to be desired — touched out by 8pm, every day. With the kids finally sleeping and a few weeks of this ritual, I have space to want closeness again instead of dreading one more demand.",
-            "author": "Kelly F."
+            "rating": 1,
+            "title": "UPS lost my order.",
+            "text": "UPS lost my order.",
+            "author": "Sandra K."
           }
         },
         "r48": {
           "type": "review",
           "settings": {
-            "rating": 5,
-            "title": "The spark is coming back.",
-            "text": "I missed feeling playful and flirty — that spark felt like a language I'd stopped speaking. It's been gradual, but I feel it coming back, and so does he.",
-            "author": "Renee D."
+            "rating": 4,
+            "title": "Make a bigger bottle!",
+            "text": "Would love a larger bottle so I don’t have to reorder as often.",
+            "author": "Joan F."
           }
         },
         "r49": {
           "type": "review",
           "settings": {
-            "rating": 5,
-            "title": "For anyone who wants to want it.",
-            "text": "My desire never shows up first — it arrives after closeness starts, once there's no pressure. Learning that was normal changed everything, and Smooch is now part of how I take care of that side of myself. No miracle moment, just steadier and easier.",
-            "author": "Amber L."
+            "rating": 2,
+            "title": "Took longer than expected.",
+            "text": "My order took longer to arrive than I expected. Packaging was cute though.",
+            "author": "Liz M."
           }
         },
         "r50": {
           "type": "review",
           "settings": {
-            "rating": 5,
-            "title": "More confident in my own skin.",
-            "text": "Confidence was my blocker — I'd feel exposed and self-conscious instead of comfortable being seen. Feeling calmer and more like myself has quietly fixed a lot of that for me.",
-            "author": "Jess T."
+            "rating": 3,
+            "title": "Wish the subscription was clearer.",
+            "text": "I didn’t realize it was an automatic subscription when I ordered. Canceling was easy, but I wish it had been clearer.",
+            "author": "Meg S."
           }
         },
         "r51": {
           "type": "review",
           "settings": {
-            "rating": 5,
-            "title": "In my 40s and feeling like me again.",
-            "text": "Everything shifted in my 40s — energy, mood, how I felt in my body — and I stopped feeling like myself. This is the first thing in my routine I actually look forward to. Gradual, but real.",
-            "author": "Diane P."
+            "rating": 2,
+            "title": "Missed the delivery twice.",
+            "text": "FedEx required a signature, and I missed delivery twice because I was at work.",
+            "author": "Dana W."
           }
         },
         "r52": {
@@ -1047,12 +1047,10 @@
         "r4",
         "r14",
         "r5",
-        "r6",
         "r15",
         "r7",
         "r8",
         "r16",
-        "r9",
         "r10",
         "r17",
         "r11",
@@ -1095,7 +1093,8 @@
       ],
       "settings": {
         "rating_value": "4.8",
-        "is_sample_content": false
+        "is_sample_content": false,
+        "count_caption": "Based on 1,692 reviews"
       }
     }
   },

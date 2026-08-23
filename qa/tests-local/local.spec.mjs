@@ -1120,12 +1120,12 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     const full = page.locator('#smooch-reviews');
     await expect(full).toBeVisible();
 
-    // 50 demo reviews (Shopify's max_blocks cap): 45 five-star, 3 four-star,
-    // 1 three-star, 0 two-star, 1 one-star -> 90% / 6% / 2% / 0% / 2%.
+    // 50 demo reviews (Shopify's max_blocks cap): 36 five-star, 4 four-star,
+    // 4 three-star, 3 two-star, 3 one-star -> 72% / 8% / 8% / 6% / 6%.
     const fills = full.locator('.smooch-rf__dist-fill');
     await expect(fills).toHaveCount(5);
     const widths = await fills.evaluateAll((els) => els.map((el) => el.style.width));
-    expect(widths).toEqual(['90%', '6%', '2%', '0%', '2%']);
+    expect(widths).toEqual(['72%', '8%', '8%', '6%', '6%']);
 
     // Honesty toggle flipped live: no "Demo review"/"Sample" labels, every row reads "Verified Buyer".
     expect(await full.locator('.smooch-rf__row-demo').count()).toBe(0);
@@ -1137,6 +1137,35 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     const ldJsonBlocks = await page.locator('script[type="application/ld+json"]').allTextContents();
     const hasReviewSchema = ldJsonBlocks.some((json) => /"@type"\s*:\s*"(Review|AggregateRating)"/i.test(json));
     expect(hasReviewSchema).toBe(false);
+  });
+
+  test('full reviews: histogram rows filter by star rating (Amazon-style)', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(PRODUCT);
+    const full = page.locator('#smooch-reviews');
+    await full.scrollIntoViewIfNeeded();
+
+    // Click the 1-star row: only the three 1-star reviews show, batching off.
+    const oneStarRow = full.locator('[data-rf-star="1"]');
+    await oneStarRow.click();
+    await expect(full.locator('.smooch-rf__row:not([hidden])')).toHaveCount(3);
+    const ratings = await full
+      .locator('.smooch-rf__row:not([hidden])')
+      .evaluateAll((els) => els.map((el) => el.dataset.rating));
+    expect(ratings.every((r) => Math.round(Number(r)) === 1)).toBe(true);
+    await expect(full.locator('[data-smooch-search-status]')).toContainText('3 1-star reviews');
+    await expect(oneStarRow).toHaveAttribute('aria-pressed', 'true');
+    // The boss-mandated logistics gripes are in the filtered set.
+    expect(await full.locator('.smooch-rf__row:not([hidden])', { hasText: 'UPS lost my order' }).count()).toBe(1);
+
+    // Clicking the active row again clears the filter back to batched view.
+    await oneStarRow.click();
+    await expect(full.locator('.smooch-rf__row:not([hidden])')).toHaveCount(6);
+    await expect(oneStarRow).toHaveAttribute('aria-pressed', 'false');
+
+    // 2-star filter finds the shipping/subscription complaints.
+    await full.locator('[data-rf-star="2"]').click();
+    await expect(full.locator('.smooch-rf__row:not([hidden])')).toHaveCount(3);
   });
 
   test('full reviews: initial 6 shown, "Show more" reveals the rest and then hides, sort has no errors', async ({ page }) => {
