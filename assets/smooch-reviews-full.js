@@ -19,25 +19,35 @@
     const chips = section ? Array.from(section.querySelectorAll('[data-smooch-search-chip]')) : [];
     const initial = parseInt(list.dataset.initial, 10) || 6;
     const batch = parseInt(list.dataset.batch, 10) || 6;
+    const starBtns = section ? Array.from(section.querySelectorAll('[data-rf-star]')) : [];
     let visibleCount = initial;
     let query = '';
+    let starFilter = 0;
 
     const getRows = () => Array.from(list.querySelectorAll('[data-smooch-review-row]'));
 
     const applyVisibility = () => {
       const rows = getRows();
-      if (query) {
-        // Search mode: show every matching row (batching suspended).
+      const rowMatches = (row) => {
+        if (starFilter && Math.round(Number(row.dataset.rating)) !== starFilter) return false;
+        if (query && !(row.textContent || '').toLowerCase().includes(query)) return false;
+        return true;
+      };
+      if (query || starFilter) {
+        // Filter mode (search and/or star rating): show every matching row,
+        // batching suspended.
         let shown = 0;
         rows.forEach((row) => {
-          const match = (row.textContent || '').toLowerCase().includes(query);
+          const match = rowMatches(row);
           row.hidden = !match;
           if (match) shown += 1;
         });
         if (moreBtn) moreBtn.hidden = true;
         if (statusEl) {
           statusEl.hidden = false;
-          statusEl.textContent = `${shown} review${shown === 1 ? '' : 's'} mentioning “${query}”`;
+          const star = starFilter ? `${starFilter}-star ` : '';
+          const mention = query ? ` mentioning “${query}”` : '';
+          statusEl.textContent = `${shown} ${star}review${shown === 1 ? '' : 's'}${mention}`;
         }
         if (emptyEl) emptyEl.hidden = shown > 0;
       } else {
@@ -104,6 +114,24 @@
         searchInput.focus();
       });
     }
+
+    const syncStars = () => {
+      starBtns.forEach((btn) => {
+        const active = Number(btn.dataset.rfStar) === starFilter;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+    };
+
+    starBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const value = Number(btn.dataset.rfStar);
+        // Tapping the active row again clears the rating filter.
+        starFilter = starFilter === value ? 0 : value;
+        syncStars();
+        applyVisibility();
+      });
+    });
 
     chips.forEach((chip) => {
       chip.addEventListener('click', () => {
