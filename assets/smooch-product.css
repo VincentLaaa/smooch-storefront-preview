@@ -637,12 +637,23 @@
 
 /* Same perks list, relocated directly under the Add to Cart button (Create's
    micro-trust-row position) instead of inside the subscription card. */
+/* Perks flow as atomic chips - each label never wraps mid-phrase, the row
+   wraps whole items instead, so it stays tidy at every monitor width. */
 .smooch-buybox__buy-perks {
   border-top: none;
   margin: 1.2rem 0 0;
   padding: 0;
-  justify-items: center;
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 2rem;
+  row-gap: 0.7rem;
+  text-align: left;
+}
+
+.smooch-buybox__buy-perks li {
+  white-space: nowrap;
+  align-items: center;
 }
 
 .smooch-buybox__buy-perks li {
