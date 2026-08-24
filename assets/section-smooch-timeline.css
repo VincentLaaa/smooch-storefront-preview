@@ -374,6 +374,8 @@
    double selector outranks .smooch-story's transparent background. */
 .smooch-timeline__layout,
 .smooch-timeline__layout.smooch-story {
+  max-width: 116rem;
+  margin-inline: auto;
   background-color: rgb(var(--smooch-surface-rgb));
   border-radius: 2rem;
   border: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.06);

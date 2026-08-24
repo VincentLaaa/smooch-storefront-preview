@@ -116,3 +116,13 @@ smooch-details-group.smooch-faq__list {
   font-weight: 650;
   color: rgb(var(--color-foreground));
 }
+
+/* ---------- Center-focus pass ---------- */
+
+.smooch-faq .page-width {
+  max-width: 96rem;
+}
+
+.smooch-faq__head {
+  text-align: center;
+}
