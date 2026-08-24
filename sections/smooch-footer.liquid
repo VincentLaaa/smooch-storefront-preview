@@ -201,6 +201,21 @@
       </div>
     {%- endif -%}
 
+    {%- comment -%}
+      Oversized brand wordmark spanning the full viewport width between the
+      footer content and the legal row (slightly cropped at the edges, like
+      a printed sign-off). Decorative only.
+    {%- endcomment -%}
+    <div class="smooch-footer__wordmark" aria-hidden="true">
+      <img
+        src="{{ 'smooch-logo-white.webp' | asset_url }}"
+        width="712"
+        height="183"
+        loading="lazy"
+        alt=""
+      >
+    </div>
+
     <div class="smooch-footer__bottom">
       <div class="smooch-footer__legal">
         {%- if section.settings.show_policies -%}
