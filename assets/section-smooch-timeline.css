@@ -366,3 +366,20 @@
   line-height: 1.55;
   color: rgb(var(--color-foreground));
 }
+
+/* ---------- Floating card treatment (matches the buybox language) ---------- */
+
+/* The whole timeline sits on the band as a lifted surface card: same
+   radius, hairline edge, and layered diffuse shadow as the buybox. The
+   double selector outranks .smooch-story's transparent background. */
+.smooch-timeline__layout,
+.smooch-timeline__layout.smooch-story {
+  background-color: rgb(var(--smooch-surface-rgb));
+  border-radius: 2rem;
+  border: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.06);
+  box-shadow:
+    0 0.1rem 0.2rem rgba(var(--smooch-ink-rgb), 0.03),
+    0 1.2rem 2.8rem -0.8rem rgba(var(--smooch-ink-rgb), 0.08),
+    0 3.6rem 7.2rem -2.4rem rgba(var(--smooch-ink-rgb), 0.12);
+  padding: clamp(2.4rem, 3.5vw, 4.8rem) clamp(1.8rem, 3.5vw, 4.8rem);
+}
