@@ -1,0 +1,130 @@
+{{ 'section-smooch-ugc-reviews.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign brand_name = settings.smooch_brand_name | default: shop.name
+  assign cards = section.blocks | where: 'type', 'card'
+-%}
+
+<div class="smooch-band smooch-ugcr color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="smooch-h2 smooch-ugcr__heading">
+        {{- section.settings.heading | replace: '[brand]', brand_name | escape -}}
+      </h2>
+    {%- endif -%}
+
+    {%- if cards.size > 0 -%}
+      <ul class="smooch-ugcr__grid" role="list">
+        {%- for block in cards -%}
+          <li class="smooch-ugcr__card" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 720
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '360, 540, 720',
+                  sizes: '(min-width: 990px) 24vw, 78vw',
+                  class: 'smooch-ugcr__img',
+                  alt: ''
+              }}
+            {%- else -%}
+              {%- comment -%} Bundled sample photo until the merchant uploads real customer media. {%- endcomment -%}
+              <img
+                src="{{ 'smooch-ugc-review-' | append: forloop.index | append: '.jpg' | asset_url }}"
+                width="720"
+                height="1058"
+                loading="lazy"
+                class="smooch-ugcr__img"
+                alt=""
+              >
+            {%- endif -%}
+            <div class="smooch-ugcr__overlay">
+              {%- if block.settings.title != blank -%}
+                <p class="smooch-ugcr__title">{{ block.settings.title | escape }}</p>
+              {%- endif -%}
+              {%- if block.settings.author != blank -%}
+                <p class="smooch-ugcr__author">
+                  {% render 'smooch-icon', icon: 'user', class: 'smooch-icon--sm' %}
+                  {{ block.settings.author | escape }}
+                </p>
+              {%- endif -%}
+              <p class="smooch-ugcr__meta">
+                <span class="smooch-ugcr__stars" role="img" aria-label="5 out of 5 stars">
+                  {%- for i in (1..5) -%}{% render 'smooch-icon', icon: 'star' %}{%- endfor -%}
+                </span>
+                <span class="smooch-ugcr__verified">{{ section.settings.verified_label | default: 'Verified Purchase' | escape }}</span>
+              </p>
+              {%- if block.settings.text != blank -%}
+                <p class="smooch-ugcr__text">{{ block.settings.text | replace: '[brand]', brand_name | escape }}</p>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- elsif request.design_mode -%}
+      <p class="smooch-caption">Add review cards to build the grid.</p>
+    {%- endif -%}
+
+    {%- if section.settings.note != blank -%}
+      <p class="smooch-fine-print smooch-ugcr__note">{{ section.settings.note | escape }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smooch UGC reviews",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 8,
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "paragraph", "content": "Photo review cards (customer-photo style). The bundled sample photos are placeholders — swap in real customer media and keep the sample note honest until you do." },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-1" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Don't just take our word for it" },
+    { "type": "text", "id": "verified_label", "label": "Verified label", "default": "Verified Purchase" },
+    { "type": "text", "id": "note", "label": "Fine-print note", "default": "Sample photos shown for layout — real customer photos coming soon." },
+    { "type": "header", "content": "t:sections.all.padding.section_padding_heading" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "t:sections.all.padding.padding_top", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "t:sections.all.padding.padding_bottom", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Review card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Customer photo", "info": "Tall (roughly 2:3) photo. Leave blank for a bundled sample." },
+        { "type": "text", "id": "title", "label": "Title", "default": "Love it" },
+        { "type": "text", "id": "author", "label": "Name", "default": "Customer" },
+        { "type": "textarea", "id": "text", "label": "Review text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooch UGC reviews",
+      "blocks": [
+        { "type": "card", "settings": { "title": "Actually works", "author": "Mel R.", "text": "This is my 3rd bottle and when I say it works I MEAN it works. If you're on the fence, get off it." } },
+        { "type": "card", "settings": { "title": "10/10 recommend", "author": "Megan B.", "text": "I absolutely LOVE these. They do exactly what they say they're supposed to do. 10/10 recommend." } },
+        { "type": "card", "settings": { "title": "Happy!", "author": "Jeni R.", "text": "I didn't even tell my guy I was taking something — he noticed the difference and asked me about it. Only my second bottle!" } },
+        { "type": "card", "settings": { "title": "You cannot go wrong", "author": "Tips S.", "text": "On my third bottle. I'm feeling so much better and more like myself. Never have to wonder." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

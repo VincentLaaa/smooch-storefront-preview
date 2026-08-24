@@ -452,139 +452,6 @@
       ],
       "settings": {}
     },
-    "review_carousel": {
-      "type": "smooch-review-carousel",
-      "blocks": {
-        "r1": {
-          "type": "long",
-          "settings": {
-            "rating": 5,
-            "title": "I finally feel like me again.",
-            "text": "I started adding Smooch to my daily routine mostly because I wanted something simple I could actually stay consistent with. The biggest thing I've noticed is that I just feel more like myself lately — more present, more in the mood, and less like I'm running on empty all the time.",
-            "author": "Maya T."
-          }
-        },
-        "r2": {
-          "type": "short",
-          "settings": {
-            "rating": 5,
-            "title": "My favorite part of my evening routine.",
-            "text": "I keep the bottle right on my nightstand so I don't forget.",
-            "author": "Alyssa R."
-          }
-        },
-        "r3": {
-          "type": "long",
-          "settings": {
-            "rating": 5,
-            "title": "I didn't realize how disconnected I'd been feeling.",
-            "text": "Between work, stress, and everything else, intimacy had slowly moved to the bottom of my list. I wanted something that felt easy instead of adding another complicated wellness routine. Smooch has become one of those little daily things I genuinely look forward to.",
-            "author": "Rachel M."
-          }
-        },
-        "r4": {
-          "type": "visual",
-          "settings": {
-            "rating": 5,
-            "title": "Self-care, but make it easy.",
-            "text": "Two gummies and I'm done. No powders, no complicated routine.",
-            "author": "Chloe D."
-          }
-        },
-        "r5": {
-          "type": "long",
-          "settings": {
-            "rating": 5,
-            "title": "Didn't expect to care about the mood side this much.",
-            "text": "I originally found Smooch because of the libido angle, but what made it stick for me was the whole mood-and-connection positioning. It feels less like taking a 'sex supplement' and more like something that belongs in my regular wellness routine.",
-            "author": "Jenna P."
-          }
-        },
-        "r6": {
-          "type": "short",
-          "settings": {
-            "rating": 5,
-            "title": "\"We were bored. Now we can't keep our hands off each other.\"",
-            "text": "5 years in, sex felt like a chore. We tried these to mix it up — now it's a need for us.",
-            "author": "Emily K."
-          }
-        },
-        "r7": {
-          "type": "long",
-          "settings": {
-            "rating": 5,
-            "title": "\"Got these for our honeymoon. Best decision ever.\"",
-            "text": "I was nervous about our wedding night honestly. We took these together and it completely changed everything. I felt relaxed, turned on, and way more sensitive than usual. My husband said it was the best night of his life. Already ordered more.",
-            "author": "Ashley M."
-          }
-        },
-        "r8": {
-          "type": "short",
-          "settings": {
-            "rating": 5,
-            "title": "\"First thing that actually worked on ME.\"",
-            "text": "The chocolates, the drinks — they always worked for him, not me. These hit different.",
-            "author": "Danielle R."
-          }
-        },
-        "r9": {
-          "type": "visual",
-          "settings": {
-            "rating": 5,
-            "title": "She's staying on the nightstand.",
-            "text": "Pretty packaging, easy habit, and something that's actually for us.",
-            "author": "Camille B."
-          }
-        },
-        "r10": {
-          "type": "long",
-          "settings": {
-            "rating": 5,
-            "title": "I wanted my spark back.",
-            "text": "I don't think there was one dramatic moment. It was more that I started noticing I felt more intentional about that part of myself again. That's exactly what I wanted from adding something like this to my routine.",
-            "author": "Erin C."
-          }
-        },
-        "r11": {
-          "type": "short",
-          "settings": {
-            "rating": 5,
-            "title": "\"43, two kids, perimenopause.\"",
-            "text": "I thought my body just didn't do that anymore. One gummy and my husband can't believe it. Ladies in your 40s — these are IT.",
-            "author": "Lauren D."
-          }
-        },
-        "r12": {
-          "type": "long",
-          "settings": {
-            "rating": 5,
-            "title": "Made for women who have a lot going on.",
-            "text": "I have a career, a relationship, a million things on my brain, and usually wellness products feel like one more task. Smooch doesn't. That's probably my favorite thing about it.",
-            "author": "Nicole A."
-          }
-        }
-      },
-      "block_order": [
-        "r1",
-        "r2",
-        "r6",
-        "r3",
-        "r4",
-        "r7",
-        "r5",
-        "r9",
-        "r8",
-        "r10",
-        "r12",
-        "r11"
-      ],
-      "settings": {
-        "rating_value": "5.0",
-        "review_count_display": "12",
-        "review_count_label": "Reviews",
-        "is_sample_content": false
-      }
-    },
     "reviews_full": {
       "type": "smooch-reviews-full",
       "blocks": {
@@ -1096,6 +963,52 @@
         "is_sample_content": false,
         "count_caption": "Based on 1,692 reviews"
       }
+    },
+    "ugc_reviews": {
+      "type": "smooch-ugc-reviews",
+      "blocks": {
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "title": "Actually works",
+            "author": "Mel R.",
+            "text": "This is my 3rd bottle and when I say it works I MEAN it works. If you're on the fence, get off it."
+          }
+        },
+        "card-2": {
+          "type": "card",
+          "settings": {
+            "title": "10/10 recommend",
+            "author": "Megan B.",
+            "text": "I absolutely LOVE these. They do exactly what they say they're supposed to do. 10/10 recommend."
+          }
+        },
+        "card-3": {
+          "type": "card",
+          "settings": {
+            "title": "Happy!",
+            "author": "Jeni R.",
+            "text": "I didn't even tell my guy I was taking something — he noticed the difference and asked me about it. Only my second bottle!"
+          }
+        },
+        "card-4": {
+          "type": "card",
+          "settings": {
+            "title": "You cannot go wrong",
+            "author": "Tips S.",
+            "text": "On my third bottle. I'm feeling so much better and more like myself. Never have to wonder."
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3",
+        "card-4"
+      ],
+      "settings": {
+        "heading": "Don't just take our word for it"
+      }
     }
   },
   "order": [
@@ -1103,7 +1016,7 @@
     "benefit_strip",
     "body",
     "benefits",
-    "review_carousel",
+    "ugc_reviews",
     "formula",
     "faq",
     "reviews_full"

@@ -1061,7 +1061,7 @@ test.describe('Home hero: mobile fold sells, desktop unchanged', () => {
 test.describe('Reviews: curated carousel + full reviews (product page only)', () => {
   test('carousel: honesty labeling, mixed card widths, next-card peek', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto(PRODUCT);
+    await page.goto('/');
     const carousel = page.locator('[data-smooch-carousel]');
     await expect(carousel).toBeVisible();
     // Honesty toggle flipped live: no sample badge, every card reads "Verified Buyer",
@@ -1082,7 +1082,7 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     // not every card is fully within it.
     const cards = carousel.locator('.smooch-rc__card');
     const cardCount = await cards.count();
-    expect(cardCount).toBe(12);
+    expect(cardCount).toBe(10);
     const track = carousel.locator('[data-smooch-track]');
     const trackBox = await track.boundingBox();
     const visibleEdge = trackBox.x + trackBox.width;
@@ -1095,7 +1095,7 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
 
   test('carousel: arrows scroll the track and loop around at each end', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto(PRODUCT);
+    await page.goto('/');
     const track = page.locator('[data-smooch-track]');
     await track.scrollIntoViewIfNeeded();
 
@@ -1261,7 +1261,7 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
 
     const ctx = await browser.newContext({ reducedMotion: 'reduce', viewport: { width: 1440, height: 900 } });
     const rp = await ctx.newPage();
-    await rp.goto(PRODUCT);
+    await rp.goto('/');
     const carousel = rp.locator('[data-smooch-carousel]');
     await carousel.scrollIntoViewIfNeeded();
     await rp.waitForTimeout(400);
