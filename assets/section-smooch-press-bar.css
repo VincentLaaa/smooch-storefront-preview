@@ -15,7 +15,7 @@
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(var(--color-foreground), 0.55);
+  color: rgba(var(--color-foreground), 0.8);
 }
 
 .smooch-press-bar__list {
@@ -32,7 +32,7 @@
 .smooch-press-bar__item {
   display: inline-flex;
   align-items: center;
-  color: rgba(var(--color-foreground), 0.78);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-press-bar__link {

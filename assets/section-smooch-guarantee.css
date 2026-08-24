@@ -61,7 +61,7 @@
   letter-spacing: 0.18em;
   line-height: 1.5;
   text-transform: uppercase;
-  color: rgba(var(--color-foreground), 0.7);
+  color: rgb(var(--color-foreground));
 }
 
 /* ---------- Optional accent image ---------- */
@@ -119,13 +119,13 @@
   border-radius: var(--smooch-radius-card);
   font-size: 1.4rem;
   line-height: 1.5;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-guarantee__hint .smooch-icon {
   flex-shrink: 0;
   margin-top: 0.2rem;
-  color: rgba(var(--color-foreground), 0.55);
+  color: rgba(var(--color-foreground), 0.8);
 }
 
 /* ---------- 750px+ ---------- */

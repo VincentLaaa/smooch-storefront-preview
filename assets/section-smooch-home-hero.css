@@ -16,7 +16,7 @@
 
 .smooch-home-hero__eyebrow {
   margin-bottom: 1.8rem;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-home-hero__headline {
@@ -42,7 +42,7 @@
   max-width: 46ch;
   font-size: 1.5rem;
   font-weight: 700;
-  color: rgba(var(--color-foreground), 0.9);
+  color: rgb(var(--color-foreground));
 }
 
 /* On the saturated berry default scheme, translucent foreground drops under
@@ -123,14 +123,14 @@
   align-items: center;
   gap: 1.2rem;
   font-size: 1.4rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.4;
 }
 
 .smooch-home-hero__trust-icon {
   flex-shrink: 0;
-  color: rgba(var(--color-foreground), 0.85);
+  color: rgb(var(--color-foreground));
 }
 
 /* ---------- Mobile-fold elements (hidden from 750px up) ---------- */
@@ -180,7 +180,7 @@
     align-items: center;
     gap: 0.5rem;
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.01em;
     color: rgb(var(--color-foreground));
   }

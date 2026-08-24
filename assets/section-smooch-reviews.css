@@ -42,7 +42,7 @@
   margin: 0;
   font-size: 1.5rem;
   line-height: 1.4;
-  color: rgba(var(--color-foreground), 0.8);
+  color: rgb(var(--color-foreground));
 }
 
 /* ---------- Topic filter chips ---------- */
@@ -65,7 +65,7 @@
   min-height: 4.4rem;
   padding: 0.8rem 2rem;
   background-color: transparent;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgb(var(--color-foreground));
   border: 0.1rem solid rgba(var(--color-foreground), 0.3);
   border-radius: var(--smooch-radius-button);
   font-family: var(--font-body-family);
@@ -161,7 +161,7 @@
   margin: 0;
   font-size: 1.5rem;
   line-height: 1.6;
-  color: rgba(var(--color-foreground), 0.8);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-review-card__meta {
@@ -177,7 +177,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(var(--color-foreground), 0.65);
+  color: rgba(var(--color-foreground), 0.8);
 }
 
 .smooch-review-card__topic {
@@ -185,11 +185,11 @@
   font-size: 1.2rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(var(--color-foreground), 0.65);
+  color: rgba(var(--color-foreground), 0.8);
 }
 
 .smooch-review-card__verified {
-  color: rgba(var(--color-foreground), 0.8);
+  color: rgb(var(--color-foreground));
 }
 
 /* ---------- Featured card: full-width editorial pull quote ---------- */

@@ -104,7 +104,7 @@ smooch-details-group.smooch-faq__list {
 
 .smooch-faq__list details[open] > summary .smooch-icon--chevron {
   transform: rotate(180deg);
-  color: rgba(var(--color-foreground), 0.7);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-faq__list .smooch-accordion__content {

@@ -25,7 +25,7 @@
 
 .smooch-benefit-strip__icon {
   flex-shrink: 0;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-benefit-strip__text {

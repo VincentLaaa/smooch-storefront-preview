@@ -15,7 +15,7 @@
 .smooch-final-cta__subline {
   max-width: 62ch;
   margin: 2rem auto 0;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgb(var(--color-foreground));
 }
 
 /* ---------- Split layout: content beside a lifestyle moment ---------- */
@@ -93,12 +93,12 @@
   gap: 0.8rem;
   font-size: 1.4rem;
   font-weight: 600;
-  color: rgba(var(--color-foreground), 0.8);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-final-cta__chip .smooch-icon {
   flex-shrink: 0;
-  color: rgba(var(--color-foreground), 0.65);
+  color: rgba(var(--color-foreground), 0.8);
 }
 
 /* ---------- Fine print ---------- */
@@ -130,4 +130,10 @@
     width: auto;
     min-width: 24rem;
   }
+}
+
+/* Emphasis pass: the guarantee/shipping/trust chips read bold and black. */
+.smooch-final-cta__chip {
+  font-weight: 700;
+  color: rgb(var(--color-foreground));
 }
