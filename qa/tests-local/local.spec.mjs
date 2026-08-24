@@ -808,8 +808,9 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(trustItems).toHaveCount(3);
     await expect(trustItems.nth(0)).toContainText('30-Day Money Back Guarantee');
 
-    // Small footer info row with an optional "Learn more" link.
-    await expect(hero.locator('.smooch-reassurance__footer-row')).toContainText('HSA/FSA eligible');
+    // Footer info row cleared per owner (HSA/FSA line removed) - the
+    // setting-driven row hides itself when the text is blank.
+    await expect(hero.locator('.smooch-reassurance__footer-row')).toHaveCount(0);
   });
 
   test('"Most popular" ribbon badges the 3-month size, independent of the default', async ({ page }) => {
