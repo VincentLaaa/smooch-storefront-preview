@@ -36,24 +36,6 @@
     </div>
 
     {%- if area_blocks.size > 0 -%}
-      <div class="smooch-science__tabs" role="tablist" aria-label="Science topics">
-        {%- for block in area_blocks -%}
-          <button
-            type="button"
-            class="smooch-science__tab{% if forloop.first %} is-active{% endif %}"
-            role="tab"
-            id="ScienceTab-{{ block.id }}"
-            aria-controls="SciencePanel-{{ block.id }}"
-            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-            {% unless forloop.first %}
-              tabindex="-1"
-            {% endunless %}
-            {{ block.shopify_attributes }}
-          >
-            {{- block.settings.label | escape -}}
-          </button>
-        {%- endfor -%}
-      </div>
 
       {%- for block in area_blocks -%}
         {%- liquid
@@ -95,15 +77,12 @@
               assign fallback_poster = 'smooch-science-anim-hands.jpg'
           endcase
         -%}
-        <div
-          class="smooch-science__panel"
-          role="tabpanel"
-          id="SciencePanel-{{ block.id }}"
-          aria-labelledby="ScienceTab-{{ block.id }}"
-          {% unless forloop.first %}
-            hidden
-          {% endunless %}
-        >
+        {%- comment -%}
+          All topics render stacked and visible - the science reads top to
+          bottom like a script, nothing hidden behind tab clicks.
+        {%- endcomment -%}
+        <div class="smooch-science__panel" {{ block.shopify_attributes }}>
+          <h3 class="smooch-science__topic">{{ block.settings.label | escape }}</h3>
           <div class="smooch-science__visual">
             {%- if block.settings.image != blank -%}
               {{

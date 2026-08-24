@@ -543,26 +543,24 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(sticky).toBeVisible();
   });
 
-  test('science section: tabbed Biology / How This Helps panels with accessible tab semantics', async ({ page }) => {
+  test('science section: all three topics stacked and readable, no tab clicks needed', async ({ page }) => {
     const sci = page.locator('[data-smooch-science]');
     await expect(sci).toHaveCount(1);
-    const tabs = sci.locator('[role="tab"]');
-    await expect(tabs).toHaveCount(3);
-    // Exactly one visible panel; first tab's content shows initially.
-    expect(await sci.locator('.smooch-science__panel:not([hidden])').count()).toBe(1);
-    await expect(sci.locator('.smooch-science__panel:not([hidden])')).toContainText('KSM-66 Ashwagandha');
-    // Clicking a tab swaps the panel and syncs aria-selected.
-    await tabs.nth(1).click();
-    expect(await sci.locator('.smooch-science__panel:not([hidden])').count()).toBe(1);
-    await expect(sci.locator('.smooch-science__panel:not([hidden])')).toContainText('Black Maca');
-    await expect(tabs.nth(1)).toHaveAttribute('aria-selected', 'true');
-    await expect(tabs.nth(0)).toHaveAttribute('aria-selected', 'false');
-    // Roving keyboard focus.
-    await tabs.nth(1).focus();
-    await page.keyboard.press('ArrowRight');
-    await expect(tabs.nth(2)).toHaveAttribute('aria-selected', 'true');
-    // Claims pair with the FDA disclaimer.
-    await expect(sci.locator('.smooch-science__disclaimer')).toContainText('Food and Drug Administration');
+
+    // Tabs are retired - every topic panel is rendered visible, in order.
+    expect(await sci.locator('[role="tab"]').count()).toBe(0);
+    const panels = sci.locator('.smooch-science__panel');
+    await expect(panels).toHaveCount(3);
+    for (let i = 0; i < 3; i++) {
+      await expect(panels.nth(i)).toBeVisible();
+    }
+
+    // Each panel leads with its topic heading; content is present without
+    // any interaction.
+    await expect(panels.nth(0).locator('.smooch-science__topic')).toHaveText('Stress & Mood');
+    await expect(panels.nth(0)).toContainText('KSM-66 Ashwagandha');
+    await expect(panels.nth(1).locator('.smooch-science__topic')).toBeVisible();
+    await expect(panels.nth(2).locator('.smooch-science__topic')).toBeVisible();
   });
 
   test('gallery column has no media info cards (all removed from this PDP)', async ({ page }) => {
