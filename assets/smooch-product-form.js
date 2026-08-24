@@ -592,10 +592,9 @@ if (!customElements.get('smooch-sticky-atc')) {
         // (never a raw unthrottled scroll handler) is correct in both cases.
         const sentinelTarget = this.sentinel || this.target;
         if (sentinelTarget) {
-          // The bar also steps aside at the end of the page: once the footer
-          // enters the viewport, the visitor is reading the page bottom and
-          // the fixed bar would sit on top of it.
-          const footerEl = document.querySelector('footer, .footer');
+          // The bar also steps aside at the very end of the page (within a
+          // hair of the document bottom) so the last content and footer are
+          // never covered - but not a moment sooner.
           let ticking = false;
           this.boundCheckSentinel = () => {
             if (ticking) return;
@@ -603,10 +602,10 @@ if (!customElements.get('smooch-sticky-atc')) {
             requestAnimationFrame(() => {
               ticking = false;
               const pastControls = sentinelTarget.getBoundingClientRect().bottom < 0;
-              const footerInView = footerEl
-                ? footerEl.getBoundingClientRect().top < window.innerHeight
-                : false;
-              this.visible = pastControls && !footerInView;
+              const atPageBottom =
+                window.innerHeight + window.scrollY >=
+                document.documentElement.scrollHeight - 48;
+              this.visible = pastControls && !atPageBottom;
               this.update();
             });
           };
