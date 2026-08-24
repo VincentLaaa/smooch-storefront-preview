@@ -534,6 +534,13 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await hero.locator('[data-smooch-bundle-radio]').first().check({ force: true });
     await page.waitForTimeout(300);
     await expect(sticky.locator('[data-sticky-summary]')).toHaveText("Women's Libido & Mood Gummies");
+
+    // At the very bottom of the page the bar steps aside so the footer is
+    // readable; scrolling back up mid-page brings it back.
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await expect(sticky).toBeHidden();
+    await page.evaluate(() => window.scrollTo(0, 3000));
+    await expect(sticky).toBeVisible();
   });
 
   test('science section: tabbed Biology / How This Helps panels with accessible tab semantics', async ({ page }) => {
