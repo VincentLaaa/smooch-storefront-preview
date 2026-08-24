@@ -90,7 +90,7 @@
   margin: 0;
   font-size: 1.4rem;
   line-height: 1.6;
-  color: rgba(var(--color-foreground), 0.78);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-benefits__callout {

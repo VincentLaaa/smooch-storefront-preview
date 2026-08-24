@@ -236,7 +236,7 @@
 
 .smooch-bundle__count {
   font-size: 1.3rem;
-  color: rgba(var(--smooch-ink-rgb), 0.65);
+  color: rgba(var(--smooch-ink-rgb), 0.8);
 }
 
 .smooch-bundle__unit {
@@ -332,13 +332,13 @@
 
 .smooch-gift__value {
   font-weight: 400;
-  color: rgba(var(--smooch-ink-rgb), 0.65);
+  color: rgba(var(--smooch-ink-rgb), 0.8);
 }
 
 .smooch-gift__state {
   margin: 0.2rem 0 0;
   font-size: 1.25rem;
-  color: rgba(var(--smooch-ink-rgb), 0.75);
+  color: var(--smooch-ink);
 }
 
 .smooch-gift__state [data-gift-included] {
@@ -436,7 +436,7 @@
 
 .smooch-plan__perday {
   font-weight: 500;
-  color: rgba(var(--smooch-ink-rgb), 0.65);
+  color: rgba(var(--smooch-ink-rgb), 0.8);
   white-space: nowrap;
 }
 
@@ -670,7 +670,7 @@
 .smooch-plan__perday {
   font-size: 1.2rem;
   font-weight: 500;
-  color: rgba(var(--smooch-ink-rgb), 0.6);
+  color: rgba(var(--smooch-ink-rgb), 0.8);
   white-space: nowrap;
 }
 
@@ -754,12 +754,12 @@
   padding-top: 1.2rem;
   border-top: 0.1rem solid var(--smooch-border-soft);
   font-size: 1.15rem;
-  color: rgba(var(--smooch-ink-rgb), 0.6);
+  color: rgba(var(--smooch-ink-rgb), 0.8);
   text-align: center;
 }
 
 .smooch-reassurance__footer-row .smooch-icon {
-  color: rgba(var(--smooch-ink-rgb), 0.5);
+  color: rgba(var(--smooch-ink-rgb), 0.7);
 }
 
 .smooch-reassurance__footer-link {
@@ -793,7 +793,7 @@
 .smooch-summary-line__selection {
   margin: 0;
   font-weight: 600;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-summary-line .smooch-offer-price__current {
@@ -912,7 +912,7 @@
   gap: 0.9rem;
   font-size: 1.35rem;
   line-height: 1.4;
-  color: rgba(var(--color-foreground), 0.8);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-reassurance__list .smooch-icon {
@@ -1201,7 +1201,7 @@ body.smooch-sticky-atc-visible {
 
 .smooch-sticky-atc__rating .smooch-rating__count {
   font-size: 1.2rem;
-  color: rgba(var(--smooch-ink-rgb), 0.7);
+  color: var(--smooch-ink);
 }
 
 .smooch-sticky-atc__title {
@@ -1239,7 +1239,7 @@ body.smooch-sticky-atc-visible {
 
 .smooch-sticky-atc__compare {
   font-size: 1.2rem;
-  color: rgba(var(--smooch-ink-rgb), 0.5);
+  color: rgba(var(--smooch-ink-rgb), 0.7);
 }
 
 .smooch-sticky-atc__price {
@@ -1250,7 +1250,7 @@ body.smooch-sticky-atc-visible {
 
 .smooch-sticky-atc__perday {
   font-size: 1.1rem;
-  color: rgba(var(--smooch-ink-rgb), 0.6);
+  color: rgba(var(--smooch-ink-rgb), 0.8);
   white-space: nowrap;
 }
 
@@ -1894,7 +1894,7 @@ body.smooch-sticky-atc-visible {
   font-size: 1.3rem;
   font-weight: 500;
   letter-spacing: 0.01em;
-  color: rgba(var(--smooch-ink-rgb), 0.6);
+  color: rgba(var(--smooch-ink-rgb), 0.8);
 }
 
 .smooch-buybox .smooch-buybox__title {
@@ -1905,7 +1905,7 @@ body.smooch-sticky-atc-visible {
 .smooch-buybox .smooch-buybox__promise {
   font-size: 1.55rem;
   line-height: 1.5;
-  color: rgba(var(--smooch-ink-rgb), 0.78);
+  color: var(--smooch-ink);
 }
 
 .smooch-buybox .smooch-buybox__benefits .smooch-icon {
@@ -1991,7 +1991,7 @@ body.smooch-sticky-atc-visible {
 
 .smooch-buybox .smooch-trust-grid span {
   font-weight: 500;
-  color: rgba(var(--smooch-ink-rgb), 0.75);
+  color: var(--smooch-ink);
 }
 
 /* Hairline separators, not borders, between the quieter rows. */
@@ -2066,20 +2066,20 @@ body.smooch-sticky-atc-visible {
 
 .smooch-buybox__accordion details[open] > summary .smooch-icon--chevron {
   transform: rotate(180deg);
-  color: rgba(var(--smooch-ink-rgb), 0.7);
+  color: var(--smooch-ink);
 }
 
 /* Leading label icons stay small and quiet. */
 .smooch-buybox__accordion .smooch-accordion__label .smooch-icon {
   --icon-size: 1.7rem;
-  color: rgba(var(--smooch-ink-rgb), 0.6);
+  color: rgba(var(--smooch-ink-rgb), 0.8);
 }
 
 .smooch-buybox__accordion .smooch-accordion__content {
   padding-bottom: 2.4rem;
   font-size: 1.5rem;
   line-height: 1.6;
-  color: rgba(var(--smooch-ink-rgb), 0.82);
+  color: var(--smooch-ink);
 }
 
 .smooch-buybox__accordion .smooch-accordion__content > * + * {
@@ -2092,7 +2092,7 @@ body.smooch-sticky-atc-visible {
 }
 
 .smooch-buybox__accordion .smooch-fine-print {
-  color: rgba(var(--smooch-ink-rgb), 0.55);
+  color: rgba(var(--smooch-ink-rgb), 0.8);
 }
 
 /* Heart bullets: small Smooch-pink marks, aligned to the first line. */
@@ -2115,4 +2115,23 @@ body.smooch-sticky-atc-visible {
   font-size: 1.4rem;
   font-weight: 400;
   line-height: 1.5;
+}
+
+/* ---------- Emphasis pass: trust signals in full ink + bold ---------- */
+
+/* "30-Day Money Back Guarantee" strip: black and bold, not washed out. */
+.smooch-buybox .smooch-trust-grid span {
+  font-weight: 700;
+  color: var(--smooch-ink);
+}
+
+/* Perks under Add to Cart (free shipping / cancel anytime). */
+.smooch-subpanel__perks li {
+  font-weight: 600;
+  color: var(--smooch-ink);
+}
+
+/* The three USP bullets scan first - give them weight. */
+.smooch-buybox__benefits li {
+  font-weight: 600;
 }

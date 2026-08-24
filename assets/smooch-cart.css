@@ -24,7 +24,7 @@ cart-drawer .drawer__inner {
   margin: 0 0 0.7rem;
   font-size: 1.3rem;
   font-weight: 600;
-  color: rgba(var(--color-foreground), 0.85);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-cart-shipbar--unlocked .smooch-cart-shipbar__msg {
@@ -68,7 +68,7 @@ cart-drawer .drawer__inner {
   border: 0.1rem solid rgba(var(--smooch-berry-rgb, 246, 82, 117), 0.45);
   border-radius: 2rem;
   background-color: rgba(var(--smooch-blush-rgb, 250, 218, 221), 0.35);
-  color: rgba(var(--color-foreground), 0.9);
+  color: rgb(var(--color-foreground));
   font-family: inherit;
   font-size: 1.15rem;
   font-weight: 600;
@@ -117,7 +117,7 @@ cart-drawer .drawer__inner {
 }
 
 .smooch-cart-summary__muted {
-  color: rgba(var(--color-foreground), 0.6);
+  color: rgba(var(--color-foreground), 0.8);
 }
 
 .smooch-cart-summary__free {
@@ -141,7 +141,7 @@ cart-drawer .drawer__inner {
 
 .smooch-cart-summary__total .smooch-strike {
   font-size: 0.8em;
-  color: rgba(var(--color-foreground), 0.55);
+  color: rgba(var(--color-foreground), 0.8);
 }
 
 .smooch-cart-summary__pct {
@@ -197,7 +197,7 @@ cart-drawer .cart__ctas {
   white-space: nowrap;
   font-size: 1.25rem;
   font-weight: 600;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-cart-ticker__item .smooch-icon {

@@ -63,7 +63,7 @@
   font-weight: var(--font-heading-weight);
   font-size: 1.7rem;
   letter-spacing: 0.08em;
-  color: rgba(var(--color-foreground), 0.5);
+  color: rgba(var(--color-foreground), 0.7);
 }
 
 .smooch-benefit-editorial__index::after {
@@ -100,7 +100,7 @@
 .smooch-benefit-editorial__ingredient .smooch-icon {
   flex-shrink: 0;
   margin-top: 0.2rem;
-  color: rgba(var(--color-foreground), 0.6);
+  color: rgba(var(--color-foreground), 0.8);
 }
 
 .smooch-benefit-editorial__copy .smooch-fine-print {

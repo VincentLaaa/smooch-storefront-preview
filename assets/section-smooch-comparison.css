@@ -79,7 +79,7 @@
 }
 
 .smooch-comparison__table thead th {
-  border-bottom-color: rgba(var(--smooch-ink-rgb), 0.55);
+  border-bottom-color: rgba(var(--smooch-ink-rgb), 0.8);
   vertical-align: bottom;
 }
 
@@ -181,7 +181,7 @@
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1.3;
-  color: rgba(var(--smooch-ink-rgb), 0.85);
+  color: var(--smooch-ink);
 }
 
 /* ---------- Cell states ---------- */
@@ -225,7 +225,7 @@
 /* Alternatives: outlined circle + small cross for no */
 .smooch-comparison__state--no {
   border: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.45);
-  color: rgba(var(--smooch-ink-rgb), 0.55);
+  color: rgba(var(--smooch-ink-rgb), 0.8);
 }
 
 .smooch-comparison__state--no .smooch-icon {
@@ -237,7 +237,7 @@
   max-width: 16ch;
   font-size: 1.3rem;
   line-height: 1.4;
-  color: rgba(var(--smooch-ink-rgb), 0.65);
+  color: rgba(var(--smooch-ink-rgb), 0.8);
 }
 
 /* ---------- Footnote ---------- */

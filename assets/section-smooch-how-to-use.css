@@ -59,7 +59,7 @@
 .smooch-how-to-use__step-text {
   margin: 0;
   max-width: 52ch;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgb(var(--color-foreground));
 }
 
 /* ---------- Practical details row ---------- */
@@ -77,7 +77,7 @@
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(var(--color-foreground), 0.65);
+  color: rgba(var(--color-foreground), 0.8);
 }
 
 .smooch-how-to-use__facts {
@@ -93,7 +93,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(var(--color-foreground), 0.7);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-how-to-use__fact dd {
@@ -114,7 +114,7 @@
 .smooch-how-to-use__safety .smooch-icon {
   flex-shrink: 0;
   margin-top: 0.1em;
-  color: rgba(var(--color-foreground), 0.7);
+  color: rgb(var(--color-foreground));
 }
 
 /* ---------- 750px+ ---------- */

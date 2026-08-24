@@ -47,7 +47,7 @@
 .smooch-home-offer__meta {
   margin: 0;
   font-size: 1.3rem;
-  color: rgba(var(--color-foreground), 0.65);
+  color: rgba(var(--color-foreground), 0.8);
 }
 
 .smooch-home-offer__price-row {
@@ -73,7 +73,7 @@
 .smooch-home-offer__note {
   margin: 0;
   font-size: 1.2rem;
-  color: rgba(var(--color-foreground), 0.6);
+  color: rgba(var(--color-foreground), 0.8);
 }
 
 .smooch-home-offer__cta {
@@ -87,7 +87,7 @@
   gap: 0.8rem;
   margin: 2.4rem 0 0;
   font-size: 1.3rem;
-  color: rgba(var(--color-foreground), 0.7);
+  color: rgb(var(--color-foreground));
 }
 
 .smooch-home-offer__reassurance .smooch-icon {
