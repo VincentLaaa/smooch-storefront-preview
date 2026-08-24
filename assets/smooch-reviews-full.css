@@ -452,3 +452,9 @@ button.smooch-rf__dist-row:focus-visible {
   font-size: 1.15rem;
   color: rgba(var(--smooch-ink-rgb), 0.7);
 }
+
+/* Amazon-gold stars throughout the full-review section (summary + rows),
+   matching the buybox rating row. */
+.smooch-rf .smooch-stars {
+  color: #e9960e;
+}
