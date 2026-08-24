@@ -1007,7 +1007,8 @@
         "card-4"
       ],
       "settings": {
-        "heading": "Don't just take our word for it"
+        "heading": "Don't just take our word for it",
+        "note": ""
       }
     }
   },
