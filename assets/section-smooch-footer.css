@@ -344,3 +344,31 @@
     transform: none;
   }
 }
+
+/* ---------- Giant wordmark sign-off ---------- */
+
+/* Contain the full-bleed wordmark's viewport-width breakout. */
+.smooch-footer {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+.smooch-footer__wordmark {
+  /* Layout-agnostic full-bleed: center on the viewport regardless of the
+     parent grid's sizing. */
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  margin: clamp(3.2rem, 6vw, 7.2rem) 0 0;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.smooch-footer__wordmark img {
+  display: block;
+  width: 106%;
+  max-width: none;
+  height: auto;
+  margin-left: -3%;
+}
