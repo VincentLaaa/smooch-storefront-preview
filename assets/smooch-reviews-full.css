@@ -458,3 +458,15 @@ button.smooch-rf__dist-row:focus-visible {
 .smooch-rf .smooch-stars {
   color: #e9960e;
 }
+
+/* ---------- Center-focus pass ---------- */
+
+/* The whole review experience lives in one centered reading column. */
+.smooch-rf .page-width {
+  max-width: 102rem;
+}
+
+.smooch-rf__head {
+  justify-content: center;
+  text-align: center;
+}

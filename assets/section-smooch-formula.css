@@ -197,3 +197,20 @@
     order: 2;
   }
 }
+
+/* ---------- Center-focus pass ---------- */
+
+/* Header reads down the page center; the staggered grid stays but sits in
+   a narrower measure so the eye tracks one column of attention. */
+.smooch-formula .page-width {
+  max-width: 106rem;
+}
+
+.smooch-formula__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.smooch-formula__intro .smooch-lead {
+  margin-inline: auto;
+}
