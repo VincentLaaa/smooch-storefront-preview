@@ -1,0 +1,131 @@
+/* Smooch UGC reviews — customer-photo cards with a dark overlay caption
+   (title, name, stars + verified, short quote). 1rem = 10px. */
+
+.smooch-ugcr__heading {
+  margin: 0 0 clamp(2.4rem, 4vw, 4rem);
+  text-align: center;
+}
+
+.smooch-ugcr__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.6rem;
+  max-width: 116rem;
+  margin-inline: auto;
+}
+
+.smooch-ugcr__card {
+  position: relative;
+  aspect-ratio: 68 / 100;
+  border-radius: 1.6rem;
+  overflow: hidden;
+  background-color: var(--smooch-ink);
+}
+
+.smooch-ugcr__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.smooch-ugcr__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 1.6rem 1.4rem 1.6rem;
+  background: linear-gradient(180deg, rgba(20, 10, 14, 0) 32%, rgba(20, 10, 14, 0.62) 58%, rgba(20, 10, 14, 0.92) 100%);
+  color: rgb(255, 255, 255);
+}
+
+.smooch-ugcr__title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.smooch-ugcr__author {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.smooch-ugcr__author .smooch-icon {
+  --icon-size: 1.5rem;
+  padding: 0.15rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.smooch-ugcr__meta {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.smooch-ugcr__stars {
+  display: inline-flex;
+  color: #ffa41c;
+}
+
+.smooch-ugcr__stars .smooch-icon {
+  --icon-size: 1.3rem;
+}
+
+.smooch-ugcr__verified {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.smooch-ugcr__text {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.smooch-ugcr__note {
+  margin: 2rem 0 0;
+  text-align: center;
+}
+
+/* Phones: one card ~4/5 viewport, horizontal snap scroll. */
+@media screen and (max-width: 749.98px) {
+  .smooch-ugcr__grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 1.2rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .smooch-ugcr__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .smooch-ugcr__card {
+    flex: 0 0 76vw;
+    max-width: 30rem;
+    scroll-snap-align: center;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989.98px) {
+  .smooch-ugcr__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
