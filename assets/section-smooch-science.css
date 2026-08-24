@@ -134,3 +134,20 @@
     justify-content: center;
   }
 }
+
+/* ---------- Stacked flow (tabs retired) ---------- */
+
+.smooch-science__topic {
+  grid-column: 1 / -1;
+  margin: 0 0 0.4rem;
+  text-align: center;
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(2.2rem, 2rem + 0.8vw, 2.8rem);
+  line-height: 1.15;
+}
+
+.smooch-science__panel + .smooch-science__panel {
+  margin-top: clamp(4.4rem, 6vw, 6.8rem);
+}
