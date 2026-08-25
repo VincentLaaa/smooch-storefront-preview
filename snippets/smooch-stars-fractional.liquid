@@ -14,9 +14,13 @@
 {%- liquid
   assign r = rating | default: 5.0 | times: 1.0
   assign full = r | floor
-  assign frac_pct = r | minus: full | times: 100 | round
+  assign frac = r | minus: full
+  assign has_half = false
+  if frac > 0
+    assign has_half = true
+  endif
   assign shown = full
-  if frac_pct > 0
+  if has_half
     assign shown = shown | plus: 1
   endif
   assign rest = 5 | minus: shown
@@ -28,13 +32,8 @@
       {% render 'smooch-icon', icon: 'star' %}
     {%- endfor -%}
   {%- endif -%}
-  {%- if frac_pct > 0 -%}
-    <span class="smooch-icon smooch-star-frac" aria-hidden="true">
-      {% render 'smooch-icon', icon: 'star-empty' %}
-      <span class="smooch-star-frac__clip" style="width: {{ frac_pct }}%;">
-        {% render 'smooch-icon', icon: 'star' %}
-      </span>
-    </span>
+  {%- if has_half -%}
+    {% render 'smooch-icon', icon: 'star-half' %}
   {%- endif -%}
   {%- if rest > 0 -%}
     {%- for i in (1..rest) -%}
