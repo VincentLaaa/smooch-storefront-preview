@@ -61,6 +61,16 @@ const selectOneTime = async (hero, page) => {
   // normal-flow siblings after scroll-driven relayout.
   await hero.locator('.smooch-plan--onetime .smooch-plan__divider-text').click({ force: true });
   await page.waitForTimeout(200);
+  // One-time is an express add-to-cart path — close the drawer it opens so
+  // callers can keep asserting against the buybox underneath.
+  const drawer = page.locator('cart-drawer.active');
+  if (await drawer.count()) {
+    await page.locator('cart-drawer .drawer__close').click();
+    await page.waitForFunction(() => {
+      const d = document.querySelector('cart-drawer');
+      return !d || getComputedStyle(d).visibility === 'hidden';
+    });
+  }
 };
 const shot = (page, name) => page.screenshot({ path: `qa/screenshots/${name}.png` });
 const fullShot = (page, name) => page.screenshot({ path: `qa/screenshots/${name}.png`, fullPage: true });
@@ -195,6 +205,7 @@ test.describe('Purchase matrix (offline harness)', () => {
     const bundles = hero.locator('[data-smooch-bundle-radio]');
     expect(await bundles.count()).toBe(3);
     await selectOneTime(hero, page);
+    await clearCart(page); // drop the express-added one-time item
     // selectOneTime scrolls down to the one-time row; scroll back so the
     // size cards aren't left sitting right under the sticky header, where
     // scrollIntoViewIfNeeded() considers them "in view" but they're actually
@@ -303,6 +314,7 @@ test.describe('Purchase matrix (offline harness)', () => {
     await expect(sticky).toBeHidden(); // let the sticky bar clear the tap target before interacting
     const hero = page.locator('product-info').first();
     await selectOneTime(hero, page); // 1-bottle default stays selected
+    await clearCart(page); // drop the express-added one-time item
     await page.waitForTimeout(300);
     await expect(sticky.locator('[data-sticky-price]')).toHaveText('$39.95');
 
