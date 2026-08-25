@@ -32,19 +32,6 @@
     assign is_sample = true
   endif
 
-  assign full_stars = rating_value | floor
-  assign decimal = rating_value | minus: full_stars
-  assign half_star = false
-  if decimal >= 0.3 and decimal <= 0.7
-    assign half_star = true
-  elsif decimal > 0.7
-    assign full_stars = full_stars | plus: 1
-  endif
-  assign rendered = full_stars
-  if half_star
-    assign rendered = rendered | plus: 1
-  endif
-  assign empty_stars = 5 | minus: rendered
 -%}
 
 {%- if rating_count > 0 -%}
