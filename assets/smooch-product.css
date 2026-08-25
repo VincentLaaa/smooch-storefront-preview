@@ -2147,3 +2147,11 @@ body.smooch-sticky-atc-visible {
 .smooch-buybox__benefits li {
   font-weight: 600;
 }
+
+/* Amazon-style prominence: the number leads, the context stays quiet. */
+.smooch-buybox .smooch-sold-badge .smooch-sold-badge__count {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--smooch-ink);
+  margin-right: 0.2rem;
+}

@@ -396,3 +396,30 @@
     transition: none;
   }
 }
+
+/* ---------- Fractional star ---------- */
+
+.smooch-star-frac {
+  position: relative;
+}
+
+.smooch-star-frac > .smooch-icon,
+.smooch-star-frac__clip {
+  position: absolute;
+  inset: 0;
+}
+
+.smooch-star-frac__clip {
+  overflow: hidden;
+}
+
+/* The clipped copy keeps the FULL star width (var, not %) so narrowing
+   the clip reveals a partial fill instead of squashing the glyph. */
+.smooch-star-frac__clip .smooch-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--icon-size, 1.8rem);
+  height: var(--icon-size, 1.8rem);
+  max-width: none;
+}
