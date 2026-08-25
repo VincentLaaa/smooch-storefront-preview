@@ -147,6 +147,15 @@ if (!customElements.get('smooch-offer')) {
         } else if (target.hasAttribute && target.hasAttribute('data-smooch-plan-radio')) {
           this.applyPlan();
           this.render();
+          // One-time purchase is an express path: picking it adds the item
+          // straight to the cart instead of waiting for a second click.
+          if (target.value === '') {
+            const submit = document.querySelector(
+              `#ProductSubmitButton-${this.dataset.sectionId || ''}`
+            ) || this.closest('.smooch-buybox')?.querySelector('button[id^="ProductSubmitButton-"]')
+              || document.querySelector('button[id^="ProductSubmitButton-"]');
+            if (submit && !submit.disabled) submit.click();
+          }
         }
       }
 
