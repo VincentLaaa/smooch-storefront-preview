@@ -501,3 +501,16 @@ button.smooch-rf__dist-row:focus-visible {
   justify-content: center;
   text-align: center;
 }
+
+/* ---------- Floating panel (buybox card language) ---------- */
+
+.smooch-rf__panel {
+  background-color: rgb(var(--smooch-surface-rgb));
+  border-radius: 2rem;
+  border: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.06);
+  box-shadow:
+    0 0.1rem 0.2rem rgba(var(--smooch-ink-rgb), 0.03),
+    0 1.2rem 2.8rem -0.8rem rgba(var(--smooch-ink-rgb), 0.08),
+    0 3.6rem 7.2rem -2.4rem rgba(var(--smooch-ink-rgb), 0.12);
+  padding: clamp(2rem, 3.5vw, 4rem) clamp(1.6rem, 3.5vw, 4rem);
+}
