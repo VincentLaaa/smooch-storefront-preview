@@ -19,7 +19,7 @@
   if frac_pct > 0
     assign shown = shown | plus: 1
   endif
-  assign empty = 5 | minus: shown
+  assign rest = 5 | minus: shown
   assign aria = label | default: r | append: ' out of 5 stars'
 -%}
 <span class="smooch-stars {{ wrapper_class }}" role="img" aria-label="{{ aria }}">
@@ -36,8 +36,8 @@
       </span>
     </span>
   {%- endif -%}
-  {%- if empty > 0 -%}
-    {%- for i in (1..empty) -%}
+  {%- if rest > 0 -%}
+    {%- for i in (1..rest) -%}
       {% render 'smooch-icon', icon: 'star-empty' %}
     {%- endfor -%}
   {%- endif -%}
