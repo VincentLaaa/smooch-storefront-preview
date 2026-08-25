@@ -961,7 +961,8 @@
       "settings": {
         "rating_value": "4.8",
         "is_sample_content": false,
-        "count_caption": "Based on 1,692 reviews"
+        "count_caption": "Based on 1,692 reviews",
+        "topline_count": "1,692+ Reviews"
       }
     },
     "ugc_reviews": {

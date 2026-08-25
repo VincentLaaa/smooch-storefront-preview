@@ -70,6 +70,24 @@
   <section id="smooch-reviews" class="smooch-rf">
     <div class="page-width">
       <header class="smooch-rf__head">
+        {%- assign topline_rating = section.settings.rating_value | default: '5.0' -%}
+        <div class="smooch-rf__topline">
+          <span class="smooch-stars smooch-rf__topline-stars" role="img" aria-label="{{ topline_rating }} out of 5 stars">
+            {%- assign topline_full = topline_rating | round -%}
+            {%- for i in (1..5) -%}
+              {%- if i <= topline_full -%}
+                {% render 'smooch-icon', icon: 'star' %}
+              {%- else -%}
+                {% render 'smooch-icon', icon: 'star-empty' %}
+              {%- endif -%}
+            {%- endfor -%}
+          </span>
+          <p class="smooch-rf__topline-text">
+            <strong>{{ topline_rating }} Stars</strong>
+            <span class="smooch-rf__topline-sep" aria-hidden="true"></span>
+            <strong>{{ section.settings.topline_count | default: '1,692+ Reviews' }}</strong>
+          </p>
+        </div>
         {%- if section.settings.heading != blank -%}
           <h2 class="smooch-h2">{{ section.settings.heading | replace: '[brand]', brand_name }}</h2>
         {%- endif -%}
@@ -337,6 +355,13 @@
     {
       "type": "header",
       "content": "Layout"
+    },
+    {
+      "type": "text",
+      "id": "topline_count",
+      "label": "Topline review count",
+      "default": "1,692+ Reviews",
+      "info": "Shown centered above the heading next to the star rating."
     },
     {
       "type": "text",
