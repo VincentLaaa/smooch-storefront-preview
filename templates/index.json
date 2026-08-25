@@ -51,7 +51,9 @@
         "subline": "You deserve to feel like yourself again — a quieter mind, softer evenings, a little more want in your week. Whether you're finding your way back to desire, turning down the day's noise, or simply making room for connection, [brand] is here to help you get there.",
         "cta_label": "Start your ritual today",
         "chip_shipping": "Free shipping on subscriptions",
-        "chip_trust": "Trusted by 100k+ women"
+        "chip_trust": "Trusted by 100k+ women",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "press": {
@@ -156,7 +158,9 @@
         "heading": "The fine print, out loud.",
         "closing_text": "Still curious?",
         "closing_link_label": "Read the full FAQ",
-        "closing_link": "/pages/faq"
+        "closing_link": "/pages/faq",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "stack_up": {
@@ -240,7 +244,9 @@
         "show_column_b": false,
         "column_b_label": "Traditional capsules",
         "footnote": "Comparisons reflect typical products in each category, not any specific brand.",
-        "color_scheme": "scheme-3"
+        "color_scheme": "scheme-3",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "reviews": {
@@ -356,7 +362,9 @@
         "review_count_label": "Reviews",
         "heading": "Why our customers love us.",
         "is_sample_content": false,
-        "show_product_link": false
+        "show_product_link": false,
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "stats": {
@@ -392,7 +400,9 @@
       "settings": {
         "heading_line1": "What Women",
         "heading_line2": "Actually Notice",
-        "subline": "Real answers from women who made [brand] a daily ritual."
+        "subline": "Real answers from women who made [brand] a daily ritual.",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "why": {
@@ -456,7 +466,9 @@
         "slide-6"
       ],
       "settings": {
-        "heading": "Why women choose [brand]"
+        "heading": "Why women choose [brand]",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "team": {
@@ -506,7 +518,8 @@
         "heading": "The people behind the ritual.",
         "lead": "We're a small team who built the thing we couldn't find — and we take it ourselves.",
         "note": "Sample team shown for layout — real introductions coming soon.",
-        "padding_top": 96
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     }
   },
