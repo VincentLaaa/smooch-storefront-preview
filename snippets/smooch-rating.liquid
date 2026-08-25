@@ -49,19 +49,14 @@
 
 {%- if rating_count > 0 -%}
   {%- capture rating_body -%}
-    <span class="smooch-stars{% if size == 'lg' %} smooch-stars--lg{% endif %}" role="img" aria-label="Rated {{ rating_value }} out of 5 stars">
-      {%- for i in (1..full_stars) -%}
-        {% render 'smooch-icon', icon: 'star' %}
-      {%- endfor -%}
-      {%- if half_star -%}
-        {% render 'smooch-icon', icon: 'star-half' %}
-      {%- endif -%}
-      {%- if empty_stars > 0 -%}
-        {%- for i in (1..empty_stars) -%}
-          {% render 'smooch-icon', icon: 'star-empty' %}
-        {%- endfor -%}
-      {%- endif -%}
-    </span>
+    {%- liquid
+      assign stars_class = ''
+      if size == 'lg'
+        assign stars_class = 'smooch-stars--lg'
+      endif
+      assign stars_label = 'Rated ' | append: rating_value | append: ' out of 5 stars'
+    -%}
+    {%- render 'smooch-stars-fractional', rating: rating_value, wrapper_class: stars_class, label: stars_label -%}
     <span class="smooch-rating__count">
       {{ rating_value }} · {{ rating_count }} review{% if rating_count != 1 %}s{% endif %}
       {%- if is_sample and show_sample_label %} <span class="smooch-fine-print">(sample)</span>{% endif %}

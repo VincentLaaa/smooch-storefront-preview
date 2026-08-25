@@ -336,7 +336,8 @@
                       <div class="smooch-buybox__proof-row" {{ block.shopify_attributes }}>
                         {%- if block.settings.sold_count != blank -%}
                           <p class="smooch-sold-badge">
-                            <span>{{ block.settings.sold_count | escape }} {{ block.settings.period_label | default: 'bought in the past month' | escape }}</span>
+                            <strong class="smooch-sold-badge__count">{{ block.settings.sold_count | escape }}</strong>
+                            <span>{{ block.settings.period_label | default: 'bought in the past month' | escape }}</span>
                           </p>
                         {%- endif -%}
                         {%- if block.settings.show_low_stock and current_variant.inventory_management == 'shopify' and current_variant.inventory_policy != 'continue' and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= block.settings.low_stock_threshold -%}

@@ -1,0 +1,44 @@
+{% comment %}
+  Renders a 5-star row with a true fractional last star (e.g. 4.8 shows
+  four full stars and one 80%-filled star) instead of rounding to whole
+  stars.
+
+  Accepts:
+  - rating: {Number} e.g. 4.8
+  - wrapper_class: {String} extra classes on the .smooch-stars wrapper
+  - label: {String} optional aria-label override
+
+  Usage:
+  {% render 'smooch-stars-fractional', rating: 4.8, wrapper_class: 'smooch-stars--lg' %}
+{%- endcomment -%}
+{%- liquid
+  assign r = rating | default: 5.0 | times: 1.0
+  assign full = r | floor
+  assign frac_pct = r | minus: full | times: 100 | round
+  assign shown = full
+  if frac_pct > 0
+    assign shown = shown | plus: 1
+  endif
+  assign empty = 5 | minus: shown
+  assign aria = label | default: r | append: ' out of 5 stars'
+-%}
+<span class="smooch-stars {{ wrapper_class }}" role="img" aria-label="{{ aria }}">
+  {%- if full > 0 -%}
+    {%- for i in (1..full) -%}
+      {% render 'smooch-icon', icon: 'star' %}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- if frac_pct > 0 -%}
+    <span class="smooch-icon smooch-star-frac" aria-hidden="true">
+      {% render 'smooch-icon', icon: 'star-empty' %}
+      <span class="smooch-star-frac__clip" style="width: {{ frac_pct }}%;">
+        {% render 'smooch-icon', icon: 'star' %}
+      </span>
+    </span>
+  {%- endif -%}
+  {%- if empty > 0 -%}
+    {%- for i in (1..empty) -%}
+      {% render 'smooch-icon', icon: 'star-empty' %}
+    {%- endfor -%}
+  {%- endif -%}
+</span>

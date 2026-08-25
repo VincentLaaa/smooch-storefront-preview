@@ -72,16 +72,7 @@
       <header class="smooch-rf__head">
         {%- assign topline_rating = section.settings.rating_value | default: '5.0' -%}
         <div class="smooch-rf__topline">
-          <span class="smooch-stars smooch-rf__topline-stars" role="img" aria-label="{{ topline_rating }} out of 5 stars">
-            {%- assign topline_full = topline_rating | round -%}
-            {%- for i in (1..5) -%}
-              {%- if i <= topline_full -%}
-                {% render 'smooch-icon', icon: 'star' %}
-              {%- else -%}
-                {% render 'smooch-icon', icon: 'star-empty' %}
-              {%- endif -%}
-            {%- endfor -%}
-          </span>
+          {%- render 'smooch-stars-fractional', rating: topline_rating, wrapper_class: 'smooch-rf__topline-stars' -%}
           <p class="smooch-rf__topline-text">
             <strong>{{ topline_rating }} Stars</strong>
             <span class="smooch-rf__topline-sep" aria-hidden="true"></span>
@@ -100,16 +91,8 @@
       <div class="smooch-rf__summary">
         <div class="smooch-rf__summary-left">
           <p class="smooch-rf__avg">{{ section.settings.rating_value | default: '5.0' }}</p>
-          <span class="smooch-stars smooch-stars--lg" role="img" aria-label="{{ section.settings.rating_value | default: '5.0' }} out of 5 stars">
-            {%- assign avg_full = section.settings.rating_value | default: 5.0 | round -%}
-            {%- for i in (1..5) -%}
-              {%- if i <= avg_full -%}
-                {% render 'smooch-icon', icon: 'star' %}
-              {%- else -%}
-                {% render 'smooch-icon', icon: 'star-empty' %}
-              {%- endif -%}
-            {%- endfor -%}
-          </span>
+          {%- assign summary_rating = section.settings.rating_value | default: 5.0 -%}
+          {%- render 'smooch-stars-fractional', rating: summary_rating, wrapper_class: 'smooch-stars--lg' -%}
           <p class="smooch-rf__summary-caption">
             {%- if section.settings.count_caption != blank -%}
               {{ section.settings.count_caption | escape }}
