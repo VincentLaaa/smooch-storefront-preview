@@ -308,8 +308,8 @@
   margin: 0;
   display: flex;
   align-items: flex-start;
-  gap: 0.3rem;
-  max-width: 13ch;
+  gap: 0.4rem;
+  max-width: 12ch;
   text-align: center;
   color: rgb(var(--color-foreground));
   pointer-events: none;
@@ -317,35 +317,45 @@
 
 .smooch-home-hero__callout .smooch-doodle-arrow {
   flex-shrink: 0;
-  margin-top: 0.8rem;
 }
 
+/* "one gummy a day" - top left of the cap, arrow aiming down-right at the
+   falling gummy. The base arrow points lower-right, so only a nudge. */
 .smooch-home-hero__callout--1 {
-  top: -1%;
-  left: -26%;
-  transform: rotate(-8deg);
+  top: 0;
+  left: -4%;
+  transform: rotate(-6deg);
 }
 
+.smooch-home-hero__callout--1 .smooch-doodle-arrow {
+  transform: rotate(10deg);
+  margin-top: 1.4rem;
+}
+
+/* "60 gummies per bottle" - bottom right, arrow BEFORE the text aiming
+   up-left at the bottle base: base direction flipped ~180 plus a bit. */
 .smooch-home-hero__callout--2 {
-  bottom: -7%;
-  right: 4%;
-  transform: rotate(4deg);
+  bottom: -6%;
+  right: 2%;
+  transform: rotate(3deg);
 }
 
 .smooch-home-hero__callout--2 .smooch-doodle-arrow {
-  transform: rotate(-150deg);
-  margin-top: -1.2rem;
+  transform: rotate(195deg);
+  margin-top: -1.6rem;
 }
 
+/* "tastes like watermelon" - left of the label, arrow aiming right at the
+   bottle body: rotate the down-right base up towards horizontal. */
 .smooch-home-hero__callout--3 {
-  bottom: 4%;
-  left: -30%;
-  transform: rotate(-4deg);
+  bottom: 16%;
+  left: -14%;
+  transform: rotate(-5deg);
 }
 
 .smooch-home-hero__callout--3 .smooch-doodle-arrow {
-  transform: rotate(-70deg);
-  margin-top: -0.6rem;
+  transform: rotate(-35deg);
+  margin-top: -0.4rem;
 }
 
 .smooch-home-hero__sparkle {
@@ -359,11 +369,6 @@
 .smooch-home-hero__sparkle--4 { top: 18%; left: 4%; width: 1.1rem; height: 1.1rem; }
 
 @media screen and (max-width: 989px) {
-  /* Phones/tablets: the visual is narrower, callouts tuck closer. */
-  .smooch-home-hero__callout--1 { left: -18%; }
-  .smooch-home-hero__callout--2 { right: 0; bottom: -9%; }
-  .smooch-home-hero__callout--3 { left: -20%; }
-
   .smooch-home-hero__callout {
     font-size: 1.5rem;
     max-width: 11ch;
@@ -373,4 +378,8 @@
     width: 2.4rem;
     height: 2.4rem;
   }
+
+  .smooch-home-hero__callout--1 { left: -8%; }
+  .smooch-home-hero__callout--2 { right: 0; bottom: -8%; }
+  .smooch-home-hero__callout--3 { left: -12%; }
 }
