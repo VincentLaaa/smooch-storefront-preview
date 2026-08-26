@@ -72,11 +72,26 @@
   font-display: swap;
 }
 
-/* Georgia for all live text (headings + body). Georgia ships preinstalled
-   on Windows/macOS/iOS, so no webfont files are needed (and the Satoshi
-   faces above remain available to switch back to). The wordmark stays an
-   image; numeric/label/serif slots follow the body family. */
+/* ---------- Brand-guide type styling (Smooch Brand Guide p.10) ---------- */
+
+/* 01 Headings: Proxima Nova Bold, title case.
+   NOTE: this is the Fontspring DEMO cut the owner supplied - a licensed
+   Proxima Nova webfont must be purchased before production/paid traffic. */
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('smooch-font-proximanova-bold.otf') format('opentype');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 02/04 Subheadings + buttons: Proxima Nova Semi Bold, all caps (the demo
+   ships bold only - the single cut covers 600-900 until licensed weights
+   arrive). 03 Body: Grad Regular, sentence case - Grad is a commercial
+   serif; Georgia (which Grad was modeled to complement) is the system
+   stand-in until it's licensed. */
 :root {
   --font-body-family: Georgia, 'Times New Roman', serif;
-  --font-heading-family: Georgia, 'Times New Roman', serif;
+  --font-heading-family: 'Proxima Nova', 'Satoshi', sans-serif;
+  --smooch-font-label: 'Proxima Nova', 'Satoshi', sans-serif;
 }
