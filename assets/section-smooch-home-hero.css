@@ -67,7 +67,7 @@
   position: absolute;
   inset: -7% -10% -5% -10%;
   z-index: 0;
-  background: rgba(var(--smooch-blush-rgb), 0.25);
+  background: rgba(var(--smooch-blush-rgb), 0.55);
   border-radius: 58% 42% 55% 45% / 55% 48% 52% 45%;
   pointer-events: none;
 }
@@ -298,7 +298,7 @@
 
 .smooch-home-hero__blob--soft {
   inset: 28% -22% -18% 42%;
-  background: rgba(var(--smooch-blush-rgb), 0.16);
+  background: rgba(var(--smooch-blush-rgb), 0.35);
   border-radius: 47% 53% 58% 42% / 52% 44% 56% 48%;
 }
 
@@ -361,6 +361,8 @@
 .smooch-home-hero__sparkle {
   position: absolute;
   z-index: 2;
+  /* Berry sparkles on the cream canvas (white would vanish). */
+  color: rgba(var(--smooch-berry-rgb), 0.75);
 }
 
 .smooch-home-hero__sparkle--1 { top: 2%; right: 6%; width: 1.9rem; height: 1.9rem; }
@@ -382,4 +384,10 @@
   .smooch-home-hero__callout--1 { left: -8%; }
   .smooch-home-hero__callout--2 { right: 0; bottom: -8%; }
   .smooch-home-hero__callout--3 { left: -12%; }
+}
+
+/* On the cream canvas the primary CTA is the berry accent, not ink. */
+.smooch-home-hero__ctas .smooch-btn {
+  --btn-bg: var(--smooch-berry-rgb);
+  --btn-fg: 255, 255, 255;
 }
