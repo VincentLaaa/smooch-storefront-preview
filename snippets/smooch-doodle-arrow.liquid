@@ -1,16 +1,10 @@
 {% comment %}
-  Hand-drawn squiggle arrow (scrapbook language). Decorative only.
-  Accepts:
-  - variant: {String} 'curl-right' (default) | 'curl-left' | 'swoosh-down'
-  - class: {String} extra classes
+  Hand-drawn arrow (scrapbook language). One shape, drawn pointing to the
+  lower-right (head at the end of the curve); aim it per-instance with a CSS
+  rotation on the wrapper. Decorative only.
+  Accepts: class {String}; variant is accepted for call-site compatibility
+  but the shape is intentionally singular so rotations stay predictable.
 {%- endcomment -%}
 <span class="smooch-doodle-arrow {{ class }}" aria-hidden="true">
-  {%- case variant -%}
-    {%- when 'curl-left' -%}
-      <svg viewBox="0 0 34 34" focusable="false"><path d="M30 6c-8 1-14 5-16 11-1.5 4.4-.5 8.5 1.5 11.5"/><path d="M11 24.5l4.8 4.7-6.6 1.6"/></svg>
-    {%- when 'swoosh-down' -%}
-      <svg viewBox="0 0 34 34" focusable="false"><path d="M17 3c-3 6-3.4 12.6-1.5 18 1 3 2.6 5.4 4.5 7.5"/><path d="M13.5 25l6.3 4.2-1 -7"/></svg>
-    {%- else -%}
-      <svg viewBox="0 0 34 34" focusable="false"><path d="M4 6c8 1 14 5 16 11 1.5 4.4.5 8.5-1.5 11.5"/><path d="M23 24.5l-4.8 4.7 6.6 1.6"/></svg>
-  {%- endcase -%}
+  <svg viewBox="0 0 34 34" focusable="false"><path d="M5 9c2.5 8.5 8.5 14.5 17 16.5"/><path d="M16.5 27.5l6.5-1.6-2.6-6.2"/></svg>
 </span>
