@@ -2155,7 +2155,6 @@ body.smooch-sticky-atc-visible {
 }
 
 .smooch-buybox .smooch-sold-badge .smooch-sold-badge__count {
-  font-size: 1.45rem;
-  font-weight: 800;
+  font-weight: 700;
   margin-right: 0.2rem;
 }
