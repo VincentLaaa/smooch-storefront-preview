@@ -164,7 +164,8 @@
         "closing_link_label": "Read the full FAQ",
         "closing_link": "/pages/faq",
         "padding_top": 64,
-        "padding_bottom": 64
+        "padding_bottom": 64,
+        "color_scheme": "scheme-2"
       }
     },
     "stack_up": {
@@ -248,7 +249,7 @@
         "show_column_b": false,
         "column_b_label": "Traditional capsules",
         "footnote": "Comparisons reflect typical products in each category, not any specific brand.",
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-2",
         "padding_top": 64,
         "padding_bottom": 64
       }
@@ -368,7 +369,8 @@
         "is_sample_content": false,
         "show_product_link": false,
         "padding_top": 64,
-        "padding_bottom": 64
+        "padding_bottom": 64,
+        "color_scheme": "scheme-1"
       }
     },
     "stats": {
@@ -406,7 +408,8 @@
         "heading_line2": "Actually Notice",
         "subline": "Real answers from women who made [brand] a daily ritual.",
         "padding_top": 64,
-        "padding_bottom": 64
+        "padding_bottom": 64,
+        "color_scheme": "scheme-1"
       }
     },
     "why": {
@@ -472,7 +475,8 @@
       "settings": {
         "heading": "Why women choose [brand]",
         "padding_top": 64,
-        "padding_bottom": 64
+        "padding_bottom": 64,
+        "color_scheme": "scheme-2"
       }
     },
     "team": {
@@ -523,7 +527,8 @@
         "lead": "We're a small team who built the thing we couldn't find — and we take it ourselves.",
         "note": "Sample team shown for layout — real introductions coming soon.",
         "padding_top": 64,
-        "padding_bottom": 64
+        "padding_bottom": 64,
+        "color_scheme": "scheme-1"
       }
     }
   },

@@ -23,9 +23,20 @@
   min-width: 0;
 }
 
+/* Organic blob behind the photo (scrapbook language). */
 .smooch-why__visual {
-  border-radius: var(--smooch-radius-media);
+  position: relative;
+  border-radius: 42% 58% 52% 48% / 48% 44% 56% 52%;
   overflow: hidden;
+}
+
+.smooch-why__visual::before {
+  content: '';
+  position: absolute;
+  inset: -8% -12%;
+  z-index: -1;
+  background: rgba(var(--smooch-blush-rgb), 0.5);
+  border-radius: 58% 42% 55% 45% / 55% 48% 52% 45%;
 }
 
 .smooch-why__img {
