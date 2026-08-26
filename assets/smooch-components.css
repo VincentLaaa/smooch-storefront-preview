@@ -15,7 +15,7 @@
   background-color: rgb(var(--btn-bg));
   color: rgb(var(--btn-fg));
   border: 0.1rem solid transparent;
-  border-radius: var(--smooch-radius-button);
+  border-radius: 999px;
   font-family: var(--smooch-font-label, var(--font-body-family));
   font-size: 1.4rem;
   font-weight: 700;
