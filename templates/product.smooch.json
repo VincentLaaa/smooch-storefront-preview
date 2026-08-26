@@ -26,12 +26,6 @@
             "low_stock_threshold": 30
           }
         },
-        "promise-1": {
-          "type": "promise",
-          "settings": {
-            "text": "Natural libido & mood support for more desire, energy, and connection."
-          }
-        },
         "benefit-1": {
           "type": "benefit",
           "settings": {
@@ -152,7 +146,6 @@
         "rating-1",
         "social_proof-1",
         "title-1",
-        "promise-1",
         "benefit-1",
         "benefit-2",
         "benefit-3",
