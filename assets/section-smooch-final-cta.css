@@ -137,3 +137,56 @@
   font-weight: 700;
   color: rgb(var(--color-foreground));
 }
+
+/* ---------- Scrapbook accents ---------- */
+
+.smooch-final-cta__head {
+  position: relative;
+}
+
+.smooch-final-cta__sparkle {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.smooch-final-cta__sparkle--1 { top: -2.4rem; left: 8%; width: 2rem; height: 2rem; }
+.smooch-final-cta__sparkle--2 { top: 45%; right: 4%; width: 1.4rem; height: 1.4rem; }
+
+.smooch-final-cta__cta {
+  position: relative;
+}
+
+.smooch-final-cta__start-here {
+  position: absolute;
+  top: -1.4rem;
+  right: 50%;
+  margin-right: -21rem;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.2rem;
+  transform: rotate(6deg);
+  color: rgb(var(--color-foreground));
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.smooch-final-cta__start-here .smooch-doodle-arrow {
+  transform: rotate(160deg) scaleX(-1);
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 989px) {
+  .smooch-final-cta__start-here {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  /* Left-aligned split: pin relative to the button's left edge instead. */
+  .smooch-final-cta__start-here {
+    right: auto;
+    margin-right: 0;
+    left: 26rem;
+    top: -1rem;
+  }
+}
