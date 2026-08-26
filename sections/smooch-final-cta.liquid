@@ -48,8 +48,8 @@
 
     <div class="smooch-final-cta__cta smooch-center">
       <span class="smooch-callout smooch-final-cta__start-here" aria-hidden="true">
+        {% render 'smooch-doodle-arrow' %}
         start here!
-        {% render 'smooch-doodle-arrow', variant: 'curl-left' %}
       </span>
       <a href="{{ cta_url }}" class="smooch-btn smooch-btn--berry smooch-btn--lg smooch-final-cta__btn">
         {{- section.settings.cta_label | default: 'Shop now' | replace: '[brand]', brand_name | escape -}}
