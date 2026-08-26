@@ -2148,10 +2148,14 @@ body.smooch-sticky-atc-visible {
   font-weight: 600;
 }
 
-/* Amazon-style prominence: the number leads, the context stays quiet. */
+/* Amazon-style prominence: the whole line reads bold, the number largest. */
+.smooch-buybox .smooch-sold-badge {
+  font-weight: 700;
+  color: var(--smooch-ink);
+}
+
 .smooch-buybox .smooch-sold-badge .smooch-sold-badge__count {
   font-size: 1.45rem;
   font-weight: 800;
-  color: var(--smooch-ink);
   margin-right: 0.2rem;
 }
