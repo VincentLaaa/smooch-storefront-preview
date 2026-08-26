@@ -72,10 +72,11 @@
   font-display: swap;
 }
 
-/* Satoshi replaces the system stack for all live text (headings + body).
-   The wordmark stays an image; numeric/label/serif slots follow the body
-   family via their existing fallback vars. */
+/* Georgia for all live text (headings + body). Georgia ships preinstalled
+   on Windows/macOS/iOS, so no webfont files are needed (and the Satoshi
+   faces above remain available to switch back to). The wordmark stays an
+   image; numeric/label/serif slots follow the body family. */
 :root {
-  --font-body-family: 'Satoshi', sans-serif;
-  --font-heading-family: 'Satoshi', sans-serif;
+  --font-body-family: Georgia, 'Times New Roman', serif;
+  --font-heading-family: Georgia, 'Times New Roman', serif;
 }
