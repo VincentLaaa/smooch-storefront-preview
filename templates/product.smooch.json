@@ -140,6 +140,12 @@
             "trust3_text": "Over 100K+ Happy Customers",
             "footer_text": ""
           }
+        },
+        "flavor-1": {
+          "type": "flavor",
+          "settings": {
+            "text": "Mixed Berries"
+          }
         }
       },
       "block_order": [
@@ -149,6 +155,7 @@
         "benefit-1",
         "benefit-2",
         "benefit-3",
+        "flavor-1",
         "bundles-1",
         "bundle-3",
         "bundle-2",

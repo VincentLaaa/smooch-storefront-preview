@@ -372,6 +372,13 @@
                         </ul>
                       {%- endunless -%}
 
+                    {%- when 'flavor' -%}
+                      {%- if block.settings.text != blank -%}
+                        <p class="smooch-buybox__flavor" {{ block.shopify_attributes }}>
+                          <span class="smooch-flavor-pill">{{ block.settings.text | escape }}</span>
+                        </p>
+                      {%- endif -%}
+
                     {%- when 'variant_picker' -%}
                       <div class="smooch-buybox__variants" {{ block.shopify_attributes }}>
                         {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
@@ -1335,6 +1342,15 @@
             { "value": "drop", "label": "Drop" }
           ]
         },
+    {
+      "type": "flavor",
+      "name": "Flavor badge",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "text", "label": "Flavor", "default": "Mixed Berries" }
+      ]
+    },
+
         {
           "type": "text",
           "id": "text",
