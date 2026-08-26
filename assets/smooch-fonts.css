@@ -51,7 +51,11 @@
 
   --smooch-font-serif: var(--font-body-family);
   --smooch-font-label: var(--font-body-family);
-  --smooch-font-numeric: var(--font-body-family);
+  /* Numerals: Proxima Nova per the owner - but the supplied Fontspring
+     DEMO cut strips $ % / and mangles digits, so it cannot ship. Satoshi
+     (bundled, licensed, Proxima-style digits) carries the numeric role;
+     swap this line to 'Proxima Nova' once a licensed webfont is added. */
+  --smooch-font-numeric: 'Satoshi', sans-serif;
 }
 
 /* ---------- Satoshi (site-wide type) ---------- */
@@ -88,4 +92,28 @@
 .smooch-eyebrow {
   font-family: 'Loretta', Georgia, serif;
   font-weight: 600;
+}
+
+/* Numeric-heavy elements that would otherwise inherit Euclid render in
+   the numeric face (Euclid's zeros read as the letter O). */
+.smooch-num,
+.smooch-rf__avg,
+.smooch-rf__topline-text,
+.smooch-rf__dist-label,
+.smooch-rf__dist-count,
+.smooch-rating__count,
+.smooch-sold-badge,
+.smooch-bundle__count,
+.smooch-bundle__per-day,
+.smooch-rf__summary-caption,
+.smooch-subpanel__meta,
+.smooch-subpanel__pct-pill,
+.smooch-subpanel__saving,
+.smooch-plan--onetime,
+.smooch-home-hero__proof,
+.smooch-home-hero__fold-trust-item,
+.smooch-trust-grid span,
+.smooch-final-cta__chip,
+.smooch-buybox__buy-perks li {
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
 }
