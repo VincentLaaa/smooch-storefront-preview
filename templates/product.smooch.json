@@ -29,21 +29,21 @@
         "benefit-1": {
           "type": "benefit",
           "settings": {
-            "icon": "heart",
+            "icon": "verified",
             "text": "Helps spark desire naturally"
           }
         },
         "benefit-2": {
           "type": "benefit",
           "settings": {
-            "icon": "sparkle",
+            "icon": "verified",
             "text": "One tasty gummy a day"
           }
         },
         "benefit-3": {
           "type": "benefit",
           "settings": {
-            "icon": "moon",
+            "icon": "verified",
             "text": "Feel more like yourself again"
           }
         },

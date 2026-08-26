@@ -1921,7 +1921,7 @@ body.smooch-sticky-atc-visible {
 }
 
 .smooch-buybox .smooch-buybox__benefits .smooch-icon {
-  color: rgba(var(--smooch-berry-rgb), 0.75);
+  color: var(--smooch-berry);
 }
 
 /* Tighter vertical rhythm - less dead space between buybox groups. */
