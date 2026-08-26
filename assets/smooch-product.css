@@ -2158,3 +2158,20 @@ body.smooch-sticky-atc-visible {
   font-weight: 700;
   margin-right: 0.2rem;
 }
+
+/* ---------- Flavor badge ---------- */
+
+.smooch-buybox__flavor {
+  margin: -0.4rem 0 0;
+}
+
+.smooch-flavor-pill {
+  display: inline-block;
+  padding: 0.55rem 1.5rem;
+  border-radius: 999px;
+  background-color: var(--smooch-blush);
+  color: #a3234a;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
