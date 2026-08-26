@@ -25,7 +25,7 @@
 @font-face {
   font-family: 'Loretta';
   src: url('smooch-font-loretta-semibold.otf') format('opentype');
-  font-weight: 600;
+  font-weight: 600 900;
   font-style: normal;
   font-display: swap;
 }
@@ -72,26 +72,20 @@
   font-display: swap;
 }
 
-/* ---------- Brand-guide type styling (Smooch Brand Guide p.10) ---------- */
+/* ---------- Owner type system (Loretta + Euclid) ---------- */
 
-/* 01 Headings: Proxima Nova Bold, title case.
-   NOTE: this is the Fontspring DEMO cut the owner supplied - a licensed
-   Proxima Nova webfont must be purchased before production/paid traffic. */
-@font-face {
-  font-family: 'Proxima Nova';
-  src: url('smooch-font-proximanova-bold.otf') format('opentype');
-  font-weight: 600 900;
-  font-style: normal;
-  font-display: swap;
+/* Headings: Loretta semibold/bold (the wordmark's own face).
+   Subheadings/eyebrows: Loretta regular-to-semibold.
+   Body + buttons: Euclid Flex. Satoshi stays bundled as fallback. */
+:root {
+  --font-body-family: 'Euclid Flex', 'Satoshi', sans-serif;
+  --font-heading-family: 'Loretta', Georgia, serif;
+  --smooch-font-label: 'Euclid Flex', 'Satoshi', sans-serif;
 }
 
-/* 02/04 Subheadings + buttons: Proxima Nova Semi Bold, all caps (the demo
-   ships bold only - the single cut covers 600-900 until licensed weights
-   arrive). 03 Body: Grad Regular, sentence case - Grad is a commercial
-   serif; Georgia (which Grad was modeled to complement) is the system
-   stand-in until it's licensed. */
-:root {
-  --font-body-family: Georgia, 'Times New Roman', serif;
-  --font-heading-family: 'Proxima Nova', 'Satoshi', sans-serif;
-  --smooch-font-label: 'Proxima Nova', 'Satoshi', sans-serif;
+/* Subheadings pick up Loretta while buttons/badges keep Euclid via the
+   label variable. */
+.smooch-eyebrow {
+  font-family: 'Loretta', Georgia, serif;
+  font-weight: 600;
 }
