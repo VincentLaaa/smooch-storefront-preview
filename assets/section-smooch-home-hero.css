@@ -391,3 +391,35 @@
   --btn-bg: var(--smooch-berry-rgb);
   --btn-fg: 255, 255, 255;
 }
+
+/* ---------- Lemme-style editorial moves ---------- */
+
+/* Lowercase display headline with a hand-wave underline accent. */
+.smooch-home-hero__headline {
+  text-transform: lowercase;
+}
+
+.smooch-home-hero__squiggle {
+  display: block;
+  width: min(22rem, 46%);
+  height: 1.2rem;
+  margin: 0.6rem 0 0 0.4rem;
+  color: var(--smooch-berry);
+}
+
+/* Big white sparkles living ON the blob cluster (Lemme's stars). */
+.smooch-home-hero__sparkle--1 {
+  width: 3.2rem;
+  height: 3.2rem;
+  top: 6%;
+  right: 12%;
+  color: rgb(255, 255, 255);
+}
+
+.smooch-home-hero__sparkle--3 {
+  width: 2.4rem;
+  height: 2.4rem;
+  bottom: 2%;
+  right: 22%;
+  color: rgb(255, 255, 255);
+}
