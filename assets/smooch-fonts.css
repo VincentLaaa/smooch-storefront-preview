@@ -56,6 +56,7 @@
      (bundled, licensed, Proxima-style digits) carries the numeric role;
      swap this line to 'Proxima Nova' once a licensed webfont is added. */
   --smooch-font-numeric: 'Satoshi', sans-serif;
+  --smooch-font-hand: 'Caveat', cursive;
 }
 
 /* ---------- Satoshi (site-wide type) ---------- */
@@ -73,6 +74,15 @@
   src: url('smooch-font-satoshi-variable-italic.woff2') format('woff2');
   font-weight: 300 900;
   font-style: italic;
+  font-display: swap;
+}
+
+/* Hand-written annotation face (Caveat, OFL) for scrapbook callouts. */
+@font-face {
+  font-family: 'Caveat';
+  src: url('smooch-font-caveat.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
   font-display: swap;
 }
 

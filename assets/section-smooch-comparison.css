@@ -350,3 +350,20 @@
     font-size: 1.3rem;
   }
 }
+
+/* Scrapbook: hand-written "that's us!" floating on the brand lane cap. */
+.smooch-comparison__thats-us {
+  display: block;
+  margin: -0.6rem 0 0.2rem;
+  transform: rotate(-4deg);
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+@media screen and (max-width: 749px) {
+  .smooch-comparison__thats-us {
+    font-size: 1.5rem;
+  }
+}

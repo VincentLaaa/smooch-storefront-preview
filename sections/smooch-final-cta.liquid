@@ -34,6 +34,8 @@
     <div class="smooch-final-cta__layout">
       <div class="smooch-final-cta__content">
     <header class="smooch-final-cta__head smooch-center">
+      {% render 'smooch-sparkle', class: 'smooch-final-cta__sparkle smooch-final-cta__sparkle--1' %}
+      {% render 'smooch-sparkle', class: 'smooch-final-cta__sparkle smooch-final-cta__sparkle--2' %}
       <h2 class="smooch-display smooch-final-cta__headline">
         {{- section.settings.headline | replace: '[brand]', brand_name -}}
       </h2>
@@ -45,6 +47,10 @@
     </header>
 
     <div class="smooch-final-cta__cta smooch-center">
+      <span class="smooch-callout smooch-final-cta__start-here" aria-hidden="true">
+        start here!
+        {% render 'smooch-doodle-arrow', variant: 'curl-left' %}
+      </span>
       <a href="{{ cta_url }}" class="smooch-btn smooch-btn--berry smooch-btn--lg smooch-final-cta__btn">
         {{- section.settings.cta_label | default: 'Shop now' | replace: '[brand]', brand_name | escape -}}
       </a>

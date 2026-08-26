@@ -143,6 +143,34 @@
 
       <div class="smooch-home-hero__visual">
         <div class="smooch-home-hero__blob" aria-hidden="true"></div>
+        <div class="smooch-home-hero__blob smooch-home-hero__blob--soft" aria-hidden="true"></div>
+
+        {%- comment -%}
+          Scrapbook annotation layer: hand-written benefit callouts with
+          doodle arrows and sparkles around the floating product.
+        {%- endcomment -%}
+        {%- if section.settings.callout_1 != blank -%}
+          <p class="smooch-callout smooch-home-hero__callout smooch-home-hero__callout--1" aria-hidden="true">
+            <span>{{ section.settings.callout_1 | escape }}</span>
+            {% render 'smooch-doodle-arrow', variant: 'curl-right' %}
+          </p>
+        {%- endif -%}
+        {%- if section.settings.callout_2 != blank -%}
+          <p class="smooch-callout smooch-home-hero__callout smooch-home-hero__callout--2" aria-hidden="true">
+            {% render 'smooch-doodle-arrow', variant: 'curl-left' %}
+            <span>{{ section.settings.callout_2 | escape }}</span>
+          </p>
+        {%- endif -%}
+        {%- if section.settings.callout_3 != blank -%}
+          <p class="smooch-callout smooch-home-hero__callout smooch-home-hero__callout--3" aria-hidden="true">
+            <span>{{ section.settings.callout_3 | escape }}</span>
+            {% render 'smooch-doodle-arrow', variant: 'swoosh-down' %}
+          </p>
+        {%- endif -%}
+        {% render 'smooch-sparkle', class: 'smooch-home-hero__sparkle smooch-home-hero__sparkle--1' %}
+        {% render 'smooch-sparkle', class: 'smooch-home-hero__sparkle smooch-home-hero__sparkle--2' %}
+        {% render 'smooch-sparkle', class: 'smooch-home-hero__sparkle smooch-home-hero__sparkle--3' %}
+        {% render 'smooch-sparkle', class: 'smooch-home-hero__sparkle smooch-home-hero__sparkle--4' %}
 
         <div class="smooch-home-hero__product">
           {%- if section.settings.product_image != blank -%}
@@ -314,6 +342,28 @@
       "type": "url",
       "id": "secondary_link",
       "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Hand-written callouts"
+    },
+    {
+      "type": "text",
+      "id": "callout_1",
+      "label": "Callout 1 (top left of product)",
+      "default": "one gummy a day"
+    },
+    {
+      "type": "text",
+      "id": "callout_2",
+      "label": "Callout 2 (right of product)",
+      "default": "60 gummies per bottle"
+    },
+    {
+      "type": "text",
+      "id": "callout_3",
+      "label": "Callout 3 (bottom left of product)",
+      "default": "tastes like watermelon"
     },
     {
       "type": "header",
