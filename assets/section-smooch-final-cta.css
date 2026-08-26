@@ -156,38 +156,27 @@
   position: relative;
 }
 
+/* Sits just right of the button, vertically centered, arrow aiming left
+   into the button's edge (base arrow points lower-right, +150deg = left). */
 .smooch-final-cta__start-here {
   position: absolute;
-  top: -1.4rem;
-  right: 50%;
-  margin-right: -21rem;
+  top: 50%;
+  left: 33.5rem;
+  transform: translateY(-50%) rotate(3deg);
   display: inline-flex;
-  align-items: flex-start;
-  gap: 0.2rem;
-  transform: rotate(6deg);
+  align-items: center;
+  gap: 0.5rem;
   color: rgb(var(--color-foreground));
   white-space: nowrap;
   pointer-events: none;
 }
 
-/* Arrow aims down-left at the button (base points lower-right). */
 .smooch-final-cta__start-here .smooch-doodle-arrow {
-  transform: rotate(70deg);
-  margin-top: 1.2rem;
+  transform: rotate(150deg);
 }
 
 @media screen and (max-width: 989px) {
   .smooch-final-cta__start-here {
     display: none;
-  }
-}
-
-@media screen and (min-width: 990px) {
-  /* Left-aligned split: pin relative to the button's left edge instead. */
-  .smooch-final-cta__start-here {
-    right: auto;
-    margin-right: 0;
-    left: 26rem;
-    top: -1rem;
   }
 }
