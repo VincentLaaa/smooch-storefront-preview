@@ -783,7 +783,7 @@ test.describe('PDP refresh: guided purchase flow', () => {
     const proofBox = await proofLine.boundingBox();
     const titleBox = await title.boundingBox();
     expect(proofBox.y).toBeLessThan(titleBox.y);
-    await expect(proofLine).toHaveText('2,000+ customers purchased this month');
+    await expect(proofLine).toHaveText('2K+ customers bought in past month');
 
     // "Selling fast" urgency badge is retired.
     await expect(hero.locator('.smooch-stock-badge')).toHaveCount(0);

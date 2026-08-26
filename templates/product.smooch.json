@@ -20,8 +20,8 @@
         "social_proof-1": {
           "type": "social_proof",
           "settings": {
-            "sold_count": "2,000+",
-            "period_label": "customers purchased this month",
+            "sold_count": "2K+",
+            "period_label": "customers bought in past month",
             "show_low_stock": false,
             "low_stock_threshold": 30
           }
