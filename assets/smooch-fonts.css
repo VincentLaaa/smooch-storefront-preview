@@ -53,3 +53,29 @@
   --smooch-font-label: var(--font-body-family);
   --smooch-font-numeric: var(--font-body-family);
 }
+
+/* ---------- Satoshi (site-wide type) ---------- */
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('smooch-font-satoshi-variable.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('smooch-font-satoshi-variable-italic.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Satoshi replaces the system stack for all live text (headings + body).
+   The wordmark stays an image; numeric/label/serif slots follow the body
+   family via their existing fallback vars. */
+:root {
+  --font-body-family: 'Satoshi', sans-serif;
+  --font-heading-family: 'Satoshi', sans-serif;
+}
