@@ -1951,8 +1951,8 @@ body.smooch-sticky-atc-visible {
 
 @media screen and (min-width: 990px) {
   .smooch-buybox {
-    padding: 2.8rem 2.8rem 3rem;
-    max-width: 60rem;
+    padding: 2.4rem 2.4rem 2.6rem;
+    max-width: 53rem;
   }
 }
 
@@ -2422,10 +2422,12 @@ body.smooch-sticky-atc-visible {
   justify-content: space-between;
 }
 
+/* Meta-blue verified seals, no disc behind them. */
 .smooch-buybox .smooch-buybox__buy-perks .smooch-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  background-color: #3897f0;
+  width: 1.7rem;
+  height: 1.7rem;
+  background: none;
+  color: #3897f0;
 }
 
 /* One-time line: bold 14px, struck price at 30%. */
