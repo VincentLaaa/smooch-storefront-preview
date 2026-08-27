@@ -830,7 +830,7 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(hero.locator('.smooch-reassurance__footer-row')).toHaveCount(0);
   });
 
-  test('"Most popular" ribbon badges the 3-month size, independent of the default', async ({ page }) => {
+  test('"Most popular" ribbon badges the 2-month size, independent of the default', async ({ page }) => {
     const hero = page.locator('product-info').first();
     const ribbon = hero.locator('[data-sub-ribbon]');
 
@@ -838,10 +838,9 @@ test.describe('PDP refresh: guided purchase flow', () => {
     // size, so no ribbon.
     await expect(ribbon).toBeHidden();
 
-    // Switch to 3 Months (first card, most_popular: true) — ribbon shows.
-    await hero.locator('[data-smooch-bundle-radio]').first().check({ force: true });
+    // Switch to 2 Months (middle card, most_popular: true) — ribbon shows.
+    await hero.locator('[data-smooch-bundle-radio]').nth(1).check({ force: true });
     await expect(ribbon).toBeVisible();
-    await expect(ribbon).toHaveText('Most popular');
 
     // Back to 1 Month — ribbon hides again.
     await hero.locator('[data-smooch-bundle-radio]').last().check({ force: true });

@@ -30,21 +30,21 @@
           "type": "benefit",
           "settings": {
             "icon": "verified",
-            "text": "Helps spark desire naturally"
+            "text": "Supports Libido Levels Naturally"
           }
         },
         "benefit-2": {
           "type": "benefit",
           "settings": {
             "icon": "verified",
-            "text": "One tasty gummy a day"
+            "text": "Helps Restore Hormonal Balance"
           }
         },
         "benefit-3": {
           "type": "benefit",
           "settings": {
             "icon": "verified",
-            "text": "Feel more like yourself again"
+            "text": "Gluten Free, Vegan, and Made in the USA"
           }
         },
         "bundles-1": {
@@ -69,7 +69,9 @@
             "days": 60,
             "quantity": 2,
             "selling_plan_id": "102",
-            "show_thumbnail": true
+            "show_thumbnail": true,
+            "badge": "Most Popular",
+            "most_popular": true
           }
         },
         "bundle-3": {
@@ -78,10 +80,10 @@
             "title": "3 Months",
             "days": 90,
             "quantity": 3,
-            "badge": "Best value",
+            "badge": "",
             "preselected": false,
             "selling_plan_id": "103",
-            "most_popular": true,
+            "most_popular": false,
             "show_thumbnail": true
           }
         },
@@ -144,7 +146,7 @@
         "flavor-1": {
           "type": "flavor",
           "settings": {
-            "text": "Mixed Berries"
+            "text": "Mixed Berry"
           }
         }
       },
