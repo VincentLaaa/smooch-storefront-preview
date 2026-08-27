@@ -2456,3 +2456,42 @@ body.smooch-sticky-atc-visible {
     margin-top: 1.2rem;
   }
 }
+
+/* ---------- Autoship module: tighter internal rhythm ---------- */
+
+.smooch-buybox .smooch-subpanel {
+  padding: 1.2rem 1.4rem 1.3rem;
+}
+
+.smooch-buybox .smooch-subpanel__row {
+  margin: 0;
+  gap: 0.4rem 1rem;
+}
+
+.smooch-buybox .smooch-subpanel__row + .smooch-subpanel__row {
+  margin-top: 0.3rem;
+}
+
+.smooch-buybox .smooch-subpanel__buy {
+  margin-top: 0.9rem;
+}
+
+.smooch-buybox .smooch-buybox__buy .product-form__submit {
+  min-height: 4.6rem;
+}
+
+/* Perks: bigger text and seals, still one tidy row. */
+.smooch-buybox .smooch-buybox__buy-perks {
+  margin-top: 0.9rem;
+}
+
+.smooch-buybox .smooch-buybox__buy-perks li {
+  font-size: 1.15rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+}
+
+.smooch-buybox .smooch-buybox__buy-perks .smooch-icon {
+  width: 2rem;
+  height: 2rem;
+}
