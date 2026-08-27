@@ -552,7 +552,7 @@
                                     {%- assign clean_line = line | strip_html | strip -%}
                                     {%- if clean_line != blank -%}
                                       <li>
-                                        {% render 'smooch-icon', icon: 'check', class: 'smooch-icon--sm' %}
+                                        {% render 'smooch-icon', icon: 'verified', class: 'smooch-icon--sm' %}
                                         <span>{{ clean_line }}</span>
                                       </li>
                                     {%- endif -%}
