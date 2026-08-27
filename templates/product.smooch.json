@@ -21,7 +21,7 @@
           "type": "social_proof",
           "settings": {
             "sold_count": "2K+",
-            "period_label": "customers bought in past month",
+            "period_label": "bought in past month",
             "show_low_stock": false,
             "low_stock_threshold": 30
           }
@@ -90,8 +90,9 @@
         "subscription-1": {
           "type": "subscription",
           "settings": {
-            "promo_pill_text": "LFGUMMY",
-            "show_discount_badge": false
+            "promo_pill_text": "",
+            "show_discount_badge": false,
+            "benefits": "Every order ships FREE\n30 day money back guarantee\nPause, edit or cancel anytime"
           }
         },
         "price-1": {

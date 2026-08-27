@@ -505,8 +505,8 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(hero.locator('[data-summary-supply]')).toHaveText('1 bottle · 30-day supply');
     await expect(hero.locator('[data-summary-plan]')).toContainText('Subscription');
     await expect(hero.locator('[data-smooch-price]').first()).toHaveText('$29.95');
-    // Auto-applied badge shows while the discount is live.
-    await expect(hero.locator('[data-sub-autobadge]')).toBeVisible();
+    // Promo pill removed per the Figma spec - no badge stack in the panel.
+    await expect(hero.locator('[data-sub-autobadge]')).toHaveCount(0);
     // Summary is a single quiet line: no strike/save/per-bottle repeats.
     await expect(hero.locator('[data-summary-save]')).toHaveCount(0);
     await expect(hero.locator('[data-smooch-compare]')).toHaveCount(0);
@@ -783,7 +783,7 @@ test.describe('PDP refresh: guided purchase flow', () => {
     const proofBox = await proofLine.boundingBox();
     const titleBox = await title.boundingBox();
     expect(proofBox.y).toBeLessThan(titleBox.y);
-    await expect(proofLine).toHaveText('2K+ customers bought in past month');
+    await expect(proofLine).toHaveText('2K+ bought in past month');
 
     // "Selling fast" urgency badge is retired.
     await expect(hero.locator('.smooch-stock-badge')).toHaveCount(0);
@@ -793,8 +793,8 @@ test.describe('PDP refresh: guided purchase flow', () => {
     const perks = hero.locator('.smooch-buybox__buy-perks li');
     await expect(perks).toHaveCount(3);
     await expect(perks.nth(0)).toHaveText('Every order ships FREE');
-    await expect(perks.nth(1)).toHaveText('VIP discounts & perks');
-    await expect(perks.nth(2)).toHaveText('Pause, edit, or cancel anytime');
+    await expect(perks.nth(1)).toHaveText('30 day money back guarantee');
+    await expect(perks.nth(2)).toHaveText('Pause, edit or cancel anytime');
   });
 
   test('Create-style buybox: one-time row, discount badge, trust grid, footer row — single source of truth', async ({ page }) => {
