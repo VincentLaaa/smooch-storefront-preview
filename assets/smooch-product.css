@@ -2598,3 +2598,16 @@ body.smooch-sticky-atc-visible {
     font-size: 1.1rem;
   }
 }
+
+/* Stack geometry: every bottle renders at the same size, so the taller
+   3-pack triangle gets proportionally more art height. */
+.smooch-buybox .smooch-bundle:nth-child(3) .smooch-bundle__thumb--art img {
+  height: 6.6rem;
+}
+
+@media screen and (max-width: 749px) {
+  .smooch-buybox .smooch-bundle:nth-child(3) .smooch-bundle__thumb--art img {
+    height: 5.7rem;
+    max-width: 9rem;
+  }
+}
