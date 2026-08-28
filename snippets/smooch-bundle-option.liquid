@@ -95,7 +95,7 @@
       <span class="smooch-bundle__title">{{ block.settings.title }}</span>
       <span class="smooch-bundle__count" data-bundle-count-line {% if days == 0 %}hidden{% endif %}>{{ days }} Count</span>
       <span class="smooch-bundle__unit smooch-bundle__per-day" data-bundle-perday-line {% if per_day == 0 %}hidden{% endif %}>
-        <span class="smooch-num" data-bundle-per-day>{{ per_day | money }}</span> / Day
+        (<span class="smooch-num" data-bundle-per-day>{{ per_day | money }}</span> / Day)
       </span>
       <span class="smooch-bundle__soldout smooch-caption" data-bundle-soldout {% unless initially_unavailable %}hidden{% endunless %}>
         {{ 'products.product.sold_out' | t }}
