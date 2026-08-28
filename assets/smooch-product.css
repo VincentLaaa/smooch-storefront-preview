@@ -2631,6 +2631,11 @@ body.smooch-sticky-atc-visible {
 }
 
 .smooch-buybox .smooch-buybox__buy-perks .smooch-icon {
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 3.2rem;
+  height: 3.2rem;
+}
+
+.smooch-buybox .smooch-buybox__buy-perks .smooch-icon svg {
+  width: 100%;
+  height: 100%;
 }
