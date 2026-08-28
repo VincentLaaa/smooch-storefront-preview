@@ -2530,3 +2530,71 @@ body.smooch-sticky-atc-visible {
     line-height: 1.3rem;
   }
 }
+
+/* =============== Figma size cards v2: tall, centered, art on top =============== */
+
+.smooch-buybox .smooch-bundle__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  min-height: 15.1rem;
+  padding: 1.4rem 0.5rem 1rem;
+  text-align: center;
+}
+
+.smooch-buybox .smooch-bundle__thumb--art {
+  margin: 0 auto 0.8rem;
+  align-self: center;
+}
+
+.smooch-buybox .smooch-bundle__thumb--art img {
+  height: 5.4rem;
+  max-width: 10rem;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.smooch-buybox .smooch-bundle__body {
+  align-items: center;
+  gap: 0;
+}
+
+.smooch-buybox .smooch-bundle__title {
+  font-family: var(--font-heading-family);
+  font-weight: 600;
+  font-size: 1.45rem;
+  line-height: 2rem;
+}
+
+.smooch-buybox .smooch-bundle__count {
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+}
+
+.smooch-buybox .smooch-bundle__per-day {
+  margin-top: 0.9rem;
+  font-size: 0.97rem;
+  line-height: 1.3rem;
+}
+
+@media screen and (max-width: 749px) {
+  .smooch-buybox .smooch-bundle__card {
+    padding: 1.2rem 0.4rem 0.9rem;
+    min-height: 14rem;
+  }
+
+  .smooch-buybox .smooch-bundle__thumb--art img {
+    height: 4.6rem;
+    max-width: 8.4rem;
+  }
+
+  .smooch-buybox .smooch-bundle__title {
+    font-size: 1.35rem;
+  }
+
+  .smooch-buybox .smooch-bundle__count {
+    font-size: 1.1rem;
+  }
+}
