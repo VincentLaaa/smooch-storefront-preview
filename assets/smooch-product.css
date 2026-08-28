@@ -2624,13 +2624,13 @@ body.smooch-sticky-atc-visible {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.6rem;
-  font-size: 1rem;
-  line-height: 1.6rem;
-  font-weight: 400;
+  gap: 0.7rem;
+  font-size: 1.25rem;
+  line-height: 1.7rem;
+  font-weight: 500;
 }
 
 .smooch-buybox .smooch-buybox__buy-perks .smooch-icon {
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 2.4rem;
+  height: 2.4rem;
 }
