@@ -70,10 +70,13 @@
           case qty
             when 1
               assign art_width = 223
+              assign art_height = 300
             when 2
-              assign art_width = 406
+              assign art_width = 377
+              assign art_height = 300
             when 3
-              assign art_width = 589
+              assign art_width = 377
+              assign art_height = 369
           endcase
         -%}
         <span class="smooch-bundle__thumb smooch-bundle__thumb--art">
@@ -82,7 +85,7 @@
             alt=""
             loading="lazy"
             width="{{ art_width }}"
-            height="300"
+            height="{{ art_height }}"
           >
         </span>
       {%- elsif product.featured_media -%}
