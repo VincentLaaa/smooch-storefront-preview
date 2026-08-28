@@ -43,9 +43,10 @@
       endif
       assign stars_label = 'Rated ' | append: rating_value | append: ' out of 5 stars'
     -%}
+    <span class="smooch-rating__value">{{ rating_value }}</span>
     {%- render 'smooch-stars-fractional', rating: rating_value, wrapper_class: stars_class, label: stars_label -%}
     <span class="smooch-rating__count">
-      {{ rating_value }} · {{ rating_count }} review{% if rating_count != 1 %}s{% endif %}
+      ({{ rating_count }})
       {%- if is_sample and show_sample_label %} <span class="smooch-fine-print">(sample)</span>{% endif %}
     </span>
     {%- if is_sample == false and settings.smooch_review_provider != blank -%}

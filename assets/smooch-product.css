@@ -2495,3 +2495,38 @@ body.smooch-sticky-atc-visible {
   width: 2rem;
   height: 2rem;
 }
+
+/* Rating: black value left of the stars, "(count)" as the blue link. */
+.smooch-buybox .smooch-rating__value {
+  font-weight: 700;
+  color: var(--smooch-ink);
+  font-size: 1.4rem;
+}
+
+/* Mobile size cards: keep titles inside their boxes. */
+@media screen and (max-width: 749px) {
+  .smooch-buybox .smooch-bundle__card {
+    padding: 0.7rem 0.5rem;
+    gap: 0 0.4rem;
+  }
+
+  .smooch-buybox .smooch-bundle__thumb--art img {
+    height: 2.8rem;
+    max-width: 3.8rem;
+  }
+
+  .smooch-buybox .smooch-bundle__title {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+
+  .smooch-buybox .smooch-bundle__count {
+    font-size: 1rem;
+    line-height: 1.4rem;
+  }
+
+  .smooch-buybox .smooch-bundle__per-day {
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+  }
+}
