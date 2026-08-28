@@ -790,7 +790,7 @@ test.describe('PDP refresh: guided purchase flow', () => {
     // sourced from the subscription block's real benefits setting.
     const perks = hero.locator('.smooch-buybox__buy-perks li');
     await expect(perks).toHaveCount(3);
-    await expect(perks.nth(0)).toHaveText('Every order ships FREE');
+    await expect(perks.nth(0)).toHaveText('First order ships FREE');
     await expect(perks.nth(1)).toHaveText('30 day money back guarantee');
     await expect(perks.nth(2)).toHaveText('Pause, edit or cancel anytime');
   });
