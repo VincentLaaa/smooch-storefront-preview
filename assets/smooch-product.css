@@ -2224,6 +2224,13 @@ body.smooch-sticky-atc-visible {
   color: #ff6201;
 }
 
+/* Brand star artwork in the buybox rating row (Stars.png, 176x32). */
+.smooch-stars-img {
+  display: block;
+  height: 2rem;
+  width: auto;
+}
+
 /* Review count reads as an Amazon-style blue link. */
 .smooch-buybox .smooch-rating__count {
   color: #2162a1;

@@ -328,6 +328,7 @@
                           fallback_rating: block.settings.fallback_rating,
                           fallback_count: block.settings.fallback_count,
                           show_sample_label: false,
+                          use_image: true,
                           link: block.settings.link_to_reviews
                         %}
                       </div>
@@ -388,7 +389,6 @@
                       {%- if has_bundles -%}
                         <fieldset class="smooch-bundles" {{ block.shopify_attributes }}>
                           <legend class="smooch-bundles__legend smooch-step">
-                            <span class="smooch-step__num" aria-hidden="true">1</span>
                             {{ block.settings.heading | default: 'Select Your Size' }}:
                           </legend>
                           <div class="smooch-bundles__list" role="radiogroup" aria-label="{{ block.settings.heading | default: 'Select Your Size' | escape }}">

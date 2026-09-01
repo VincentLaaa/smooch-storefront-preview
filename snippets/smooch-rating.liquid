@@ -12,6 +12,7 @@
   - fallback_count: {Number} sample review count; 0 hides the fallback entirely
   - show_sample_label: {Boolean} label fallback data as sample reviews
   - link: {Boolean} link to #smooch-reviews
+  - use_image: {Boolean} render the brand star artwork (4.5-star image) instead of SVG stars
   - size: {String} 'lg' for larger stars (optional)
 
   Usage:
@@ -44,7 +45,19 @@
       assign stars_label = 'Rated ' | append: rating_value | append: ' out of 5 stars'
     -%}
     <span class="smooch-rating__value">{{ rating_value }}</span>
-    {%- render 'smooch-stars-fractional', rating: rating_value, wrapper_class: stars_class, label: stars_label -%}
+    {%- if use_image -%}
+      <img
+        class="smooch-stars-img"
+        src="{{ 'smooch-stars-4half.png' | asset_url }}"
+        width="176"
+        height="32"
+        alt=""
+        role="img"
+        aria-label="{{ stars_label }}"
+      >
+    {%- else -%}
+      {%- render 'smooch-stars-fractional', rating: rating_value, wrapper_class: stars_class, label: stars_label -%}
+    {%- endif -%}
     <span class="smooch-rating__count">
       ({{ rating_count }})
       {%- if is_sample and show_sample_label %} <span class="smooch-fine-print">(sample)</span>{% endif %}

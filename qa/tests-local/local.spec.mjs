@@ -443,11 +443,10 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await clearCart(page);
   });
 
-  test('numbered step, simplified supply cards: month / count / per-day only', async ({ page }) => {
+  test('unnumbered step heading, simplified supply cards: month / count / per-day only', async ({ page }) => {
     const hero = page.locator('product-info').first();
-    // Single numbered step: supply. (The subscription panel is unnumbered.)
-    expect(await hero.locator('.smooch-step__num').count()).toBe(1);
-    await expect(hero.locator('.smooch-step__num').first()).toHaveText('1');
+    // Steps are unnumbered (owner removed the "1" badge next to Select Your Size).
+    expect(await hero.locator('.smooch-step__num').count()).toBe(0);
 
     // Figma order: 1 → 2 → 3, the 1-month starter first and auto-selected.
     const cards = hero.locator('.smooch-bundle');
@@ -765,8 +764,8 @@ test.describe('PDP refresh: guided purchase flow', () => {
     const hero = page.locator('product-info').first();
     expect(await hero.locator('.smooch-plans').count()).toBe(0);
     expect(await hero.locator('[data-smooch-selling-plan]').count()).toBe(0);
-    // the supply step is numbered "1" regardless of whether selling plans exist
-    expect(await hero.locator('.smooch-step__num').count()).toBe(1);
+    // the supply step is unnumbered regardless of whether selling plans exist
+    expect(await hero.locator('.smooch-step__num').count()).toBe(0);
   });
 
   test('refined top section: exact title, understated proof line, no urgency badge, single trust line', async ({ page }) => {
