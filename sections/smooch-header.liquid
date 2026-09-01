@@ -166,12 +166,13 @@
         }}
       {%- else -%}
         {%- comment -%}
-          Bundled brand wordmark (white artwork, ink-tinted via CSS for light
-          headers — see .smooch-header__logo-image--brand). A merchant-
-          uploaded logo in Theme settings > Logo overrides it.
+          Bundled brand wordmark (pink artwork, shown as-is on light headers,
+          re-tinted white via CSS on dark schemes — see
+          .smooch-header__logo-image--brand). A merchant-uploaded logo in
+          Theme settings > Logo overrides it.
         {%- endcomment -%}
         <img
-          src="{{ 'smooch-logo-white.webp' | asset_url }}"
+          src="{{ 'smooch-logo-pink.webp' | asset_url }}"
           width="712"
           height="183"
           class="smooch-header__logo-image smooch-header__logo-image--brand"
