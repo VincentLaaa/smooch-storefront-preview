@@ -451,8 +451,8 @@ test.describe('PDP refresh: guided purchase flow', () => {
     // Figma order: 1 → 2 → 3, the 1-month starter first and auto-selected.
     const cards = hero.locator('.smooch-bundle');
     await expect(cards.nth(0).locator('.smooch-bundle__title')).toHaveText('1 Month');
-    await expect(cards.nth(0).locator('.smooch-bundle__count')).toHaveText('30 Count');
-    await expect(cards.nth(2).locator('.smooch-bundle__count')).toHaveText('90 Count');
+    await expect(cards.nth(0).locator('.smooch-bundle__count')).toHaveText('60 Count');
+    await expect(cards.nth(2).locator('.smooch-bundle__count')).toHaveText('180 Count');
     expect(await cards.nth(0).locator('.smooch-bundle__input').isChecked()).toBe(true);
     expect(await cards.nth(2).locator('.smooch-bundle__input').isChecked()).toBe(false);
     expect(await hero.locator('[data-bundle-price]').count()).toBe(0);

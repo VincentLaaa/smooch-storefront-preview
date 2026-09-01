@@ -56,6 +56,7 @@
           "settings": {
             "title": "1 Month",
             "days": 30,
+            "count": 60,
             "quantity": 1,
             "selling_plan_id": "101",
             "preselected": true,
@@ -67,6 +68,7 @@
           "settings": {
             "title": "2 Months",
             "days": 60,
+            "count": 120,
             "quantity": 2,
             "selling_plan_id": "102",
             "show_thumbnail": true,
@@ -79,6 +81,7 @@
           "settings": {
             "title": "3 Months",
             "days": 90,
+            "count": 180,
             "quantity": 3,
             "badge": "",
             "preselected": false,

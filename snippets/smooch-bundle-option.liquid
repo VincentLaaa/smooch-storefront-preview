@@ -1,8 +1,8 @@
 {% comment %}
   Renders one supply option card (radio + label) in the guided purchase flow.
 
-  Deliberately minimal: month label, gummy count (one gummy/day, so count ==
-  days of supply), and the per-day price estimate — no price/compare/savings
+  Deliberately minimal: month label, gummy count (explicit per-block setting;
+  falls back to days of supply), and the per-day price estimate — no price/compare/savings
   on the card itself (that full breakdown already lives in the subscription
   card below). All figures are real: variant price × quantity, server-
   rendered for the initially selected variant with no selling plan.
@@ -24,6 +24,7 @@
 {%- liquid
   assign qty = block.settings.quantity | at_least: 1
   assign days = block.settings.days
+  assign count = block.settings.count | default: days
   assign total = current_variant.price | times: qty
   assign per_day = 0
   if days > 0
@@ -96,7 +97,7 @@
     {%- endif -%}
     <span class="smooch-bundle__body">
       <span class="smooch-bundle__title">{{ block.settings.title }}</span>
-      <span class="smooch-bundle__count" data-bundle-count-line {% if days == 0 %}hidden{% endif %}>{{ days }} Count</span>
+      <span class="smooch-bundle__count" data-bundle-count-line {% if count == 0 %}hidden{% endif %}>{{ count }} Count</span>
       <span class="smooch-bundle__unit smooch-bundle__per-day" data-bundle-perday-line {% if per_day == 0 %}hidden{% endif %}>
         (<span class="smooch-num" data-bundle-per-day>{{ per_day | money }}</span> / Day)
       </span>
