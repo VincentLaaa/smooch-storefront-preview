@@ -537,13 +537,13 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await expect(sticky).toBeVisible({ timeout: 10_000 });
     // Real product name (the same custom title the H1 uses), not a
     // "3 Months · Subscribe" bundle/plan label that used to live here.
-    await expect(sticky.locator('[data-sticky-summary]')).toHaveText("Women's Libido & Mood Gummies");
+    await expect(sticky.locator('[data-sticky-summary]')).toHaveText("Libido & Mood Gummies");
     await expect(sticky.locator('[data-sticky-price]')).toHaveText('$29.95');
     // Switching bundle/plan must never change the displayed product name.
     const hero = page.locator('product-info').first();
     await hero.locator('[data-smooch-bundle-radio]').first().check({ force: true });
     await page.waitForTimeout(300);
-    await expect(sticky.locator('[data-sticky-summary]')).toHaveText("Women's Libido & Mood Gummies");
+    await expect(sticky.locator('[data-sticky-summary]')).toHaveText("Libido & Mood Gummies");
 
     // At the very bottom of the page the bar steps aside so the footer is
     // readable; scrolling back up mid-page brings it back.
@@ -773,7 +773,7 @@ test.describe('PDP refresh: guided purchase flow', () => {
     const hero = page.locator('product-info').first();
 
     // Exact product title — no brand prefix.
-    await expect(page.locator('h1').first()).toHaveText("Women's Libido & Mood Gummies");
+    await expect(page.locator('h1').first()).toHaveText("Libido & Mood Gummies");
 
     // Understated social-proof line renders before the title.
     const proofLine = hero.locator('.smooch-sold-badge');

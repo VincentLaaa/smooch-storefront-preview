@@ -1209,6 +1209,7 @@ body.smooch-sticky-atc-visible {
 
 .smooch-sticky-atc__rating .smooch-stars {
   font-size: 1.1rem;
+  color: #ff6201;
 }
 
 .smooch-sticky-atc__rating .smooch-rating__count {
@@ -1886,7 +1887,7 @@ body.smooch-sticky-atc-visible {
    their original treatment below/above this point. */
 
 .smooch-buybox .smooch-stars {
-  color: #e9960e;
+  color: #ff6201;
 }
 
 .smooch-buybox .smooch-rating {
@@ -1921,7 +1922,7 @@ body.smooch-sticky-atc-visible {
 }
 
 .smooch-buybox .smooch-buybox__benefits .smooch-icon {
-  color: var(--smooch-berry);
+  color: #fcafc0;
 }
 
 /* Tighter vertical rhythm - less dead space between buybox groups. */
