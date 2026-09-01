@@ -1890,15 +1890,22 @@ body.smooch-sticky-atc-visible {
     border-radius: 0;
   }
 
-  /* Replace Dawn's ratio-driven slide height with the viewport itself:
-     each slide fills the screen below the announcement bar + header, with
-     the buybox sheet's rounded top peeking in at the fold. The portrait
-     hero cutout contain-fits this at full page width. */
+  /* Replace Dawn's ratio-driven slide height with a portion of the viewport:
+     the slide stops around 2/3 down the screen so the buybox sheet owns the
+     bottom third of the first paint — the visitor sees real purchase UI
+     immediately and understands the page continues below. */
   .smooch-product .product-media-container .media {
     padding-top: 0;
-    height: calc(100vh - 12rem);
-    height: calc(100svh - 12rem);
-    min-height: 38rem;
+    height: calc(100vh - 38rem);
+    height: calc(100svh - 38rem);
+    min-height: 34rem;
+  }
+
+  /* Top-anchor the contain-fit hero art: it hugs the header instead of
+     floating in a centered band, and contain guarantees the full bottle
+     (cap to base, annotations included) stays uncropped above the sheet. */
+  .smooch-product .product-media-container .media img {
+    object-position: center top;
   }
 
   /* Doubled-up selector outguns Dawn's .grid--1-col .grid__item width,
