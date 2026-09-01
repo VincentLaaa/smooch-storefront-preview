@@ -22,7 +22,7 @@
 }
 
 .smooch-rf__topline-stars {
-  color: #e9960e;
+  color: #ff6201;
 }
 
 .smooch-rf__topline-stars .smooch-icon {
@@ -484,10 +484,10 @@ button.smooch-rf__dist-row:focus-visible {
   color: rgba(var(--smooch-ink-rgb), 0.7);
 }
 
-/* Amazon-gold stars throughout the full-review section (summary + rows),
+/* Brand-orange stars throughout the full-review section (summary + rows),
    matching the buybox rating row. */
 .smooch-rf .smooch-stars {
-  color: #e9960e;
+  color: #ff6201;
 }
 
 /* ---------- Center-focus pass ---------- */

@@ -1209,6 +1209,7 @@ body.smooch-sticky-atc-visible {
 
 .smooch-sticky-atc__rating .smooch-stars {
   font-size: 1.1rem;
+  color: #ff6201;
 }
 
 .smooch-sticky-atc__rating .smooch-rating__count {
@@ -1607,14 +1608,8 @@ body.smooch-sticky-atc-visible {
   background-color: var(--smooch-berry);
 }
 
-/* Mobile: the canvas runs edge-to-edge (Neutonic mobile treatment) so the
-   hero composition owns the full width; radius drops with the gutters. */
-@media screen and (max-width: 749.98px) {
-  .smooch-gallery__canvas {
-    margin-inline: -1.5rem;
-    border-radius: 0;
-  }
-}
+/* Mobile: the canvas runs edge-to-edge via the full-bleed gallery wrapper
+   in the curtain block below (which also drops the radius). */
 
 @media (prefers-reduced-motion: reduce) {
   .smooch-product .product__media-list {
@@ -1854,10 +1849,56 @@ body.smooch-sticky-atc-visible {
     display: block;
   }
 
-  .smooch-product__gallery {
+  /* Doubled-up selector outguns Dawn's .grid--1-col .grid__item width,
+     same trick as the buybox sheet below. */
+  .smooch-product__layout .smooch-product__gallery {
     position: sticky;
     top: 0;
     z-index: 0;
+    /* Full bleed: the image owns the whole upper page, edge to edge —
+       50%-50vw breaks out of the page gutters exactly regardless of the
+       page-width padding at this breakpoint. */
+    width: 100vw;
+    max-width: none;
+    margin-inline: calc(50% - 50vw);
+  }
+
+  /* No cream frame above or inside the hero: the gallery starts right under
+     the header (two classes outgun the section's own padding rule). */
+  .smooch-product-hero-section .smooch-product {
+    padding-top: 0;
+  }
+
+  /* Pin the whole slide chain to exactly the canvas width. Dawn's mobile
+     peek/gutter rules (content-box items, constrain-height width formula,
+     inline media-gallery) otherwise compound into a track ~3rem wider than
+     the screen, which crops the edges of the full-bleed hero art. */
+  .smooch-product media-gallery {
+    display: block;
+  }
+
+  .smooch-product .product__media-item,
+  .smooch-product .product-media-container {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .smooch-gallery__canvas {
+    border-radius: 0;
+  }
+
+  /* Replace Dawn's ratio-driven slide height with the viewport itself:
+     each slide fills the screen below the announcement bar + header, with
+     the buybox sheet's rounded top peeking in at the fold. The portrait
+     hero cutout contain-fits this at full page width. */
+  .smooch-product .product-media-container .media {
+    padding-top: 0;
+    height: calc(100vh - 12rem);
+    height: calc(100svh - 12rem);
+    min-height: 38rem;
   }
 
   /* Doubled-up selector outguns Dawn's .grid--1-col .grid__item width,
@@ -1886,7 +1927,7 @@ body.smooch-sticky-atc-visible {
    their original treatment below/above this point. */
 
 .smooch-buybox .smooch-stars {
-  color: #e9960e;
+  color: #ff6201;
 }
 
 .smooch-buybox .smooch-rating {
@@ -1921,7 +1962,7 @@ body.smooch-sticky-atc-visible {
 }
 
 .smooch-buybox .smooch-buybox__benefits .smooch-icon {
-  color: var(--smooch-berry);
+  color: #fcafc0;
 }
 
 /* Tighter vertical rhythm - less dead space between buybox groups. */
@@ -2221,6 +2262,13 @@ body.smooch-sticky-atc-visible {
 /* Stars orange, count-style rating text. */
 .smooch-buybox .smooch-stars {
   color: #ff6201;
+}
+
+/* Brand star artwork in the buybox rating row (Stars.png, 176x32). */
+.smooch-stars-img {
+  display: block;
+  height: 2rem;
+  width: auto;
 }
 
 /* Review count reads as an Amazon-style blue link. */

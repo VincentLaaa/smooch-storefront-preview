@@ -122,15 +122,12 @@
 }
 
 /* Bundled white wordmark, tinted to the scheme foreground for light headers.
-   brightness(0) renders the artwork near-black; on dark header schemes the
-   filter is dropped so it stays white. */
-.smooch-header__logo-image--brand {
-  filter: brightness(0) opacity(0.92);
-}
-
+   The bundled artwork is the brand-pink wordmark, shown as-is on light
+   header schemes; dark schemes re-tint it white (brightness(0) makes it
+   black, invert(1) flips that to white — works from any source color). */
 .color-scheme-3 .smooch-header__logo-image--brand,
 .color-scheme-4 .smooch-header__logo-image--brand {
-  filter: none;
+  filter: brightness(0) invert(1);
 }
 
 /* ---------- Left: Shop / Learn nav (desktop, >=990px) ---------- */
