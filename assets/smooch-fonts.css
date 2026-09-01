@@ -86,22 +86,46 @@
   font-display: swap;
 }
 
-/* ---------- Owner type system (Loretta + Euclid) ---------- */
+/* ---------- Owner type system ---------- */
 
-/* Headings: Loretta semibold/bold (the wordmark's own face).
-   Subheadings/eyebrows: Loretta regular-to-semibold.
-   Body + buttons: Euclid Flex. Satoshi stays bundled as fallback. */
-:root {
-  --font-body-family: 'Euclid Flex', 'Satoshi', sans-serif;
-  --font-heading-family: 'Loretta', Georgia, serif;
-  --smooch-font-label: 'Euclid Flex', 'Satoshi', sans-serif;
+/* Per owner: Headings Loretta Bold, subheadings Loretta Regular,
+   body Lora, buttons Euclid Flex, numerals Proxima Nova.
+   The bundled Loretta semibold cut carries the bold role (600-900).
+   Proxima Nova leads the numeric stack for environments where a licensed
+   cut is available; the shipped fallback is Satoshi (Proxima-style
+   digits) because the only Proxima file on hand is a Fontspring DEMO
+   that replaces "4 $ % / ( )" with DEMO fleurons and cannot ship. */
+
+@font-face {
+  font-family: 'Lora';
+  src: url('smooch-font-lora-variable.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
 }
 
-/* Subheadings pick up Loretta while buttons/badges keep Euclid via the
-   label variable. */
+@font-face {
+  font-family: 'Lora';
+  src: url('smooch-font-lora-variable-italic.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --font-body-family: 'Lora', Georgia, serif;
+  --font-heading-family: 'Loretta', Georgia, serif;
+  --font-heading-weight: 700;
+  --smooch-font-serif: 'Lora', Georgia, serif;
+  --smooch-font-label: 'Euclid Flex', 'Satoshi', sans-serif;
+  --smooch-font-numeric: 'Proxima Nova', 'Satoshi', sans-serif;
+}
+
+/* Subheadings/eyebrows: Loretta Regular. Buttons/badges keep Euclid via
+   the label variable. */
 .smooch-eyebrow {
   font-family: 'Loretta', Georgia, serif;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 /* Numeric-heavy elements that would otherwise inherit Euclid render in
