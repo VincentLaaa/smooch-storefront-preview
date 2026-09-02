@@ -2598,9 +2598,14 @@ body.smooch-sticky-atc-visible {
   color: #222222;
 }
 
-/* No flanking divider lines around "One-Time Purchase" (per owner). */
+/* No flanking divider lines around "One-Time Purchase" (per owner) —
+   the stretchy lines were what centered the text, so center explicitly. */
 .smooch-buybox .smooch-plan--onetime .smooch-plan__divider-line {
   display: none;
+}
+
+.smooch-buybox .smooch-plan--onetime .smooch-plan__divider-row {
+  justify-content: center;
 }
 
 .smooch-buybox [data-onetime-compare],
