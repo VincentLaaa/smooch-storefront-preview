@@ -2246,13 +2246,22 @@ body.smooch-sticky-atc-visible {
   margin: 0;
 }
 
+/* Figma spec: 82x22 pill, flat #F65275 with a soft berry glow, Euclid
+   Flex 500 at 10px/16px in white with a faint text glow. */
 .smooch-buybox .smooch-flavor-pill {
-  background: linear-gradient(100deg, var(--smooch-berry) 0%, #e63e63 100%);
-  color: rgb(255, 255, 255);
+  background: #f65275;
+  box-shadow: 0 0 10px rgba(245, 88, 122, 0.5);
+  border-radius: 100px;
+  color: #ffffff;
+  text-shadow: 0 0 3.54px rgba(255, 255, 255, 0.15);
+  font-family: 'Euclid Flex', 'Satoshi', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.6rem;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 1.05rem;
-  padding: 0.45rem 1.1rem;
+  letter-spacing: normal;
+  padding: 0.3rem 0.8rem;
 }
 
 /* Selected size card carries the ink border (Figma's black outline). */
