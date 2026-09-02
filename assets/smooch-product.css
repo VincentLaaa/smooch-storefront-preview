@@ -2068,8 +2068,33 @@ body.smooch-sticky-atc-visible {
 }
 
 /* CTA radius matches the card language. */
+/* Figma ATC spec: 50px pink bar with a berry glow, 5px radius, Euclid
+   600 16.25px uppercase white with a faint text glow. Hover keeps the
+   pink -> black + sliding-arrow treatment defined above. */
 .smooch-buybox .smooch-buybox__buy .product-form__submit {
-  border-radius: 1.2rem;
+  min-height: 5rem;
+  background-color: #f65275;
+  border: 2px solid #f65275;
+  box-shadow: 0 0 10px rgba(246, 82, 117, 0.5);
+  border-radius: 5px;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.625rem;
+  line-height: 2.4rem;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 0 3.54px rgba(255, 255, 255, 0.15);
+}
+
+/* Re-assert the pink -> black hover above the Figma rest-state rule (same
+   specificity, so file order alone would let the rest state win). */
+.smooch-buybox .smooch-buybox__buy .product-form__submit:hover,
+.smooch-buybox .smooch-buybox__buy .product-form__submit:focus-visible {
+  background-color: rgb(17, 17, 17);
+  border-color: rgb(17, 17, 17);
+  box-shadow: 0 1rem 2.2rem rgba(var(--smooch-ink-rgb, 0, 0, 0), 0.18);
 }
 
 /* ---------- Quantity art in the size cards ---------- */
@@ -2312,6 +2337,8 @@ body.smooch-sticky-atc-visible {
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 400;
+  gap: 0.5rem; /* checkmark hugs its line — the ticks default reads too airy here */
+  align-items: center; /* seal centers on the text line (ticks default is flex-start) */
 }
 
 .smooch-buybox .smooch-buybox__benefits {
@@ -2594,7 +2621,13 @@ body.smooch-sticky-atc-visible {
 }
 
 .smooch-buybox .smooch-buybox__buy .product-form__submit {
-  min-height: 4.6rem;
+  min-height: 5rem; /* Figma: 50px bar */
+}
+
+/* Dawn's .button::after draws a dark hairline ring — the Figma button is
+   pure pink with its own glow, no ring. */
+.smooch-buybox .smooch-buybox__buy .product-form__submit::after {
+  box-shadow: none;
 }
 
 /* Perks: bigger text and seals, still one tidy row. */
