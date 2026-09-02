@@ -2088,6 +2088,21 @@ body.smooch-sticky-atc-visible {
   text-shadow: 0 0 3.54px rgba(255, 255, 255, 0.15);
 }
 
+/* Tighter run from the ATC button down to the perk seals: Dawn's
+   product-form bottom margin plus the button's own margin plus the perks'
+   top margin stacked to ~35px of dead space. */
+.smooch-buybox .smooch-buybox__buy .product-form {
+  margin-bottom: 0;
+}
+
+.smooch-buybox .smooch-buybox__buy .product-form__submit {
+  margin-bottom: 0;
+}
+
+.smooch-buybox .smooch-buybox__buy .smooch-buybox__buy-perks {
+  margin-top: 1.2rem;
+}
+
 /* Re-assert the pink -> black hover above the Figma rest-state rule (same
    specificity, so file order alone would let the rest state win). */
 .smooch-buybox .smooch-buybox__buy .product-form__submit:hover,
