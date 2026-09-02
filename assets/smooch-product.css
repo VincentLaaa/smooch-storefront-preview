@@ -2598,6 +2598,11 @@ body.smooch-sticky-atc-visible {
   color: #222222;
 }
 
+/* No flanking divider lines around "One-Time Purchase" (per owner). */
+.smooch-buybox .smooch-plan--onetime .smooch-plan__divider-line {
+  display: none;
+}
+
 .smooch-buybox [data-onetime-compare],
 .smooch-buybox .smooch-plan--onetime .smooch-strike {
   opacity: 0.3;
