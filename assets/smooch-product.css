@@ -2470,6 +2470,12 @@ body.smooch-sticky-atc-visible {
   white-space: nowrap;
 }
 
+/* All-caps ink sits above the baseline, so the centered line box reads
+   high — drop the label's ink to the true middle; the bolt stays put. */
+.smooch-buybox .smooch-subpanel__ship-ribbon .smooch-subpanel__ship-text {
+  transform: translateY(1.5px);
+}
+
 /* Owner's white bolt glyph (26x34 art, slightly taller than the text). */
 .smooch-buybox .smooch-subpanel__ship-ribbon .smooch-subpanel__ship-bolt {
   width: auto;
