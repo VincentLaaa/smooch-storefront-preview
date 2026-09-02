@@ -2747,6 +2747,37 @@ body.smooch-sticky-atc-visible {
   }
 }
 
+/* Autoship meta line: desktop keeps "1 Month · 1 bottle $1.00 / Day";
+   mobile reads "1 Month · 60 Count" with the per-day price on its own
+   line beneath (per owner). */
+.smooch-buybox .smooch-subpanel__meta [data-sub-count] {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .smooch-buybox .smooch-subpanel__meta [data-sub-supply] {
+    display: none;
+  }
+
+  .smooch-buybox .smooch-subpanel__meta [data-sub-count] {
+    display: inline;
+  }
+
+  .smooch-buybox .smooch-subpanel__meta [data-sub-count][hidden] {
+    display: none;
+  }
+
+  .smooch-buybox .smooch-subpanel__meta [data-sub-perday-wrap] {
+    /* The meta line is a wrapping flex row — full basis pushes the
+       per-day price onto its own line under "N Months · NN Count". */
+    flex-basis: 100%;
+  }
+
+  .smooch-buybox .smooch-subpanel__meta [data-sub-perday-wrap][hidden] {
+    display: none;
+  }
+}
+
 /* Per-day estimate sits directly under "N Month / NN Count" — no gap. */
 .smooch-buybox .smooch-bundle__per-day {
   margin-top: 0.2rem;

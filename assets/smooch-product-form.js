@@ -449,6 +449,13 @@ if (!customElements.get('smooch-offer')) {
         // Subscription card's meta line stays compact: "3 Months · 3 bottles · $X/day" —
         // the bundle title already conveys duration, so this only needs the count.
         this.setText(this, '[data-sub-supply]', `· ${bottleText}`);
+        // Mobile meta swaps bottles for the gummy count ("· 60 Count").
+        const countEl = this.querySelector('[data-sub-count]');
+        if (countEl) {
+          const count = bundleMeta.count || 0;
+          countEl.hidden = count === 0;
+          if (count > 0) countEl.innerHTML = `· <span class="smooch-num">${count}</span> Count`;
+        }
         const planLineEl = this.querySelector('[data-summary-plan]');
         if (planLineEl) {
           if (planId) {
