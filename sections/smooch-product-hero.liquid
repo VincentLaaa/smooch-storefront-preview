@@ -485,6 +485,10 @@
                           <legend class="visually-hidden">{{ block.settings.heading | default: 'Choose how to buy' }}</legend>
                           <div class="smooch-subpanel{% unless default_is_subscribe %} smooch-subpanel--inactive{% endunless %}" data-sub-panel>
                             <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry" data-sub-ribbon {% unless panel_bundle.settings.most_popular %}hidden{% endunless %}>{{ block.settings.badge | default: 'Most popular' }}</span>
+                            <span class="smooch-subpanel__ship-ribbon">
+                              {% render 'smooch-icon', icon: 'truck', class: 'smooch-icon--sm' %}
+                              Ships Next Day from Utah
+                            </span>
                             <label class="smooch-subpanel__content">
                               {%- comment -%}
                                 One fixed cadence only — no frequency picker.

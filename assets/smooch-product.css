@@ -2431,13 +2431,49 @@ body.smooch-sticky-atc-visible {
   color: #222222;
 }
 
+/* Figma: berry glow + Euclid 600 12px, same voice as the flavor pill. */
 .smooch-buybox .smooch-subpanel__pct-pill {
   background: #f65275;
+  box-shadow: 0 0 10px rgba(246, 82, 117, 0.4);
   color: #ffffff;
   border-radius: 100px;
   padding: 0.3rem 0.8rem;
+  font-family: 'Euclid Flex', 'Satoshi', sans-serif;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 600;
+  text-shadow: 0 0 3.54px rgba(255, 255, 255, 0.15);
+}
+
+/* Figma: blue "ships next day" tag straddling the autoship box's top-right
+   corner (berry "Most popular" ribbon keeps the top-left). */
+.smooch-buybox .smooch-subpanel__ship-ribbon {
+  position: absolute;
+  top: -0.9rem;
+  right: 1rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 1.8rem;
+  padding: 0 0.9rem;
+  background: #3897f0;
+  box-shadow: 1px 1px 0 rgba(56, 151, 240, 0.5);
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: 'Euclid Flex', 'Satoshi', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.025rem;
+  line-height: 1.3rem;
+  text-transform: uppercase;
+  text-shadow: 0 0 3.54px rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+
+.smooch-buybox .smooch-subpanel__ship-ribbon .smooch-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  filter: drop-shadow(0 0 3.54px rgba(255, 255, 255, 0.2));
 }
 
 .smooch-buybox .smooch-subpanel__price {
@@ -2646,8 +2682,9 @@ body.smooch-sticky-atc-visible {
   line-height: 1.8rem;
 }
 
+/* Per-day estimate sits directly under "N Month / NN Count" — no gap. */
 .smooch-buybox .smooch-bundle__per-day {
-  margin-top: 0.9rem;
+  margin-top: 0.2rem;
   font-size: 0.97rem;
   line-height: 1.3rem;
 }
