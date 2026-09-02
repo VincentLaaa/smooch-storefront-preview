@@ -1942,8 +1942,16 @@ body.smooch-sticky-atc-visible {
   font-size: 1.4rem;
 }
 
+/* Even rhythm through the rating stack: the visible gap between the
+   stars row -> "2K+ bought" line -> title reads the same (~4.5px once
+   each line's own leading is counted), so the three lines feel like one
+   grouped block. */
 .smooch-buybox .smooch-buybox__proof-row {
-  margin-top: -0.6rem;
+  margin-top: 0;
+}
+
+.smooch-buybox .smooch-buybox__rating + .smooch-buybox__proof-row + .smooch-buybox__title {
+  margin-top: -0.3rem;
 }
 
 .smooch-buybox .smooch-sold-badge {
