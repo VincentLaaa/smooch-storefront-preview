@@ -2426,6 +2426,7 @@ body.smooch-sticky-atc-visible {
 }
 
 .smooch-buybox .smooch-subpanel__title {
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
   font-size: 1.6rem;
   font-weight: 700;
   color: #222222;
@@ -2438,7 +2439,7 @@ body.smooch-sticky-atc-visible {
   color: #ffffff;
   border-radius: 100px;
   padding: 0.3rem 0.8rem;
-  font-family: 'Euclid Flex', 'Satoshi', sans-serif;
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
   font-size: 1.2rem;
   font-weight: 600;
   text-shadow: 0 0 3.54px rgba(255, 255, 255, 0.15);
@@ -2484,6 +2485,7 @@ body.smooch-sticky-atc-visible {
 }
 
 .smooch-buybox .smooch-subpanel__price {
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
   font-size: 1.6rem;
 }
 
