@@ -2496,7 +2496,7 @@ body.smooch-sticky-atc-visible {
   z-index: 1;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.25rem;
   height: 1.8rem;
   padding: 0 0.9rem;
   background: #3897f0;
@@ -2519,10 +2519,12 @@ body.smooch-sticky-atc-visible {
   transform: translateY(1.5px);
 }
 
-/* Owner's white bolt glyph (26x34 art, slightly taller than the text). */
+/* Owner's white bolt glyph (26x34 art, slightly taller than the text).
+   Raised 1px to sit on the label's optical center. */
 .smooch-buybox .smooch-subpanel__ship-ribbon .smooch-subpanel__ship-bolt {
   width: auto;
   height: 1.6rem;
+  transform: translateY(-1px);
   filter: drop-shadow(0 0 3.54px rgba(255, 255, 255, 0.2));
 }
 
@@ -2619,7 +2621,8 @@ body.smooch-sticky-atc-visible {
 /* ---------- Autoship module: tighter internal rhythm ---------- */
 
 .smooch-buybox .smooch-subpanel {
-  padding: 1.2rem 1.4rem 1.3rem;
+  /* Top padding clears the ships-ribbon straddling the panel border. */
+  padding: 2.2rem 1.4rem 1.3rem;
 }
 
 .smooch-buybox .smooch-subpanel__row {
