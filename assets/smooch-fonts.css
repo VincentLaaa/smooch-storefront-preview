@@ -131,6 +131,7 @@
 /* Numeric-heavy elements that would otherwise inherit Euclid render in
    the numeric face (Euclid's zeros read as the letter O). */
 .smooch-num,
+.smooch-rating__value,
 .smooch-rf__avg,
 .smooch-rf__topline-text,
 .smooch-rf__dist-label,
