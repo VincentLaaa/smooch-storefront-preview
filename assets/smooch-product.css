@@ -2551,9 +2551,10 @@ body.smooch-sticky-atc-visible {
   height: 2rem;
 }
 
-/* Rating: black value left of the stars, "(count)" as the blue link. */
+/* Rating: black value left of the stars, "(count)" as the blue link.
+   Same weight as the count per owner. */
 .smooch-buybox .smooch-rating__value {
-  font-weight: 700;
+  font-weight: 400;
   color: var(--smooch-ink);
   font-size: 1.4rem;
 }
