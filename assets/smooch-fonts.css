@@ -112,11 +112,13 @@
   font-display: swap;
 }
 
+/* Body moved from Lora to Euclid Flex per owner (2026-09-02); the Lora
+   faces stay bundled above in case the serif body returns. */
 :root {
-  --font-body-family: 'Lora', Georgia, serif;
+  --font-body-family: 'Euclid Flex', 'Satoshi', sans-serif;
   --font-heading-family: 'Loretta', Georgia, serif;
   --font-heading-weight: 700;
-  --smooch-font-serif: 'Lora', Georgia, serif;
+  --smooch-font-serif: 'Euclid Flex', 'Satoshi', sans-serif;
   --smooch-font-label: 'Euclid Flex', 'Satoshi', sans-serif;
   --smooch-font-numeric: 'Proxima Nova', 'Satoshi', sans-serif;
 }
