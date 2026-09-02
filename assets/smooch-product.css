@@ -2257,11 +2257,11 @@ body.smooch-sticky-atc-visible {
   font-family: 'Euclid Flex', 'Satoshi', sans-serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 1rem;
-  line-height: 1.6rem;
+  font-size: 1.15rem;
+  line-height: 1.8rem;
   text-transform: uppercase;
   letter-spacing: normal;
-  padding: 0.3rem 0.8rem;
+  padding: 0.4rem 1rem;
 }
 
 /* Selected size card carries the ink border (Figma's black outline). */
