@@ -2470,8 +2470,9 @@ body.smooch-sticky-atc-visible {
   white-space: nowrap;
 }
 
-.smooch-buybox .smooch-subpanel__ship-ribbon .smooch-icon {
-  width: 1.2rem;
+/* Owner's white bolt glyph (26x34 art scaled to the text height). */
+.smooch-buybox .smooch-subpanel__ship-ribbon .smooch-subpanel__ship-bolt {
+  width: auto;
   height: 1.2rem;
   filter: drop-shadow(0 0 3.54px rgba(255, 255, 255, 0.2));
 }
@@ -2700,8 +2701,7 @@ body.smooch-sticky-atc-visible {
     top: -1.2rem;
   }
 
-  .smooch-buybox .smooch-subpanel__ship-ribbon .smooch-icon {
-    width: 1.5rem;
+  .smooch-buybox .smooch-subpanel__ship-ribbon .smooch-subpanel__ship-bolt {
     height: 1.5rem;
   }
 }
