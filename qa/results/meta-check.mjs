@@ -1,0 +1,18 @@
+import { chromium } from '@playwright/test';
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+await p.goto('http://127.0.0.1:9292/products/smooch-daily-gummies-qa', { waitUntil: 'networkidle' });
+const read = () => p.evaluate(() => document.querySelector('.smooch-subpanel__meta').innerText.replace(/\n/g, ' | ').trim());
+console.log('1mo:', await read());
+await p.locator('.smooch-bundle__input').nth(1).click({ force: true });
+await p.waitForTimeout(400);
+console.log('2mo:', await read());
+await p.locator('.smooch-bundle__input').nth(2).click({ force: true });
+await p.waitForTimeout(400);
+console.log('3mo:', await read());
+const bb = await p.locator('.smooch-subpanel').boundingBox();
+await p.evaluate(() => document.querySelector('.smooch-subpanel').scrollIntoView({ block: 'center' }));
+await p.waitForTimeout(200);
+const r2 = await p.locator('.smooch-subpanel').boundingBox();
+await p.screenshot({ path: process.env.CLAUDE_JOB_DIR + '/tmp/meta-mobile.png', clip: { x: 0, y: r2.y - 30, width: 390, height: 240 } });
+await b.close();

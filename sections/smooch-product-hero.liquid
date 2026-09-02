@@ -533,6 +533,7 @@
                                   <span data-sub-supply>
                                     {%- if default_bundle_qty == 1 %}1 bottle{% else %}{{ default_bundle_qty }} bottles{% endif -%}
                                   </span>
+                                  <span data-sub-count {% if panel_bundle.settings.count == 0 %}hidden{% endif %}>&middot; <span class="smooch-num">{{ panel_bundle.settings.count }}</span> Count</span>
                                   <span data-sub-perday-wrap {% if panel_per_day == 0 %}hidden{% endif %}><span class="smooch-num" data-sub-perday>{% if panel_per_day > 0 %}{{ panel_per_day | money }}{% endif %}</span> / Day</span>
                                 </p>
                                 <p class="smooch-subpanel__saving smooch-num" data-sub-saving {% if panel_save <= 0 %}hidden{% endif %}>
@@ -736,6 +737,7 @@
                           {
                             "quantity": {{ bqty }},
                             "days": {{ bundle_block.settings.days | default: 0 }},
+                            "count": {{ bundle_block.settings.count | default: 0 }},
                             "label": {{ bundle_block.settings.title | json }},
                             "variantValue": {{ bundle_block.settings.variant_value | strip | json }},
                             "preselected": {{ bundle_block.settings.preselected | json }},
