@@ -1,0 +1,13 @@
+import { chromium } from '@playwright/test';
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+await p.goto('http://127.0.0.1:9292/products/smooch-daily-gummies-qa', { waitUntil: 'networkidle' });
+const rib = await p.locator('.smooch-subpanel__ship-ribbon').boundingBox();
+const cards = await p.locator('.smooch-buybox .smooch-bundle__card').last().boundingBox();
+const panel = await p.locator('.smooch-subpanel').boundingBox();
+console.log(JSON.stringify({ ribbonTop: rib?.y, cardsBottom: cards.y + cards.height, panelTop: panel.y, gap: panel.y - (cards.y + cards.height) }));
+await p.evaluate(() => document.querySelector('.smooch-subpanel').scrollIntoView({ block: 'center' }));
+await p.waitForTimeout(300);
+const r2 = await p.locator('.smooch-subpanel').boundingBox();
+await p.screenshot({ path: process.env.CLAUDE_JOB_DIR + '/tmp/mobile-subpanel.png', clip: { x: 0, y: r2.y - 90, width: 390, height: 260 } });
+await b.close();

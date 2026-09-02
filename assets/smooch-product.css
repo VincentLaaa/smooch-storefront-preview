@@ -2682,6 +2682,30 @@ body.smooch-sticky-atc-visible {
   line-height: 1.8rem;
 }
 
+/* The ships-next-day ribbon rides 0.9rem above the autoship box, so on
+   mobile the size grid needs extra clearance or the ribbon collides with
+   the cards. */
+@media screen and (max-width: 749px) {
+  .smooch-buybox .smooch-plans {
+    margin-top: 2.8rem;
+  }
+
+  /* Chunkier ribbon on small screens — the desktop cut reads too thin. */
+  .smooch-buybox .smooch-subpanel__ship-ribbon {
+    height: 2.4rem;
+    padding: 0 1.2rem;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    border-radius: 12px;
+    top: -1.2rem;
+  }
+
+  .smooch-buybox .smooch-subpanel__ship-ribbon .smooch-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
 /* Per-day estimate sits directly under "N Month / NN Count" — no gap. */
 .smooch-buybox .smooch-bundle__per-day {
   margin-top: 0.2rem;
