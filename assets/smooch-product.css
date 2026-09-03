@@ -2873,3 +2873,14 @@ body.smooch-sticky-atc-visible {
   width: 100%;
   height: 100%;
 }
+
+/* Size cards per owner: title, count, per-day, and the card badges all in
+   the Proxima-led numeric face at bold. Appended last so it outruns the
+   earlier Loretta title / lighter count treatments. */
+.smooch-buybox .smooch-bundle__title,
+.smooch-buybox .smooch-bundle__count,
+.smooch-buybox .smooch-bundle__per-day,
+.smooch-buybox .smooch-bundle__badge {
+  font-family: var(--smooch-font-numeric, var(--font-body-family));
+  font-weight: 700;
+}

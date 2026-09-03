@@ -438,8 +438,15 @@ if (!customElements.get('smooch-offer')) {
         if (planLabelEl && bundleMeta.label) planLabelEl.textContent = bundleMeta.label;
         // "Most popular" only makes sense for the size it's actually badging —
         // re-hide/show it as the shopper switches supply size.
+        // The card ribbon mirrors the selected size's own badge ("Most
+        // Popular" for 2 months, "Best Value" for 3) and hides for sizes
+        // with no badge.
         const ribbon = this.querySelector('[data-sub-ribbon]');
-        if (ribbon) ribbon.hidden = !bundleMeta.mostPopular;
+        if (ribbon) {
+          const badge = (bundleMeta.badge || '').trim();
+          ribbon.hidden = !badge;
+          if (badge) ribbon.textContent = badge;
+        }
         const supplyEl = this.querySelector('[data-summary-supply]');
         const bundleQty = bundleMeta.quantity || 1;
         const bottleText = `${bundleQty} bottle${bundleQty === 1 ? '' : 's'}`;
