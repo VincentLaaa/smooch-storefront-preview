@@ -484,7 +484,7 @@
                         <fieldset class="smooch-plans" {{ block.shopify_attributes }}>
                           <legend class="visually-hidden">{{ block.settings.heading | default: 'Choose how to buy' }}</legend>
                           <div class="smooch-subpanel{% unless default_is_subscribe %} smooch-subpanel--inactive{% endunless %}" data-sub-panel>
-                            <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry" data-sub-ribbon {% unless panel_bundle.settings.most_popular %}hidden{% endunless %}>{{ block.settings.badge | default: 'Most popular' }}</span>
+                            <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry" data-sub-ribbon {% if panel_bundle.settings.badge == blank %}hidden{% endif %}>{{ panel_bundle.settings.badge }}</span>
                             <span class="smooch-subpanel__ship-ribbon">
                               <img class="smooch-subpanel__ship-bolt" src="{{ 'smooch-bolt.png' | asset_url }}" alt="" width="26" height="34" loading="lazy">
                               <span class="smooch-subpanel__ship-text">Ships Same Day from Utah</span>
@@ -742,6 +742,7 @@
                             "variantValue": {{ bundle_block.settings.variant_value | strip | json }},
                             "preselected": {{ bundle_block.settings.preselected | json }},
                             "mostPopular": {{ bundle_block.settings.most_popular | json }},
+                            "badge": {{ bundle_block.settings.badge | default: '' | json }},
                             "sellingPlanId": {{ bundle_block.settings.selling_plan_id | append: '' | json }}
                           }{% unless forloop.last %},{% endunless %}
                         {%- endfor -%}
