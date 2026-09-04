@@ -1,55 +1,73 @@
-/* Smooch science section: accessible tab switcher.
- * Standard tablist semantics — click or roving-focus arrow keys select a
- * tab, aria-selected and hidden stay in sync. No motion, no dependencies.
- */
+/* Gentle illustration loops with visibility, motion preference and editor cleanup. */
 (() => {
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (window.smoochScienceInitialized) return;
+  window.smoochScienceInitialized = true;
+  const controllers = new Map();
 
-  document.querySelectorAll('[data-smooch-science]').forEach((section) => {
-    // Looping illustration animations: hold on the poster frame under
-    // reduced motion, and only play the visible tab's video.
-    const syncVideos = () => {
-      section.querySelectorAll('video[data-science-anim]').forEach((video) => {
-        const hidden = video.closest('[role="tabpanel"]')?.hidden;
-        if (prefersReducedMotion || hidden) {
+  const init = (section) => {
+    if (controllers.has(section)) return;
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const panels = [...section.querySelectorAll('.smooch-science__panel')];
+    const videos = [...section.querySelectorAll('[data-science-anim]')];
+    const button = section.querySelector('[data-science-motion]');
+    let paused = false;
+
+    const sync = () => {
+      const stopped = paused || motion.matches || document.hidden;
+      section.toggleAttribute('data-motion-paused', stopped);
+      videos.forEach((video) => {
+        if (stopped || video.closest('.smooch-science__panel').hasAttribute('data-science-offscreen')) {
           video.pause();
-          if (prefersReducedMotion) video.removeAttribute('autoplay');
         } else {
-          video.play().catch(() => {});
+          video.muted = true;
+          video.playbackRate = 0.65;
+          video.play().catch(() => {}); // Poster remains if autoplay is unavailable.
         }
       });
-    };
-    syncVideos();
-
-    const tabs = Array.from(section.querySelectorAll('[role="tab"]'));
-    if (tabs.length < 2) return;
-
-    const select = (tab, focus = false) => {
-      tabs.forEach((other) => {
-        const active = other === tab;
-        other.classList.toggle('is-active', active);
-        other.setAttribute('aria-selected', active ? 'true' : 'false');
-        other.tabIndex = active ? 0 : -1;
-        const panel = section.querySelector(`#${other.getAttribute('aria-controls')}`);
-        if (panel) panel.hidden = !active;
-      });
-      syncVideos();
-      if (focus) tab.focus();
+      if (button) {
+        button.hidden = motion.matches;
+        button.textContent = paused ? 'Play animations' : 'Pause animations';
+        button.setAttribute('aria-pressed', String(paused));
+      }
     };
 
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => select(tab));
-      tab.addEventListener('keydown', (event) => {
-        let target = null;
-        if (event.key === 'ArrowRight') target = tabs[(index + 1) % tabs.length];
-        else if (event.key === 'ArrowLeft') target = tabs[(index - 1 + tabs.length) % tabs.length];
-        else if (event.key === 'Home') target = tabs[0];
-        else if (event.key === 'End') target = tabs[tabs.length - 1];
-        if (target) {
-          event.preventDefault();
-          select(target, true);
-        }
+    const observer = 'IntersectionObserver' in window ? new IntersectionObserver((entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        target.toggleAttribute('data-science-offscreen', !isIntersecting);
       });
+      sync();
+    }, { threshold: 0.05 }) : null;
+    panels.forEach((panel) => {
+      panel.toggleAttribute('data-science-offscreen', Boolean(observer));
+      observer?.observe(panel);
+    });
+
+    const toggle = () => { paused = !paused; sync(); };
+    button?.addEventListener('click', toggle);
+    motion.addEventListener('change', sync);
+    document.addEventListener('visibilitychange', sync);
+    section.setAttribute('data-science-ready', '');
+    sync();
+
+    controllers.set(section, () => {
+      observer?.disconnect();
+      videos.forEach((video) => video.pause());
+      button?.removeEventListener('click', toggle);
+      motion.removeEventListener('change', sync);
+      document.removeEventListener('visibilitychange', sync);
+      controllers.delete(section);
+    });
+  };
+
+  const initWithin = (root) => {
+    if (root.matches?.('[data-smooch-science]')) init(root);
+    root.querySelectorAll('[data-smooch-science]').forEach(init);
+  };
+  initWithin(document);
+  document.addEventListener('shopify:section:load', (event) => initWithin(event.target));
+  document.addEventListener('shopify:section:unload', (event) => {
+    controllers.forEach((cleanup, section) => {
+      if (event.target.contains(section)) cleanup();
     });
   });
 })();

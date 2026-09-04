@@ -2710,7 +2710,7 @@ body.smooch-sticky-atc-visible {
   }
 }
 
-/* =============== Figma size cards v2: tall, centered, art on top =============== */
+/* =============== Size cards: fuller artwork and readable, centered labels =============== */
 
 .smooch-buybox .smooch-bundle__card {
   display: flex;
@@ -2718,19 +2718,24 @@ body.smooch-sticky-atc-visible {
   align-items: center;
   justify-content: flex-start;
   gap: 0;
-  min-height: 15.1rem;
-  padding: 1.4rem 0.5rem 1rem;
+  min-height: 16.4rem;
+  padding: 1rem 0.5rem 0.9rem;
   text-align: center;
 }
 
 .smooch-buybox .smooch-bundle__thumb--art {
-  margin: 0 auto 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 7.2rem;
+  margin: 0 auto 0.6rem;
   align-self: center;
 }
 
 .smooch-buybox .smooch-bundle__thumb--art img {
-  height: 5.4rem;
-  max-width: 10rem;
+  height: 6.4rem;
+  max-width: min(11.8rem, 100%);
   object-fit: contain;
   margin: 0 auto;
 }
@@ -2743,13 +2748,13 @@ body.smooch-sticky-atc-visible {
 .smooch-buybox .smooch-bundle__title {
   font-family: var(--font-heading-family);
   font-weight: 600;
-  font-size: 1.45rem;
-  line-height: 2rem;
+  font-size: 1.65rem;
+  line-height: 2.2rem;
 }
 
 .smooch-buybox .smooch-bundle__count {
-  font-size: 1.2rem;
-  line-height: 1.8rem;
+  font-size: 1.35rem;
+  line-height: 2rem;
 }
 
 /* The ships-next-day ribbon rides 0.9rem above the autoship box, so on
@@ -2806,22 +2811,41 @@ body.smooch-sticky-atc-visible {
   }
 }
 
-/* Per-day estimate sits directly under "N Month / NN Count" — no gap. */
+/* Keep the per-day estimate close to the size and count. */
 .smooch-buybox .smooch-bundle__per-day {
   margin-top: 0.2rem;
-  font-size: 0.97rem;
-  line-height: 1.3rem;
+  font-size: 1.1rem;
+  line-height: 1.6rem;
 }
 
 @media screen and (max-width: 749px) {
   .smooch-buybox .smooch-bundle__card {
-    padding: 1.2rem 0.4rem 0.9rem;
-    min-height: 14rem;
+    padding: 1rem 0.4rem 0.9rem;
+    min-height: 15.4rem;
+  }
+
+  .smooch-buybox .smooch-bundle__thumb--art {
+    height: 6.6rem;
   }
 
   .smooch-buybox .smooch-bundle__thumb--art img {
-    height: 4.6rem;
-    max-width: 8.4rem;
+    height: 5.6rem;
+    max-width: min(10.4rem, 100%);
+  }
+
+  .smooch-buybox .smooch-bundle__title {
+    font-size: 1.5rem;
+  }
+
+  .smooch-buybox .smooch-bundle__count {
+    font-size: 1.25rem;
+  }
+}
+
+/* The two-column tablet layout gives each size card less horizontal room. */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .smooch-buybox .smooch-bundles__list {
+    gap: 0.7rem;
   }
 
   .smooch-buybox .smooch-bundle__title {
@@ -2829,20 +2853,23 @@ body.smooch-sticky-atc-visible {
   }
 
   .smooch-buybox .smooch-bundle__count {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+  }
+
+  .smooch-buybox .smooch-bundle__per-day {
+    font-size: 0.95rem;
   }
 }
 
-/* Stack geometry: every bottle renders at the same size, so the taller
-   3-pack triangle gets proportionally more art height. */
+/* Give the taller three-pack artwork more height within the aligned art row. */
 .smooch-buybox .smooch-bundle:nth-child(3) .smooch-bundle__thumb--art img {
-  height: 6.6rem;
+  height: 7.2rem;
 }
 
 @media screen and (max-width: 749px) {
   .smooch-buybox .smooch-bundle:nth-child(3) .smooch-bundle__thumb--art img {
-    height: 5.7rem;
-    max-width: 9rem;
+    height: 6.6rem;
+    max-width: min(10.4rem, 100%);
   }
 }
 
