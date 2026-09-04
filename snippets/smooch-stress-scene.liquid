@@ -1,0 +1,106 @@
+{% comment %}
+  Reference artwork with an animated SVG magnification detail.
+  Keep the anatomy and framing intact; motion is illustrative, not a result timeline.
+  IDs are scoped for multiple instances in the theme editor.
+{% endcomment %}
+{%- assign scene_key = scene_id | append: '-' | append: block_id -%}
+<div class="smooch-stress-scene" role="img" aria-label="Illustration of a gently pulsing brain with moving molecules in a magnified detail labeled Cortisol Hormone.">
+  <img
+    class="smooch-stress-scene__reference"
+    src="{{ 'smooch-science-stress-reference.png' | asset_url }}"
+    width="700"
+    height="566"
+    loading="lazy"
+    alt=""
+  >
+  <svg class="smooch-stress-scene__overlay" viewBox="0 0 350 283" fill="none" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id="StressDetail-{{ scene_key }}">
+        <circle cx="266" cy="67" r="49.7" />
+      </clipPath>
+      <filter id="StressGlow-{{ scene_key }}" x="-30%" y="-40%" width="160%" height="180%">
+        <feGaussianBlur stdDeviation="5" />
+      </filter>
+      <filter id="StressBrainEdge-{{ scene_key }}" x="-5%" y="-5%" width="110%" height="110%">
+        <feGaussianBlur stdDeviation="0.8" />
+      </filter>
+      <mask id="StressBrain-{{ scene_key }}" maskUnits="userSpaceOnUse" x="43" y="20" width="152" height="132">
+        <path d="M50 105C45 96 49 75 54 65C57 53 64 47 72 45C77 34 85 31 94 32C101 25 110 25 118 28C126 22 136 24 143 28C153 25 164 30 166 37C177 40 183 48 184 56C192 65 193 79 185 88C177 96 168 98 157 96C155 106 143 111 130 112C129 122 119 125 116 132L111 145Q104 150 99 144L94 128C84 133 73 128 66 120L62 109Q53 112 50 105Z" fill="white" filter="url(#StressBrainEdge-{{ scene_key }})" />
+      </mask>
+      <g id="StressMolecule-{{ scene_key }}" fill="#f8f1e9" stroke="#f8f1e9" stroke-width="1.2">
+        <path d="M0 0 9-9M0 0-11-4M0 0 2 11" />
+        <circle r="4.5" />
+        <circle cx="9" cy="-9" r="3.4" />
+        <circle cx="-11" cy="-4" r="3.2" />
+        <circle cx="2" cy="11" r="2.6" />
+      </g>
+      <g id="StressHormone-{{ scene_key }}" fill="#ff516b" stroke="#f9223f" stroke-width="1.4" stroke-linecap="round">
+        <path d="M-3 0H3" stroke-width="2.5" />
+        <rect x="-8" y="-2.2" width="6" height="4.4" rx="2.2" />
+        <rect x="2" y="-2.2" width="6" height="4.4" rx="2.2" />
+      </g>
+    </defs>
+
+    <ellipse class="smooch-stress-scene__glow" cx="120" cy="81" rx="68" ry="51" stroke="#ff476c" stroke-width="7" filter="url(#StressGlow-{{ scene_key }})" />
+    <g class="smooch-stress-scene__brain">
+      <image href="{{ 'smooch-science-stress-reference.png' | asset_url }}" width="350" height="283" mask="url(#StressBrain-{{ scene_key }})" />
+    </g>
+
+    <circle cx="266" cy="67" r="49.7" fill="#ff9aa1" stroke="#fa8f97" stroke-width="0.75" />
+    <g clip-path="url(#StressDetail-{{ scene_key }})">
+      {%- for molecule in (1..7) -%}
+        {%- liquid
+          case molecule
+            when 1
+              assign position = 'translate(237 36) rotate(62)'
+            when 2
+              assign position = 'translate(279 28) rotate(129)'
+            when 3
+              assign position = 'translate(308 48) rotate(-107)'
+            when 4
+              assign position = 'translate(257 60) rotate(0)'
+            when 5
+              assign position = 'translate(287 75) rotate(26)'
+            when 6
+              assign position = 'translate(246 95) rotate(-51)'
+            when 7
+              assign position = 'translate(286 109) rotate(112)'
+          endcase
+        -%}
+        <g transform="{{ position }}">
+          <g class="smooch-stress-scene__molecule" style="--motion-delay: -{{ molecule | times: 1.3 }}s; --motion-duration: {{ molecule | plus: 10 }}s;">
+            <use href="#StressMolecule-{{ scene_key }}" />
+          </g>
+        </g>
+      {%- endfor -%}
+      {%- for hormone in (1..6) -%}
+        {%- liquid
+          case hormone
+            when 1
+              assign position = 'translate(260 23) rotate(80)'
+            when 2
+              assign position = 'translate(220 56) rotate(45)'
+            when 3
+              assign position = 'translate(237 73) rotate(-58)'
+            when 4
+              assign position = 'translate(285 54) rotate(-7)'
+            when 5
+              assign position = 'translate(266 87) rotate(70)'
+            when 6
+              assign position = 'translate(310 80) rotate(33)'
+          endcase
+        -%}
+        <g transform="{{ position }}">
+          <g class="smooch-stress-scene__molecule smooch-stress-scene__molecule--hormone" style="--motion-delay: -{{ hormone | times: 1.7 }}s; --motion-duration: {{ hormone | plus: 8 }}s;">
+            <use href="#StressHormone-{{ scene_key }}" />
+          </g>
+        </g>
+      {%- endfor -%}
+    </g>
+
+    <g class="smooch-stress-scene__label">
+      <rect x="217" y="107" width="99.75" height="21" rx="5" fill="#fe516d" stroke="#fa2644" stroke-width="0.5" />
+      <text x="266.875" y="121" text-anchor="middle" fill="#f6f5f5" font-family="Euclid Flex, sans-serif" font-size="10" font-weight="500">Cortisol Hormone</text>
+    </g>
+  </svg>
+</div>

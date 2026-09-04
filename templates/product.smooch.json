@@ -176,109 +176,43 @@
         "item-1": {
           "type": "item",
           "settings": {
-            "icon": "moon",
-            "text": "One gummy, once a day"
+            "icon": "gluten-free",
+            "text": "Gluten Free"
           }
         },
         "item-2": {
           "type": "item",
           "settings": {
-            "icon": "leaf",
-            "text": "Four ingredients, no hiding"
+            "icon": "heart",
+            "text": "Made in USA"
           }
         },
-        "guarantee-1": {
-          "type": "guarantee",
+        "item-3": {
+          "type": "item",
           "settings": {
-            "icon": "shield"
+            "icon": "no-artificial-colors",
+            "text": "No Artificial Colors"
+          }
+        },
+        "item-4": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "text": "Vegan"
           }
         }
       },
       "block_order": [
         "item-1",
         "item-2",
-        "guarantee-1"
-      ],
-      "settings": {}
-    },
-    "body": {
-      "type": "smooch-timeline",
-      "blocks": {
-        "step-1": {
-          "type": "step",
-          "settings": {
-            "period": "Week 1",
-            "heading": "Build the ritual",
-            "text": "Week one is just the habit — pair [brand] with a moment you already keep for yourself: morning coffee, the wind-down, the quiet hour.",
-            "icon": "sparkle"
-          }
-        },
-        "step-2": {
-          "type": "step",
-          "settings": {
-            "period": "Week 2",
-            "heading": "Settle into consistency",
-            "text": "Keep the daily rhythm going. There's no switch to feel for — this is baseline territory, the stuff you only notice by its absence later.",
-            "icon": "sparkle"
-          }
-        },
-        "step-3": {
-          "type": "step",
-          "settings": {
-            "period": "Week 3",
-            "heading": "Notice the subtle stuff",
-            "text": "A good week to check in: mood, presence, how loud your brain feels by evening. Real noticing tends to be gradual and subtle, and experiences vary.",
-            "icon": "sparkle"
-          }
-        },
-        "step-4": {
-          "type": "step",
-          "settings": {
-            "period": "Week 4",
-            "heading": "Check in with yourself",
-            "text": "After several weeks, ask the real question: do I feel a little more like me? That's how [brand] earns its place — or doesn't.",
-            "icon": "sparkle"
-          }
-        },
-        "fact-1": {
-          "type": "fact",
-          "settings": {
-            "title": "Timing",
-            "text": "Take the recommended serving at a time you can stay consistent with. Use the final label directions as the source of truth."
-          }
-        },
-        "fact-2": {
-          "type": "fact",
-          "settings": {
-            "title": "Results",
-            "text": "There's no guaranteed timeline, and we won't invent one. Those who notice a change describe it as gradual — some don't notice much. Experiences vary."
-          }
-        },
-        "fact-3": {
-          "type": "fact",
-          "settings": {
-            "title": "Consistency",
-            "text": "[brand] is a daily ritual, not an on-demand product — tending, not a switch. Follow the final label directions."
-          }
-        }
-      },
-      "block_order": [
-        "step-1",
-        "step-2",
-        "step-3",
-        "step-4",
-        "fact-1",
-        "fact-2",
-        "fact-3"
+        "item-3",
+        "item-4"
       ],
       "settings": {
-        "color_scheme": "scheme-6",
-        "eyebrow": "No overnight promises",
-        "heading": "What the first month looks like",
-        "lead": "[brand] is built for consistent daily support, not an on-demand effect. Change like this tends to arrive quietly — a bit more present, a bit more open, a bit more like yourself. There's no switch to flip. What you notice, and when, varies from person to person.",
-        "disclaimer": "These are rhythm milestones, not guaranteed results. Individual experiences vary.",
-        "padding_top": 64,
-        "padding_bottom": 64
+        "badge_layout": true,
+        "show_dividers": false,
+        "padding_top": 12,
+        "padding_bottom": 12
       }
     },
     "benefits": {
@@ -288,6 +222,8 @@
           "type": "area",
           "settings": {
             "label": "Stress & Mood",
+            "biology_label": "What's Happening",
+            "helps_label": "How We Help",
             "fallback_visual": "anim-mind",
             "biology_text": "<p>Desire runs on bandwidth. When your brain reads the day as one long to-do list, your nervous system stays on duty — and everything quieter gets muted. It isn't a lack of love, and nothing is broken: a mind that never clocks out simply has no room left for wanting anything.</p>",
             "helps_text": "<p><strong>KSM-66 Ashwagandha</strong> — an adaptogenic root with a long history in Ayurvedic practice — is included to support stress resilience and a calmer everyday baseline. With daily consistency, [brand] supports the settled, present feeling that gives the rest of you room to show up.*</p>"
@@ -297,6 +233,8 @@
           "type": "area",
           "settings": {
             "label": "Desire & Energy",
+            "biology_label": "What's Happening",
+            "helps_label": "How We Help",
             "fallback_visual": "anim-heart",
             "biology_text": "<p>For many women, desire is responsive rather than spontaneous — it rarely shows up first. It tends to arrive after closeness begins, when there's no pressure attached. That's a normal desire style, not a flaw. But it needs somewhere to build: energy left at the end of the day, and a mind at ease enough to notice what it wants.</p>",
             "helps_text": "<p><strong>Black Maca</strong>, a Peruvian root traditionally used to support desire and energy, is paired with <strong>Damiana</strong>, a botanical leaf with centuries of traditional use around relaxation and openness. Together they are [brand]'s daily support for the part of you that wants to want.*</p>"
@@ -306,6 +244,8 @@
           "type": "area",
           "settings": {
             "label": "Connection & Presence",
+            "biology_label": "What's Happening",
+            "helps_label": "How We Help",
             "fallback_visual": "anim-hands",
             "biology_text": "<p>Presence is physical. When your mind is elsewhere — replaying the day, watching yourself, waiting for your body to catch up — closeness can feel mechanical instead of natural. Feeling connected to someone else starts with feeling at ease in your own body first.</p>",
             "helps_text": "<p>[brand] is built as one small daily ritual, not an in-the-moment fix: the full four-ingredient blend, finished with warming <strong>Cinnamon Bark</strong>, taken consistently over weeks. Quiet, steady support for feeling more like yourself — and more present when it matters.*</p>"
@@ -318,8 +258,8 @@
         "area-3"
       ],
       "settings": {
-        "eyebrow": "The science",
-        "heading": "The Science Behind [brand] Desire & Mood",
+        "eyebrow": "",
+        "heading": "The Science Behind Our Formula",
         "disclaimer": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
         "padding_top": 64,
         "padding_bottom": 64
@@ -970,7 +910,16 @@
         "count_caption": "Based on 1,692 reviews",
         "topline_count": "1,692+ Reviews",
         "padding_top": 64,
-        "padding_bottom": 64
+        "padding_bottom": 64,
+        "reviews_initial": 2,
+        "reviews_per_batch": 6,
+        "show_attributes": false,
+        "show_summary": false,
+        "show_search": true,
+        "show_sorting": true,
+        "search_chips": "Sex drive, Energy, Taste, Mood, Stress, Partner",
+        "background_color": "#FFF1F4",
+        "accent_color": "#F65275"
       }
     },
     "ugc_reviews": {
@@ -1026,7 +975,6 @@
   "order": [
     "hero",
     "benefit_strip",
-    "body",
     "benefits",
     "ugc_reviews",
     "formula",

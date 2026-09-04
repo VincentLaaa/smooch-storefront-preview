@@ -28,6 +28,11 @@
   color: rgb(var(--color-foreground));
 }
 
+.smooch-benefit-strip__symbol {
+  display: flex;
+  flex-shrink: 0;
+}
+
 .smooch-benefit-strip__text {
   font-family: var(--font-body-family);
   font-size: 1.1rem;
@@ -72,5 +77,79 @@
 @media screen and (min-width: 990px) {
   .smooch-benefit-strip__icon {
     --icon-size: 2rem;
+  }
+}
+
+/* Compact product badges from the 349 × 74 mobile design. */
+/* The hero's bottom padding shares this band's background and otherwise
+   adds an empty strip above the badges, making the whole banner uneven. */
+.smooch-product-hero-section:has(+ .shopify-section .smooch-benefit-strip--badges) .smooch-product {
+  padding-bottom: 0;
+}
+
+.smooch-benefit-strip--badges {
+  background: transparent;
+}
+
+.smooch-benefit-strip--badges .smooch-benefit-strip__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  gap: 0;
+  min-height: 74px;
+  max-width: 700px;
+  margin-inline: auto;
+  padding: 6px 0;
+  background: #fff1f4;
+  border-radius: 10px;
+}
+
+.smooch-benefit-strip--badges .smooch-benefit-strip__item {
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.4px;
+  padding: 0;
+  text-align: center;
+}
+
+.smooch-benefit-strip--badges .smooch-benefit-strip__symbol {
+  align-items: center;
+  justify-content: center;
+  width: 47.6px;
+  height: 47.6px;
+  border: 1.75px solid #222222;
+  border-radius: 50%;
+  background: transparent;
+  color: #222222;
+}
+
+.smooch-benefit-strip--badges .smooch-benefit-strip__icon {
+  --icon-size: 30px;
+  color: inherit;
+}
+
+.smooch-benefit-strip--badges .icon-gluten_free {
+  fill: currentColor;
+}
+
+.smooch-benefit-strip--badges .smooch-benefit-strip__text {
+  font-family: 'Euclid Flex', var(--font-body-family);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #222222;
+}
+
+.smooch-benefit-strip--badges .smooch-benefit-strip__item::before {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .smooch-benefit-strip--badges > .page-width {
+    padding-inline: 13px;
   }
 }

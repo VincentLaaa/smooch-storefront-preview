@@ -19,7 +19,7 @@
   assign guarantee_days = settings.smooch_guarantee_days | default: 0
 -%}
 
-<div class="smooch-band color-{{ section.settings.color_scheme }} gradient">
+<div class="smooch-band{% if section.settings.badge_layout %} smooch-benefit-strip--badges{% endif %} color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width section-{{ section.id }}-padding">
     {%- if section.settings.sr_heading != blank -%}
       <h2 class="visually-hidden">{{ section.settings.sr_heading | replace: '[brand]', brand_name | escape }}</h2>
@@ -34,7 +34,9 @@
           {%- when 'guarantee' -%}
             {%- if guarantee_days > 0 -%}
               <li class="smooch-benefit-strip__item" {{ block.shopify_attributes }}>
-                {% render 'smooch-icon', icon: block.settings.icon, class: 'smooch-benefit-strip__icon' %}
+                <span class="smooch-benefit-strip__symbol">
+                  {% render 'smooch-icon', icon: block.settings.icon, class: 'smooch-benefit-strip__icon' %}
+                </span>
                 <span class="smooch-benefit-strip__text">
                   {{- guarantee_days }}-day {{ settings.smooch_guarantee_text | default: 'money-back guarantee' | escape -}}
                 </span>
@@ -43,7 +45,9 @@
           {%- else -%}
             {%- if block.settings.text != blank -%}
               <li class="smooch-benefit-strip__item" {{ block.shopify_attributes }}>
-                {% render 'smooch-icon', icon: block.settings.icon, class: 'smooch-benefit-strip__icon' %}
+                <span class="smooch-benefit-strip__symbol">
+                  {% render 'smooch-icon', icon: block.settings.icon, class: 'smooch-benefit-strip__icon' %}
+                </span>
                 <span class="smooch-benefit-strip__text">
                   {{- block.settings.text | replace: '[brand]', brand_name | escape -}}
                 </span>
@@ -74,6 +78,12 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "badge_layout",
+      "label": "Show circular badges on a pink panel",
+      "default": false
     },
     {
       "type": "checkbox",
@@ -123,6 +133,8 @@
           "id": "icon",
           "label": "Icon",
           "options": [
+            { "value": "gluten-free", "label": "Gluten free" },
+            { "value": "no-artificial-colors", "label": "No artificial colors" },
             { "value": "sparkle", "label": "Sparkle" },
             { "value": "heart", "label": "Heart" },
             { "value": "check", "label": "Check" },

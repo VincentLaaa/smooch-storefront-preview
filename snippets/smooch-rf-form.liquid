@@ -1,0 +1,18 @@
+<dialog class="smooch-rf__dialog" data-rf-dialog aria-labelledby="RfWriteTitle-{{ section_id }}">
+  <button type="button" class="smooch-rf__dialog-close" data-rf-close aria-label="Close review form">{% render 'smooch-icon', icon: 'close' %}</button>
+  <h2 id="RfWriteTitle-{{ section_id }}">Write a review</h2>
+  <p>Share your experience with Smooch. Your order number helps us check your purchase before awarding a Verified Buyer badge.</p>
+  {%- assign review_form_id = 'RfWriteForm-' | append: section_id -%}
+  {% form 'contact', id: review_form_id %}
+    {% if form.posted_successfully? %}<p role="status" data-rf-form-result>Thank you. Your review has been sent to our team for review.</p>{% endif %}
+    {% if form.errors %}<div role="alert" data-rf-form-result>{{ form.errors | default_errors }}</div>{% endif %}
+    <input type="hidden" name="contact[Subject]" value="Product review: {{ product.title | escape }}">
+    <label>Name<input name="contact[name]" autocomplete="name" required></label>
+    <label>Email<input name="contact[email]" type="email" autocomplete="email" required></label>
+    <label>Order number<input name="contact[Order number]" autocomplete="off" required></label>
+    <label>Rating<select name="contact[Rating]" required><option value="">Choose a rating</option><option>5 stars</option><option>4 stars</option><option>3 stars</option><option>2 stars</option><option>1 star</option></select></label>
+    <label>Review title<input name="contact[Review title]" maxlength="150" required></label>
+    <label>Your review<textarea name="contact[body]" rows="4" required></textarea></label>
+    <button class="smooch-rf__button" type="submit">Submit review</button>
+  {% endform %}
+</dialog>

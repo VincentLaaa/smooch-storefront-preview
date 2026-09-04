@@ -1157,7 +1157,7 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     expect(await full.locator('.smooch-rf__row-demo').count()).toBe(0);
     expect(await full.locator('.smooch-rf__sample-badge').count()).toBe(0);
     const rowCount = await full.locator('.smooch-rf__row').count();
-    expect(await full.getByText(/verified buyer/i).count()).toBe(rowCount);
+    expect(await full.locator('.smooch-rf__verified-button').count()).toBe(rowCount);
 
     // No review/aggregateRating structured data anywhere on the page.
     const ldJsonBlocks = await page.locator('script[type="application/ld+json"]').allTextContents();
@@ -1186,7 +1186,7 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
 
     // Clicking the active row again clears the filter back to batched view.
     await oneStarRow.click();
-    await expect(full.locator('.smooch-rf__row:not([hidden])')).toHaveCount(6);
+    await expect(full.locator('.smooch-rf__row:not([hidden])')).toHaveCount(2);
     await expect(oneStarRow).toHaveAttribute('aria-pressed', 'false');
 
     // 2-star filter finds the shipping/subscription complaints.
@@ -1194,7 +1194,7 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     await expect(full.locator('.smooch-rf__row:not([hidden])')).toHaveCount(3);
   });
 
-  test('full reviews: initial 6 shown, "Show more" reveals the rest and then hides, sort has no errors', async ({ page }) => {
+  test('full reviews: initial 2 shown, "Show more" reveals the rest and then hides, sort has no errors', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     const errors = [];
     page.on('pageerror', (e) => errors.push(String(e)));
@@ -1202,13 +1202,13 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     const full = page.locator('#smooch-reviews');
     await full.scrollIntoViewIfNeeded();
 
-    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(6);
+    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(2);
     const moreBtn = full.locator('[data-smooch-show-more]');
     await expect(moreBtn).toBeVisible();
     await moreBtn.click();
     // Batches by 6 — one click reveals the next batch, not everything at
     // once; the button stays visible until the last batch.
-    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(12);
+    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(8);
     await expect(moreBtn).toBeVisible();
     const total = await full.locator('.smooch-rf__row').count();
     for (let i = 0; i < 20 && (await moreBtn.isVisible()); i++) {
@@ -1217,6 +1217,7 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(total);
     await expect(moreBtn).toBeHidden();
 
+    await full.locator('.smooch-rf__filters summary').click();
     await page.selectOption('[data-smooch-sort]', 'highest');
     await page.waitForTimeout(200);
     expect(errors).toEqual([]);
@@ -1254,7 +1255,7 @@ test.describe('Reviews: curated carousel + full reviews (product page only)', ()
     // Clear restores the batched default view.
     await full.locator('[data-smooch-search-clear]').click();
     await page.waitForTimeout(400);
-    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(6);
+    expect(await full.locator('.smooch-rf__row:not([hidden])').count()).toBe(2);
     await expect(full.locator('[data-smooch-show-more]')).toBeVisible();
 
     // Chips run a one-tap search and mark themselves active.

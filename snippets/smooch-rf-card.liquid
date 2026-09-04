@@ -1,0 +1,49 @@
+<div class="smooch-rf__row-meta">
+  <p class="smooch-rf__row-author">{{ block.settings.author | escape }}</p>
+  {%- assign resolved_label = block.settings.reviewer_label | default: reviewer_fallback -%}
+  <div class="smooch-rf__row-status">
+    {%- if resolved_label == 'Verified Buyer' -%}
+      <div class="smooch-rf__verified" data-rf-verified>
+        <button type="button" class="smooch-rf__verified-button" aria-expanded="false" aria-controls="RfVerified-{{ section_id }}-{{ block.id }}">
+          Verified Buyer {% render 'smooch-icon', icon: 'verified' %}
+        </button>
+        <div class="smooch-rf__verified-tip" id="RfVerified-{{ section_id }}-{{ block.id }}" hidden>
+          To earn this badge, reviewers must enter their order number when submitting a review so their purchase can be checked.
+        </div>
+      </div>
+    {%- else -%}
+      {{ resolved_label | escape }}
+    {%- endif -%}
+    {%- if is_sample -%}<span class="smooch-rf__row-demo">Demo review</span>{%- endif -%}
+  </div>
+  {%- if block.settings.age_range != blank or block.settings.gender != blank or block.settings.concerns != blank -%}
+    <dl class="smooch-rf__profile">
+      {%- if block.settings.age_range != blank -%}<div><dt>Age Range</dt><dd>{{ block.settings.age_range | escape }}</dd></div>{%- endif -%}
+      {%- if block.settings.gender != blank -%}<div><dt>Gender</dt><dd>{{ block.settings.gender | escape }}</dd></div>{%- endif -%}
+      {%- if block.settings.concerns != blank -%}<div><dt>Top Wellness Concerns</dt><dd>{{ block.settings.concerns | escape }}</dd></div>{%- endif -%}
+    </dl>
+  {%- endif -%}
+</div>
+<div class="smooch-rf__row-main">
+  <div class="smooch-rf__row-rating">
+    <span class="smooch-stars" role="img" aria-label="{{ block.settings.rating }} out of 5 stars">
+      {%- assign r_full = block.settings.rating | floor -%}
+      {%- for i in (1..5) -%}
+        {%- if i <= r_full -%}{% render 'smooch-icon', icon: 'star' %}{%- else -%}{% render 'smooch-icon', icon: 'star-empty' %}{%- endif -%}
+      {%- endfor -%}
+    </span>
+    {%- if block.settings.review_date != blank -%}<span class="smooch-rf__date">{{ block.settings.review_date | escape }}</span>{%- endif -%}
+  </div>
+  {%- if block.settings.title != blank -%}<h3 class="smooch-rf__row-title">{{ block.settings.title | escape }}</h3>{%- endif -%}
+  <p class="smooch-rf__row-text">{{ block.settings.text | escape }}</p>
+  {%- if block.settings.image != blank -%}
+    <a class="smooch-rf__photo" href="{{ block.settings.image | image_url: width: 1400 }}" target="_blank" rel="noopener" aria-label="Open review photo from {{ block.settings.author | escape }}">
+      {{ block.settings.image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100, 200', sizes: '74px', alt: 'Customer review photo' }}
+    </a>
+  {%- endif -%}
+  {%- if block.settings.product != blank -%}<p class="smooch-rf__row-product">Review for: {{ block.settings.product.title | escape }}</p>{%- endif -%}
+  <div class="smooch-rf__votes" data-rf-votes="{{ section_id }}-{{ block.id }}">
+    <button type="button" data-rf-vote="up" aria-label="Mark review helpful on this device" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 10h4v11H2zm6 11V10l5-8c3 0 3 3 2 7h5c2 0 2 2 2 3l-2 7c0 1-1 2-3 2z" fill="currentColor"/></svg><span>0</span></button>
+    <button type="button" data-rf-vote="down" aria-label="Mark review not helpful on this device" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 10h4v11H2zm6 11V10l5-8c3 0 3 3 2 7h5c2 0 2 2 2 3l-2 7c0 1-1 2-3 2z" fill="currentColor" transform="rotate(180 12 12)"/></svg><span>0</span></button>
+  </div>
+</div>

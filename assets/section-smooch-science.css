@@ -1,153 +1,158 @@
-/* Smooch science — O Positiv-style tabbed "The Science Behind" section:
-   centered head, pill tabs, then a panel of visual + two stacked cards
-   ("The Biology" / "How This Helps"). 1rem = 10px. */
-
-.smooch-science__head {
-  margin-bottom: clamp(2.4rem, 4vw, 3.6rem);
+/* Three formula stories, stacked on mobile and side by side on desktop. */
+.smooch-science__surface {
+  padding: 3.2rem 1.2rem 2.4rem;
+  border-radius: 1rem;
+  background: #fff1f4;
+  color: #222;
 }
-
-/* ---------- Tabs ---------- */
-
-.smooch-science__tabs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: clamp(2.4rem, 4vw, 3.6rem);
+.smooch-science__head { margin: 0 auto 2.8rem; max-width: 60rem; }
+.smooch-science__head .smooch-h2 {
+  margin: 0;
+  color: #222;
+  font-size: clamp(3rem, 3.2vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.05rem;
+  text-wrap: balance;
 }
-
-.smooch-science__tab {
-  padding: 1rem 2rem;
-  border: 0.1rem solid rgba(var(--smooch-ink-rgb), 0.25);
-  border-radius: 3rem;
-  background: none;
-  color: rgb(var(--color-foreground));
-  font-family: var(--smooch-font-label, var(--font-body-family));
-  font-size: 1.4rem;
-  font-weight: 700;
-  line-height: 1.2;
-  cursor: pointer;
-  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
-}
-
-.smooch-science__tab:hover {
-  border-color: var(--smooch-berry);
-}
-
-.smooch-science__tab.is-active {
-  background-color: var(--smooch-berry);
-  border-color: var(--smooch-berry);
-  color: rgb(255, 255, 255);
-}
-
-/* ---------- Panel ---------- */
-
+.smooch-science__grid { display: grid; gap: 3.2rem; }
 .smooch-science__panel {
-  display: grid;
-  gap: 1.6rem;
-  max-width: 96rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 50rem;
   margin-inline: auto;
 }
-
-.smooch-science__panel[hidden] {
-  display: none;
-}
-
-.smooch-science__visual {
-  border-radius: var(--smooch-radius-media);
-  overflow: hidden;
-  background-color: rgba(var(--smooch-blush-rgb), 0.4);
-}
-
-.smooch-science__visual:empty {
-  display: none;
-}
-
-.smooch-science__visual-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.smooch-science__cards {
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-}
-
-.smooch-science__card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1 1 auto;
-  gap: 1.4rem;
-  padding: clamp(2rem, 3vw, 3.2rem);
-  border-radius: var(--smooch-radius-card);
-  background-color: rgba(var(--smooch-blush-rgb), 0.28);
-  text-align: center;
-}
-
-.smooch-science__chip {
-  display: inline-block;
-  padding: 0.6rem 1.6rem;
-  border: 0.1rem solid var(--smooch-berry);
-  border-radius: 3rem;
-  color: var(--smooch-berry);
-  font-family: var(--smooch-font-label, var(--font-body-family));
-  font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-}
-
-.smooch-science__text {
-  font-family: var(--smooch-font-serif);
-  font-size: 1.6rem;
-  line-height: 1.65;
-  color: rgb(var(--color-foreground));
-  max-width: 52ch;
-}
-
-.smooch-science__text > * {
-  margin: 0;
-}
-
-.smooch-science__text > * + * {
-  margin-top: 1rem;
-}
-
-.smooch-science__disclaimer {
-  margin-top: clamp(2.4rem, 4vw, 3.6rem);
-  text-align: center;
-}
-
-/* ---------- Desktop split ---------- */
-
-@media screen and (min-width: 990px) {
-  .smooch-science__panel {
-    grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
-    align-items: stretch;
-  }
-
-  .smooch-science__cards {
-    justify-content: center;
-  }
-}
-
-/* ---------- Stacked flow (tabs retired) ---------- */
-
 .smooch-science__topic {
-  grid-column: 1 / -1;
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.8rem;
+  color: #222;
   text-align: center;
   font-family: var(--font-heading-family);
-  font-style: var(--font-heading-style);
-  font-weight: var(--font-heading-weight);
-  font-size: clamp(2.2rem, 2rem + 0.8vw, 2.8rem);
-  line-height: 1.15;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 2vw, 2.6rem);
+  line-height: 1.2;
+  text-wrap: balance;
 }
+.smooch-science__visual {
+  position: relative;
+  aspect-ratio: 350 / 283;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #fcf6f6;
+}
+.smooch-science__visual:empty { display: none; }
+.smooch-science__visual-img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-.smooch-science__panel + .smooch-science__panel {
-  margin-top: clamp(4.4rem, 6vw, 6.8rem);
+/* Stress & Mood keeps the supplied 350 × 283 composition at every size. */
+.smooch-stress-scene { position: relative; width: 100%; height: 100%; }
+.smooch-stress-scene__reference { display: block; width: 100%; height: 100%; object-fit: contain; }
+.smooch-stress-scene__overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
+.smooch-stress-scene__brain {
+  transform-box: view-box;
+  transform-origin: 120px 84px;
+  animation: smooch-stress-brain-pulse 6s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.smooch-stress-scene__glow {
+  opacity: 0.12;
+  animation: smooch-stress-glow 6s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.smooch-stress-scene__molecule {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: smooch-stress-float var(--motion-duration, 12s) ease-in-out var(--motion-delay, 0s) infinite;
+  animation-play-state: paused;
+}
+.smooch-stress-scene__molecule--hormone { animation-direction: reverse; }
+.smooch-stress-scene__label { filter: drop-shadow(0 0 1.77px rgb(0 0 0 / 15%)); }
+.smooch-science[data-science-ready]:not([data-motion-paused]) .smooch-science__panel:not([data-science-offscreen]) :is(.smooch-stress-scene__molecule, .smooch-stress-scene__glow, .smooch-stress-scene__brain) {
+  animation-play-state: running;
+}
+@keyframes smooch-stress-float {
+  0%, 100% { transform: translate(-1.5px, 1px) rotate(-8deg); }
+  35% { transform: translate(2px, -2px) rotate(7deg); }
+  70% { transform: translate(-1px, -3px) rotate(13deg); }
+}
+@keyframes smooch-stress-glow {
+  0%, 100% { opacity: 0.06; }
+  50% { opacity: 0.32; }
+}
+@keyframes smooch-stress-brain-pulse {
+  0%, 100% { transform: scale(1); filter: brightness(1) saturate(1); }
+  50% { transform: scale(1.035); filter: brightness(1.045) saturate(1.06); }
+}
+.smooch-science[data-science-ready] img.smooch-science__visual-img {
+  animation: smooch-science-drift 9s ease-in-out infinite alternate;
+}
+.smooch-science__panel:nth-child(2) img.smooch-science__visual-img { animation-delay: -3s; }
+.smooch-science__panel:nth-child(3) img.smooch-science__visual-img { animation-delay: -6s; }
+.smooch-science[data-motion-paused] img.smooch-science__visual-img,
+.smooch-science__panel[data-science-offscreen] img.smooch-science__visual-img { animation-play-state: paused; }
+.smooch-science__cards { display: flex; flex: 1; flex-direction: column; gap: 1.2rem; }
+.smooch-science__card {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.6rem;
+  border-radius: 1rem;
+  background: #fcf6f6;
+  text-align: center;
+}
+.smooch-science__chip {
+  margin: 0;
+  padding: 0.3rem 1rem;
+  border: 0.1rem solid #fa2644;
+  border-radius: 0.5rem;
+  color: #c91935;
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  text-transform: uppercase;
+}
+.smooch-science__text {
+  max-width: 48ch;
+  color: #222;
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+.smooch-science__text > * { margin: 0; }
+.smooch-science__text > * + * { margin-top: 1rem; }
+.smooch-science__motion {
+  display: block;
+  min-height: 4.4rem;
+  margin: 2rem auto 0;
+  padding: 0.8rem 1.6rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #a82039;
+  font: inherit;
+  font-size: 1.2rem;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+  cursor: pointer;
+}
+.smooch-science__motion[hidden] { display: none; }
+.smooch-science__motion:focus-visible { outline: 0.2rem solid #a82039; outline-offset: 0.2rem; }
+.smooch-science__disclaimer { max-width: 90rem; margin: 2rem auto 0; color: #595055; text-align: center; }
+@keyframes smooch-science-drift {
+  from { transform: scale(1); }
+  to { transform: scale(1.035) translateY(-0.3rem); }
+}
+@media screen and (min-width: 990px) {
+  .smooch-science__surface { padding: 4.8rem 2.4rem 2.8rem; }
+  .smooch-science__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.6rem; }
+  .smooch-science__topic { min-height: 6.3rem; display: grid; place-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .smooch-science[data-science-ready] img.smooch-science__visual-img { animation: none; }
+  .smooch-stress-scene__molecule,
+  .smooch-stress-scene__glow,
+  .smooch-stress-scene__brain { animation: none; }
 }
