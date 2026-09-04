@@ -153,3 +153,29 @@
     padding-inline: 13px;
   }
 }
+
+@media screen and (min-width: 990px) {
+  .smooch-benefit-strip--badges .smooch-benefit-strip__list {
+    max-width: 90rem;
+    min-height: 11rem;
+    padding: 1.6rem;
+  }
+
+  .smooch-benefit-strip--badges .smooch-benefit-strip__item {
+    gap: 0.6rem;
+  }
+
+  .smooch-benefit-strip--badges .smooch-benefit-strip__symbol {
+    width: 5.8rem;
+    height: 5.8rem;
+  }
+
+  .smooch-benefit-strip--badges .smooch-benefit-strip__icon {
+    --icon-size: 3.6rem;
+  }
+
+  .smooch-benefit-strip--badges .smooch-benefit-strip__text {
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+  }
+}
