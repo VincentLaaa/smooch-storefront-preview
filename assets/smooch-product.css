@@ -3062,3 +3062,9 @@ body.smooch-sticky-atc-visible {
   color: #ffffff;
   white-space: nowrap;
 }
+
+/* The delivery date (and countdown) keep the label's own face — the
+   numeric family's 600 renders visibly lighter than Euclid's here. */
+.smooch-ship-timeline__label .smooch-num {
+  font-family: inherit;
+}
