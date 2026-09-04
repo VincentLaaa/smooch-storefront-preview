@@ -110,34 +110,27 @@
         "collapsible_tab-1": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Is Smooch right for you?",
+            "heading": "Is Smooch right for me?",
             "icon": "info",
             "content": "<p><strong>If any of these sound familiar, Smooch may be for you:</strong></p><ul class=\"smooch-checklist smooch-checklist--hearts\"><li><span>Your <strong>desire feels lower</strong> than it used to</span></li><li><span>Stress makes it harder to feel <strong>present and connected</strong></span></li><li><span>You want intimacy to feel <strong>easier and more enjoyable</strong></span></li><li><span>You miss feeling <strong>more like yourself</strong></span></li></ul>",
-            "open_by_default": true
+            "open_by_default": false
           }
         },
         "collapsible_tab-2": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "How to use",
+            "heading": "Directions",
             "icon": "clock",
-            "content": "<p><strong>Take one gummy once a day</strong>, with or without food.</p><p>Choose a time you’ll actually remember — morning, evening, whenever works for you. <strong>Consistency matters more than timing.</strong></p><p class=\"smooch-fine-print\">Follow the final product label for complete directions.</p>"
+            "content": "<p><strong>Take one gummy once a day</strong>, with or without food.</p><p>Choose a time you’ll actually remember — morning, evening, whenever works for you. <strong>Consistency matters more than timing.</strong></p><p class=\"smooch-fine-print\">Follow the final product label for complete directions.</p>",
+            "open_by_default": true
           }
         },
         "collapsible_tab-3": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "What’s inside",
+            "heading": "Supplement Facts",
             "icon": "leaf",
             "content": "<p>Made with <strong>KSM-66® Ashwagandha, Black Maca, Damiana, and Cinnamon Bark.</strong></p><p>Full Supplement Facts and exact amounts will appear here once the final formula is approved.</p>"
-          }
-        },
-        "collapsible_tab-4": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Shipping & returns",
-            "icon": "truck",
-            "content": "<p><strong>Orders ship within 1 business day</strong>, and shipping is free on 2+ month supplies.</p><p>Not for you? Every order is covered by our <strong>30-day money-back guarantee</strong> — reach out and we’ll make it right.</p>"
           }
         },
         "reassurance-1": {
@@ -171,10 +164,9 @@
         "price-1",
         "buy_buttons-1",
         "reassurance-1",
-        "collapsible_tab-1",
         "collapsible_tab-2",
-        "collapsible_tab-3",
-        "collapsible_tab-4"
+        "collapsible_tab-1",
+        "collapsible_tab-3"
       ],
       "settings": {}
     },
