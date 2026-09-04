@@ -2949,11 +2949,14 @@ body.smooch-sticky-atc-visible {
 }
 
 .smooch-bundle__stroke rect {
-  x: 1px;
-  y: 1px;
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
-  rx: calc(var(--smooch-radius-card, 1.2rem) - 0.1rem);
+  /* The SVG sits at the card's padding box (inside the 1px border), so
+     pulling the rect out 0.5px centers the 2px stroke exactly on the
+     border line — the stroke fully covers the card's own outline. */
+  x: -0.5px;
+  y: -0.5px;
+  width: calc(100% + 1px);
+  height: calc(100% + 1px);
+  rx: calc(var(--smooch-radius-card, 1.2rem) - 0.05rem);
   fill: none;
   stroke: var(--smooch-ink, #111);
   stroke-width: 2;
@@ -2971,6 +2974,12 @@ body.smooch-sticky-atc-visible {
 @keyframes smooch-stroke-draw {
   from { stroke-dashoffset: 100; }
   to { stroke-dashoffset: 0; }
+}
+
+/* Buybox cards render at a 10px radius (not the global card radius) —
+   match the stroke to the border centerline. */
+.smooch-buybox .smooch-bundle__stroke rect {
+  rx: 9.5px;
 }
 
 /* The instant black border/ring would hide the draw — the animated stroke
