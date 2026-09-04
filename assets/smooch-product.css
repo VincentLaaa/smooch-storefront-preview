@@ -2995,3 +2995,61 @@ body.smooch-sticky-atc-visible {
     stroke-dashoffset: 0;
   }
 }
+
+/* ---------- Figma shipping timeline (replaces the trust grid) ---------- */
+
+.smooch-ship-timeline {
+  margin: 0.4rem 0 0;
+}
+
+.smooch-ship-timeline__track {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0 2.4rem;
+  color: #222222;
+}
+
+.smooch-ship-timeline__track .smooch-ship-timeline__icon {
+  flex: 0 0 auto;
+  width: 2.4rem;
+  height: 2rem;
+  filter: drop-shadow(0 0 3.54px rgba(0, 0, 0, 0.1));
+}
+
+.smooch-ship-timeline__line {
+  flex: 1 1 auto;
+  height: 0;
+  border-top: 1px solid #222222;
+}
+
+.smooch-ship-timeline__labels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-top: 0.7rem;
+  text-align: center;
+}
+
+.smooch-ship-timeline__label {
+  font-family: var(--smooch-font-label, var(--font-body-family));
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  color: #222222;
+}
+
+/* Countdown pill: same blue voice as the ships ribbon. */
+.smooch-ship-timeline__pill {
+  display: inline-block;
+  margin-top: 0.2rem;
+  padding: 0 0.9rem;
+  height: 1.7rem;
+  line-height: 1.7rem;
+  background: #3897f0;
+  box-shadow: 0 0 10px rgba(56, 151, 240, 0.2);
+  border-radius: 100px;
+  color: #ffffff;
+  white-space: nowrap;
+}

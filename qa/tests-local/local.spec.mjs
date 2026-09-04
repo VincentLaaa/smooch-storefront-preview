@@ -817,10 +817,22 @@ test.describe('PDP refresh: guided purchase flow', () => {
     await selectOneTime(hero, page);
     await expect(hero.locator('[data-smooch-selling-plan]')).toBeDisabled();
 
-    // 3-column trust grid: real icon + short stacked title per item.
-    const trustItems = hero.locator('.smooch-trust-grid li');
-    await expect(trustItems).toHaveCount(3);
-    await expect(trustItems.nth(0)).toContainText('30-Day Money Back Guarantee');
+    // Shipping timeline (replaced the 3-tile trust grid): three columns
+    // with a live countdown pill and a delivery date two days out.
+    const timelineLabels = hero.locator('.smooch-ship-timeline__label');
+    await expect(timelineLabels).toHaveCount(3);
+    await expect(timelineLabels.nth(0)).toContainText('Order within');
+    await expect(timelineLabels.nth(0).locator('[data-ship-countdown]')).toContainText(/\d+ hrs?/);
+    await expect(timelineLabels.nth(1)).toContainText('Ships Same Day From Utah');
+    const expectedDelivery = await page.evaluate(() => {
+      const d = new Date();
+      d.setDate(d.getDate() + 2);
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const n = d.getDate();
+      const suf = n % 100 >= 11 && n % 100 <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] || 'th');
+      return `${months[d.getMonth()]} ${n}${suf}`;
+    });
+    await expect(timelineLabels.nth(2)).toContainText(`Delivered by ${expectedDelivery}`);
 
     // Footer info row cleared per owner (HSA/FSA line removed) - the
     // setting-driven row hides itself when the text is blank.

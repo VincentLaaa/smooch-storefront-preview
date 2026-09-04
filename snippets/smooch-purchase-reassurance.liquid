@@ -35,26 +35,59 @@
   {%- endif -%}
 
   {%- if block.settings.style == 'grid' -%}
-    <ul class="smooch-trust-grid" role="list">
-      {%- if block.settings.trust1_text != blank -%}
-        <li>
-          {% render 'smooch-icon', icon: block.settings.trust1_icon, class: 'smooch-icon--lg' %}
-          <span>{{ block.settings.trust1_text | escape }}</span>
-        </li>
-      {%- endif -%}
-      {%- if block.settings.trust2_text != blank -%}
-        <li>
-          {% render 'smooch-icon', icon: block.settings.trust2_icon, class: 'smooch-icon--lg' %}
-          <span>{{ block.settings.trust2_text | escape }}</span>
-        </li>
-      {%- endif -%}
-      {%- if block.settings.trust3_text != blank -%}
-        <li>
-          {% render 'smooch-icon', icon: block.settings.trust3_icon, class: 'smooch-icon--lg' %}
-          <span>{{ block.settings.trust3_text | escape }}</span>
-        </li>
-      {%- endif -%}
-    </ul>
+    {%- comment -%}
+      Figma shipping timeline (replaces the old 3-tile trust grid):
+      order -> ships -> delivered icons joined by a line, with an
+      "Order within N hrs" countdown pill (to local end of day) and a
+      delivery date two days out. Both figures are filled and kept
+      fresh client-side.
+    {%- endcomment -%}
+    <div class="smooch-ship-timeline" id="ShipTimeline-{{ section_id }}">
+      <div class="smooch-ship-timeline__track" aria-hidden="true">
+        {% render 'smooch-icon', icon: 'mail', class: 'smooch-ship-timeline__icon' %}
+        <span class="smooch-ship-timeline__line"></span>
+        {% render 'smooch-icon', icon: 'truck', class: 'smooch-ship-timeline__icon' %}
+        <span class="smooch-ship-timeline__line"></span>
+        {% render 'smooch-icon', icon: 'box', class: 'smooch-ship-timeline__icon' %}
+      </div>
+      <div class="smooch-ship-timeline__labels">
+        <span class="smooch-ship-timeline__label">
+          Order within
+          <span class="smooch-ship-timeline__pill smooch-num" data-ship-countdown>today</span>
+        </span>
+        <span class="smooch-ship-timeline__label">Ships Same Day From&nbsp;Utah</span>
+        <span class="smooch-ship-timeline__label">
+          Delivered by
+          <span class="smooch-num" data-ship-delivery-date></span>
+        </span>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var root = document.getElementById('ShipTimeline-{{ section_id }}');
+        if (!root || root.dataset.shipInit) return;
+        root.dataset.shipInit = '1';
+        var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        function ordinal(n) {
+          if (n % 100 >= 11 && n % 100 <= 13) return 'th';
+          return { 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] || 'th';
+        }
+        function tick() {
+          var now = new Date();
+          var end = new Date(now);
+          end.setHours(24, 0, 0, 0);
+          var hrs = Math.max(1, Math.ceil((end - now) / 3600000));
+          var cd = root.querySelector('[data-ship-countdown]');
+          if (cd) cd.textContent = hrs + (hrs === 1 ? ' hr' : ' hrs');
+          var d = new Date(now);
+          d.setDate(d.getDate() + 2);
+          var del = root.querySelector('[data-ship-delivery-date]');
+          if (del) del.textContent = MONTHS[d.getMonth()] + ' ' + d.getDate() + ordinal(d.getDate());
+        }
+        tick();
+        setInterval(tick, 60000);
+      })();
+    </script>
   {%- else -%}
     <ul class="smooch-reassurance__list{% if block.settings.style == 'badges' %} smooch-reassurance__list--badges{% endif %}" role="list">
       {%- if block.settings.show_delivery and settings.smooch_delivery_estimate != blank -%}
