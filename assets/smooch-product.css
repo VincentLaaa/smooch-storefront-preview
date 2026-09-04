@@ -1781,13 +1781,7 @@ body.smooch-sticky-atc-visible {
   }
 }
 
-/* ---------- Fit a standard 1920x1080 monitor without scrolling ---------- */
-
-/* On a full-height desktop monitor, tighten the buybox rhythm and scale it
-   down slightly so the reassurance row (money-back guarantee, shipping,
-   etc.) lands inside the fold instead of requiring a scroll. Gated to large
-   viewports only — smaller screens keep normal, fully-legible spacing, and
-   `zoom` never blocks the browser's own pinch/ctrl+scroll zoom. */
+/* ---------- Compact spacing on large desktop monitors ---------- */
 @media screen and (min-width: 1600px) and (min-height: 1000px) {
   .smooch-buybox {
     gap: 0.9rem;
@@ -1829,9 +1823,33 @@ body.smooch-sticky-atc-visible {
   }
 }
 
-@media screen and (min-width: 1600px) and (min-height: 1000px) and (max-height: 1300px) {
-  .smooch-product__panel {
-    zoom: 0.72;
+/* Keep both desktop columns at their natural scale on large monitors. */
+@media screen and (min-width: 990px) {
+  .smooch-product .smooch-product__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    column-gap: clamp(2.4rem, 3vw, 4.8rem);
+    align-items: start;
+  }
+
+  .smooch-product .smooch-product__layout > .smooch-product__gallery,
+  .smooch-product .smooch-product__layout > .smooch-product__panel {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .smooch-product .smooch-product__layout .smooch-product__panel {
+    padding-left: 0;
+  }
+
+  .smooch-product__panel .smooch-buybox {
+    width: 100%;
+    max-width: none;
+  }
+
+  .smooch-buybox .product-form__buttons {
+    max-width: none;
   }
 }
 

@@ -91,3 +91,28 @@ button.smooch-rf__dist-row { display: grid; grid-template-columns: 12px minmax(0
   .smooch-rf__row-main { padding: 18px 24px 12px; }
 }
 @media (prefers-reduced-motion: reduce) { .smooch-rf__suggestion { animation: none !important; } }
+
+/* Desktop gets a wider controls area and two readable review columns. */
+@media screen and (min-width: 990px) {
+  .smooch-rf { scroll-margin-top: 10rem; }
+  .smooch-rf > .page-width { max-width: 1200px; }
+  .smooch-rf__panel {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    column-gap: 32px;
+    padding: 40px;
+    border-radius: 20px;
+  }
+  .smooch-rf__summary { grid-column: 1; grid-row: 1 / 5; width: 100%; margin: 0; align-self: center; }
+  .smooch-rf__write { grid-column: 2; grid-row: 1; max-width: none; }
+  .smooch-rf__toolbar { grid-column: 2; grid-row: 2; width: 100%; max-width: none; margin: 16px 0 12px; padding-top: 16px; }
+  .smooch-rf__chips { grid-column: 2; grid-row: 3; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-bottom: 12px; }
+  .smooch-rf__chip { min-height: 28px; }
+  .smooch-rf__filters { grid-column: 2; grid-row: 4; width: 100%; max-width: none; margin: 0; }
+  .smooch-rf__list { grid-column: 1 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 20px; margin-top: 28px; }
+  .smooch-rf__row { display: flex; flex-direction: column; border-radius: 24px; }
+  .smooch-rf__row-main { display: flex; flex: 1; flex-direction: column; }
+  .smooch-rf__votes { margin-top: auto; padding-top: 12px; }
+  .smooch-rf__more { grid-column: 1 / -1; margin-top: 24px; }
+  .smooch-rf__search-status, .smooch-rf__search-empty { grid-column: 1 / -1; margin-top: 20px; }
+}

@@ -147,6 +147,8 @@
 }
 @media screen and (min-width: 990px) {
   .smooch-science__surface { padding: 4.8rem 2.4rem 2.8rem; }
+  .smooch-science__head { max-width: none; }
+  .smooch-science__surface { scroll-margin-top: 10rem; }
   .smooch-science__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.6rem; }
   .smooch-science__topic { min-height: 6.3rem; display: grid; place-content: center; }
 }
