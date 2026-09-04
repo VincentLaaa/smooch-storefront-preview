@@ -18,6 +18,7 @@ server.stderr.on('data', data => { startupError += data.toString(); });
 server.stdout.resume();
 const rebase = html => html
   .replace(/\b(src|href|action|poster)="\/(?!\/)/g, `$1="${prefix}/`)
+  .replace(/(['"])\/(assets|dev-assets)\//g, `$1${prefix}/$2/`)
   .replace(/\bsrcset="([^"]*)"/g, (_, values) => `srcset="${values.replace(/(^|,\s*)\/(?!\/)/g, `$1${prefix}/`)}"`)
   .replaceAll(origin, 'https://vincentlaaa.github.io' + prefix);
 try {
