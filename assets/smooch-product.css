@@ -2933,3 +2933,56 @@ body.smooch-sticky-atc-visible {
   font-family: var(--smooch-font-numeric, var(--font-body-family));
   font-weight: 700;
 }
+
+/* ---------- Selected-size stroke draw (bloomnu-style) ---------- */
+
+/* An SVG rect rides each size card; picking a size draws a dark outline
+   around the perimeter (stroke-dash trick, pathLength normalizes the
+   perimeter to 100 at any card size). */
+.smooch-bundle__stroke {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.smooch-bundle__stroke rect {
+  x: 1px;
+  y: 1px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  rx: calc(var(--smooch-radius-card, 1.2rem) - 0.1rem);
+  fill: none;
+  stroke: var(--smooch-ink, #111);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
+}
+
+.smooch-bundle__input:checked + .smooch-bundle__card .smooch-bundle__stroke rect {
+  opacity: 1;
+  animation: smooch-stroke-draw 0.55s ease-out forwards;
+}
+
+@keyframes smooch-stroke-draw {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* The instant black border/ring would hide the draw — the animated stroke
+   IS the selected outline now; keep the blush fill + check seal. */
+.smooch-buybox .smooch-bundle__input:checked + .smooch-bundle__card {
+  border-color: var(--smooch-border-soft);
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smooch-bundle__input:checked + .smooch-bundle__card .smooch-bundle__stroke rect {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
