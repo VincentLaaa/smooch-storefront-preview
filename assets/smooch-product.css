@@ -2874,6 +2874,55 @@ body.smooch-sticky-atc-visible {
   height: 100%;
 }
 
+/* Figma one-time row: translucent white card, hairline black border, soft
+   shadow, 10px radius, 13.5px/20px bold centered text. The Figma frame
+   puts 50% opacity on the whole card — a 50% white background keeps the
+   same look without fading the label. No underline in the spec. */
+.smooch-buybox .smooch-plan--onetime {
+  display: block;
+  box-sizing: border-box;
+  min-height: 3.8rem;
+  padding: 0.9rem 1.8rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #000000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.smooch-buybox .smooch-plan--onetime .smooch-plan__divider-text {
+  font-size: 1.35rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: #222222;
+}
+
+.smooch-buybox .smooch-plan--onetime .smooch-plan__name {
+  text-decoration: none;
+}
+
+/* Spec sets the whole line as one uniform 700 #222 run — including the
+   per-day parenthetical (struck compare price stays muted). */
+.smooch-buybox .smooch-plan--onetime .smooch-plan__perday {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.smooch-buybox .smooch-plan--onetime .smooch-plan__price {
+  font-weight: 700;
+}
+
+/* Bold pass per owner: the autoship meta line ("1 Month · 60 Count",
+   per-day) and the full price row read bold. */
+.smooch-buybox .smooch-subpanel__meta {
+  font-weight: 700;
+}
+
+.smooch-buybox .smooch-subpanel__price {
+  font-weight: 700;
+}
+
 /* Size cards per owner: title, count, per-day, and the card badges all in
    the Proxima-led numeric face at bold. Appended last so it outruns the
    earlier Loretta title / lighter count treatments. */
