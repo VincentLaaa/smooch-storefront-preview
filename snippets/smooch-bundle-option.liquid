@@ -55,6 +55,9 @@
     {% if index == checked_index %}checked{% endif %}
   >
   <span class="smooch-bundle__card">
+    <svg class="smooch-bundle__stroke" aria-hidden="true" focusable="false">
+      <rect pathLength="100"></rect>
+    </svg>
     {%- if block.settings.badge != blank -%}
       <span class="smooch-bundle__badge smooch-badge smooch-badge--berry">{{ block.settings.badge }}</span>
     {%- endif -%}
