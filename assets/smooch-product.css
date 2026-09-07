@@ -3043,8 +3043,13 @@ body.smooch-sticky-atc-visible {
   white-space: nowrap;
 }
 
-/* The delivery date (and countdown) keep the label's own face — the
+/* The delivery date keeps the label's own face — the
    numeric family's 600 renders visibly lighter than Euclid's here. */
 .smooch-ship-timeline__label .smooch-num {
   font-family: inherit;
+}
+
+/* Set both the countdown number and its time unit in Lora. */
+.smooch-ship-timeline__label .smooch-ship-timeline__pill {
+  font-family: 'Lora', Georgia, serif;
 }
