@@ -485,10 +485,6 @@
                           <legend class="visually-hidden">{{ block.settings.heading | default: 'Choose how to buy' }}</legend>
                           <div class="smooch-subpanel{% unless default_is_subscribe %} smooch-subpanel--inactive{% endunless %}" data-sub-panel>
                             <span class="smooch-subpanel__ribbon smooch-badge smooch-badge--berry" data-sub-ribbon {% if panel_bundle.settings.badge == blank %}hidden{% endif %}>{{ panel_bundle.settings.badge }}</span>
-                            <span class="smooch-subpanel__ship-ribbon">
-                              <img class="smooch-subpanel__ship-bolt" src="{{ 'smooch-bolt.png' | asset_url }}" alt="" width="26" height="34" loading="lazy">
-                              <span class="smooch-subpanel__ship-text">Ships Same Day from Utah</span>
-                            </span>
                             <label class="smooch-subpanel__content">
                               {%- comment -%}
                                 One fixed cadence only — no frequency picker.
@@ -557,7 +553,7 @@
                                     {%- assign clean_line = line | strip_html | strip -%}
                                     {%- if clean_line != blank -%}
                                       <li>
-                                        {% render 'smooch-icon', icon: 'verified', class: 'smooch-icon--sm' %}
+                                        <img class="smooch-buybox__verified-badge" src="{{ 'smooch-verified-pink.png' | asset_url }}" alt="" width="32" height="32" loading="lazy">
                                         <span>{{ clean_line }}</span>
                                       </li>
                                     {%- endif -%}

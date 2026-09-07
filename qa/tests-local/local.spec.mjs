@@ -280,7 +280,7 @@ test.describe('Purchase matrix (offline harness)', () => {
       const d = document.querySelector('cart-drawer');
       return !d || getComputedStyle(d).visibility === 'hidden';
     });
-    await hero.locator('[data-smooch-plan-radio][value=""]').check({ force: true });
+    await selectOneTime(hero, page);
     await expect(planInput).toBeDisabled();
 
     // Clicking the subscription card re-selects it — the card itself is the

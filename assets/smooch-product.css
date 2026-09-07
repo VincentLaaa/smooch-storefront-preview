@@ -2358,17 +2358,17 @@ body.smooch-sticky-atc-visible {
   color: #2162a1;
 }
 
-/* Title: Loretta 600 at the Figma scale. */
+/* Title: a slightly larger Loretta heading. */
 .smooch-buybox .smooch-buybox__title {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   line-height: 1.45;
   font-weight: 600;
 }
 
-/* Bullets: Euclid 15px/20px, compact rhythm. */
+/* Benefits keep a compact rhythm with more readable text. */
 .smooch-buybox .smooch-buybox__benefits li {
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-size: 1.6rem;
+  line-height: 2.3rem;
   font-weight: 400;
   gap: 0.5rem; /* checkmark hugs its line — the ticks default reads too airy here */
   align-items: center; /* seal centers on the text line (ticks default is flex-start) */
@@ -2487,7 +2487,7 @@ body.smooch-sticky-atc-visible {
 
 .smooch-buybox .smooch-subpanel__title {
   font-family: var(--smooch-font-numeric, var(--font-body-family));
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #222222;
 }
@@ -2505,54 +2505,13 @@ body.smooch-sticky-atc-visible {
   text-shadow: 0 0 3.54px rgba(255, 255, 255, 0.15);
 }
 
-/* Figma: blue "ships next day" tag straddling the autoship box's top-right
-   corner (berry "Most popular" ribbon keeps the top-left). */
-.smooch-buybox .smooch-subpanel__ship-ribbon {
-  position: absolute;
-  top: -0.9rem;
-  right: 1rem;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  height: 1.8rem;
-  padding: 0 0.9rem;
-  background: #3897f0;
-  box-shadow: 1px 1px 0 rgba(56, 151, 240, 0.5);
-  border-radius: 10px;
-  color: #ffffff;
-  font-family: 'Euclid Flex', 'Satoshi', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1.025rem;
-  line-height: 1.3rem;
-  text-transform: uppercase;
-  text-shadow: 0 0 3.54px rgba(255, 255, 255, 0.15);
-  white-space: nowrap;
-}
-
-/* All-caps ink sits above the baseline, so the centered line box reads
-   high — drop the label's ink to the true middle; the bolt stays put. */
-.smooch-buybox .smooch-subpanel__ship-ribbon .smooch-subpanel__ship-text {
-  transform: translateY(1.5px);
-}
-
-/* Owner's white bolt glyph (26x34 art, slightly taller than the text).
-   Raised 1px to sit on the label's optical center. */
-.smooch-buybox .smooch-subpanel__ship-ribbon .smooch-subpanel__ship-bolt {
-  width: auto;
-  height: 1.6rem;
-  transform: translateY(-1px);
-  filter: drop-shadow(0 0 3.54px rgba(255, 255, 255, 0.2));
-}
-
 .smooch-buybox .smooch-subpanel__price {
   font-family: var(--smooch-font-numeric, var(--font-body-family));
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 
 .smooch-buybox .smooch-subpanel__price-current {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
 }
 
@@ -2561,8 +2520,8 @@ body.smooch-sticky-atc-visible {
 }
 
 .smooch-buybox .smooch-subpanel__meta {
-  font-size: 1.2rem;
-  line-height: 1.8rem;
+  font-size: 1.4rem;
+  line-height: 2rem;
 }
 
 .smooch-buybox [data-sub-saving] {
@@ -2649,8 +2608,7 @@ body.smooch-sticky-atc-visible {
 /* ---------- Autoship module: tighter internal rhythm ---------- */
 
 .smooch-buybox .smooch-subpanel {
-  /* Top padding clears the ships-ribbon straddling the panel border. */
-  padding: 2.2rem 1.4rem 1.3rem;
+  padding: 1.6rem 1.4rem 1.3rem;
 }
 
 .smooch-buybox .smooch-subpanel__row {
@@ -2766,36 +2724,13 @@ body.smooch-sticky-atc-visible {
 .smooch-buybox .smooch-bundle__title {
   font-family: var(--font-heading-family);
   font-weight: 600;
-  font-size: 1.65rem;
+  font-size: 1.8rem;
   line-height: 2.2rem;
 }
 
 .smooch-buybox .smooch-bundle__count {
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   line-height: 2rem;
-}
-
-/* The ships-next-day ribbon rides 0.9rem above the autoship box, so on
-   mobile the size grid needs extra clearance or the ribbon collides with
-   the cards. */
-@media screen and (max-width: 749px) {
-  .smooch-buybox .smooch-plans {
-    margin-top: 2.8rem;
-  }
-
-  /* Chunkier ribbon on small screens — the desktop cut reads too thin. */
-  .smooch-buybox .smooch-subpanel__ship-ribbon {
-    height: 2.4rem;
-    padding: 0 1.2rem;
-    font-size: 1.2rem;
-    line-height: 1.5rem;
-    border-radius: 12px;
-    top: -1.2rem;
-  }
-
-  .smooch-buybox .smooch-subpanel__ship-ribbon .smooch-subpanel__ship-bolt {
-    height: 2rem;
-  }
 }
 
 /* Autoship meta line: desktop keeps "1 Month · 1 bottle $1.00 / Day";
@@ -2832,8 +2767,8 @@ body.smooch-sticky-atc-visible {
 /* Keep the per-day estimate close to the size and count. */
 .smooch-buybox .smooch-bundle__per-day {
   margin-top: 0.2rem;
-  font-size: 1.1rem;
-  line-height: 1.6rem;
+  font-size: 1.25rem;
+  line-height: 1.8rem;
 }
 
 @media screen and (max-width: 749px) {
@@ -2852,11 +2787,11 @@ body.smooch-sticky-atc-visible {
   }
 
   .smooch-buybox .smooch-bundle__title {
-    font-size: 1.5rem;
+    font-size: 1.65rem;
   }
 
   .smooch-buybox .smooch-bundle__count {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
   }
 }
 
@@ -2867,15 +2802,15 @@ body.smooch-sticky-atc-visible {
   }
 
   .smooch-buybox .smooch-bundle__title {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
   }
 
   .smooch-buybox .smooch-bundle__count {
-    font-size: 1.15rem;
+    font-size: 1.3rem;
   }
 
   .smooch-buybox .smooch-bundle__per-day {
-    font-size: 0.95rem;
+    font-size: 1.15rem;
   }
 }
 
@@ -2891,8 +2826,7 @@ body.smooch-sticky-atc-visible {
   }
 }
 
-/* Perks per Figma: 18px blue seal stacked above centered two-line text,
-   sitting tight under the CTA. */
+/* Uploaded checkmark badges sit above centered, readable perk labels. */
 .smooch-buybox .smooch-buybox__buy-perks {
   margin-top: 1.5rem;
   align-items: flex-start;
@@ -2904,14 +2838,17 @@ body.smooch-sticky-atc-visible {
   align-items: center;
   text-align: center;
   gap: 0.7rem;
-  font-size: 1.25rem;
-  line-height: 1.7rem;
+  font-size: 1.4rem;
+  line-height: 2rem;
   font-weight: 500;
 }
 
-.smooch-buybox .smooch-buybox__buy-perks .smooch-icon {
+.smooch-buybox .smooch-buybox__verified-badge {
+  display: block;
   width: 3.2rem;
   height: 3.2rem;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .smooch-buybox .smooch-buybox__buy-perks .smooch-icon svg {
@@ -2919,16 +2856,14 @@ body.smooch-sticky-atc-visible {
   height: 100%;
 }
 
-/* Figma one-time row: translucent white card, hairline black border, soft
-   shadow, 10px radius, 13.5px/20px bold centered text. The Figma frame
-   puts 50% opacity on the whole card — a 50% white background keeps the
-   same look without fading the label. No underline in the spec. */
+/* Figma one-time row: the entire card, including its label, is 50% opaque. */
 .smooch-buybox .smooch-plan--onetime {
   display: block;
   box-sizing: border-box;
   min-height: 3.8rem;
   padding: 0.9rem 1.8rem;
-  background: rgba(255, 255, 255, 0.5);
+  background: #ffffff;
+  opacity: 0.5;
   border: 1px solid #000000;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
@@ -2936,8 +2871,8 @@ body.smooch-sticky-atc-visible {
 }
 
 .smooch-buybox .smooch-plan--onetime .smooch-plan__divider-text {
-  font-size: 1.35rem;
-  line-height: 2rem;
+  font-size: 1.5rem;
+  line-height: 2.2rem;
   font-weight: 700;
   color: #222222;
 }
@@ -3044,7 +2979,7 @@ body.smooch-sticky-atc-visible {
 /* ---------- Figma shipping timeline (replaces the trust grid) ---------- */
 
 .smooch-ship-timeline {
-  margin: 1.6rem 0;
+  margin: 2rem 0;
 }
 
 /* Track mirrors the 3 label columns so each icon centers over its label;
@@ -3071,9 +3006,9 @@ body.smooch-sticky-atc-visible {
    so it only breaks the line, never reads as a box. */
 .smooch-ship-timeline__track .smooch-ship-timeline__icon {
   position: relative;
-  width: 3.4rem;
-  height: 2.8rem;
-  padding: 0 0.5rem;
+  width: 4.8rem;
+  height: 4rem;
+  padding: 0 0.6rem;
   background: rgb(255, 255, 255);
 }
 
@@ -3081,7 +3016,7 @@ body.smooch-sticky-atc-visible {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.8rem;
-  margin-top: 0.7rem;
+  margin-top: 1rem;
   text-align: center;
 }
 
@@ -3089,18 +3024,18 @@ body.smooch-sticky-atc-visible {
   font-family: var(--smooch-font-label, var(--font-body-family));
   font-style: normal;
   font-weight: 600;
-  font-size: 1.2rem;
-  line-height: 1.8rem;
+  font-size: 1.4rem;
+  line-height: 2.1rem;
   color: #222222;
 }
 
 /* Countdown pill: same blue voice as the ships ribbon. */
 .smooch-ship-timeline__pill {
   display: inline-block;
-  margin-top: 0.2rem;
-  padding: 0 0.9rem;
-  height: 1.7rem;
-  line-height: 1.7rem;
+  margin-top: 0.4rem;
+  padding: 0.1rem 1rem;
+  min-height: 2.2rem;
+  line-height: 2.2rem;
   background: #3897f0;
   box-shadow: 0 0 10px rgba(56, 151, 240, 0.2);
   border-radius: 100px;
